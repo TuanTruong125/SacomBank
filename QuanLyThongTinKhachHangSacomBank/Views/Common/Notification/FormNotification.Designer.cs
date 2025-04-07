@@ -1,0 +1,76 @@
+﻿namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Notification
+{
+    partial class FormNotification
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
+
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
+
+        #region Windows Form Designer generated code
+
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormNotification));
+            pictureBoxTopPanel = new PictureBox();
+            panelMainContentNotification = new Panel();
+            ((System.ComponentModel.ISupportInitialize)pictureBoxTopPanel).BeginInit();
+            SuspendLayout();
+            // 
+            // pictureBoxTopPanel
+            // 
+            pictureBoxTopPanel.Image = (Image)resources.GetObject("pictureBoxTopPanel.Image");
+            pictureBoxTopPanel.Location = new Point(-7, -1);
+            pictureBoxTopPanel.Name = "pictureBoxTopPanel";
+            pictureBoxTopPanel.Size = new Size(1084, 78);
+            pictureBoxTopPanel.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBoxTopPanel.TabIndex = 180;
+            pictureBoxTopPanel.TabStop = false;
+            // 
+            // panelMainContentNotification
+            // 
+            panelMainContentNotification.Location = new Point(12, 80);
+            panelMainContentNotification.Name = "panelMainContentNotification";
+            panelMainContentNotification.Size = new Size(1053, 483);
+            panelMainContentNotification.TabIndex = 189;
+            // 
+            // FormNotification
+            // 
+            AutoScaleDimensions = new SizeF(8F, 20F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(1077, 575);
+            Controls.Add(pictureBoxTopPanel);
+            Controls.Add(panelMainContentNotification);
+            FormBorderStyle = FormBorderStyle.FixedSingle;
+            Icon = (Icon)resources.GetObject("$this.Icon");
+            MaximizeBox = false;
+            Name = "FormNotification";
+            StartPosition = FormStartPosition.CenterScreen;
+            Text = "Thông báo";
+            ((System.ComponentModel.ISupportInitialize)pictureBoxTopPanel).EndInit();
+            ResumeLayout(false);
+        }
+
+        #endregion
+
+        private PictureBox pictureBoxTopPanel;
+        private Panel panelMainContentNotification;
+    }
+}

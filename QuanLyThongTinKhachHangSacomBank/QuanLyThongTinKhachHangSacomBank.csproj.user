@@ -1,0 +1,179 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Compile Update="Views\Common\Chat\FormChat.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Common\Chat\UC_ChatBot.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\Chat\UC_CustomerChat.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\Chat\UC_EmployeeChat.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\CustomerLogin\FormCustomerLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Common\CustomerLogin\FormCustomerRegister.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Common\CustomerLogin\UC_AccountInfoRegister.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\CustomerLogin\UC_CustomerChangePassword.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\CustomerLogin\UC_CustomerForgotPassword.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\CustomerLogin\UC_CustomerInfoRegister.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\CustomerLogin\UC_CustomerLogin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\Deposit\FormDepostit.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Common\Deposit\UC_DepositInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\EmployeeLogin\FormEmployeeLogin.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Common\EmployeeLogin\UC_EmployeeChangePassword.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\EmployeeLogin\UC_EmployeeForgotPassword.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\EmployeeLogin\UC_EmployeeLogin.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\FormOTP.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Common\Notification\FormNotification.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Common\Notification\UC_CustomerNotification.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\Notification\UC_EmployeeNotification.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\Notification\UC_ManagerNotification.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\Pay\FormPay.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Common\Pay\UC_PayInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\Pay\UC_SuccessfulPay.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\Transfer\FormTransfer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Common\Transfer\UC_SuccessfulTransfer.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\Transfer\UC_TransferInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\Withdraw\FormWithdraw.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Common\Deposit\UC_SuccessfulDeposit.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\Withdraw\UC_SuccessfulWithdraw.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Common\Withdraw\UC_WithdrawInfo.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Customer\FormCustomer.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Common\FormPINCode.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Customer\FormShowCustomerAccountInfo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Customer\FormCustomerServiceManagement.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Customer\FormLoanApplication.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Customer\FormLoanDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Customer\FormOpenSavings.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Customer\FormSavingsDetail.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Customer\FormTransactionHistory.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Customer\UC_CustomerHome.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Customer\UC_CustomerPersonal.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Customer\UC_CustomerService.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Employee\FormEmployee.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Employee\UC_AccountManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Employee\UC_CustomerCare.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Employee\UC_CustomerManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Employee\UC_Home.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Employee\UC_ServiceManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Employee\UC_Setting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Employee\UC_TransactionManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Manager\FormManager.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="Views\Manager\UC_EmployeeManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Manager\UC_ManagerHome.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Manager\UC_ManagerSetting.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Manager\UC_ReportStatistic.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Update="Views\Manager\UC_RequestManagement.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+  </ItemGroup>
+</Project>
