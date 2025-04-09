@@ -115,14 +115,14 @@
             // 
             // labelErrorOTP
             // 
-            labelErrorOTP.AutoSize = true;
             labelErrorOTP.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelErrorOTP.ForeColor = Color.Red;
-            labelErrorOTP.Location = new Point(300, 330);
+            labelErrorOTP.Location = new Point(168, 330);
             labelErrorOTP.Name = "labelErrorOTP";
-            labelErrorOTP.Size = new Size(199, 24);
+            labelErrorOTP.Size = new Size(438, 24);
             labelErrorOTP.TabIndex = 43;
             labelErrorOTP.Text = "Mã PIN không đúng!";
+            labelErrorOTP.TextAlign = ContentAlignment.MiddleCenter;
             labelErrorOTP.Visible = false;
             // 
             // pictureBoxLeft

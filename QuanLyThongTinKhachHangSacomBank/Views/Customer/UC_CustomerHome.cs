@@ -25,6 +25,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
         void SetAccountID(string id);
         void SetBalance(string balance);
         void SetEyeImage(Image image);
+
         event EventHandler ViewBalanceRequested;
     }
 
@@ -48,10 +49,10 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
                 this.currentAccount = currentAccount;
                 InitializeComponent();
                 notificationController = new NotificationController();
-                transferController = new TransferController(currentAccount, currentEmployee, dbContext, configuration);
+                transferController = new TransferController(currentAccount, currentEmployee, dbContext, configuration, this);
                 transactionHistoryController = new TransactionHistoryController();
                 payController = new PayController();
-                showCustomerAccountInfoController = new ShowCustomerAccountInfoController();
+                showCustomerAccountInfoController = new ShowCustomerAccountInfoController(new FormShowCustomerAccountInfo(), dbContext);
                 customerServiceManagementController = new CustomerServiceManagementController();
                 chatController = new ChatController();
 
@@ -118,7 +119,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
         {
             try
             {
-                showCustomerAccountInfoController.OpenShowCustomerAccountInfo();
+                showCustomerAccountInfoController.OpenShowCustomerAccountInfo(currentAccount);
             }
             catch (Exception ex)
             {

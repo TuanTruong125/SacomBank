@@ -1,0 +1,19 @@
+- Tạo một file Sql mới bằng SSMS 2022 đặt tên file sql chính là DatabaseName cần pass vô appsettings.json
+- Copy các câu lệnh trên file sql QuanLyThongTinKhachHangSacomBank rồi pass qua file sql vừa tạo
+- ServerName là lúc mới mở SSMS lên chỗ Connect là thấy nhớ copy rồi pass vô appsettings.json
+
+
+
+- Vào appsettiings.json đổi
+
+"ConnectionStrings": {
+  "SacomBankConnection": "Data Source=26.192.15.194,1433;Initial Catalog=QuanLyThongTinKhachHangSacomBank;User ID=SacomBank_User;Password=SacomBank@1991;Trust Server Certificate=True"
+},
+
+
+thành
+
+"ConnectionStrings": {
+  "SacomBankConnection": "Data Source=ServerName;Initial Catalog=DatabaseName;Integrated Security=True;Trust Server Certificate=True"
+}
+

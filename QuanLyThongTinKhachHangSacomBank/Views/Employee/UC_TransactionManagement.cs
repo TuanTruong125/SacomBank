@@ -16,6 +16,7 @@ using System.Configuration;
 using Microsoft.Extensions.Configuration;
 using QuanLyThongTinKhachHangSacomBank.Data;
 using QuanLyThongTinKhachHangSacomBank.Models;
+using QuanLyThongTinKhachHangSacomBank.Views.Customer;
 
 namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
 {
@@ -27,14 +28,14 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
         private readonly PayController payController;
         private readonly AccountModel currentAccount;
 
-        public UC_TransactionManagement(AccountModel currentAccount, EmployeeModel currentEmployee, DatabaseContext dbContext, IConfiguration configuration)
+        public UC_TransactionManagement(AccountModel currentAccount, EmployeeModel currentEmployee, DatabaseContext dbContext, IConfiguration configuration, ICustomerHomeView customerHomeView)
         {
             try
             {
                 InitializeComponent();
                 depositController = new DepositController();
                 withdrawController = new WithdrawController();
-                transferController = new TransferController(currentAccount, currentEmployee, dbContext, configuration);
+                transferController = new TransferController(currentAccount, currentEmployee, dbContext, configuration, customerHomeView);
                 payController = new PayController();
 
             }

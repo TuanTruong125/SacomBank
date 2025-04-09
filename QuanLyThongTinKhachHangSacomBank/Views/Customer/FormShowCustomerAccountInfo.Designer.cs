@@ -98,6 +98,7 @@
             buttonAccountCopy.TabIndex = 5;
             toolTip1.SetToolTip(buttonAccountCopy, "Copy thông tin tài khoản");
             buttonAccountCopy.UseVisualStyleBackColor = true;
+            buttonAccountCopy.Click += buttonAccountCopy_Click;
             // 
             // labelAccountName
             // 
@@ -238,7 +239,7 @@
             label2.TabIndex = 2;
             label2.Text = "Số dư (VND):";
             // 
-            // FormCustomerAccountInfo
+            // FormShowCustomerAccountInfo
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
@@ -248,7 +249,7 @@
             FormBorderStyle = FormBorderStyle.FixedSingle;
             Icon = (Icon)resources.GetObject("$this.Icon");
             MaximizeBox = false;
-            Name = "FormCustomerAccountInfo";
+            Name = "FormShowCustomerAccountInfo";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Thông tin tài khoản";
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();

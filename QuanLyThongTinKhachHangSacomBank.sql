@@ -72,11 +72,11 @@ CREATE TABLE [TRANSACTION]
   Amount DECIMAL(18,0) NOT NULL CHECK (Amount >= 0),
   TransactionDate DATE NOT NULL,
   ReceiverAccountID INT NOT NULL,
+  ReceiverAccountName NVARCHAR(50) NOT NULL,
   TransactionStatus NVARCHAR(20) NOT NULL CHECK (TransactionStatus IN (N'Hoàn tất', N'Đang xử lý', N'Thất bại')),
   HandledBy INT NULL, -- Có thể NULL nếu giao dịch tự động
   TransactionDescription NVARCHAR(255) NULL,
   TransactionMethod NVARCHAR(50) NOT NULL CHECK (TransactionMethod IN (N'Trực tuyến', N'Tại quầy')),
-  ReceiverAccountName NVARCHAR(50) NOT NULL,
   AccountID INT NOT NULL,
   TransactionTypeID INT NOT NULL,
   FOREIGN KEY (AccountID) REFERENCES ACCOUNT(AccountID),
@@ -132,11 +132,17 @@ VALUES
 
 INSERT INTO CUSTOMER (FullName, Gender, DateOfBirth, Nationality, CitizenID, CustomerAddress, Phone, Email, RegistrationDate, CustomerTypeID)
 VALUES
-	(N'Nguyễn Văn A', N'Nam', '1990-01-01', N'Việt Nam', '123456789', N'Hà Nội', '0769727851', 'tat01022005@gmail.com', '2025-01-01', 1),
-	(N'Phạm Thị B', N'Nữ', '1985-05-15', N'Việt Nam', '987654321', N'Hồ Chí Minh', '0987654321', 'b.pham@mail.com', '2025-02-01', 2),
-	(N'Trần Quang C', N'Nam', '1992-11-22', N'Việt Nam', '123987456', N'Đà Nẵng', '0934123456', 'c.tran@mail.com', '2025-03-01', 3),
-	(N'Vũ Minh D', N'Nữ', '1990-07-09', N'Việt Nam', '654321987', N'Bình Dương', '0976123456', 'd.vu@mail.com', '2025-04-01', 4),
-	(N'Ngô Hữu E', N'Nam', '1988-12-12', N'Việt Nam', '321654987', N'Cần Thơ', '0901234567', 'e.ngo@mail.com', '2025-05-01', 1);
+  (N'Trương Anh Tuấn', N'Nam', '1992-03-10', N'Việt Nam', '123456001', N'Hà Nội', '0912345670', 'tuan.truong@email.com', '2025-01-01', 1),
+  (N'Nguyễn Thị Mai', N'Nữ', '1989-07-20', N'Việt Nam', '123456002', N'Hải Phòng', '0912345671', 'mai.nguyen@email.com', '2025-01-05', 1),
+  (N'Công Ty TNHH ABC', N'Nam', '2000-01-01', N'Việt Nam', '123456003', N'Hồ Chí Minh', '0912345672', 'abc.company@email.com', '2025-01-10', 2),
+  (N'Trần Văn Bình', N'Nam', '1990-11-12', N'Việt Nam', '123456004', N'Nghệ An', '0912345673', 'binh.tran@email.com', '2025-01-15', 1),
+  (N'Lê Thị Hương', N'Nữ', '1995-06-30', N'Việt Nam', '123456005', N'Đà Nẵng', '0912345674', 'huong.le@email.com', '2025-01-20', 3),
+  (N'Nguyễn Văn Khoa', N'Nam', '1988-08-08', N'Việt Nam', '123456006', N'Huế', '0912345675', 'khoa.nguyen@email.com', '2025-01-25', 1),
+  (N'Trường Đại Học Tôn Đức Thắng', N'Nữ', '2000-01-01', N'Việt Nam', '123456007', N'Hồ Chí Minh', '0912345676', 'tdt.university@email.com', '2025-02-01', 4),
+  (N'Lý Minh Quân', N'Nam', '1993-09-09', N'Việt Nam', '123456008', N'Bình Dương', '0912345677', 'quan.ly@email.com', '2025-02-05', 3),
+  (N'Phạm Hoàng Nam', N'Nam', '1991-04-14', N'Việt Nam', '123456009', N'Cần Thơ', '0912345678', 'nam.pham@email.com', '2025-02-10', 1),
+  (N'Công Ty Cổ Phần XYZ', N'Nữ', '2000-01-01', N'Việt Nam', '123456010', N'Hà Nội', '0912345679', 'xyz.corp@email.com', '2025-02-15', 2);
+
 	
 INSERT INTO ACCOUNT_TYPE (AccountTypeName, AccountTypeDescription)
 VALUES
@@ -145,11 +151,17 @@ VALUES
 
 INSERT INTO ACCOUNT (AccountName, Balance, AccountOpenDate, Username, UserPassword, PINCode, AccountStatus, CustomerID, AccountTypeID)
 VALUES
-    (N'Tài khoản cá nhân A', 5000000, '2025-01-01', 'user_a', 'passwordA', '123456', N'Hoạt động', 1, 1),
-    (N'Tài khoản cá nhân B', 2000000, '2025-02-01', 'user_b', 'passwordB', '654321', N'Hoạt động', 2, 1),
-    (N'Tài khoản doanh nghiệp C', 10000000, '2025-03-01', 'user_c', 'passwordC', '789123', N'Đóng', 3, 2),
-    (N'Tài khoản doanh nghiệp D', 15000000, '2025-04-01', 'user_d', 'passwordD', '321654', N'Hoạt động', 4, 2),
-    (N'Tài khoản cá nhân E', 3000000, '2025-05-01', 'user_e', 'passwordE', '987654', N'Khóa', 5, 1);
+  (N'TRUONG ANH TUAN', 8000000, '2025-01-01', '0912345670', 'pass123', '111111', N'Hoạt động', 1, 1),
+  (N'NGUYEN THI MAI', 7500000, '2025-01-05', '0912345671', 'pass123', '222222', N'Hoạt động', 2, 1),
+  (N'CONG TY TNHH ABC', 15000000, '2025-01-10', '0912345672', 'pass123', '333333', N'Hoạt động', 3, 2),
+  (N'TRAN VAN BINH', 4500000, '2025-01-15', '0912345673', 'pass123', '444444', N'Hoạt động', 4, 1),
+  (N'LE THI HUONG', 12000000, '2025-01-20', '0912345674', 'pass123', '555555', N'Hoạt động', 5, 1),
+  (N'NGUYEN VAN KHOA', 9800000, '2025-01-25', '0912345675', 'pass123', '666666', N'Khóa', 6, 1),
+  (N'TRUONG DAI HOC TON DUC THANG', 250000000, '2025-02-01', '0912345676', 'pass123', '777777', N'Hoạt động', 7, 2),
+  (N'LY MINH QUAN', 6300000, '2025-02-05', '0912345677', 'pass123', '888888', N'Hoạt động', 8, 1),
+  (N'PHAM HOANG NAM', 7000000, '2025-02-10', '0912345678', 'pass123', '999999', N'Đóng', 9, 1),
+  (N'CONG TY CO PHAN XYZ', 30000000, '2025-02-15', '0912345679', 'pass123', '000000', N'Hoạt động', 10, 2);
+
 
 INSERT INTO TRANSACTION_TYPE (TransactionTypeName, TransactionTypeDescription)
 VALUES
@@ -162,38 +174,38 @@ VALUES
 
 
 
--- Trước tiên chèn người quản lý
-INSERT INTO EMPLOYEE (
-  EmployeeName, EmployeeGender, EmployeeDateOfBirth, EmployeeCitizenID, EmployeeAddress,
+-- Quản lý
+INSERT INTO EMPLOYEE (EmployeeName, EmployeeGender, EmployeeDateOfBirth, EmployeeCitizenID, EmployeeAddress,
   EmmployeeRole, EmployeePhone, EmployeeEmail, HireDate, Salary,
-  EmployeeUsername, EmployeePassword, AccessLevel, ManagerID
-)
+  EmployeeUsername, EmployeePassword, AccessLevel, ManagerID)
 VALUES
-  (N'Nguyễn Thị Lan', N'Nữ', '1988-03-22', '9876543210', N'Quận 3, TP.HCM',
-   N'Quản lý', '0922333444', 'lan.nguyen@sacombank.com', '2018-05-20', 18000000,
-   'lannt', 'passLan456', 2, NULL);
+  (N'Đặng Thị Lan', N'Nữ', '1980-01-01', '999000001', N'Quận 1, TP.HCM',
+   N'Quản lý', '0900000001', 'lan.dang@sacombank.com', '2010-01-01', 25000000,
+   '0900000001', 'adminpass1', 2, NULL);
 
--- Giả sử EmployeeID của chị Lan là 1, ta dùng ManagerID = 1 cho các nhân viên
-INSERT INTO EMPLOYEE (
-  EmployeeName, EmployeeGender, EmployeeDateOfBirth, EmployeeCitizenID, EmployeeAddress,
+
+-- Nhân viên dưới quyền
+INSERT INTO EMPLOYEE (EmployeeName, EmployeeGender, EmployeeDateOfBirth, EmployeeCitizenID, EmployeeAddress,
   EmmployeeRole, EmployeePhone, EmployeeEmail, HireDate, Salary,
-  EmployeeUsername, EmployeePassword, AccessLevel, ManagerID
-)
+  EmployeeUsername, EmployeePassword, AccessLevel, ManagerID)
 VALUES
-  (N'Lê Văn Hùng', N'Nam', '1990-06-15', '0123456789', N'Quận 1, TP.HCM',
-   N'Nhân viên', '0911222333', 'hung.le@sacombank.com', '2020-01-10', 12000000,
-   'hunglv', 'passHung123', 1, 1),
-
-  (N'Phạm Quang Dũng', N'Nam', '1992-11-10', '4567891230', N'Quận Bình Thạnh, TP.HCM',
-   N'Nhân viên', '0933444555', 'dung.pham@sacombank.com', '2021-03-01', 11000000,
-   'dungpq', 'passDung789', 1, 1),
-
-  (N'Trần Mai Anh', N'Nữ', '1995-08-05', '7891234560', N'Quận 5, TP.HCM',
-   N'Nhân viên', '0944555666', 'anh.tran@sacombank.com', '2022-07-15', 10500000,
-   'anhtm', 'passAnh321', 1, 1),
-
-  (N'Vũ Đức Minh', N'Nam', '1985-12-30', '3216549870', N'Quận 10, TP.HCM',
-   N'Nhân viên', '0955666777', 'minh.vu@sacombank.com', '2023-01-10', 10200000,
-   'minhvd', 'passMinh654', 1, 1);
+  (N'Trần Văn Hòa', N'Nam', '1990-02-02', '999000002', N'Quận 2, TP.HCM',
+   N'Nhân viên', '0900000002', 'hoa.tran@sacombank.com', '2020-01-01', 12000000, '0900000002', 'passnv1', 1, 1),
+  (N'Lê Thị Hằng', N'Nữ', '1991-03-03', '999000003', N'Quận 3, TP.HCM',
+   N'Nhân viên', '0900000003', 'hang.le@sacombank.com', '2020-02-01', 12000000, '0900000003', 'passnv2', 1, 1),
+  (N'Phạm Văn Minh', N'Nam', '1992-04-04', '999000004', N'Quận 4, TP.HCM',
+   N'Nhân viên', '0900000004', 'minh.pham@sacombank.com', '2020-03-01', 12000000, '0900000004', 'passnv3', 1, 1),
+  (N'Nguyễn Thị Lan Anh', N'Nữ', '1993-05-05', '999000005', N'Quận 5, TP.HCM',
+   N'Nhân viên', '0900000005', 'lananh.nguyen@sacombank.com', '2020-04-01', 12000000, '0900000005', 'passnv4', 1, 1),
+  (N'Trịnh Văn Quang', N'Nam', '1994-06-06', '999000006', N'Quận 6, TP.HCM',
+   N'Nhân viên', '0900000006', 'quang.trinh@sacombank.com', '2020-05-01', 12000000, '0900000006', 'passnv5', 1, 1),
+  (N'Hoàng Kim Ngân', N'Nữ', '1995-07-07', '999000007', N'Quận 7, TP.HCM',
+   N'Nhân viên', '0900000007', 'ngan.hoang@sacombank.com', '2020-06-01', 12000000, '0900000007', 'passnv6', 1, 1),
+  (N'Đỗ Văn Kiệt', N'Nam', '1996-08-08', '999000008', N'Quận 8, TP.HCM',
+   N'Nhân viên', '0900000008', 'kiet.do@sacombank.com', '2020-07-01', 12000000, '0900000008', 'passnv7', 1, 1),
+  (N'Tống Mỹ Duyên', N'Nữ', '1997-09-09', '999000009', N'Quận 9, TP.HCM',
+   N'Nhân viên', '0900000009', 'duyen.tong@sacombank.com', '2020-08-01', 12000000, '0900000009', 'passnv8', 1, 1),
+  (N'Tăng Minh Tuấn', N'Nam', '1998-10-10', '999000010', N'TP. Thủ Đức',
+   N'Nhân viên', '0900000010', 'tuan.tang@sacombank.com', '2020-09-01', 12000000, '0900000010', 'passnv9', 1, 1);
 
 

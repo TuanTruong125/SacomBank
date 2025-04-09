@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using QuanLyThongTinKhachHangSacomBank.Data;
 using QuanLyThongTinKhachHangSacomBank.Models;
+using QuanLyThongTinKhachHangSacomBank.Views.Customer;
 using QuanLyThongTinKhachHangSacomBank.Views.Employee;
 
 namespace QuanLyThongTinKhachHangSacomBank.Controllers
@@ -50,7 +51,9 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
         public void LoadTransactionManagement()
         {
-            view.LoadUserControl(new UC_TransactionManagement(currentAccount, currentEmployee, dbContext, configuration));
+            // Khởi tạo UC_CustomerHome để truyền vào UC_TransactionManagement
+            ICustomerHomeView customerHomeView = new UC_CustomerHome(currentAccount, currentEmployee, dbContext, configuration);
+            view.LoadUserControl(new UC_TransactionManagement(currentAccount, currentEmployee, dbContext, configuration, customerHomeView));
         }
 
         public void LoadCustomerCare()

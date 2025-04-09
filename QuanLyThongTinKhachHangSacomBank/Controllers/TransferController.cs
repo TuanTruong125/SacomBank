@@ -5,15 +5,12 @@ using QuanLyThongTinKhachHangSacomBank.Data;
 using QuanLyThongTinKhachHangSacomBank.Models;
 using QuanLyThongTinKhachHangSacomBank.Views.Common;
 using QuanLyThongTinKhachHangSacomBank.Views.Common.Transfer;
+using QuanLyThongTinKhachHangSacomBank.Views.Customer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Data.SqlClient;
-using iText.IO.Font;
-using iText.Kernel.Font;
-using iText.Kernel.Pdf;
-using iText.Layout.Element;
-using iText.Layout.Properties;
-using iText.Layout; // Add this using directive
-using iText.Layout.Element; // Ensure
+using iTextSharp.text.pdf;
+using iTextSharp.text;
+using System.IO; 
 
 namespace QuanLyThongTinKhachHangSacomBank.Controllers
 {
@@ -25,19 +22,23 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
         private readonly EmployeeModel currentEmployee;
         private readonly DatabaseContext dbContext;
         private readonly IConfiguration configuration;
+        private readonly ICustomerHomeView customerHomeView;
+        private bool isTransactionSuccessful;
 
         // Lưu thông tin giao dịch để sử dụng khi xuất PDF
         private ITransferViewData lastTransferViewData;
         private AccountModel lastReceiverAccount;
         private bool lastIsEmployee;
 
-        public TransferController(AccountModel account, EmployeeModel employee, DatabaseContext dbContext, IConfiguration configuration)
+        public TransferController(AccountModel account, EmployeeModel employee, DatabaseContext dbContext, IConfiguration configuration, ICustomerHomeView customerHomeView)
         {
             activeUC = null;
             currentAccount = account;
             currentEmployee = employee;
             this.dbContext = dbContext;
             this.configuration = configuration;
+            this.customerHomeView = customerHomeView;
+            this.isTransactionSuccessful = false; 
         }
 
         public void OpenTransfer(UserControl transferUC, bool isEmployee = false)
@@ -79,6 +80,24 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     transferViewData.ReceiverAccountIDLostFocus += (s, e) => HandleReceiverAccountIDLostFocus(transferViewData);
                 }
 
+                // Đăng ký sự kiện FormClosing
+                transferView.FormClosing += (s, e) =>
+                {
+                    if (isTransactionSuccessful)
+                    {
+                        customerHomeView.SetBalance(currentAccount.Balance.ToString("#,##0") + " VND");
+                    }
+                };
+
+                // Đăng ký sự kiện FormClosing
+                transferView.FormClosing += (s, e) =>
+                {
+                    if (isTransactionSuccessful)
+                    {
+                        customerHomeView.SetBalance(currentAccount.Balance.ToString("#,##0") + " VND");
+                    }
+                };
+
                 transferView.LoadUserControl(activeUC);
                 transferView.ShowForm();
             }
@@ -103,9 +122,17 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     }
 
                     AccountModel receiverAccount = GetAccountByCode(transferViewData.ReceiverAccountID);
+
                     if (receiverAccount == null)
                     {
                         transferViewData.ShowError("Tài khoản người nhận không tồn tại!");
+                        return;
+                    }
+
+                    // Kiểm tra nếu tài khoản người nhận trùng với tài khoản người gửi
+                    if (receiverAccount.AccountCode == currentAccount.AccountCode)
+                    {
+                        transferViewData.ShowError("Tài khoản người nhận không hợp lệ!");
                         return;
                     }
 
@@ -115,6 +142,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         transferViewData.ShowError("Tài khoản người nhận đang bị khóa!");
                         return;
                     }
+
                     if (receiverAccount.AccountStatus == "Đóng")
                     {
                         transferViewData.ShowError("Tài khoản người nhận đã bị đóng!");
@@ -146,7 +174,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         var pinController = new PINCodeController(formPINCode, formPINCode, currentAccount);
                         if (formPINCode.ShowDialog() == DialogResult.OK)
                         {
-                            if (amount > 10000000) // Trên 10 triệu
+                            if (amount >= 10000000) // Từ 10 triệu trở lên
                             {
                                 FormOTP formOTP = new FormOTP();
                                 var otpController = new OTPController(formOTP, formOTP, new OTPControllerAdapter(currentAccount, dbContext), configuration);
@@ -161,7 +189,24 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
                     if (isVerified)
                     {
+                        // Lưu thông tin giao dịch ngay khi xác nhận thành công
+                        lastTransferViewData = transferViewData;
+                        lastReceiverAccount = receiverAccount;
+                        lastIsEmployee = isEmployee;
+
+                        // Thực hiện giao dịch
                         SaveTransaction(transferViewData, receiverAccount, isEmployee);
+
+                        // Đánh dấu giao dịch thành công
+                        isTransactionSuccessful = true;
+
+                        // Cập nhật số dư ngay lập tức sau khi giao dịch thành công
+                        if (customerHomeView != null)
+                        {
+                            customerHomeView.SetBalance(currentAccount.Balance.ToString("#,##0") + " VND");
+                        }
+
+                        // Nếu giao dịch thành công, chuyển sang giao diện thành công
                         activeUC = new UC_SuccessfulTransfer();
                         SetupSuccessfulTransfer(activeUC as ISuccessfulTransferView, transferViewData, receiverAccount, isEmployee);
                         transferView.LoadUserControl(activeUC);
@@ -295,7 +340,6 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     return;
                 }
 
-                // Truy vấn lại Fullname của người gửi và người nhận
                 string senderFullname = "";
                 using (var connection = dbContext.GetConnection())
                 {
@@ -320,7 +364,6 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
                 string formattedAmount = decimal.Parse(lastTransferViewData.Amount).ToString("#,##0") + " VND";
 
-                // Hiển thị hộp thoại để người dùng chọn vị trí lưu file PDF
                 using (SaveFileDialog saveFileDialog = new SaveFileDialog())
                 {
                     saveFileDialog.Filter = "PDF Files (*.pdf)|*.pdf";
@@ -331,94 +374,195 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     {
                         string pdfPath = saveFileDialog.FileName;
 
-                        // Tạo font hỗ trợ Unicode (để hiển thị tiếng Việt)
-                        PdfFont font = PdfFontFactory.CreateFont("C:/Windows/Fonts/times.ttf", PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.PREFER_EMBEDDED);
-                        PdfFont boldFont = PdfFontFactory.CreateFont("C:/Windows/Fonts/timesbd.ttf", PdfEncodings.IDENTITY_H, PdfFontFactory.EmbeddingStrategy.PREFER_EMBEDDED);
-
-                        // Tạo file PDF
-                        using (var writer = new PdfWriter(pdfPath))
+                        // Kiểm tra quyền truy cập và đảm bảo thư mục tồn tại
+                        string directory = Path.GetDirectoryName(pdfPath);
+                        if (!Directory.Exists(directory))
                         {
-                            using (var pdf = new PdfDocument(writer))
+                            Directory.CreateDirectory(directory);
+                        }
+
+                        // Kiểm tra quyền ghi file
+                        try
+                        {
+                            string tempFile = Path.Combine(directory, "temp_test.txt");
+                            File.WriteAllText(tempFile, "test");
+                            File.Delete(tempFile);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Không có quyền ghi file tại thư mục: {directory}\nVui lòng chọn thư mục khác.\nChi tiết lỗi: {ex.Message}", "Lỗi quyền truy cập", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        // Kiểm tra xem file có đang bị khóa không
+                        if (File.Exists(pdfPath))
+                        {
+                            try
                             {
-                                var document = new Document(pdf);
-
-                                // Tiêu đề hóa đơn
-                                document.Add(new Paragraph("HÓA ĐƠN GIAO DỊCH")
-                                    .SetTextAlignment(TextAlignment.CENTER)
-                                    .SetFont(boldFont)
-                                    .SetFontSize(20));
-
-                                document.Add(new Paragraph("Ngân hàng Sacombank")
-                                    .SetTextAlignment(TextAlignment.CENTER)
-                                    .SetFont(font)
-                                    .SetFontSize(14));
-
-                                document.Add(new Paragraph($"Ngày giao dịch: {DateTime.Now:dd/MM/yyyy HH:mm:ss}")
-                                    .SetTextAlignment(TextAlignment.CENTER)
-                                    .SetFont(font)
-                                    .SetFontSize(12));
-
-                                document.Add(new Paragraph("---------------------------------------------")
-                                    .SetTextAlignment(TextAlignment.CENTER)
-                                    .SetFont(font));
-
-                                // Thông tin người gửi
-                                document.Add(new Paragraph("THÔNG TIN NGƯỜI GỬI")
-                                    .SetFont(boldFont)
-                                    .SetFontSize(14));
-                                document.Add(new Paragraph($"Họ và tên: {senderFullname}")
-                                    .SetFont(font));
-                                document.Add(new Paragraph($"Mã tài khoản: {currentAccount.AccountCode}")
-                                    .SetFont(font));
-                                document.Add(new Paragraph($"Số dư sau giao dịch: {currentAccount.Balance.ToString("#,##0")} VND")
-                                    .SetFont(font));
-
-                                document.Add(new Paragraph("---------------------------------------------")
-                                    .SetTextAlignment(TextAlignment.CENTER)
-                                    .SetFont(font));
-
-                                // Thông tin người nhận
-                                document.Add(new Paragraph("THÔNG TIN NGƯỜI NHẬN")
-                                    .SetFont(boldFont)
-                                    .SetFontSize(14));
-                                document.Add(new Paragraph($"Họ và tên: {receiverFullname}")
-                                    .SetFont(font));
-                                document.Add(new Paragraph($"Mã tài khoản: {lastReceiverAccount.AccountCode}")
-                                    .SetFont(font));
-                                document.Add(new Paragraph($"Ngân hàng: Sacombank")
-                                    .SetFont(font));
-
-                                document.Add(new Paragraph("---------------------------------------------")
-                                    .SetTextAlignment(TextAlignment.CENTER)
-                                    .SetFont(font));
-
-                                // Thông tin giao dịch
-                                document.Add(new Paragraph("THÔNG TIN GIAO DỊCH")
-                                    .SetFont(boldFont)
-                                    .SetFontSize(14));
-                                document.Add(new Paragraph($"Số tiền: {formattedAmount}")
-                                    .SetFont(font));
-                                document.Add(new Paragraph($"Nội dung: {lastTransferViewData.TransactionDescription}")
-                                    .SetFont(font));
-                                document.Add(new Paragraph($"Phương thức: {(lastIsEmployee ? "Tại quầy" : "Trực tuyến")}")
-                                    .SetFont(font));
-                                document.Add(new Paragraph($"Người xử lý: {(lastIsEmployee ? currentEmployee?.EmployeeName : "Tự động")}")
-                                    .SetFont(font));
-
-                                document.Add(new Paragraph("---------------------------------------------")
-                                    .SetTextAlignment(TextAlignment.CENTER)
-                                    .SetFont(font));
-
-                                document.Add(new Paragraph("Cảm ơn quý khách đã sử dụng dịch vụ của Sacombank!")
-                                    .SetTextAlignment(TextAlignment.CENTER)
-                                    .SetFont(font)
-                                    .SetFontSize(12));
-
-                                document.Close();
+                                using (FileStream fs = new FileStream(pdfPath, FileMode.Open, FileAccess.ReadWrite, FileShare.None))
+                                {
+                                    fs.Close();
+                                }
+                                File.Delete(pdfPath); // Xóa file cũ nếu tồn tại
+                            }
+                            catch (Exception ex)
+                            {
+                                MessageBox.Show($"File {pdfPath} đang bị khóa bởi một tiến trình khác.\nVui lòng đóng ứng dụng đang sử dụng file (nếu có) và thử lại.\nChi tiết lỗi: {ex.Message}", "Lỗi truy cập file", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
                             }
                         }
 
-                        MessageBox.Show($"Hóa đơn đã được xuất thành công tại: {pdfPath}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        // Nhúng font từ thư mục Resources/fonts trong dự án
+                        string projectDir = AppDomain.CurrentDomain.BaseDirectory;
+                        string arialFontPath = Path.Combine(projectDir, "Resources", "fonts", "ARIAL.TTF");
+                        string arialBoldFontPath = Path.Combine(projectDir, "Resources", "fonts", "ARIALBD.TTF");
+
+                        // Kiểm tra sự tồn tại của font
+                        if (!File.Exists(arialFontPath) || !File.Exists(arialBoldFontPath))
+                        {
+                            MessageBox.Show($"Không tìm thấy file font tại:\n- {arialFontPath}\n- {arialBoldFontPath}\nVui lòng kiểm tra thư mục Resources/fonts trong dự án.", "Lỗi font", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+
+                        try
+                        {
+                            // Tạo font cho iTextSharp với encoding IDENTITY_H để hỗ trợ tiếng Việt
+                            BaseFont arialBaseFont = BaseFont.CreateFont(arialFontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                            BaseFont arialBoldBaseFont = BaseFont.CreateFont(arialBoldFontPath, BaseFont.IDENTITY_H, BaseFont.EMBEDDED);
+                            iTextSharp.text.Font font = new iTextSharp.text.Font(arialBaseFont, 10);
+                            iTextSharp.text.Font boldFont = new iTextSharp.text.Font(arialBoldBaseFont, 10);
+                            iTextSharp.text.Font headerFont = new iTextSharp.text.Font(arialBoldBaseFont, 18, iTextSharp.text.Font.ITALIC, new BaseColor(0, 102, 204)); // Chữ Sacombank lớn, in nghiêng, màu xanh lam
+                            iTextSharp.text.Font subHeaderFont = new iTextSharp.text.Font(arialBoldBaseFont, 12);
+                            iTextSharp.text.Font footerHighlightFont = new iTextSharp.text.Font(arialBoldBaseFont, 10, iTextSharp.text.Font.NORMAL, new BaseColor(255, 147, 0)); // Màu vàng cam cho footer
+
+                            // Tạo document với iTextSharp
+                            using (FileStream fs = new FileStream(pdfPath, FileMode.Create, FileAccess.Write, FileShare.None))
+                            {
+                                Document document = new Document(PageSize.A4, 36, 36, 36, 36); // Thêm lề rộng hơn
+                                PdfWriter writer = PdfWriter.GetInstance(document, fs);
+                                document.Open();
+
+                                // Header
+                                document.Add(new Paragraph("Sacombank", headerFont)
+                                {
+                                    Alignment = Element.ALIGN_LEFT
+                                });
+
+                                document.Add(new Paragraph("HÓA ĐƠN GIAO DỊCH", subHeaderFont)
+                                {
+                                    Alignment = Element.ALIGN_LEFT
+                                });
+
+                                document.Add(new Paragraph($"Ngày giao dịch: {DateTime.Now:dd/MM/yyyy HH:mm:ss}", font)
+                                {
+                                    Alignment = Element.ALIGN_LEFT
+                                });
+
+                                // Thêm đường kẻ ngang màu xanh dưới header
+                                PdfPTable lineTable = new PdfPTable(1);
+                                lineTable.WidthPercentage = 100;
+                                PdfPCell lineCell = new PdfPCell() { Border = PdfPCell.BOTTOM_BORDER, BorderColor = new BaseColor(0, 102, 204), FixedHeight = 5f };
+                                lineTable.AddCell(lineCell);
+                                document.Add(lineTable);
+
+                                document.Add(new Paragraph("\n")); // Khoảng cách
+
+                                // Bảng thông tin giao dịch
+                                PdfPTable table = new PdfPTable(new float[] { 1, 3, 5 });
+                                table.WidthPercentage = 100;
+                                table.DefaultCell.Border = PdfPCell.BOX;
+
+                                // Tiêu đề bảng với màu nền
+                                table.AddCell(new PdfPCell(new Phrase("STT", boldFont)) { HorizontalAlignment = Element.ALIGN_CENTER, BackgroundColor = new BaseColor(200, 220, 255), Padding = 5f });
+                                table.AddCell(new PdfPCell(new Phrase("Hạng mục", boldFont)) { HorizontalAlignment = Element.ALIGN_CENTER, BackgroundColor = new BaseColor(200, 220, 255), Padding = 5f });
+                                table.AddCell(new PdfPCell(new Phrase("Nội dung", boldFont)) { HorizontalAlignment = Element.ALIGN_CENTER, BackgroundColor = new BaseColor(200, 220, 255), Padding = 5f });
+
+                                // Dòng 1: Thông tin người gửi
+                                table.AddCell(new PdfPCell(new Phrase("1", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Padding = 5f });
+                                table.AddCell(new PdfPCell(new Phrase("Thông tin người gửi", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 5f });
+                                PdfPTable subTableSender = new PdfPTable(new float[] { 1, 2 });
+                                subTableSender.WidthPercentage = 100;
+                                subTableSender.DefaultCell.Border = PdfPCell.NO_BORDER;
+                                subTableSender.AddCell(new PdfPCell(new Phrase("Họ và tên", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableSender.AddCell(new PdfPCell(new Phrase(senderFullname, boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableSender.AddCell(new PdfPCell(new Phrase("Mã tài khoản", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableSender.AddCell(new PdfPCell(new Phrase(currentAccount.AccountCode, boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableSender.AddCell(new PdfPCell(new Phrase("Số dư sau giao dịch", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableSender.AddCell(new PdfPCell(new Phrase(currentAccount.Balance.ToString("#,##0") + " VND", boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                table.AddCell(new PdfPCell(subTableSender) { Border = PdfPCell.BOX, Padding = 5f });
+
+                                // Dòng 2: Thông tin người nhận
+                                table.AddCell(new PdfPCell(new Phrase("2", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Padding = 5f });
+                                table.AddCell(new PdfPCell(new Phrase("Thông tin người nhận", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 5f });
+                                PdfPTable subTableReceiver = new PdfPTable(new float[] { 1, 2 });
+                                subTableReceiver.WidthPercentage = 100;
+                                subTableReceiver.DefaultCell.Border = PdfPCell.NO_BORDER;
+                                subTableReceiver.AddCell(new PdfPCell(new Phrase("Họ và tên", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableReceiver.AddCell(new PdfPCell(new Phrase(receiverFullname, boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableReceiver.AddCell(new PdfPCell(new Phrase("Mã tài khoản", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableReceiver.AddCell(new PdfPCell(new Phrase(lastReceiverAccount.AccountCode, boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableReceiver.AddCell(new PdfPCell(new Phrase("Ngân hàng", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableReceiver.AddCell(new PdfPCell(new Phrase("Sacombank", boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                table.AddCell(new PdfPCell(subTableReceiver) { Border = PdfPCell.BOX, Padding = 5f });
+
+                                // Dòng 3: Thông tin giao dịch
+                                table.AddCell(new PdfPCell(new Phrase("3", font)) { HorizontalAlignment = Element.ALIGN_CENTER, Padding = 5f });
+                                table.AddCell(new PdfPCell(new Phrase("Thông tin giao dịch", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 5f });
+                                PdfPTable subTableTransaction = new PdfPTable(new float[] { 1, 2 });
+                                subTableTransaction.WidthPercentage = 100;
+                                subTableTransaction.DefaultCell.Border = PdfPCell.NO_BORDER;
+                                subTableTransaction.AddCell(new PdfPCell(new Phrase("Số tiền", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableTransaction.AddCell(new PdfPCell(new Phrase(formattedAmount, boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableTransaction.AddCell(new PdfPCell(new Phrase("Nội dung", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableTransaction.AddCell(new PdfPCell(new Phrase(lastTransferViewData.TransactionDescription, boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableTransaction.AddCell(new PdfPCell(new Phrase("Phương thức", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableTransaction.AddCell(new PdfPCell(new Phrase(lastIsEmployee ? "Tại quầy" : "Trực tuyến", boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableTransaction.AddCell(new PdfPCell(new Phrase("Người xử lý", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableTransaction.AddCell(new PdfPCell(new Phrase(lastIsEmployee ? currentEmployee?.EmployeeName : "Tự động", boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                table.AddCell(new PdfPCell(subTableTransaction) { Border = PdfPCell.BOX, Padding = 5f });
+
+                                document.Add(table);
+
+                                // Footer
+                                document.Add(new Paragraph("\n\n"));
+                                PdfPTable footerTable = new PdfPTable(1);
+                                footerTable.WidthPercentage = 100;
+                                PdfPCell footerCell = new PdfPCell();
+                                footerCell.Border = PdfPCell.NO_BORDER;
+                                footerCell.HorizontalAlignment = Element.ALIGN_CENTER;
+
+                                // Thêm từng dòng vào footer
+                                footerCell.AddElement(new Paragraph("NGÂN HÀNG THƯƠNG MẠI CỔ PHẦN SÀI GÒN THƯƠNG TÍN", footerHighlightFont)
+                                {
+                                    Alignment = Element.ALIGN_LEFT
+                                });
+                                footerCell.AddElement(new Paragraph("•  266 - 268 Nam Kỳ Khởi Nghĩa, Q.3, TP.HCM", font)
+                                {
+                                    Alignment = Element.ALIGN_LEFT
+                                });
+                                footerCell.AddElement(new Paragraph("•  1800 5858 88/+84 28 3526 6060", font)
+                                {
+                                    Alignment = Element.ALIGN_LEFT
+                                });
+                                footerCell.AddElement(new Paragraph("•  sacombank.com.vn/ask@sacombank.com", font)
+                                {
+                                    Alignment = Element.ALIGN_LEFT
+                                });
+
+                                footerTable.AddCell(footerCell);
+                                document.Add(footerTable);
+
+                                document.Close();
+                                writer.Close();
+                            }
+
+                            MessageBox.Show($"Hóa đơn đã được xuất thành công tại: {pdfPath}", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        }
+                        catch (Exception ex)
+                        {
+                            MessageBox.Show($"Lỗi khi tạo file PDF tại {pdfPath}: {ex.Message}\nStackTrace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
                     }
                 }
             }

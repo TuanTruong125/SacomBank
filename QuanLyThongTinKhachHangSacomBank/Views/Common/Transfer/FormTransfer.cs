@@ -16,10 +16,14 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Transfer
         void LoadUserControl(UserControl uc);
         void ShowForm();
         Form FindForm();
+
+        event EventHandler<FormClosingEventArgs> FormClosing;
     }
 
     public partial class FormTransfer : Form, ITransferView
     {
+        public event EventHandler<FormClosingEventArgs> FormClosing;
+
         public FormTransfer()
         {
             try
@@ -29,6 +33,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Transfer
                 {
                     throw new InvalidOperationException("panelMainContentTransfer không được khởi tạo trong FormTransfer.");
                 }
+
+                this.FormClosing += (s, e) => OnFormClosing(e);
             }
             catch (Exception ex)
             {
@@ -69,6 +75,11 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Transfer
             {
                 MessageBox.Show($"Lỗi khi hiển thị FormTransfer: {ex.Message}\nStackTrace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        protected virtual void OnFormClosing(FormClosingEventArgs e)
+        {
+            FormClosing?.Invoke(this, e);
         }
     }
 

@@ -42,7 +42,7 @@
             // 
             pictureBox1.BackColor = Color.White;
             pictureBox1.Dock = DockStyle.Left;
-            pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
+            pictureBox1.Image = Properties.Resources.Left_Login;
             pictureBox1.Location = new Point(0, 0);
             pictureBox1.Name = "pictureBox1";
             pictureBox1.Size = new Size(448, 501);
