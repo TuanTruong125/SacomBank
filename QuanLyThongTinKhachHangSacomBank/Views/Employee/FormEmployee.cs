@@ -4,6 +4,9 @@ using System.Drawing;
 using System.Windows.Forms;
 using QuanLyThongTinKhachHangSacomBank.UIHelpers;
 using QuanLyThongTinKhachHangSacomBank.Controllers;
+using Microsoft.Extensions.Configuration;
+using QuanLyThongTinKhachHangSacomBank.Data;
+using QuanLyThongTinKhachHangSacomBank.Models;
 
 
 namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
@@ -18,6 +21,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
         private List<Button> menuButtons;
         private UserControl activeUC = null;
         private FormEmployeeController controller;
+        private readonly DatabaseContext dbContext;
+        private readonly IConfiguration configuration;
 
         public event EventHandler HomeRequested;
         public event EventHandler CustomerManagementRequested;
@@ -27,13 +32,13 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
         public event EventHandler CustomerCareRequested;
         public event EventHandler SettingRequested;
 
-        public FormEmployee()
+        public FormEmployee(AccountModel account, DatabaseContext dbContext, IConfiguration configuration)
         {
             try
             {
                 InitializeComponent();
                 InitializeMenuButtons();
-                controller = new FormEmployeeController(this);
+                controller = new FormEmployeeController(this, account, null, dbContext, configuration);
 
                 // Đăng ký sự kiện
                 HomeRequested += (s, e) => controller.LoadHome();

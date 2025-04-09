@@ -101,6 +101,7 @@
             cyberButtonVerifyPINCode.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
             cyberButtonVerifyPINCode.Timer_Effect_1 = 5;
             cyberButtonVerifyPINCode.Timer_RGB = 300;
+            cyberButtonVerifyPINCode.Click += cyberButtonVerifyPINCode_Click;
             // 
             // pictureBoxStar
             // 
@@ -115,11 +116,11 @@
             // labelErrorOTP
             // 
             labelErrorOTP.AutoSize = true;
-            labelErrorOTP.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelErrorOTP.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelErrorOTP.ForeColor = Color.Red;
             labelErrorOTP.Location = new Point(300, 330);
             labelErrorOTP.Name = "labelErrorOTP";
-            labelErrorOTP.Size = new Size(189, 24);
+            labelErrorOTP.Size = new Size(199, 24);
             labelErrorOTP.TabIndex = 43;
             labelErrorOTP.Text = "Mã PIN không đúng!";
             labelErrorOTP.Visible = false;

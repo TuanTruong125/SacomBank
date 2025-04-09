@@ -302,19 +302,6 @@
         bI/n4im9E214wMWdsKWwLnZj80RoKOI9PuN3xnWVlUplkD+9NqAItrra6wAAAABJRU5ErkJggg==
 </value>
   </data>
-  <data name="buttonViewBalance.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAABkAAAAZCAYAAADE6YVjAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        vAAADrwBlbxySQAAAbZJREFUSEvt1D+oz1EYx/HrX9yrJMJAibqzSQYRBmUQyaBbuonBHY2sJrY7yGJh
-        w2ZgUP6ETSkGg6JEBv8yKH/yevT8Oup7H19d16Z+7+Xb+Z7P8znnPM9zzsjIkP+OiJiHVdiCXRGxHzux
-        GSuqfk5ExHIcxH18xBd8j4jIbxt/wA3sjoix6vFHImIRDuBFM3uOq5jAVqzHNhzDNbzCNzyJiB0RsaB6
-        zgBLcbHt8ikOZUoyZVWbtFSuxvG22GecxeKqHYBluN52NZ116M5HxBKswzjWViNswGV8xaXccHc+DRbi
-        QlvgZI47c7nb7biH960m73ALm7o+GMX55nNmRuowiR84V3OKvfiU5hW8za7r6tuJs4Z5on2/fo7hNR6l
-        oBuANXhZzbvgcU9ctvyzrOug6zDVxHu6wiaeqKZ9ZNf1xB5u2TmSg9ttxfk9wulq2AdO9MRmI2X738zB
-        G5yqogSnq2EfOFpjc9NZ/CzFoLP6TpHkM5JHrqZd2oUdr7FJ+nY7tZd2Oe9W48KVWY1mIyI2RsTD6ty4
-        g5U15p9oRZzCg2z1djEn5/Qo/i3t8RzNb50bMuQ3fgKjNQXC3zFQCQAAAABJRU5ErkJggg==
-</value>
-  </data>
   <metadata name="PayLoanID.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>

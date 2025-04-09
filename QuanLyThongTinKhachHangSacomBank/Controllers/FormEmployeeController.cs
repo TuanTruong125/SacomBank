@@ -1,8 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.Configuration;
+using QuanLyThongTinKhachHangSacomBank.Data;
+using QuanLyThongTinKhachHangSacomBank.Models;
 using QuanLyThongTinKhachHangSacomBank.Views.Employee;
 
 namespace QuanLyThongTinKhachHangSacomBank.Controllers
@@ -10,10 +14,18 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
     class FormEmployeeController
     {
         private IFormEmployeeView view;
+        private readonly AccountModel currentAccount;
+        private readonly EmployeeModel currentEmployee;
+        private readonly DatabaseContext dbContext;
+        private readonly IConfiguration configuration;
 
-        public FormEmployeeController(IFormEmployeeView view)
+        public FormEmployeeController(IFormEmployeeView view, AccountModel account, EmployeeModel employee, DatabaseContext dbContext, IConfiguration configuration)
         {
             this.view = view;
+            this.currentAccount = account;
+            this.currentEmployee = employee;
+            this.dbContext = dbContext;
+            this.configuration = configuration;
         }
 
         public void LoadHome()
@@ -38,7 +50,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
         public void LoadTransactionManagement()
         {
-            view.LoadUserControl(new UC_TransactionManagement());
+            view.LoadUserControl(new UC_TransactionManagement(currentAccount, currentEmployee, dbContext, configuration));
         }
 
         public void LoadCustomerCare()

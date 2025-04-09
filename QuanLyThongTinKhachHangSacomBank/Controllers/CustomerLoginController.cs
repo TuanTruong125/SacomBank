@@ -24,6 +24,9 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
         private Image eyeOpenImage; // Hình ảnh "mắt mở"
         private Image eyeClosedImage; // Hình ảnh "mắt nhắm"
 
+        private AccountModel loggedInAccount; // Lưu thông tin tài khoản đã đăng nhập
+        public AccountModel LoggedInAccount => loggedInAccount; // Thuộc tính để truy cập tài khoản đã đăng nhập
+
         public CustomerLoginController(FormCustomerLogin form, ICustomerLoginView view, IConfiguration configuration, DatabaseContext dbContext)
         {
             this.form = form;
@@ -87,6 +90,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             bool isValid = ValidateLogin(username, password);
             if (isValid)
             {
+                loggedInAccount = GetAccountDetails(username); // Lấy thông tin tài khoản
+                form.Tag = loggedInAccount; // Truyền thông tin qua Tag của Form
                 form.DialogResult = DialogResult.OK; // Đánh dấu đăng nhập thành công
                 form.Close(); // Đóng FormCustomerLogin
             }
@@ -121,8 +126,56 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     return false;
                 }
 
+                // Kiểm tra trạng thái tài khoản
+                command = new SqlCommand("SELECT AccountStatus FROM ACCOUNT WHERE Username = @Username", connection);
+                command.Parameters.AddWithValue("@Username", username);
+                string accountStatus = command.ExecuteScalar()?.ToString();
+
+                if (accountStatus == "Khóa")
+                {
+                    view.ShowError("Tài khoản của bạn đang bị khóa!");
+                    return false;
+                }
+                if (accountStatus == "Đóng")
+                {
+                    view.ShowError("Tài khoản của bạn đã bị đóng!");
+                    return false;
+                }
+
                 return true;
             }
+        }
+
+        private AccountModel GetAccountDetails(string username)
+        {
+            using (var connection = dbContext.GetConnection())
+            {
+                connection.Open();
+                var command = new SqlCommand("SELECT AccountID, AccountCode, AccountName, Balance, AccountOpenDate, Username, UserPassword, PINCode, AccountStatus, CustomerID, AccountTypeID FROM ACCOUNT WHERE Username = @Username", connection);
+                command.Parameters.AddWithValue("@Username", username);
+
+                using (var reader = command.ExecuteReader())
+                {
+                    if (reader.Read())
+                    {
+                        return new AccountModel
+                        {
+                            AccountID = reader.GetInt32(0),
+                            AccountCode = reader.GetString(1),
+                            AccountName = reader.GetString(2),
+                            Balance = reader.GetDecimal(3),
+                            AccountOpenDate = reader.GetDateTime(4),
+                            Username = reader.GetString(5),
+                            UserPassword = reader.GetString(6),
+                            PINCode = reader.GetString(7),
+                            AccountStatus = reader.GetString(8),
+                            CustomerID = reader.GetInt32(9),
+                            AccountTypeID = reader.GetInt32(10)
+                        };
+                    }
+                }
+            }
+            return null;
         }
     }
 }

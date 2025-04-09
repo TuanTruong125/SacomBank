@@ -15,6 +15,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Transfer
     {
         void LoadUserControl(UserControl uc);
         void ShowForm();
+        Form FindForm();
     }
 
     public partial class FormTransfer : Form, ITransferView

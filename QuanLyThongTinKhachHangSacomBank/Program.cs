@@ -32,85 +32,93 @@ namespace QuanLyThongTinKhachHangSacomBank
 
                 // Chạy Form Customer
 
-                //while (!exitApp)
-                //{
-                //    using (FormCustomerLogin loginForm = new FormCustomerLogin(configuration, dbContext))
-                //    {
-                //        Application.Run(loginForm); // Chạy FormCustomerLogin
+                while (!exitApp)
+                {
+                    using (FormCustomerLogin loginForm = new FormCustomerLogin(configuration, dbContext))
+                    {
+                        CustomerLoginController loginController = new CustomerLoginController(loginForm, new UC_CustomerLogin(configuration, dbContext), configuration, dbContext);
+                        Application.Run(loginForm);
 
-                //        // Kiểm tra kết quả trả về từ FormCustomerLogin
-                //        if (loginForm.DialogResult == DialogResult.OK)
-                //        {
-                //            // Đăng nhập thành công, mở FormCustomer
-                //            using (FormCustomer formCustomer = new FormCustomer())
-                //            {
-                //                Application.Run(formCustomer); // Chạy FormCustomer
-
-                //                // Nếu logout (DialogResult.Cancel), tiếp tục vòng lặp để mở lại FormCustomerLogin
-                //                if (formCustomer.DialogResult != DialogResult.Cancel)
-                //                {
-                //                    exitApp = true; // Thoát ứng dụng nếu không logout
-                //                }
-                //            }
-                //        }
-                //        else if (loginForm.DialogResult == DialogResult.Cancel)
-                //        {
-                //            // Đăng ký hoặc quên mật khẩu, tiếp tục vòng lặp
-                //            continue;
-                //        }
-                //        else
-                //        {
-                //            // Người dùng đóng form bằng nút X, thoát ứng dụng
-                //            exitApp = true;
-                //        }
-                //    }
-                //}
+                        if (loginForm.DialogResult == DialogResult.OK)
+                        {
+                            AccountModel account = loginForm.Tag as AccountModel;
+                            if (account != null)
+                            {
+                                using (FormCustomer formCustomer = new FormCustomer(account, dbContext, configuration))
+                                {
+                                    Application.Run(formCustomer);
+                                    // Nếu FormCustomer đóng bằng nút X hoặc logout, quay lại FormCustomerLogin
+                                    if (formCustomer.DialogResult != DialogResult.Cancel && formCustomer.IsDisposed)
+                                    {
+                                        continue; // Quay lại vòng lặp để mở lại FormCustomerLogin
+                                    }
+                                    else if (formCustomer.DialogResult == DialogResult.Cancel)
+                                    {
+                                        continue; // Logout, quay lại FormCustomerLogin
+                                    }
+                                    else
+                                    {
+                                        exitApp = true; // Thoát ứng dụng nếu không phải trường hợp trên
+                                    }
+                                }
+                            }
+                        }
+                        else if (loginForm.DialogResult == DialogResult.Cancel)
+                        {
+                            continue; // Đăng ký hoặc quên mật khẩu, tiếp tục vòng lặp
+                        }
+                        else
+                        {
+                            exitApp = true; // Đóng FormCustomerLogin bằng X, thoát ứng dụng
+                        }
+                    }
+                }
 
 
 
 
                 // Chạy Form Employee
-                while (!exitApp)
-                {
-                    using (FormEmployeeLogin loginForm = new FormEmployeeLogin(configuration, dbContext))
-                    {
-                        Application.Run(loginForm);
+                //while (!exitApp)
+                //{
+                //    using (FormEmployeeLogin loginForm = new FormEmployeeLogin(configuration, dbContext))
+                //    {
+                //        Application.Run(loginForm);
 
-                        if (loginForm.DialogResult == DialogResult.OK)
-                        {
-                            EmployeeModel employee = loginForm.Tag as EmployeeModel;
-                            if (employee != null)
-                            {
-                                if (employee.AccessLevel == 2) // Quản lý
-                                {
-                                    using (FormManager formManager = new FormManager())
-                                    {
-                                        Application.Run(formManager);
-                                        if (formManager.DialogResult != DialogResult.Cancel)
-                                        {
-                                            exitApp = true;
-                                        }
-                                    }
-                                }
-                                else // Nhân viên (AccessLevel = 1)
-                                {
-                                    using (FormEmployee formEmployee = new FormEmployee())
-                                    {
-                                        Application.Run(formEmployee);
-                                        if (formEmployee.DialogResult != DialogResult.Cancel)
-                                        {
-                                            exitApp = true;
-                                        }
-                                    }
-                                }
-                            }
-                        }
-                        else
-                        {
-                            exitApp = true;
-                        }
-                    }
-                }
+                //        if (loginForm.DialogResult == DialogResult.OK)
+                //        {
+                //            EmployeeModel employee = loginForm.Tag as EmployeeModel;
+                //            if (employee != null)
+                //            {
+                //                if (employee.AccessLevel == 2) // Quản lý
+                //                {
+                //                    using (FormManager formManager = new FormManager())
+                //                    {
+                //                        Application.Run(formManager);
+                //                        if (formManager.DialogResult != DialogResult.Cancel)
+                //                        {
+                //                            exitApp = true;
+                //                        }
+                //                    }
+                //                }
+                //                else // Nhân viên (AccessLevel = 1)
+                //                {
+                //                    using (FormEmployee formEmployee = new FormEmployee())
+                //                    {
+                //                        Application.Run(formEmployee);
+                //                        if (formEmployee.DialogResult != DialogResult.Cancel)
+                //                        {
+                //                            exitApp = true;
+                //                        }
+                //                    }
+                //                }
+                //            }
+                //        }
+                //        else
+                //        {
+                //            exitApp = true;
+                //        }
+                //    }
+                //}
 
             }
             catch (Exception ex)

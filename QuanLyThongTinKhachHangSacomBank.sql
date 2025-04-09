@@ -43,16 +43,46 @@ CREATE TABLE ACCOUNT
   AccountID INT IDENTITY(1,1) PRIMARY KEY,
   AccountCode AS ('TK' + CAST(AccountID AS NVARCHAR(10))) PERSISTED,
   AccountName NVARCHAR(50) NOT NULL, 
-  Balance DECIMAL(18,2) NOT NULL,          
+  Balance DECIMAL(18,0) NOT NULL,          
   AccountOpenDate DATE NOT NULL,           
   Username NVARCHAR(50) NOT NULL UNIQUE,          
   UserPassword NVARCHAR(256) NOT NULL,         
   PINCode NVARCHAR(6) NOT NULL CHECK (PINCode LIKE '[0-9][0-9][0-9][0-9][0-9][0-9]'),           
-  AccountStatus NVARCHAR(20) NOT NULL CHECK (AccountStatus IN (N'Hoạt động', N'Đã khóa', N'Tạm khóa', N'Đóng')),            
+  AccountStatus NVARCHAR(20) NOT NULL CHECK (AccountStatus IN (N'Hoạt động', N'Khóa', N'Đóng')),            
   CustomerID INT NOT NULL,               
   AccountTypeID INT NOT NULL,            
   FOREIGN KEY (CustomerID) REFERENCES CUSTOMER(CustomerID),
   FOREIGN KEY (AccountTypeID) REFERENCES ACCOUNT_TYPE(AccountTypeID)
+);
+
+-- BẢNG LOẠI GIAO DỊCH
+CREATE TABLE TRANSACTION_TYPE
+(
+  TransactionTypeID INT IDENTITY(1,1) PRIMARY KEY,
+  TransactionTypeCode AS ('LGD' + CAST(TransactionTypeID AS NVARCHAR(10))) PERSISTED,
+  TransactionTypeName NVARCHAR(100) NOT NULL,
+  TransactionTypeDescription NVARCHAR(255) NOT NULL
+);
+
+-- BẢNG GIAO DỊCH
+CREATE TABLE [TRANSACTION]
+(
+  TransactionID INT IDENTITY(1,1) PRIMARY KEY,
+  TransactionCode AS ('GD' + CAST(TransactionID AS NVARCHAR(10))) PERSISTED,
+  Amount DECIMAL(18,0) NOT NULL CHECK (Amount >= 0),
+  TransactionDate DATE NOT NULL,
+  ReceiverAccountID INT NOT NULL,
+  TransactionStatus NVARCHAR(20) NOT NULL CHECK (TransactionStatus IN (N'Hoàn tất', N'Đang xử lý', N'Thất bại')),
+  HandledBy INT NULL, -- Có thể NULL nếu giao dịch tự động
+  TransactionDescription NVARCHAR(255) NULL,
+  TransactionMethod NVARCHAR(50) NOT NULL CHECK (TransactionMethod IN (N'Trực tuyến', N'Tại quầy')),
+  ReceiverAccountName NVARCHAR(50) NOT NULL,
+  AccountID INT NOT NULL,
+  TransactionTypeID INT NOT NULL,
+  FOREIGN KEY (AccountID) REFERENCES ACCOUNT(AccountID),
+  FOREIGN KEY (ReceiverAccountID) REFERENCES ACCOUNT(AccountID),
+  FOREIGN KEY (TransactionTypeID) REFERENCES TRANSACTION_TYPE(TransactionTypeID),
+  FOREIGN KEY (HandledBy) REFERENCES EMPLOYEE(EmployeeID)
 );
 
 -- BẢNG NHÂN VIÊN
@@ -85,6 +115,10 @@ DROP TABLE CUSTOMER
 DROP TABLE ACCOUNT_TYPE
 DROP TABLE ACCOUNT
 DROP TABLE EMPLOYEE
+DROP TABLE TRANSACTION_TYPE
+DROP TABLE [TRANSACTION]
+
+
 
 
 
@@ -113,9 +147,20 @@ INSERT INTO ACCOUNT (AccountName, Balance, AccountOpenDate, Username, UserPasswo
 VALUES
     (N'Tài khoản cá nhân A', 5000000, '2025-01-01', 'user_a', 'passwordA', '123456', N'Hoạt động', 1, 1),
     (N'Tài khoản cá nhân B', 2000000, '2025-02-01', 'user_b', 'passwordB', '654321', N'Hoạt động', 2, 1),
-    (N'Tài khoản doanh nghiệp C', 10000000, '2025-03-01', 'user_c', 'passwordC', '789123', N'Hoạt động', 3, 2),
+    (N'Tài khoản doanh nghiệp C', 10000000, '2025-03-01', 'user_c', 'passwordC', '789123', N'Đóng', 3, 2),
     (N'Tài khoản doanh nghiệp D', 15000000, '2025-04-01', 'user_d', 'passwordD', '321654', N'Hoạt động', 4, 2),
-    (N'Tài khoản cá nhân E', 3000000, '2025-05-01', 'user_e', 'passwordE', '987654', N'Tạm khóa', 5, 1);
+    (N'Tài khoản cá nhân E', 3000000, '2025-05-01', 'user_e', 'passwordE', '987654', N'Khóa', 5, 1);
+
+INSERT INTO TRANSACTION_TYPE (TransactionTypeName, TransactionTypeDescription)
+VALUES
+  (N'Nạp tiền', N'Nạp tiền vào tài khoản từ nguồn như quầy giao dịch, ATM'),
+  (N'Rút tiền', N'Rút tiền mặt từ tài khoản qua ATM, quầy giao dịch hoặc các kênh khác'),
+  (N'Chuyển tiền', N'Chuyển tiền từ tài khoản này sang tài khoản khác trong nội bộ'),
+  (N'Thanh toán', N'Thanh toán dịch vụ vay vốn của tài khoản');
+
+
+
+
 
 -- Trước tiên chèn người quản lý
 INSERT INTO EMPLOYEE (

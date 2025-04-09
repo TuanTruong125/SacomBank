@@ -55,21 +55,21 @@
             comboBoxBank = new ComboBox();
             labelReceiverCitizenID = new Label();
             textBoxReceiverCitizenID = new TextBox();
-            textBoxDescription = new TextBox();
+            textBoxTransactionDescription = new TextBox();
             labelDescription = new Label();
             panel1 = new Panel();
             SuspendLayout();
             // 
             // labelError
             // 
-            labelError.AutoSize = true;
-            labelError.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelError.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelError.ForeColor = Color.Red;
-            labelError.Location = new Point(347, 462);
+            labelError.Location = new Point(3, 459);
             labelError.Name = "labelError";
-            labelError.Size = new Size(240, 20);
+            labelError.Size = new Size(929, 27);
             labelError.TabIndex = 96;
             labelError.Text = "Vui lòng nhập đầy đủ thông tin!";
+            labelError.TextAlign = ContentAlignment.MiddleCenter;
             labelError.Visible = false;
             // 
             // labelBalance
@@ -226,6 +226,7 @@
             textBoxReceiverAccountName.Font = new Font("Roboto", 12F);
             textBoxReceiverAccountName.Location = new Point(619, 106);
             textBoxReceiverAccountName.Name = "textBoxReceiverAccountName";
+            textBoxReceiverAccountName.ReadOnly = true;
             textBoxReceiverAccountName.Size = new Size(278, 32);
             textBoxReceiverAccountName.TabIndex = 108;
             // 
@@ -274,6 +275,7 @@
             textBoxReceiverPhone.Font = new Font("Roboto", 12F);
             textBoxReceiverPhone.Location = new Point(619, 205);
             textBoxReceiverPhone.Name = "textBoxReceiverPhone";
+            textBoxReceiverPhone.ReadOnly = true;
             textBoxReceiverPhone.Size = new Size(278, 32);
             textBoxReceiverPhone.TabIndex = 102;
             // 
@@ -321,16 +323,17 @@
             textBoxReceiverCitizenID.Font = new Font("Roboto", 12F);
             textBoxReceiverCitizenID.Location = new Point(619, 256);
             textBoxReceiverCitizenID.Name = "textBoxReceiverCitizenID";
+            textBoxReceiverCitizenID.ReadOnly = true;
             textBoxReceiverCitizenID.Size = new Size(278, 32);
             textBoxReceiverCitizenID.TabIndex = 111;
             // 
-            // textBoxDescription
+            // textBoxTransactionDescription
             // 
-            textBoxDescription.Font = new Font("Roboto", 12F);
-            textBoxDescription.Location = new Point(286, 420);
-            textBoxDescription.Name = "textBoxDescription";
-            textBoxDescription.Size = new Size(464, 32);
-            textBoxDescription.TabIndex = 114;
+            textBoxTransactionDescription.Font = new Font("Roboto", 12F);
+            textBoxTransactionDescription.Location = new Point(286, 420);
+            textBoxTransactionDescription.Name = "textBoxTransactionDescription";
+            textBoxTransactionDescription.Size = new Size(464, 32);
+            textBoxTransactionDescription.TabIndex = 114;
             // 
             // labelDescription
             // 
@@ -355,7 +358,7 @@
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(panel1);
-            Controls.Add(textBoxDescription);
+            Controls.Add(textBoxTransactionDescription);
             Controls.Add(labelDescription);
             Controls.Add(labelReceiverCitizenID);
             Controls.Add(textBoxReceiverCitizenID);
@@ -419,7 +422,7 @@
         private ComboBox comboBoxBank;
         private Label labelReceiverCitizenID;
         private TextBox textBoxReceiverCitizenID;
-        private TextBox textBoxDescription;
+        private TextBox textBoxTransactionDescription;
         private Label labelDescription;
         private Panel panel1;
     }

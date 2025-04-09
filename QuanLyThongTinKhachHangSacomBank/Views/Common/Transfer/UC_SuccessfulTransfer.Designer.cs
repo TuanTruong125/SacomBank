@@ -35,7 +35,7 @@
             labelTransactionDate = new Label();
             labelAccountBalance = new Label();
             labelCustomerName = new Label();
-            label7 = new Label();
+            labelAmount = new Label();
             labelCustomerAccountID = new Label();
             labelDescription = new Label();
             labelHandledBy = new Label();
@@ -63,25 +63,25 @@
             buttonDone.BackColor = SystemColors.HotTrack;
             buttonDone.FlatAppearance.MouseDownBackColor = Color.FromArgb(0, 192, 0);
             buttonDone.FlatAppearance.MouseOverBackColor = Color.LimeGreen;
-            buttonDone.Font = new Font("Roboto SemiCondensed Medium", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonDone.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             buttonDone.ForeColor = Color.Transparent;
-            buttonDone.Location = new Point(312, 491);
+            buttonDone.Location = new Point(344, 500);
             buttonDone.Name = "buttonDone";
-            buttonDone.Size = new Size(165, 62);
+            buttonDone.Size = new Size(130, 62);
             buttonDone.TabIndex = 122;
             buttonDone.Text = "Hoàn tất";
             buttonDone.UseVisualStyleBackColor = false;
             // 
             // labelTransactionDescription
             // 
-            labelTransactionDescription.AutoSize = true;
             labelTransactionDescription.FlatStyle = FlatStyle.Flat;
             labelTransactionDescription.Font = new Font("Roboto", 10.2F);
-            labelTransactionDescription.Location = new Point(601, 446);
+            labelTransactionDescription.Location = new Point(3, 466);
             labelTransactionDescription.Name = "labelTransactionDescription";
-            labelTransactionDescription.Size = new Size(217, 20);
+            labelTransactionDescription.Size = new Size(929, 35);
             labelTransactionDescription.TabIndex = 121;
             labelTransactionDescription.Text = "NGUYEN VAN A chuyen tien";
+            labelTransactionDescription.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // labelEmployeeName
             // 
@@ -127,24 +127,24 @@
             labelCustomerName.TabIndex = 117;
             labelCustomerName.Text = "Nguyễn Văn A";
             // 
-            // label7
+            // labelAmount
             // 
-            label7.AutoSize = true;
-            label7.FlatStyle = FlatStyle.Flat;
-            label7.Font = new Font("Roboto SemiCondensed", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.ForeColor = SystemColors.HotTrack;
-            label7.Location = new Point(449, 104);
-            label7.Name = "label7";
-            label7.Size = new Size(44, 28);
-            label7.TabIndex = 116;
-            label7.Text = "0 đ";
+            labelAmount.FlatStyle = FlatStyle.Flat;
+            labelAmount.Font = new Font("Roboto SemiCondensed", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelAmount.ForeColor = SystemColors.HotTrack;
+            labelAmount.Location = new Point(3, 104);
+            labelAmount.Name = "labelAmount";
+            labelAmount.Size = new Size(929, 28);
+            labelAmount.TabIndex = 116;
+            labelAmount.Text = "0 đ";
+            labelAmount.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // labelCustomerAccountID
             // 
             labelCustomerAccountID.AutoSize = true;
             labelCustomerAccountID.FlatStyle = FlatStyle.Flat;
             labelCustomerAccountID.Font = new Font("Roboto", 10.2F);
-            labelCustomerAccountID.Location = new Point(601, 189);
+            labelCustomerAccountID.Location = new Point(601, 186);
             labelCustomerAccountID.Name = "labelCustomerAccountID";
             labelCustomerAccountID.Size = new Size(106, 20);
             labelCustomerAccountID.TabIndex = 115;
@@ -155,7 +155,7 @@
             labelDescription.AutoSize = true;
             labelDescription.FlatStyle = FlatStyle.Flat;
             labelDescription.Font = new Font("Roboto SemiCondensed", 10.2F, FontStyle.Bold);
-            labelDescription.Location = new Point(164, 446);
+            labelDescription.Location = new Point(434, 446);
             labelDescription.Name = "labelDescription";
             labelDescription.Size = new Size(73, 20);
             labelDescription.TabIndex = 114;
@@ -228,7 +228,7 @@
             labelRemitterAccount.AutoSize = true;
             labelRemitterAccount.FlatStyle = FlatStyle.Flat;
             labelRemitterAccount.Font = new Font("Roboto SemiCondensed", 10.2F, FontStyle.Bold);
-            labelRemitterAccount.Location = new Point(164, 189);
+            labelRemitterAccount.Location = new Point(164, 186);
             labelRemitterAccount.Name = "labelRemitterAccount";
             labelRemitterAccount.Size = new Size(103, 20);
             labelRemitterAccount.TabIndex = 106;
@@ -239,11 +239,11 @@
             buttonInvoice.BackColor = SystemColors.HotTrack;
             buttonInvoice.FlatAppearance.MouseDownBackColor = Color.FromArgb(0, 192, 0);
             buttonInvoice.FlatAppearance.MouseOverBackColor = Color.LimeGreen;
-            buttonInvoice.Font = new Font("Roboto SemiCondensed Medium", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonInvoice.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             buttonInvoice.ForeColor = Color.Transparent;
-            buttonInvoice.Location = new Point(483, 491);
+            buttonInvoice.Location = new Point(480, 500);
             buttonInvoice.Name = "buttonInvoice";
-            buttonInvoice.Size = new Size(165, 62);
+            buttonInvoice.Size = new Size(130, 62);
             buttonInvoice.TabIndex = 105;
             buttonInvoice.Text = "Xuất hóa đơn";
             buttonInvoice.UseVisualStyleBackColor = false;
@@ -354,12 +354,11 @@
             Controls.Add(labelReceiver);
             Controls.Add(labelReceiverAccount);
             Controls.Add(buttonDone);
-            Controls.Add(labelTransactionDescription);
             Controls.Add(labelEmployeeName);
             Controls.Add(labelTransactionDate);
             Controls.Add(labelAccountBalance);
             Controls.Add(labelCustomerName);
-            Controls.Add(label7);
+            Controls.Add(labelAmount);
             Controls.Add(labelCustomerAccountID);
             Controls.Add(labelDescription);
             Controls.Add(labelHandledBy);
@@ -371,6 +370,7 @@
             Controls.Add(labelRemitterAccount);
             Controls.Add(buttonInvoice);
             Controls.Add(labelWithdrawInform);
+            Controls.Add(labelTransactionDescription);
             Name = "UC_SuccessfulTransfer";
             Size = new Size(935, 560);
             Load += UC_SuccessfulTransfer_Load;
@@ -387,7 +387,7 @@
         private Label labelTransactionDate;
         private Label labelAccountBalance;
         private Label labelCustomerName;
-        private Label label7;
+        private Label labelAmount;
         private Label labelCustomerAccountID;
         private Label labelDescription;
         private Label labelHandledBy;

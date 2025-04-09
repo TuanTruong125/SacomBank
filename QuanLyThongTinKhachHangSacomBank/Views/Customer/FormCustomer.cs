@@ -10,6 +10,10 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuanLyThongTinKhachHangSacomBank.Views.Employee;
 using QuanLyThongTinKhachHangSacomBank.Controllers;
+using QuanLyThongTinKhachHangSacomBank.Models;
+using Microsoft.Extensions.Configuration;
+using QuanLyThongTinKhachHangSacomBank.Data;
+using System.Configuration;
 
 namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
 {
@@ -23,18 +27,20 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
         private List<Button> menuButtons;
         private UserControl activeUC = null;
         private FormCustomerController controller;
+        private readonly DatabaseContext dbContext;
+        private readonly IConfiguration configuration;
 
         public event EventHandler CustomerHomeRequested;
         public event EventHandler CustomerServiceRequested;
         public event EventHandler CustomerPersonalRequested;
 
-        public FormCustomer()
+        public FormCustomer(AccountModel account, DatabaseContext dbContext, IConfiguration configuration)
         {
             try
             {
                 InitializeComponent();
                 InitializeMenuButtons();
-                controller = new FormCustomerController(this);
+                controller = new FormCustomerController(this, account, null, dbContext, configuration);
 
                 // Đăng ký sự kiện
                 CustomerHomeRequested += (s, e) => controller.LoadCustomerHome();

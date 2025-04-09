@@ -1,17 +1,34 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Windows.Forms;
+using QuanLyThongTinKhachHangSacomBank.Controllers;
+using QuanLyThongTinKhachHangSacomBank.Models;
 using ReaLTaiizor.Controls;
 
 namespace QuanLyThongTinKhachHangSacomBank.Views.Common
 {
-    public partial class FormPINCode : Form
+    public interface IPINCodeView
     {
-        private List<TextBox> pinCodeTextBoxes = new List<TextBox>();
+        event EventHandler VerifyPINRequested; // Sự kiện khi nhấn nút xác thực PIN
+        string EnteredPIN { get; } // Mã PIN người dùng nhập
+        void ShowError(string message); // Hiển thị lỗi
+        void HideError(); // Ẩn label lỗi
+        void ClearPINTextBoxes(); // Làm trống các TextBox
+        void FocusFirstTextBox(); // Focus vào TextBox đầu tiên
+    }
 
-        public FormPINCode()
+    public partial class FormPINCode : Form, IPINCodeView
+    {
+        private List<TextBox> pinCodeTextBoxes;
+
+        public event EventHandler VerifyPINRequested;
+
+        public string EnteredPIN => string.Concat(pinCodeTextBoxes.Select(tb => tb.Text));
+
+        public FormPINCode(AccountModel account)
         {
             InitializeComponent();
+            
             pinCodeTextBoxes = new List<TextBox> { textBoxPINCode1, textBoxPINCode2, textBoxPINCode3, textBoxPINCode4, textBoxPINCode5, textBoxPINCode6 };
             foreach (var textBox in pinCodeTextBoxes)
             {
@@ -45,6 +62,38 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common
                     pinCodeTextBoxes[index + 1].Focus();
                 }
             }
+        }
+
+        public void ShowError(string message)
+        {
+            labelErrorOTP.Text = message;
+            labelErrorOTP.Visible = true;
+        }
+
+        public void HideError()
+        {
+            labelErrorOTP.Visible = false;
+        }
+
+        public void ClearPINTextBoxes()
+        {
+            foreach (var textBox in pinCodeTextBoxes)
+            {
+                textBox.Text = string.Empty;
+            }
+        }
+
+        public void FocusFirstTextBox()
+        {
+            if (pinCodeTextBoxes.Count > 0)
+            {
+                pinCodeTextBoxes[0].Focus();
+            }
+        }
+
+        private void cyberButtonVerifyPINCode_Click(object sender, EventArgs e)
+        {
+            VerifyPINRequested?.Invoke(this, EventArgs.Empty);
         }
     }
 }

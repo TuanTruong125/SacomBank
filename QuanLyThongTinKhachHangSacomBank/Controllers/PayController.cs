@@ -1,4 +1,5 @@
-﻿using QuanLyThongTinKhachHangSacomBank.Views.Common;
+﻿using QuanLyThongTinKhachHangSacomBank.Models;
+using QuanLyThongTinKhachHangSacomBank.Views.Common;
 using QuanLyThongTinKhachHangSacomBank.Views.Common.Pay;
 using QuanLyThongTinKhachHangSacomBank.Views.Customer;
 using System;
@@ -14,6 +15,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
     {
         private IPayView payView;
         private UserControl activeUC;
+        private readonly AccountModel currentAccount;
 
         public PayController()
         {
@@ -69,7 +71,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     payViewData.HideError();
 
                     // Quyết định mở FormPIN hay FormOTP
-                    Form confirmationForm = isEmployee ? new FormOTP() : new FormPINCode();
+                    Form confirmationForm = isEmployee ? new FormOTP() : new FormPINCode(currentAccount);
 
                     if (confirmationForm.ShowDialog() == DialogResult.OK)
                     {

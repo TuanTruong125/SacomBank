@@ -29,7 +29,7 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_CustomerHome));
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             tableLayoutPanel1 = new TableLayoutPanel();
             labelAccountName = new Label();
             buttonNotification = new Button();
@@ -187,13 +187,13 @@
             // labelAccountName
             // 
             labelAccountName.AutoSize = true;
-            tableLayoutPanel1.SetColumnSpan(labelAccountName, 2);
+            tableLayoutPanel1.SetColumnSpan(labelAccountName, 4);
             labelAccountName.Dock = DockStyle.Fill;
             labelAccountName.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelAccountName.ForeColor = SystemColors.HotTrack;
             labelAccountName.Location = new Point(109, 0);
             labelAccountName.Name = "labelAccountName";
-            labelAccountName.Size = new Size(225, 71);
+            labelAccountName.Size = new Size(451, 71);
             labelAccountName.TabIndex = 3;
             labelAccountName.Text = "TRUONG ANH TUAN";
             // 
@@ -438,12 +438,13 @@
             buttonViewBalance.BackColor = Color.FromArgb(0, 74, 173);
             buttonViewBalance.Dock = DockStyle.Fill;
             buttonViewBalance.ForeColor = Color.Transparent;
-            buttonViewBalance.Image = (Image)resources.GetObject("buttonViewBalance.Image");
+            buttonViewBalance.Image = Properties.Resources.ViewBalance;
             buttonViewBalance.Location = new Point(626, 16);
             buttonViewBalance.Name = "buttonViewBalance";
             buttonViewBalance.Size = new Size(36, 34);
             buttonViewBalance.TabIndex = 4;
             buttonViewBalance.UseVisualStyleBackColor = false;
+            buttonViewBalance.Click += buttonViewBalance_Click;
             // 
             // panel9
             // 
@@ -587,14 +588,14 @@
             dataGridViewServiceNotification.BorderStyle = BorderStyle.None;
             dataGridViewServiceNotification.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
             dataGridViewServiceNotification.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle2.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = Color.Black;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridViewServiceNotification.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle1.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dataGridViewServiceNotification.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewServiceNotification.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewServiceNotification.Columns.AddRange(new DataGridViewColumn[] { PayLoanID, ServiceID, ServiceType, TotalDue, DueDate, PayNotification, PaymentStatus });
             tableLayoutPanel5.SetColumnSpan(dataGridViewServiceNotification, 2);

@@ -1,11 +1,46 @@
+# =========================
 # Visual Studio temporary files
 .vs/
 *.user
 *.suo
+*.userosscache
+*.sln.docstates
 
+# =========================
 # Build output
 bin/
 obj/
+[Bb]uild/
+[Ll]og/
+[Dd]ebug/
+[Rr]elease/
 
+# =========================
 # NuGet packages
 packages/
+*.nupkg
+# Nếu dùng PackageReference, folder packages không cần check-in
+
+# =========================
+# Resharper & Rider
+*.DotSettings.user
+.idea/
+
+# =========================
+# Backup & Cache
+*.bak
+*.cache
+*.tmp
+
+# =========================
+# Others
+TestResults/
+*.dbmdl
+*.pdb
+*.exe
+*.dll
+
+# =========================
+# SQL Server files (nếu có)
+*.mdf
+*.ldf

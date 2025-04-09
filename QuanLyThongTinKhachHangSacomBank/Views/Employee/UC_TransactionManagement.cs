@@ -12,6 +12,10 @@ using QuanLyThongTinKhachHangSacomBank.Views.Common.Withdraw;
 using QuanLyThongTinKhachHangSacomBank.Views.Common.Transfer;
 using QuanLyThongTinKhachHangSacomBank.Views.Common.Pay;
 using QuanLyThongTinKhachHangSacomBank.Controllers;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
+using QuanLyThongTinKhachHangSacomBank.Data;
+using QuanLyThongTinKhachHangSacomBank.Models;
 
 namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
 {
@@ -21,15 +25,16 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
         private readonly WithdrawController withdrawController;
         private readonly TransferController transferController;
         private readonly PayController payController;
+        private readonly AccountModel currentAccount;
 
-        public UC_TransactionManagement()
+        public UC_TransactionManagement(AccountModel currentAccount, EmployeeModel currentEmployee, DatabaseContext dbContext, IConfiguration configuration)
         {
             try
             {
                 InitializeComponent();
                 depositController = new DepositController();
                 withdrawController = new WithdrawController();
-                transferController = new TransferController();
+                transferController = new TransferController(currentAccount, currentEmployee, dbContext, configuration);
                 payController = new PayController();
 
             }
@@ -68,7 +73,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
         {
             try
             {
-                transferController.OpenTransfer(new UC_TransferInfo(), isEmployee: true);
+                transferController.OpenTransfer(new UC_TransferInfo(currentAccount), isEmployee: true);
             }
             catch (Exception ex)
             {

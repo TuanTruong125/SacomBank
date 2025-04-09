@@ -12,10 +12,23 @@ using QuanLyThongTinKhachHangSacomBank.Views.Common.Pay;
 using QuanLyThongTinKhachHangSacomBank.Views.Common.Chat;
 using QuanLyThongTinKhachHangSacomBank.Views.Common.Notification;
 using QuanLyThongTinKhachHangSacomBank.Controllers;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
+using QuanLyThongTinKhachHangSacomBank.Data;
+using QuanLyThongTinKhachHangSacomBank.Models;
 
 namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
 {
-    public partial class UC_CustomerHome : UserControl
+    public interface ICustomerHomeView
+    {
+        void SetAccountName(string name);
+        void SetAccountID(string id);
+        void SetBalance(string balance);
+        void SetEyeImage(Image image);
+        event EventHandler ViewBalanceRequested;
+    }
+
+    public partial class UC_CustomerHome : UserControl, ICustomerHomeView
     {
         private readonly NotificationController notificationController;
         private readonly TransferController transferController;
@@ -24,20 +37,24 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
         private readonly ShowCustomerAccountInfoController showCustomerAccountInfoController;
         private readonly CustomerServiceManagementController customerServiceManagementController;
         private readonly ChatController chatController;
+        private readonly AccountModel currentAccount;
 
-        public UC_CustomerHome()
+        public event EventHandler ViewBalanceRequested;
+
+        public UC_CustomerHome(AccountModel currentAccount, EmployeeModel currentEmployee, DatabaseContext dbContext, IConfiguration configuration)
         {
             try
             {
+                this.currentAccount = currentAccount;
                 InitializeComponent();
                 notificationController = new NotificationController();
-                transferController = new TransferController();
+                transferController = new TransferController(currentAccount, currentEmployee, dbContext, configuration);
                 transactionHistoryController = new TransactionHistoryController();
                 payController = new PayController();
                 showCustomerAccountInfoController = new ShowCustomerAccountInfoController();
                 customerServiceManagementController = new CustomerServiceManagementController();
                 chatController = new ChatController();
-                
+
             }
             catch (Exception ex)
             {
@@ -65,7 +82,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
         {
             try
             {
-                transferController.OpenTransfer(new UC_TransferInfo(), isEmployee: false);
+                transferController.OpenTransfer(new UC_TransferInfo(currentAccount), isEmployee: false);
             }
             catch (Exception ex)
             {
@@ -146,6 +163,29 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
             }
         }
 
-       
+        private void buttonViewBalance_Click(object sender, EventArgs e)
+        {
+            ViewBalanceRequested?.Invoke(this, EventArgs.Empty);
+        }
+
+        public void SetAccountName(string name)
+        {
+            labelAccountName.Text = name;
+        }
+
+        public void SetAccountID(string id)
+        {
+            labelAccountID.Text = id;
+        }
+
+        public void SetBalance(string balance)
+        {
+            labelAccountBalance.Text = balance;
+        }
+
+        public void SetEyeImage(Image image)
+        {
+            buttonViewBalance.Image = image;
+        }
     }
 }
