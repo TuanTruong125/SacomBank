@@ -50,7 +50,12 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
                 InitializeComponent();
                 notificationController = new NotificationController();
                 transferController = new TransferController(currentAccount, currentEmployee, dbContext, configuration, this);
-                transactionHistoryController = new TransactionHistoryController();
+
+                // Khai báo rõ ràng kiểu IFormTransactionHistoryView
+                IFormTransactionHistoryView transactionView = new FormTransactionHistory(dbContext);
+                transactionHistoryController = new TransactionHistoryController(transactionView, currentAccount, dbContext);
+
+
                 payController = new PayController();
                 showCustomerAccountInfoController = new ShowCustomerAccountInfoController(new FormShowCustomerAccountInfo(), dbContext);
                 customerServiceManagementController = new CustomerServiceManagementController();

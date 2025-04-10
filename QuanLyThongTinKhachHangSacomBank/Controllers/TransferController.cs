@@ -123,6 +123,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
                     AccountModel receiverAccount = GetAccountByCode(transferViewData.ReceiverAccountID);
 
+                    // Kiểm tra nếu tài khoản người nhận không tồn tại
                     if (receiverAccount == null)
                     {
                         transferViewData.ShowError("Tài khoản người nhận không tồn tại!");
@@ -149,10 +150,18 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         return;
                     }
 
+                    // Kiểm tra số dư tài khoản người gửi
                     decimal amount = decimal.Parse(transferViewData.Amount);
                     if (amount > currentAccount.Balance)
                     {
                         transferViewData.ShowError("Số dư không đủ để thực hiện giao dịch!");
+                        return;
+                    }
+
+                    // Kiểm tra số tiền gửi tối thiểu
+                    if (amount < 5000)
+                    {
+                        transferViewData.ShowError("Số tiền chuyển tối thiểu là 5,000 VND!");
                         return;
                     }
 
@@ -368,7 +377,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 {
                     saveFileDialog.Filter = "PDF Files (*.pdf)|*.pdf";
                     saveFileDialog.Title = "Chọn nơi lưu hóa đơn giao dịch";
-                    saveFileDialog.FileName = $"Transaction_Receipt_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
+                    saveFileDialog.FileName = $"TransactionReceipt_{DateTime.Now:yyyyMMdd_HHmmss}.pdf";
 
                     if (saveFileDialog.ShowDialog() == DialogResult.OK)
                     {

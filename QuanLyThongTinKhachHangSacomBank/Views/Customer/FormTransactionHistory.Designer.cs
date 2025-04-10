@@ -29,22 +29,15 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTransactionHistory));
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             pictureBox1 = new PictureBox();
             panel2 = new Panel();
             panel1 = new Panel();
             label1 = new Label();
             dataGridViewTransactionHistory = new DataGridView();
-            TransactionID = new DataGridViewTextBoxColumn();
-            TransactionTypeID = new DataGridViewTextBoxColumn();
-            ServiceID = new DataGridViewTextBoxColumn();
-            Amount = new DataGridViewTextBoxColumn();
-            TransactionDate = new DataGridViewTextBoxColumn();
-            Description = new DataGridViewTextBoxColumn();
-            AccountName = new DataGridViewTextBoxColumn();
             groupBox1 = new GroupBox();
             groupBox3 = new GroupBox();
-            comboBoxTransactionTypeFilter = new ComboBox();
+            comboBoxTransactionTypeNameFilter = new ComboBox();
             groupBox2 = new GroupBox();
             dateTimePickerTo = new DateTimePicker();
             label3 = new Label();
@@ -54,6 +47,14 @@
             buttonExportExcel = new Button();
             buttonExportCSV = new Button();
             buttonExportPDF = new Button();
+            TransactionID = new DataGridViewTextBoxColumn();
+            TransactionTypeName = new DataGridViewTextBoxColumn();
+            ServiceID = new DataGridViewTextBoxColumn();
+            Amount = new DataGridViewTextBoxColumn();
+            TransactionDate = new DataGridViewTextBoxColumn();
+            TransactionDescription = new DataGridViewTextBoxColumn();
+            FromAccount = new DataGridViewTextBoxColumn();
+            ToAccount = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewTransactionHistory).BeginInit();
             groupBox1.SuspendLayout();
@@ -100,21 +101,21 @@
             // 
             // dataGridViewTransactionHistory
             // 
-            dataGridViewTransactionHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewTransactionHistory.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridViewTransactionHistory.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridViewTransactionHistory.BackgroundColor = Color.White;
             dataGridViewTransactionHistory.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
             dataGridViewTransactionHistory.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle2.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridViewTransactionHistory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle1.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dataGridViewTransactionHistory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewTransactionHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewTransactionHistory.Columns.AddRange(new DataGridViewColumn[] { TransactionID, TransactionTypeID, ServiceID, Amount, TransactionDate, Description, AccountName });
+            dataGridViewTransactionHistory.Columns.AddRange(new DataGridViewColumn[] { TransactionID, TransactionTypeName, ServiceID, Amount, TransactionDate, TransactionDescription, FromAccount, ToAccount });
             dataGridViewTransactionHistory.EnableHeadersVisualStyles = false;
             dataGridViewTransactionHistory.GridColor = Color.White;
             dataGridViewTransactionHistory.Location = new Point(12, 298);
@@ -124,48 +125,6 @@
             dataGridViewTransactionHistory.RowHeadersWidth = 51;
             dataGridViewTransactionHistory.Size = new Size(925, 302);
             dataGridViewTransactionHistory.TabIndex = 19;
-            // 
-            // TransactionID
-            // 
-            TransactionID.HeaderText = "Mã giao dịch";
-            TransactionID.MinimumWidth = 6;
-            TransactionID.Name = "TransactionID";
-            // 
-            // TransactionTypeID
-            // 
-            TransactionTypeID.HeaderText = "Loại giao dịch";
-            TransactionTypeID.MinimumWidth = 6;
-            TransactionTypeID.Name = "TransactionTypeID";
-            // 
-            // ServiceID
-            // 
-            ServiceID.HeaderText = "Mã dịch vụ";
-            ServiceID.MinimumWidth = 6;
-            ServiceID.Name = "ServiceID";
-            // 
-            // Amount
-            // 
-            Amount.HeaderText = "Số tiền";
-            Amount.MinimumWidth = 6;
-            Amount.Name = "Amount";
-            // 
-            // TransactionDate
-            // 
-            TransactionDate.HeaderText = "Ngày giao dịch";
-            TransactionDate.MinimumWidth = 6;
-            TransactionDate.Name = "TransactionDate";
-            // 
-            // Description
-            // 
-            Description.HeaderText = "Nội dung";
-            Description.MinimumWidth = 6;
-            Description.Name = "Description";
-            // 
-            // AccountName
-            // 
-            AccountName.HeaderText = "Tên tài khoản";
-            AccountName.MinimumWidth = 6;
-            AccountName.Name = "AccountName";
             // 
             // groupBox1
             // 
@@ -181,7 +140,7 @@
             // 
             // groupBox3
             // 
-            groupBox3.Controls.Add(comboBoxTransactionTypeFilter);
+            groupBox3.Controls.Add(comboBoxTransactionTypeNameFilter);
             groupBox3.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             groupBox3.Location = new Point(334, 33);
             groupBox3.Name = "groupBox3";
@@ -190,16 +149,16 @@
             groupBox3.TabStop = false;
             groupBox3.Text = "Loại giao dịch";
             // 
-            // comboBoxTransactionTypeFilter
+            // comboBoxTransactionTypeNameFilter
             // 
-            comboBoxTransactionTypeFilter.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxTransactionTypeFilter.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            comboBoxTransactionTypeFilter.FormattingEnabled = true;
-            comboBoxTransactionTypeFilter.Items.AddRange(new object[] { "Không áp dụng", "Nạp tiền", "Rút tiền", "Chuyển tiền", "Thanh toán" });
-            comboBoxTransactionTypeFilter.Location = new Point(6, 56);
-            comboBoxTransactionTypeFilter.Name = "comboBoxTransactionTypeFilter";
-            comboBoxTransactionTypeFilter.Size = new Size(209, 28);
-            comboBoxTransactionTypeFilter.TabIndex = 0;
+            comboBoxTransactionTypeNameFilter.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxTransactionTypeNameFilter.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBoxTransactionTypeNameFilter.FormattingEnabled = true;
+            comboBoxTransactionTypeNameFilter.Items.AddRange(new object[] { "Không áp dụng", "Nạp tiền", "Rút tiền", "Chuyển tiền", "Thanh toán" });
+            comboBoxTransactionTypeNameFilter.Location = new Point(6, 56);
+            comboBoxTransactionTypeNameFilter.Name = "comboBoxTransactionTypeNameFilter";
+            comboBoxTransactionTypeNameFilter.Size = new Size(209, 28);
+            comboBoxTransactionTypeNameFilter.TabIndex = 0;
             // 
             // groupBox2
             // 
@@ -217,6 +176,8 @@
             // 
             // dateTimePickerTo
             // 
+            dateTimePickerTo.Font = new Font("Roboto", 10.2F);
+            dateTimePickerTo.Format = DateTimePickerFormat.Short;
             dateTimePickerTo.Location = new Point(58, 79);
             dateTimePickerTo.Name = "dateTimePickerTo";
             dateTimePickerTo.Size = new Size(245, 28);
@@ -233,6 +194,8 @@
             // 
             // dateTimePickerFrom
             // 
+            dateTimePickerFrom.Font = new Font("Roboto", 10.2F);
+            dateTimePickerFrom.Format = DateTimePickerFormat.Short;
             dateTimePickerFrom.Location = new Point(58, 35);
             dateTimePickerFrom.Name = "dateTimePickerFrom";
             dateTimePickerFrom.Size = new Size(245, 28);
@@ -273,6 +236,7 @@
             buttonExportExcel.TextAlign = ContentAlignment.MiddleLeft;
             buttonExportExcel.TextImageRelation = TextImageRelation.TextBeforeImage;
             buttonExportExcel.UseVisualStyleBackColor = true;
+            buttonExportExcel.Click += buttonExportExcel_Click;
             // 
             // buttonExportCSV
             // 
@@ -287,6 +251,7 @@
             buttonExportCSV.TextAlign = ContentAlignment.MiddleLeft;
             buttonExportCSV.TextImageRelation = TextImageRelation.TextBeforeImage;
             buttonExportCSV.UseVisualStyleBackColor = true;
+            buttonExportCSV.Click += buttonExportCSV_Click;
             // 
             // buttonExportPDF
             // 
@@ -301,6 +266,63 @@
             buttonExportPDF.TextAlign = ContentAlignment.MiddleLeft;
             buttonExportPDF.TextImageRelation = TextImageRelation.TextBeforeImage;
             buttonExportPDF.UseVisualStyleBackColor = true;
+            buttonExportPDF.Click += buttonExportPDF_Click;
+            // 
+            // TransactionID
+            // 
+            TransactionID.HeaderText = "Mã giao dịch";
+            TransactionID.MinimumWidth = 6;
+            TransactionID.Name = "TransactionID";
+            TransactionID.Width = 140;
+            // 
+            // TransactionTypeName
+            // 
+            TransactionTypeName.HeaderText = "Loại giao dịch";
+            TransactionTypeName.MinimumWidth = 6;
+            TransactionTypeName.Name = "TransactionTypeName";
+            TransactionTypeName.Width = 150;
+            // 
+            // ServiceID
+            // 
+            ServiceID.HeaderText = "Mã dịch vụ";
+            ServiceID.MinimumWidth = 6;
+            ServiceID.Name = "ServiceID";
+            ServiceID.Width = 124;
+            // 
+            // Amount
+            // 
+            Amount.HeaderText = "Số tiền";
+            Amount.MinimumWidth = 6;
+            Amount.Name = "Amount";
+            Amount.Width = 93;
+            // 
+            // TransactionDate
+            // 
+            TransactionDate.HeaderText = "Ngày giao dịch";
+            TransactionDate.MinimumWidth = 6;
+            TransactionDate.Name = "TransactionDate";
+            TransactionDate.Width = 156;
+            // 
+            // TransactionDescription
+            // 
+            TransactionDescription.HeaderText = "Nội dung";
+            TransactionDescription.MinimumWidth = 6;
+            TransactionDescription.Name = "TransactionDescription";
+            TransactionDescription.Width = 108;
+            // 
+            // FromAccount
+            // 
+            FromAccount.HeaderText = "Từ";
+            FromAccount.MinimumWidth = 6;
+            FromAccount.Name = "FromAccount";
+            FromAccount.Width = 57;
+            // 
+            // ToAccount
+            // 
+            ToAccount.HeaderText = "Đến";
+            ToAccount.MinimumWidth = 6;
+            ToAccount.Name = "ToAccount";
+            ToAccount.Width = 68;
             // 
             // FormTransactionHistory
             // 
@@ -337,13 +359,6 @@
         private Panel panel1;
         private Label label1;
         private DataGridView dataGridViewTransactionHistory;
-        private DataGridViewTextBoxColumn TransactionID;
-        private DataGridViewTextBoxColumn TransactionTypeID;
-        private DataGridViewTextBoxColumn ServiceID;
-        private DataGridViewTextBoxColumn Amount;
-        private DataGridViewTextBoxColumn TransactionDate;
-        private DataGridViewTextBoxColumn Description;
-        private DataGridViewTextBoxColumn AccountName;
         private GroupBox groupBox1;
         private GroupBox groupBox3;
         private GroupBox groupBox2;
@@ -351,10 +366,18 @@
         private Label label3;
         private DateTimePicker dateTimePickerFrom;
         private Label label2;
-        private ComboBox comboBoxTransactionTypeFilter;
+        private ComboBox comboBoxTransactionTypeNameFilter;
         private GroupBox groupBox4;
         private Button buttonExportPDF;
         private Button buttonExportExcel;
         private Button buttonExportCSV;
+        private DataGridViewTextBoxColumn TransactionID;
+        private DataGridViewTextBoxColumn TransactionTypeName;
+        private DataGridViewTextBoxColumn ServiceID;
+        private DataGridViewTextBoxColumn Amount;
+        private DataGridViewTextBoxColumn TransactionDate;
+        private DataGridViewTextBoxColumn TransactionDescription;
+        private DataGridViewTextBoxColumn FromAccount;
+        private DataGridViewTextBoxColumn ToAccount;
     }
 }

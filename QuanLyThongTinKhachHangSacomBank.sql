@@ -70,7 +70,7 @@ CREATE TABLE [TRANSACTION]
   TransactionID INT IDENTITY(1,1) PRIMARY KEY,
   TransactionCode AS ('GD' + CAST(TransactionID AS NVARCHAR(10))) PERSISTED,
   Amount DECIMAL(18,0) NOT NULL CHECK (Amount >= 0),
-  TransactionDate DATE NOT NULL,
+  TransactionDate DATETIME NOT NULL,
   ReceiverAccountID INT NOT NULL,
   ReceiverAccountName NVARCHAR(50) NOT NULL,
   TransactionStatus NVARCHAR(20) NOT NULL CHECK (TransactionStatus IN (N'Hoàn tất', N'Đang xử lý', N'Thất bại')),

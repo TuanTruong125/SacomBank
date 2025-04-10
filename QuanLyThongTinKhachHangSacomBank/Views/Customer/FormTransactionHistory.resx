@@ -175,7 +175,7 @@
   <metadata name="TransactionID.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="TransactionTypeID.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="TransactionTypeName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="ServiceID.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
@@ -187,16 +187,19 @@
   <metadata name="TransactionDate.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="Description.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="TransactionDescription.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="AccountName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="FromAccount.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+    <value>True</value>
+  </metadata>
+  <metadata name="ToAccount.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <data name="buttonExportExcel.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wAAADsABataJCQAAA2xJREFUWEftl01oFVcUx09s7n9eEn3Je/dMolaNWEHQIoh0043uuqiLLrS4rLQb
+        vAAADrwBlbxySQAAA2xJREFUWEftl01oFVcUx09s7n9eEn3Je/dMolaNWEHQIoh0043uuqiLLrS4rLQb
         oZVKQerKanXTbS0SKC1+JefMC9UqhIqKdCFUkLaiWGkLVnDRVtDiR+tHm8iZ5D3izDh5L/E9uvAP/8Wb
         e+bc3zszc+69RM/1bNW2PCL0naCuolK5+zCVaIBcMqhpKo9QsaxYzkNYx4qtLNjHipMs+J0F11mDT4pa
         LCfveyZaOkJBb6VrJQveZwm+ZsVFFneNBX+xYizDj8oavJvMMyP5wY75rPg0nlTwLyv+Y8VoxuRpCw7H
@@ -217,7 +220,7 @@
   <data name="buttonExportCSV.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACMAAAAjCAYAAAAe2bNZAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wAAADsABataJCQAAA2RJREFUWEftV92LlFUYP5tl7uw+z9mZ1Z3nOTProiwIK4KoIPUXdCNdhAh1U2AQ
+        vAAADrwBlbxySQAAA2RJREFUWEftV92LlFUYP5tl7uw+z9mZ1Z3nOTProiwIK4KoIPUXdCNdhAh1U2AQ
         3Rhd2RcDurvv87yzotJFfiRUXkh23yYaVARSoF0EUdiKoC6BVIhJrV8b552dYT2zO8y88waB/uB38Z6P
         3/Ob85zznDPGPEYKlA+Ue9dGNk8T/WtacfSweTqcmylY7RZW+IwEr7HifCs6xV1+zpo4RyMH7UCo1RWS
         1VD4ggUfhIGXYt0MxfYFUjxmKubJUDM1ypM4ygK/h0GXY90MR/hi8gNiPDGogxDqpkJR+jaGAVvxITO+
@@ -238,7 +241,7 @@
   <data name="buttonExportPDF.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wAAADsABataJCQAABEJJREFUWEftmHuIlFUYxn9mZTfLMrOiLKzoRtCFqCCQsD8yECm7misEGV0gpBLL
+        vAAADrwBlbxySQAABEJJREFUWEftmHuIlFUYxn9mZTfLMrOiLKzoRtCFqCCQsD8yECm7misEGV0gpBLL
         oDalC0KllNFVgqBMqaCsoEIqxNqd77zn290pa8uCLCu6Edk9d+LZOQPDmWln5pvv+88HHmb3zLfvefa8
         7znvcz7YhQJRgXFfwF4eJn0EkxM4eCxuhr0rsFscpxAkcEAKZ3lYZfCuwccGn4xFD1cbTElh381wUBn2
         i+PmgmGYkMK5Hp4y2G7wh4cRD5WxmMLNJTjM4LgU5iawcB2Mj+N3Da2ewQIHw9ZEyP+xJtDDqQbLDd4z
