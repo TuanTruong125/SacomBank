@@ -10,6 +10,9 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuanLyThongTinKhachHangSacomBank.Controllers;
+using QuanLyThongTinKhachHangSacomBank.Models;
+using Microsoft.Extensions.Configuration;
+using QuanLyThongTinKhachHangSacomBank.Data;
 
 
 namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
@@ -24,6 +27,10 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
         private List<Button> menuButtons;
         private UserControl activeUC = null;
         private FormManagerController controller;
+        private readonly EmployeeModel employee;
+        private readonly DatabaseContext dbContext;
+        private readonly IConfiguration configuration;
+
 
         public event EventHandler ManagerHomeRequested;
         public event EventHandler EmployeeManagementRequested;
@@ -31,13 +38,17 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
         public event EventHandler ReportStatisticRequested;
         public event EventHandler ManagerSettingRequested;
 
-        public FormManager()
+        public FormManager(EmployeeModel employee, DatabaseContext dbContext, IConfiguration configuration)
         {
             try
             {
+                this.employee = employee;
+                this.dbContext = dbContext;
+                this.configuration = configuration;
+
                 InitializeComponent();
                 InitializeMenuButtons();
-                controller = new FormManagerController(this);
+                controller = new FormManagerController(this, employee, dbContext, configuration);
 
                 // Đăng ký sự kiện
                 ManagerHomeRequested += (s, e) => controller.LoadManagerHome();

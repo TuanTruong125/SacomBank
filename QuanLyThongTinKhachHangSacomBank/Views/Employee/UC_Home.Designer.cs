@@ -30,7 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_Home));
             tableLayoutPanel1 = new TableLayoutPanel();
-            buttonNotification = new Button();
             panel1 = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
             panel2 = new Panel();
@@ -53,10 +52,11 @@
             panel5 = new Panel();
             tableLayoutPanel6 = new TableLayoutPanel();
             parrotClock1 = new ReaLTaiizor.Controls.ParrotClock();
-            pictureBox4 = new PictureBox();
             pictureBox5 = new PictureBox();
             pictureBox6 = new PictureBox();
             pictureBox7 = new PictureBox();
+            label5 = new Label();
+            labelEmployeeName = new Label();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
@@ -71,7 +71,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel5.SuspendLayout();
             tableLayoutPanel6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
@@ -90,11 +89,11 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.1908131F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 7.95053F));
-            tableLayoutPanel1.Controls.Add(buttonNotification, 9, 0);
+            tableLayoutPanel1.Controls.Add(labelEmployeeName, 3, 0);
+            tableLayoutPanel1.Controls.Add(label5, 2, 0);
             tableLayoutPanel1.Controls.Add(panel1, 1, 2);
             tableLayoutPanel1.Controls.Add(pictureBox1, 0, 9);
             tableLayoutPanel1.Controls.Add(panel5, 0, 0);
-            tableLayoutPanel1.Controls.Add(pictureBox4, 3, 0);
             tableLayoutPanel1.Controls.Add(pictureBox5, 9, 1);
             tableLayoutPanel1.Controls.Add(pictureBox6, 8, 1);
             tableLayoutPanel1.Controls.Add(pictureBox7, 0, 7);
@@ -123,19 +122,6 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel1.Size = new Size(1132, 753);
             tableLayoutPanel1.TabIndex = 0;
-            // 
-            // buttonNotification
-            // 
-            buttonNotification.BackColor = Color.Transparent;
-            buttonNotification.Dock = DockStyle.Fill;
-            buttonNotification.ForeColor = Color.Transparent;
-            buttonNotification.Image = (Image)resources.GetObject("buttonNotification.Image");
-            buttonNotification.Location = new Point(1044, 3);
-            buttonNotification.Name = "buttonNotification";
-            buttonNotification.Size = new Size(85, 69);
-            buttonNotification.TabIndex = 3;
-            buttonNotification.UseVisualStyleBackColor = false;
-            buttonNotification.Click += buttonNotification_Click;
             // 
             // panel1
             // 
@@ -543,19 +529,6 @@
             parrotClock1.UnfilledMinuteColor = Color.Transparent;
             parrotClock1.UnfilledSecondColor = Color.Transparent;
             // 
-            // pictureBox4
-            // 
-            tableLayoutPanel1.SetColumnSpan(pictureBox4, 4);
-            pictureBox4.Dock = DockStyle.Fill;
-            pictureBox4.Image = (Image)resources.GetObject("pictureBox4.Image");
-            pictureBox4.Location = new Point(342, 3);
-            pictureBox4.Name = "pictureBox4";
-            tableLayoutPanel1.SetRowSpan(pictureBox4, 2);
-            pictureBox4.Size = new Size(446, 144);
-            pictureBox4.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox4.TabIndex = 5;
-            pictureBox4.TabStop = false;
-            // 
             // pictureBox5
             // 
             pictureBox5.Dock = DockStyle.Fill;
@@ -591,6 +564,33 @@
             pictureBox7.TabIndex = 8;
             pictureBox7.TabStop = false;
             // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Dock = DockStyle.Fill;
+            label5.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = SystemColors.HotTrack;
+            label5.Location = new Point(229, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(107, 75);
+            label5.TabIndex = 9;
+            label5.Text = "Xin chào!";
+            label5.TextAlign = ContentAlignment.MiddleRight;
+            // 
+            // labelEmployeeName
+            // 
+            labelEmployeeName.AutoSize = true;
+            tableLayoutPanel1.SetColumnSpan(labelEmployeeName, 4);
+            labelEmployeeName.Dock = DockStyle.Fill;
+            labelEmployeeName.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelEmployeeName.ForeColor = SystemColors.HotTrack;
+            labelEmployeeName.Location = new Point(342, 0);
+            labelEmployeeName.Name = "labelEmployeeName";
+            labelEmployeeName.Size = new Size(446, 75);
+            labelEmployeeName.TabIndex = 10;
+            labelEmployeeName.Text = "TRUONG ANH TUAN";
+            labelEmployeeName.TextAlign = ContentAlignment.MiddleLeft;
+            // 
             // UC_Home
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -599,6 +599,7 @@
             Name = "UC_Home";
             Size = new Size(1132, 753);
             tableLayoutPanel1.ResumeLayout(false);
+            tableLayoutPanel1.PerformLayout();
             panel1.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
             panel2.ResumeLayout(false);
@@ -615,7 +616,6 @@
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             panel5.ResumeLayout(false);
             tableLayoutPanel6.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)pictureBox4).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox5).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox6).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
@@ -636,7 +636,6 @@
         private TableLayoutPanel tableLayoutPanel4;
         private PictureBox pictureBox2;
         private PictureBox pictureBox3;
-        private Button buttonNotification;
         private Label label2;
         private Label label4;
         private Label label3;
@@ -648,9 +647,10 @@
         private Panel panel5;
         private TableLayoutPanel tableLayoutPanel6;
         private ReaLTaiizor.Controls.ParrotClock parrotClock1;
-        private PictureBox pictureBox4;
         private PictureBox pictureBox5;
         private PictureBox pictureBox6;
         private PictureBox pictureBox7;
+        private Label label5;
+        private Label labelEmployeeName;
     }
 }

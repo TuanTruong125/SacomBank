@@ -31,12 +31,20 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
         public void LoadHome()
         {
-            view.LoadUserControl(new UC_Home());
+            try
+            {
+                var ucHome = new UC_Home(currentEmployee);
+                view.LoadUserControl(ucHome);
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi load UC_Home: {ex.Message}\nStackTrace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void LoadCustomerManagement()
         {
-            view.LoadUserControl(new UC_CustomerManagement());
+            view.LoadUserControl(new UC_CustomerManagement(dbContext, configuration));
         }
 
         public void LoadAccountManagement()

@@ -31,6 +31,7 @@
             components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_CustomerManagement));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             tableLayoutPanel1 = new TableLayoutPanel();
             groupBoxCustomerInfo = new GroupBox();
             panel1 = new Panel();
@@ -57,7 +58,6 @@
             dateTimePickerRegistrationDate = new DateTimePicker();
             panel2 = new Panel();
             buttonAddCustomer = new Button();
-            buttonDeleteCustomer = new Button();
             buttonEditCustomer = new Button();
             buttonCancelCustomer = new Button();
             buttonSaveCustomer = new Button();
@@ -72,13 +72,13 @@
             buttonCustomerSearch = new Button();
             dataCustomerManagement = new DataGridView();
             CustomerID = new DataGridViewTextBoxColumn();
-            CustomerType = new DataGridViewTextBoxColumn();
+            CustomerTypeName = new DataGridViewTextBoxColumn();
             FullName = new DataGridViewTextBoxColumn();
             Gender = new DataGridViewTextBoxColumn();
             DateOfBirth = new DataGridViewTextBoxColumn();
             Nationality = new DataGridViewTextBoxColumn();
             CitizenID = new DataGridViewTextBoxColumn();
-            Address = new DataGridViewTextBoxColumn();
+            CustomerAddress = new DataGridViewTextBoxColumn();
             Phone = new DataGridViewTextBoxColumn();
             Email = new DataGridViewTextBoxColumn();
             RegistrationDate = new DataGridViewTextBoxColumn();
@@ -89,7 +89,6 @@
             label3 = new Label();
             dateTimePickerFrom = new DateTimePicker();
             dateTimePickerTo = new DateTimePicker();
-            buttonFilterConfirm = new Button();
             tableLayoutPanel4 = new TableLayoutPanel();
             textBoxCustomerSearch = new TextBox();
             panel3 = new Panel();
@@ -175,8 +174,7 @@
             tableLayoutPanel2.Controls.Add(dateTimePickerRegistrationDate, 3, 9);
             tableLayoutPanel2.Controls.Add(panel2, 4, 0);
             tableLayoutPanel2.Controls.Add(buttonAddCustomer, 5, 0);
-            tableLayoutPanel2.Controls.Add(buttonDeleteCustomer, 5, 2);
-            tableLayoutPanel2.Controls.Add(buttonEditCustomer, 5, 4);
+            tableLayoutPanel2.Controls.Add(buttonEditCustomer, 5, 2);
             tableLayoutPanel2.Controls.Add(buttonCancelCustomer, 5, 6);
             tableLayoutPanel2.Controls.Add(buttonSaveCustomer, 5, 8);
             tableLayoutPanel2.Controls.Add(pictureBox1, 6, 0);
@@ -316,7 +314,8 @@
             dateTimePickerDateOfBirth.CalendarMonthBackground = SystemColors.InactiveCaption;
             tableLayoutPanel2.SetColumnSpan(dateTimePickerDateOfBirth, 2);
             dateTimePickerDateOfBirth.Dock = DockStyle.Fill;
-            dateTimePickerDateOfBirth.Font = new Font("Roboto SemiCondensed", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dateTimePickerDateOfBirth.Font = new Font("Roboto", 10.2F);
+            dateTimePickerDateOfBirth.Format = DateTimePickerFormat.Short;
             dateTimePickerDateOfBirth.Location = new Point(3, 234);
             dateTimePickerDateOfBirth.Name = "dateTimePickerDateOfBirth";
             dateTimePickerDateOfBirth.Size = new Size(311, 28);
@@ -432,7 +431,8 @@
             dateTimePickerRegistrationDate.CalendarFont = new Font("Roboto SemiCondensed", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dateTimePickerRegistrationDate.CalendarMonthBackground = SystemColors.InactiveCaption;
             dateTimePickerRegistrationDate.Dock = DockStyle.Fill;
-            dateTimePickerRegistrationDate.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dateTimePickerRegistrationDate.Font = new Font("Roboto", 10.2F);
+            dateTimePickerRegistrationDate.Format = DateTimePickerFormat.Short;
             dateTimePickerRegistrationDate.Location = new Point(328, 300);
             dateTimePickerRegistrationDate.Name = "dateTimePickerRegistrationDate";
             dateTimePickerRegistrationDate.Size = new Size(611, 28);
@@ -463,22 +463,7 @@
             buttonAddCustomer.TabIndex = 40;
             buttonAddCustomer.Text = "   Thêm";
             buttonAddCustomer.UseVisualStyleBackColor = false;
-            // 
-            // buttonDeleteCustomer
-            // 
-            buttonDeleteCustomer.BackColor = Color.DeepSkyBlue;
-            buttonDeleteCustomer.Dock = DockStyle.Fill;
-            buttonDeleteCustomer.Font = new Font("Roboto SemiCondensed", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            buttonDeleteCustomer.ForeColor = Color.White;
-            buttonDeleteCustomer.Image = (Image)resources.GetObject("buttonDeleteCustomer.Image");
-            buttonDeleteCustomer.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonDeleteCustomer.Location = new Point(957, 69);
-            buttonDeleteCustomer.Name = "buttonDeleteCustomer";
-            tableLayoutPanel2.SetRowSpan(buttonDeleteCustomer, 2);
-            buttonDeleteCustomer.Size = new Size(96, 60);
-            buttonDeleteCustomer.TabIndex = 41;
-            buttonDeleteCustomer.Text = "   Xóa";
-            buttonDeleteCustomer.UseVisualStyleBackColor = false;
+            buttonAddCustomer.Click += buttonAddCustomer_Click;
             // 
             // buttonEditCustomer
             // 
@@ -488,13 +473,14 @@
             buttonEditCustomer.ForeColor = Color.White;
             buttonEditCustomer.Image = (Image)resources.GetObject("buttonEditCustomer.Image");
             buttonEditCustomer.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonEditCustomer.Location = new Point(957, 135);
+            buttonEditCustomer.Location = new Point(957, 69);
             buttonEditCustomer.Name = "buttonEditCustomer";
             tableLayoutPanel2.SetRowSpan(buttonEditCustomer, 2);
             buttonEditCustomer.Size = new Size(96, 60);
             buttonEditCustomer.TabIndex = 42;
             buttonEditCustomer.Text = "   Sửa";
             buttonEditCustomer.UseVisualStyleBackColor = false;
+            buttonEditCustomer.Click += buttonEditCustomer_Click;
             // 
             // buttonCancelCustomer
             // 
@@ -511,6 +497,7 @@
             buttonCancelCustomer.TabIndex = 43;
             buttonCancelCustomer.Text = "   Hủy";
             buttonCancelCustomer.UseVisualStyleBackColor = false;
+            buttonCancelCustomer.Click += buttonCancelCustomer_Click;
             // 
             // buttonSaveCustomer
             // 
@@ -527,6 +514,7 @@
             buttonSaveCustomer.TabIndex = 44;
             buttonSaveCustomer.Text = "   Lưu";
             buttonSaveCustomer.UseVisualStyleBackColor = false;
+            buttonSaveCustomer.Click += buttonSaveCustomer_Click;
             // 
             // pictureBox1
             // 
@@ -604,7 +592,6 @@
             tableLayoutPanel3.Controls.Add(label3, 0, 5);
             tableLayoutPanel3.Controls.Add(dateTimePickerFrom, 0, 4);
             tableLayoutPanel3.Controls.Add(dateTimePickerTo, 0, 6);
-            tableLayoutPanel3.Controls.Add(buttonFilterConfirm, 0, 7);
             tableLayoutPanel3.Controls.Add(tableLayoutPanel4, 1, 0);
             tableLayoutPanel3.Dock = DockStyle.Fill;
             tableLayoutPanel3.Location = new Point(3, 28);
@@ -636,6 +623,7 @@
             buttonExportCSV.TextAlign = ContentAlignment.MiddleLeft;
             buttonExportCSV.TextImageRelation = TextImageRelation.TextBeforeImage;
             buttonExportCSV.UseVisualStyleBackColor = true;
+            buttonExportCSV.Click += buttonExportCSV_Click;
             // 
             // buttonExportExcel
             // 
@@ -651,6 +639,7 @@
             buttonExportExcel.TextAlign = ContentAlignment.MiddleLeft;
             buttonExportExcel.TextImageRelation = TextImageRelation.TextBeforeImage;
             buttonExportExcel.UseVisualStyleBackColor = true;
+            buttonExportExcel.Click += buttonExportExcel_Click;
             // 
             // buttonExportPDF
             // 
@@ -666,6 +655,7 @@
             buttonExportPDF.TextAlign = ContentAlignment.MiddleLeft;
             buttonExportPDF.TextImageRelation = TextImageRelation.TextBeforeImage;
             buttonExportPDF.UseVisualStyleBackColor = true;
+            buttonExportPDF.Click += buttonExportPDF_Click;
             // 
             // buttonCustomerSearch
             // 
@@ -679,10 +669,11 @@
             buttonCustomerSearch.TabIndex = 5;
             toolTip1.SetToolTip(buttonCustomerSearch, "Tìm kiếm");
             buttonCustomerSearch.UseVisualStyleBackColor = false;
+            buttonCustomerSearch.Click += buttonCustomerSearch_Click;
             // 
             // dataCustomerManagement
             // 
-            dataCustomerManagement.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataCustomerManagement.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataCustomerManagement.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataCustomerManagement.BackgroundColor = Color.White;
             dataCustomerManagement.BorderStyle = BorderStyle.None;
@@ -697,8 +688,16 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             dataCustomerManagement.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataCustomerManagement.ColumnHeadersHeight = 29;
-            dataCustomerManagement.Columns.AddRange(new DataGridViewColumn[] { CustomerID, CustomerType, FullName, Gender, DateOfBirth, Nationality, CitizenID, Address, Phone, Email, RegistrationDate });
+            dataCustomerManagement.Columns.AddRange(new DataGridViewColumn[] { CustomerID, CustomerTypeName, FullName, Gender, DateOfBirth, Nationality, CitizenID, CustomerAddress, Phone, Email, RegistrationDate });
             tableLayoutPanel3.SetColumnSpan(dataCustomerManagement, 7);
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.HotTrack;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.HotTrack;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataCustomerManagement.DefaultCellStyle = dataGridViewCellStyle2;
             dataCustomerManagement.Dock = DockStyle.Fill;
             dataCustomerManagement.EnableHeadersVisualStyles = false;
             dataCustomerManagement.GridColor = Color.White;
@@ -710,73 +709,83 @@
             tableLayoutPanel3.SetRowSpan(dataCustomerManagement, 8);
             dataCustomerManagement.Size = new Size(920, 273);
             dataCustomerManagement.TabIndex = 26;
-            dataCustomerManagement.CellContentClick += dataCustomerManagement_CellContentClick;
             // 
             // CustomerID
             // 
             CustomerID.HeaderText = "Mã khách hàng";
             CustomerID.MinimumWidth = 6;
             CustomerID.Name = "CustomerID";
+            CustomerID.Width = 159;
             // 
-            // CustomerType
+            // CustomerTypeName
             // 
-            CustomerType.HeaderText = "Loại khách hàng";
-            CustomerType.MinimumWidth = 6;
-            CustomerType.Name = "CustomerType";
+            CustomerTypeName.HeaderText = "Loại khách hàng";
+            CustomerTypeName.MinimumWidth = 6;
+            CustomerTypeName.Name = "CustomerTypeName";
+            CustomerTypeName.Width = 169;
             // 
             // FullName
             // 
             FullName.HeaderText = "Họ tên";
             FullName.MinimumWidth = 6;
             FullName.Name = "FullName";
+            FullName.Width = 89;
             // 
             // Gender
             // 
             Gender.HeaderText = "Giới tính";
             Gender.MinimumWidth = 6;
             Gender.Name = "Gender";
+            Gender.Width = 104;
             // 
             // DateOfBirth
             // 
             DateOfBirth.HeaderText = "Ngày sinh";
             DateOfBirth.MinimumWidth = 6;
             DateOfBirth.Name = "DateOfBirth";
+            DateOfBirth.Width = 116;
             // 
             // Nationality
             // 
             Nationality.HeaderText = "Quốc tịch";
             Nationality.MinimumWidth = 6;
             Nationality.Name = "Nationality";
+            Nationality.Width = 112;
             // 
             // CitizenID
             // 
             CitizenID.HeaderText = "CCCD/Passport";
             CitizenID.MinimumWidth = 6;
             CitizenID.Name = "CitizenID";
+            CitizenID.Width = 159;
             // 
-            // Address
+            // CustomerAddress
             // 
-            Address.HeaderText = "Địa chỉ";
-            Address.MinimumWidth = 6;
-            Address.Name = "Address";
+            CustomerAddress.HeaderText = "Địa chỉ";
+            CustomerAddress.MinimumWidth = 6;
+            CustomerAddress.Name = "CustomerAddress";
+            CustomerAddress.Width = 92;
             // 
             // Phone
             // 
             Phone.HeaderText = "SĐT";
             Phone.MinimumWidth = 6;
             Phone.Name = "Phone";
+            Phone.Width = 70;
             // 
             // Email
             // 
             Email.HeaderText = "Email";
             Email.MinimumWidth = 6;
             Email.Name = "Email";
+            Email.Width = 81;
             // 
             // RegistrationDate
             // 
             RegistrationDate.HeaderText = "Ngày đăng kí";
             RegistrationDate.MinimumWidth = 6;
             RegistrationDate.Name = "RegistrationDate";
+            RegistrationDate.Width = 142;
             // 
             // labelCustomerFilter
             // 
@@ -813,11 +822,12 @@
             comboBoxCustomerTypeFilter.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxCustomerTypeFilter.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBoxCustomerTypeFilter.FormattingEnabled = true;
-            comboBoxCustomerTypeFilter.Items.AddRange(new object[] { "Cá nhân", "Doanh nghiệp", "VIP Cá nhân", "VIP Doanh nghiệp" });
+            comboBoxCustomerTypeFilter.Items.AddRange(new object[] { "Không áp dụng", "Cá nhân", "Doanh nghiệp", "VIP Cá nhân", "VIP Doanh nghiệp" });
             comboBoxCustomerTypeFilter.Location = new Point(3, 94);
             comboBoxCustomerTypeFilter.Name = "comboBoxCustomerTypeFilter";
             comboBoxCustomerTypeFilter.Size = new Size(188, 32);
             comboBoxCustomerTypeFilter.TabIndex = 25;
+            comboBoxCustomerTypeFilter.SelectedIndexChanged += comboBoxCustomerTypeFilter_SelectedIndexChanged;
             // 
             // label2
             // 
@@ -852,30 +862,24 @@
             dateTimePickerFrom.CalendarFont = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dateTimePickerFrom.Dock = DockStyle.Fill;
             dateTimePickerFrom.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dateTimePickerFrom.Format = DateTimePickerFormat.Short;
             dateTimePickerFrom.Location = new Point(3, 164);
             dateTimePickerFrom.Name = "dateTimePickerFrom";
             dateTimePickerFrom.Size = new Size(188, 28);
             dateTimePickerFrom.TabIndex = 30;
+            dateTimePickerFrom.ValueChanged += dateTimePickerFrom_ValueChanged;
             // 
             // dateTimePickerTo
             // 
             dateTimePickerTo.CalendarFont = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dateTimePickerTo.Dock = DockStyle.Fill;
             dateTimePickerTo.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dateTimePickerTo.Format = DateTimePickerFormat.Short;
             dateTimePickerTo.Location = new Point(3, 228);
             dateTimePickerTo.Name = "dateTimePickerTo";
             dateTimePickerTo.Size = new Size(188, 28);
             dateTimePickerTo.TabIndex = 31;
-            // 
-            // buttonFilterConfirm
-            // 
-            buttonFilterConfirm.Dock = DockStyle.Fill;
-            buttonFilterConfirm.Image = (Image)resources.GetObject("buttonFilterConfirm.Image");
-            buttonFilterConfirm.Location = new Point(3, 265);
-            buttonFilterConfirm.Name = "buttonFilterConfirm";
-            buttonFilterConfirm.Size = new Size(188, 51);
-            buttonFilterConfirm.TabIndex = 32;
-            buttonFilterConfirm.UseVisualStyleBackColor = true;
+            dateTimePickerTo.ValueChanged += dateTimePickerTo_ValueChanged;
             // 
             // tableLayoutPanel4
             // 
@@ -918,7 +922,6 @@
             Controls.Add(tableLayoutPanel1);
             Name = "UC_CustomerManagement";
             Size = new Size(1132, 753);
-            Load += UC_CustomerManagement_Load;
             tableLayoutPanel1.ResumeLayout(false);
             groupBoxCustomerInfo.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
@@ -963,7 +966,6 @@
         private DateTimePicker dateTimePickerRegistrationDate;
         private Panel panel2;
         private Button buttonAddCustomer;
-        private Button buttonDeleteCustomer;
         private Button buttonEditCustomer;
         private Button buttonCancelCustomer;
         private Button buttonSaveCustomer;
@@ -977,26 +979,25 @@
         private Label labelCustomerFilter;
         private ComboBox comboBoxCustomerTypeFilter;
         private DataGridView dataCustomerManagement;
-        private DataGridViewTextBoxColumn CustomerID;
-        private DataGridViewTextBoxColumn CustomerType;
-        private DataGridViewTextBoxColumn FullName;
-        private DataGridViewTextBoxColumn Gender;
-        private DataGridViewTextBoxColumn DateOfBirth;
-        private DataGridViewTextBoxColumn Nationality;
-        private DataGridViewTextBoxColumn CitizenID;
-        private DataGridViewTextBoxColumn Address;
-        private DataGridViewTextBoxColumn Phone;
-        private DataGridViewTextBoxColumn Email;
-        private DataGridViewTextBoxColumn RegistrationDate;
         private Label label1;
         private Label label2;
         private Label label3;
         private DateTimePicker dateTimePickerFrom;
         private DateTimePicker dateTimePickerTo;
-        private Button buttonFilterConfirm;
         private Button buttonExportPDF;
         private Button buttonExportExcel;
         private Button buttonExportCSV;
         private TableLayoutPanel tableLayoutPanel4;
+        private DataGridViewTextBoxColumn CustomerID;
+        private DataGridViewTextBoxColumn CustomerTypeName;
+        private DataGridViewTextBoxColumn FullName;
+        private DataGridViewTextBoxColumn Gender;
+        private DataGridViewTextBoxColumn DateOfBirth;
+        private DataGridViewTextBoxColumn Nationality;
+        private DataGridViewTextBoxColumn CitizenID;
+        private DataGridViewTextBoxColumn CustomerAddress;
+        private DataGridViewTextBoxColumn Phone;
+        private DataGridViewTextBoxColumn Email;
+        private DataGridViewTextBoxColumn RegistrationDate;
     }
 }

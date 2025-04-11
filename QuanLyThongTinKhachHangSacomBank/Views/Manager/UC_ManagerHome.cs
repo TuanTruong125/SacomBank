@@ -9,19 +9,27 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuanLyThongTinKhachHangSacomBank.Views.Common.Notification;
 using QuanLyThongTinKhachHangSacomBank.Controllers;
+using QuanLyThongTinKhachHangSacomBank.Models;
 
 namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
 {
     public partial class UC_ManagerHome : UserControl
     {
         private readonly NotificationController notificationController;
+        private readonly EmployeeModel currentEmployee;
 
-        public UC_ManagerHome()
+        public UC_ManagerHome(EmployeeModel employee)
         {
             try
             {
+                this.currentEmployee = employee;
                 InitializeComponent();
                 notificationController = new NotificationController();
+
+                if (currentEmployee != null)
+                {
+                    labelEmployeeName.Text = currentEmployee.EmployeeName.ToUpper();
+                }
             }
             catch (Exception ex)
             {

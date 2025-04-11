@@ -21,6 +21,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
         private List<Button> menuButtons;
         private UserControl activeUC = null;
         private FormEmployeeController controller;
+        private readonly EmployeeModel employee;
         private readonly DatabaseContext dbContext;
         private readonly IConfiguration configuration;
 
@@ -32,13 +33,18 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
         public event EventHandler CustomerCareRequested;
         public event EventHandler SettingRequested;
 
-        public FormEmployee(AccountModel account, DatabaseContext dbContext, IConfiguration configuration)
+        public FormEmployee(AccountModel account, EmployeeModel employee, DatabaseContext dbContext, IConfiguration configuration)
         {
             try
             {
+                this.employee = employee;
+                this.dbContext = dbContext;
+                this.configuration = configuration;
+
                 InitializeComponent();
                 InitializeMenuButtons();
-                controller = new FormEmployeeController(this, account, null, dbContext, configuration);
+
+                controller = new FormEmployeeController(this, account, this.employee, dbContext, configuration);
 
                 // Đăng ký sự kiện
                 HomeRequested += (s, e) => controller.LoadHome();

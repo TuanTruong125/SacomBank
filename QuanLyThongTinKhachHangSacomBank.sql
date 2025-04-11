@@ -23,7 +23,7 @@ CREATE TABLE CUSTOMER (
   CustomerAddress NVARCHAR(255) NOT NULL,
   Phone VARCHAR(15) NOT NULL UNIQUE,
   Email VARCHAR(100) NOT NULL UNIQUE CHECK (Email LIKE '%_@__%.__%'),
-  RegistrationDate DATE NOT NULL,
+  RegistrationDate DATETIME NOT NULL,
   CustomerTypeID INT NOT NULL,
   FOREIGN KEY (CustomerTypeID) REFERENCES CUSTOMER_TYPE(CustomerTypeID)
 );
@@ -44,7 +44,7 @@ CREATE TABLE ACCOUNT
   AccountCode AS ('TK' + CAST(AccountID AS NVARCHAR(10))) PERSISTED,
   AccountName NVARCHAR(50) NOT NULL, 
   Balance DECIMAL(18,0) NOT NULL,          
-  AccountOpenDate DATE NOT NULL,           
+  AccountOpenDate DATETIME NOT NULL,           
   Username NVARCHAR(50) NOT NULL UNIQUE,          
   UserPassword NVARCHAR(256) NOT NULL,         
   PINCode NVARCHAR(6) NOT NULL CHECK (PINCode LIKE '[0-9][0-9][0-9][0-9][0-9][0-9]'),           

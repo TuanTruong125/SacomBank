@@ -196,6 +196,7 @@
             labelAccountName.Size = new Size(451, 71);
             labelAccountName.TabIndex = 3;
             labelAccountName.Text = "TRUONG ANH TUAN";
+            labelAccountName.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // buttonNotification
             // 
@@ -221,6 +222,7 @@
             label1.Size = new Size(100, 71);
             label1.TabIndex = 2;
             label1.Text = "Xin chào!";
+            label1.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panel1
             // 
