@@ -88,7 +88,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
         {
             try
             {
-                transferController.OpenTransfer(new UC_TransferInfo(currentAccount), isEmployee: false);
+                transferController.OpenTransfer(new UC_TransferInfo(currentAccount, isEmployee: false), isEmployee: false);
             }
             catch (Exception ex)
             {

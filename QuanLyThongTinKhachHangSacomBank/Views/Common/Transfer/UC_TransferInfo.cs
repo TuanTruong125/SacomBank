@@ -7,7 +7,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Transfer
     public interface ITransferViewData
     {
         string AccountName { get; }
-        string AccountID { get; }
+        string AccountID { get; set; } // Thêm setter để có thể cập nhật từ controller
         string Phone { get; }
         string CitizenID { get; }
         string Balance { get; }
@@ -22,9 +22,11 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Transfer
         void HideError();
         void SetSenderInfo(AccountModel account, string phone, string citizenID);
         void SetReceiverInfo(AccountModel account, string phone, string citizenID);
+        void EnableBankComboBox();
         event EventHandler ConfirmRequested;
         event EventHandler CancelRequested;
         event EventHandler ReceiverAccountIDLostFocus;
+        event EventHandler SenderAccountIDLostFocus; // Thêm sự kiện cho mã tài khoản người gửi
     }
 
     public partial class UC_TransferInfo : UserControl, ITransferViewData
@@ -32,25 +34,81 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Transfer
         public event EventHandler ConfirmRequested;
         public event EventHandler CancelRequested;
         public event EventHandler ReceiverAccountIDLostFocus;
+        public event EventHandler SenderAccountIDLostFocus; // Thêm sự kiện
 
-        public UC_TransferInfo(AccountModel currentAccount)
+        private readonly AccountModel currentAccount;
+        private readonly bool isEmployee;
+
+        public UC_TransferInfo(AccountModel currentAccount, bool isEmployee)
         {
+            this.currentAccount = currentAccount;
+            this.isEmployee = isEmployee;
             InitializeComponent();
             SetupControls();
+        }
+
+        public void EnableBankComboBox()
+        {
+            comboBoxBank.Enabled = true;
         }
 
         private void SetupControls()
         {
             comboBoxBank.SelectedIndex = -1;
+            
             textBoxReceiverAccountID.Enabled = false; // Khóa nhập mã tài khoản người nhận ban đầu
+
+            // Hạn chế trường thông tin người gửi (trừ mã tài khoản) 
+            textBoxAccountName.ReadOnly = true;
+            textBoxPhone.ReadOnly = true;
+            textBoxCitizenID.ReadOnly = true;
+            textBoxBalance.ReadOnly = true;
+
+            textBoxPhone.Enabled = false;
+            textBoxCitizenID.Enabled = false;
+            textBoxBalance.Enabled = false;
+
+            // Hạn chế trường thông tin người nhận (trừ mã tài khoản) 
+            textBoxReceiverAccountName.ReadOnly = true;
+            textBoxReceiverPhone.ReadOnly = true;
+            textBoxReceiverCitizenID.ReadOnly = true;
+
+            textBoxReceiverPhone.Enabled = false;
+            textBoxReceiverCitizenID.Enabled = false;
+
+            // Nếu là nhân viên, cho phép nhập mã tài khoản người gửi
+            if (isEmployee)
+            {
+                comboBoxBank.Enabled = false;
+                textBoxAccountID.ReadOnly = false; // Cho phép chỉnh sửa mã tài khoản người gửi
+                textBoxAccountID.Enabled = true; // Đảm bảo ô có thể nhập
+                textBoxAccountID.LostFocus += TextBoxSenderAccountID_LostFocus;
+            }
+            else
+            {
+                textBoxAccountID.ReadOnly = true; // Khách hàng không được chỉnh sửa mã tài khoản
+                textBoxAccountID.Enabled = false;
+            }
+
+            // Đặt giá trị mặc định cho comboBoxBank để kích hoạt textBoxReceiverAccountID
+            if (comboBoxBank.Items.Count > 0)
+            {
+                comboBoxBank.SelectedIndex = -1; // Chọn "Sacombank" làm mặc định
+                textBoxReceiverAccountID.Enabled = true; // Kích hoạt ô mã tài khoản người nhận
+            }
+
             comboBoxBank.SelectedIndexChanged += ComboBoxBank_SelectedIndexChanged;
             textBoxReceiverAccountID.LostFocus += TextBoxReceiverAccountID_LostFocus;
             textBoxAmount.TextChanged += TextBoxAmount_TextChanged;
-            textBoxAmount.KeyPress += TextBoxAmount_KeyPress; // Thêm sự kiện KeyPress để chỉ cho phép nhập số
+            textBoxAmount.KeyPress += TextBoxAmount_KeyPress;
         }
 
         public string AccountName => textBoxAccountName.Text;
-        public string AccountID => textBoxAccountID.Text;
+        public string AccountID
+        {
+            get => textBoxAccountID.Text;
+            set => textBoxAccountID.Text = value; // Thêm setter để controller có thể cập nhật
+        }
         public string Phone => textBoxPhone.Text;
         public string CitizenID => textBoxCitizenID.Text;
         public string Balance => textBoxBalance.Text;
@@ -64,18 +122,22 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Transfer
 
         public void SetSenderInfo(AccountModel account, string phone, string citizenID)
         {
-            textBoxAccountName.Text = account.AccountName;
-            textBoxAccountID.Text = account.AccountCode;
-            textBoxPhone.Text = phone;
-            textBoxCitizenID.Text = citizenID;
-            textBoxBalance.Text = account.Balance.ToString("N0") + " VND";
-
-            // Đặt các trường thành chỉ đọc
-            textBoxAccountName.ReadOnly = true;
-            textBoxAccountID.ReadOnly = true;
-            textBoxPhone.ReadOnly = true;
-            textBoxCitizenID.ReadOnly = true;
-            textBoxBalance.ReadOnly = true;
+            if (account != null)
+            {
+                textBoxAccountName.Text = account.AccountName;
+                textBoxAccountID.Text = account.AccountCode;
+                textBoxPhone.Text = phone;
+                textBoxCitizenID.Text = citizenID;
+                textBoxBalance.Text = account.Balance.ToString("N0") + " VND";
+            }
+            else
+            {
+                textBoxAccountName.Text = "";
+                textBoxAccountID.Text = "";
+                textBoxPhone.Text = "";
+                textBoxCitizenID.Text = "";
+                textBoxBalance.Text = "";
+            }
         }
 
         public void SetReceiverInfo(AccountModel account, string phone, string citizenID)
@@ -109,6 +171,11 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Transfer
         {
             textBoxReceiverAccountID.Enabled = comboBoxBank.SelectedIndex != -1;
             UpdateTransactionDescription();
+        }
+
+        private void TextBoxSenderAccountID_LostFocus(object sender, EventArgs e)
+        {
+            SenderAccountIDLostFocus?.Invoke(this, EventArgs.Empty);
         }
 
         private void TextBoxReceiverAccountID_LostFocus(object sender, EventArgs e)
