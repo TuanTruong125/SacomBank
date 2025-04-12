@@ -690,7 +690,7 @@
             dataCustomerManagement.ColumnHeadersHeight = 29;
             dataCustomerManagement.Columns.AddRange(new DataGridViewColumn[] { CustomerID, CustomerTypeName, FullName, Gender, DateOfBirth, Nationality, CitizenID, CustomerAddress, Phone, Email, RegistrationDate });
             tableLayoutPanel3.SetColumnSpan(dataCustomerManagement, 7);
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
             dataGridViewCellStyle2.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dataGridViewCellStyle2.ForeColor = SystemColors.HotTrack;

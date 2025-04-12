@@ -49,7 +49,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
         public void LoadAccountManagement()
         {
-            view.LoadUserControl(new UC_AccountManagement());
+            view.LoadUserControl(new UC_AccountManagement(dbContext, configuration));
         }
 
         public void LoadServiceManagement()

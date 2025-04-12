@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_AccountManagement));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             tableLayoutPanel1 = new TableLayoutPanel();
             groupBox1 = new GroupBox();
             tableLayoutPanel2 = new TableLayoutPanel();
@@ -39,7 +40,6 @@
             textBoxBalance = new TextBox();
             panel2 = new Panel();
             buttonAddAccount = new Button();
-            buttonDeleteAccount = new Button();
             buttonEditAccount = new Button();
             buttonCancelAccount = new Button();
             buttonSaveAccount = new Button();
@@ -49,7 +49,6 @@
             tableLayoutPanel3 = new TableLayoutPanel();
             buttonResetPassword = new Button();
             buttonResetPINCode = new Button();
-            buttonResetUsername = new Button();
             dateTimePickerAccountOpenDate = new DateTimePicker();
             labelAccountOpenDate = new Label();
             comboBoxAccountTypeName = new ComboBox();
@@ -71,20 +70,19 @@
             CustomerID = new DataGridViewTextBoxColumn();
             AccountName = new DataGridViewTextBoxColumn();
             AccountID = new DataGridViewTextBoxColumn();
-            AccountType = new DataGridViewTextBoxColumn();
+            AccountTypeName = new DataGridViewTextBoxColumn();
             Balance = new DataGridViewTextBoxColumn();
             AccountOpenDate = new DataGridViewTextBoxColumn();
-            Status = new DataGridViewTextBoxColumn();
+            AccountStatus = new DataGridViewTextBoxColumn();
             labelAccountTypeFilter = new Label();
             labelStatusFilter = new Label();
             comboBoxAccountTypeFilter = new ComboBox();
-            comboBoxStatusFilter = new ComboBox();
+            comboBoxAccountStatusFilter = new ComboBox();
             label2 = new Label();
             dateTimePickerFrom = new DateTimePicker();
             dateTimePickerTo = new DateTimePicker();
             label3 = new Label();
             labelAccountFilter = new Label();
-            buttonFilterConfirm = new Button();
             tableLayoutPanel5 = new TableLayoutPanel();
             textBoxAccountSearch = new TextBox();
             panel4 = new Panel();
@@ -149,8 +147,7 @@
             tableLayoutPanel2.Controls.Add(textBoxBalance, 3, 1);
             tableLayoutPanel2.Controls.Add(panel2, 4, 0);
             tableLayoutPanel2.Controls.Add(buttonAddAccount, 5, 0);
-            tableLayoutPanel2.Controls.Add(buttonDeleteAccount, 5, 2);
-            tableLayoutPanel2.Controls.Add(buttonEditAccount, 5, 4);
+            tableLayoutPanel2.Controls.Add(buttonEditAccount, 5, 2);
             tableLayoutPanel2.Controls.Add(buttonCancelAccount, 5, 6);
             tableLayoutPanel2.Controls.Add(buttonSaveAccount, 5, 8);
             tableLayoutPanel2.Controls.Add(pictureBox1, 8, 0);
@@ -257,22 +254,7 @@
             buttonAddAccount.TabIndex = 40;
             buttonAddAccount.Text = "   Thêm";
             buttonAddAccount.UseVisualStyleBackColor = false;
-            // 
-            // buttonDeleteAccount
-            // 
-            buttonDeleteAccount.BackColor = Color.DeepSkyBlue;
-            buttonDeleteAccount.Dock = DockStyle.Fill;
-            buttonDeleteAccount.Font = new Font("Roboto SemiCondensed", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            buttonDeleteAccount.ForeColor = Color.White;
-            buttonDeleteAccount.Image = (Image)resources.GetObject("buttonDeleteAccount.Image");
-            buttonDeleteAccount.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonDeleteAccount.Location = new Point(712, 65);
-            buttonDeleteAccount.Name = "buttonDeleteAccount";
-            tableLayoutPanel2.SetRowSpan(buttonDeleteAccount, 2);
-            buttonDeleteAccount.Size = new Size(119, 56);
-            buttonDeleteAccount.TabIndex = 41;
-            buttonDeleteAccount.Text = "   Xóa";
-            buttonDeleteAccount.UseVisualStyleBackColor = false;
+            buttonAddAccount.Click += buttonAddAccount_Click;
             // 
             // buttonEditAccount
             // 
@@ -282,13 +264,14 @@
             buttonEditAccount.ForeColor = Color.White;
             buttonEditAccount.Image = (Image)resources.GetObject("buttonEditAccount.Image");
             buttonEditAccount.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonEditAccount.Location = new Point(712, 127);
+            buttonEditAccount.Location = new Point(712, 65);
             buttonEditAccount.Name = "buttonEditAccount";
             tableLayoutPanel2.SetRowSpan(buttonEditAccount, 2);
             buttonEditAccount.Size = new Size(119, 56);
             buttonEditAccount.TabIndex = 42;
             buttonEditAccount.Text = "   Sửa";
             buttonEditAccount.UseVisualStyleBackColor = false;
+            buttonEditAccount.Click += buttonEditAccount_Click;
             // 
             // buttonCancelAccount
             // 
@@ -305,6 +288,7 @@
             buttonCancelAccount.TabIndex = 43;
             buttonCancelAccount.Text = "   Hủy";
             buttonCancelAccount.UseVisualStyleBackColor = false;
+            buttonCancelAccount.Click += buttonCancelAccount_Click;
             // 
             // buttonSaveAccount
             // 
@@ -321,6 +305,7 @@
             buttonSaveAccount.TabIndex = 44;
             buttonSaveAccount.Text = "   Lưu";
             buttonSaveAccount.UseVisualStyleBackColor = false;
+            buttonSaveAccount.Click += buttonSaveAccount_Click;
             // 
             // pictureBox1
             // 
@@ -366,7 +351,6 @@
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel3.Controls.Add(buttonResetPassword, 0, 2);
             tableLayoutPanel3.Controls.Add(buttonResetPINCode, 0, 3);
-            tableLayoutPanel3.Controls.Add(buttonResetUsername, 0, 1);
             tableLayoutPanel3.Dock = DockStyle.Fill;
             tableLayoutPanel3.Location = new Point(3, 25);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
@@ -394,6 +378,7 @@
             buttonResetPassword.TabIndex = 8;
             buttonResetPassword.Text = "   Đặt lại mật khẩu";
             buttonResetPassword.UseVisualStyleBackColor = false;
+            buttonResetPassword.Click += buttonResetPassword_Click;
             // 
             // buttonResetPINCode
             // 
@@ -410,29 +395,15 @@
             buttonResetPINCode.TabIndex = 9;
             buttonResetPINCode.Text = "   Đặt lại mã PIN";
             buttonResetPINCode.UseVisualStyleBackColor = false;
-            // 
-            // buttonResetUsername
-            // 
-            buttonResetUsername.BackColor = Color.LightCoral;
-            tableLayoutPanel3.SetColumnSpan(buttonResetUsername, 2);
-            buttonResetUsername.Dock = DockStyle.Fill;
-            buttonResetUsername.Font = new Font("Roboto SemiCondensed", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            buttonResetUsername.ForeColor = Color.White;
-            buttonResetUsername.Image = (Image)resources.GetObject("buttonResetUsername.Image");
-            buttonResetUsername.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonResetUsername.Location = new Point(3, 72);
-            buttonResetUsername.Name = "buttonResetUsername";
-            buttonResetUsername.Size = new Size(187, 38);
-            buttonResetUsername.TabIndex = 10;
-            buttonResetUsername.Text = "   Đặt lại Username";
-            buttonResetUsername.UseVisualStyleBackColor = false;
+            buttonResetPINCode.Click += buttonResetPINCode_Click;
             // 
             // dateTimePickerAccountOpenDate
             // 
             dateTimePickerAccountOpenDate.CalendarFont = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dateTimePickerAccountOpenDate.CalendarMonthBackground = SystemColors.InactiveCaption;
             dateTimePickerAccountOpenDate.Dock = DockStyle.Fill;
-            dateTimePickerAccountOpenDate.Font = new Font("Roboto SemiCondensed", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dateTimePickerAccountOpenDate.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dateTimePickerAccountOpenDate.Format = DateTimePickerFormat.Short;
             dateTimePickerAccountOpenDate.Location = new Point(314, 96);
             dateTimePickerAccountOpenDate.Name = "dateTimePickerAccountOpenDate";
             dateTimePickerAccountOpenDate.Size = new Size(381, 28);
@@ -528,10 +499,11 @@
             // 
             // comboBoxAccountStatus
             // 
+            comboBoxAccountStatus.Dock = DockStyle.Fill;
             comboBoxAccountStatus.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxAccountStatus.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBoxAccountStatus.FormattingEnabled = true;
-            comboBoxAccountStatus.Items.AddRange(new object[] { "Hoạt động", "Tạm khóa" });
+            comboBoxAccountStatus.Items.AddRange(new object[] { "Hoạt động", "Khóa", "Đóng" });
             comboBoxAccountStatus.Location = new Point(314, 158);
             comboBoxAccountStatus.Name = "comboBoxAccountStatus";
             comboBoxAccountStatus.Size = new Size(381, 28);
@@ -593,13 +565,12 @@
             tableLayoutPanel4.Controls.Add(labelAccountTypeFilter, 0, 1);
             tableLayoutPanel4.Controls.Add(labelStatusFilter, 1, 1);
             tableLayoutPanel4.Controls.Add(comboBoxAccountTypeFilter, 0, 2);
-            tableLayoutPanel4.Controls.Add(comboBoxStatusFilter, 1, 2);
+            tableLayoutPanel4.Controls.Add(comboBoxAccountStatusFilter, 1, 2);
             tableLayoutPanel4.Controls.Add(label2, 0, 3);
             tableLayoutPanel4.Controls.Add(dateTimePickerFrom, 0, 4);
             tableLayoutPanel4.Controls.Add(dateTimePickerTo, 1, 4);
             tableLayoutPanel4.Controls.Add(label3, 1, 3);
             tableLayoutPanel4.Controls.Add(labelAccountFilter, 0, 0);
-            tableLayoutPanel4.Controls.Add(buttonFilterConfirm, 0, 5);
             tableLayoutPanel4.Controls.Add(tableLayoutPanel5, 2, 0);
             tableLayoutPanel4.Dock = DockStyle.Fill;
             tableLayoutPanel4.Location = new Point(3, 28);
@@ -629,6 +600,7 @@
             buttonExportCSV.TextAlign = ContentAlignment.MiddleLeft;
             buttonExportCSV.TextImageRelation = TextImageRelation.TextBeforeImage;
             buttonExportCSV.UseVisualStyleBackColor = true;
+            buttonExportCSV.Click += buttonExportCSV_Click;
             // 
             // buttonExportExcel
             // 
@@ -644,6 +616,7 @@
             buttonExportExcel.TextAlign = ContentAlignment.MiddleLeft;
             buttonExportExcel.TextImageRelation = TextImageRelation.TextBeforeImage;
             buttonExportExcel.UseVisualStyleBackColor = true;
+            buttonExportExcel.Click += buttonExportExcel_Click;
             // 
             // buttonExportPDF
             // 
@@ -659,6 +632,7 @@
             buttonExportPDF.TextAlign = ContentAlignment.MiddleLeft;
             buttonExportPDF.TextImageRelation = TextImageRelation.TextBeforeImage;
             buttonExportPDF.UseVisualStyleBackColor = true;
+            buttonExportPDF.Click += buttonExportPDF_Click;
             // 
             // buttonAccountSearch
             // 
@@ -671,10 +645,11 @@
             buttonAccountSearch.Size = new Size(47, 46);
             buttonAccountSearch.TabIndex = 6;
             buttonAccountSearch.UseVisualStyleBackColor = false;
+            buttonAccountSearch.Click += buttonAccountSearch_Click;
             // 
             // dataGridViewAccountManagement
             // 
-            dataGridViewAccountManagement.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewAccountManagement.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridViewAccountManagement.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridViewAccountManagement.BackgroundColor = Color.White;
             dataGridViewAccountManagement.BorderStyle = BorderStyle.None;
@@ -689,8 +664,16 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             dataGridViewAccountManagement.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewAccountManagement.ColumnHeadersHeight = 29;
-            dataGridViewAccountManagement.Columns.AddRange(new DataGridViewColumn[] { CustomerID, AccountName, AccountID, AccountType, Balance, AccountOpenDate, Status });
+            dataGridViewAccountManagement.Columns.AddRange(new DataGridViewColumn[] { CustomerID, AccountName, AccountID, AccountTypeName, Balance, AccountOpenDate, AccountStatus });
             tableLayoutPanel4.SetColumnSpan(dataGridViewAccountManagement, 6);
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.HotTrack;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridViewAccountManagement.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewAccountManagement.Dock = DockStyle.Fill;
             dataGridViewAccountManagement.EnableHeadersVisualStyles = false;
             dataGridViewAccountManagement.GridColor = Color.White;
@@ -702,48 +685,57 @@
             tableLayoutPanel4.SetRowSpan(dataGridViewAccountManagement, 6);
             dataGridViewAccountManagement.Size = new Size(798, 253);
             dataGridViewAccountManagement.TabIndex = 48;
+            dataGridViewAccountManagement.CellClick += dataGridViewAccountManagement_CellClick;
+            dataGridViewAccountManagement.CellContentClick += dataGridViewAccountManagement_SelectionChanged;
             // 
             // CustomerID
             // 
             CustomerID.HeaderText = "Mã khách hàng";
             CustomerID.MinimumWidth = 6;
             CustomerID.Name = "CustomerID";
+            CustomerID.Width = 159;
             // 
             // AccountName
             // 
             AccountName.HeaderText = "Tên tài khoản";
             AccountName.MinimumWidth = 6;
             AccountName.Name = "AccountName";
+            AccountName.Width = 146;
             // 
             // AccountID
             // 
             AccountID.HeaderText = "Mã tài khoản";
             AccountID.MinimumWidth = 6;
             AccountID.Name = "AccountID";
+            AccountID.Width = 141;
             // 
-            // AccountType
+            // AccountTypeName
             // 
-            AccountType.HeaderText = "Loại tài khoản";
-            AccountType.MinimumWidth = 6;
-            AccountType.Name = "AccountType";
+            AccountTypeName.HeaderText = "Loại tài khoản";
+            AccountTypeName.MinimumWidth = 6;
+            AccountTypeName.Name = "AccountTypeName";
+            AccountTypeName.Width = 151;
             // 
             // Balance
             // 
             Balance.HeaderText = "Số dư";
             Balance.MinimumWidth = 6;
             Balance.Name = "Balance";
+            Balance.Width = 83;
             // 
             // AccountOpenDate
             // 
             AccountOpenDate.HeaderText = "Ngày mở";
             AccountOpenDate.MinimumWidth = 6;
             AccountOpenDate.Name = "AccountOpenDate";
+            AccountOpenDate.Width = 107;
             // 
-            // Status
+            // AccountStatus
             // 
-            Status.HeaderText = "Trạng thái";
-            Status.MinimumWidth = 6;
-            Status.Name = "Status";
+            AccountStatus.HeaderText = "Trạng thái";
+            AccountStatus.MinimumWidth = 6;
+            AccountStatus.Name = "AccountStatus";
+            AccountStatus.Width = 119;
             // 
             // labelAccountTypeFilter
             // 
@@ -778,23 +770,25 @@
             comboBoxAccountTypeFilter.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxAccountTypeFilter.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBoxAccountTypeFilter.FormattingEnabled = true;
-            comboBoxAccountTypeFilter.Items.AddRange(new object[] { "Cá nhân", "Doanh nghiệp" });
+            comboBoxAccountTypeFilter.Items.AddRange(new object[] { "Không áp dụng", "Cá nhân", "Doanh nghiệp" });
             comboBoxAccountTypeFilter.Location = new Point(3, 83);
             comboBoxAccountTypeFilter.Name = "comboBoxAccountTypeFilter";
             comboBoxAccountTypeFilter.Size = new Size(148, 28);
             comboBoxAccountTypeFilter.TabIndex = 28;
+            comboBoxAccountTypeFilter.SelectedIndexChanged += comboBoxAccountTypeFilter_SelectedIndexChanged;
             // 
-            // comboBoxStatusFilter
+            // comboBoxAccountStatusFilter
             // 
-            comboBoxStatusFilter.Dock = DockStyle.Fill;
-            comboBoxStatusFilter.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxStatusFilter.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            comboBoxStatusFilter.FormattingEnabled = true;
-            comboBoxStatusFilter.Items.AddRange(new object[] { "Hoạt động", "Tạm khóa" });
-            comboBoxStatusFilter.Location = new Point(157, 83);
-            comboBoxStatusFilter.Name = "comboBoxStatusFilter";
-            comboBoxStatusFilter.Size = new Size(148, 28);
-            comboBoxStatusFilter.TabIndex = 47;
+            comboBoxAccountStatusFilter.Dock = DockStyle.Fill;
+            comboBoxAccountStatusFilter.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxAccountStatusFilter.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBoxAccountStatusFilter.FormattingEnabled = true;
+            comboBoxAccountStatusFilter.Items.AddRange(new object[] { "Không áp dụng", "Hoạt động", "Khóa", "Đóng" });
+            comboBoxAccountStatusFilter.Location = new Point(157, 83);
+            comboBoxAccountStatusFilter.Name = "comboBoxAccountStatusFilter";
+            comboBoxAccountStatusFilter.Size = new Size(148, 28);
+            comboBoxAccountStatusFilter.TabIndex = 47;
+            comboBoxAccountStatusFilter.SelectedIndexChanged += comboBoxAccountStatusFilter_SelectedIndexChanged;
             // 
             // label2
             // 
@@ -814,20 +808,24 @@
             dateTimePickerFrom.CalendarFont = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dateTimePickerFrom.Dock = DockStyle.Fill;
             dateTimePickerFrom.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dateTimePickerFrom.Format = DateTimePickerFormat.Short;
             dateTimePickerFrom.Location = new Point(3, 141);
             dateTimePickerFrom.Name = "dateTimePickerFrom";
             dateTimePickerFrom.Size = new Size(148, 28);
             dateTimePickerFrom.TabIndex = 54;
+            dateTimePickerFrom.ValueChanged += dateTimePickerFrom_ValueChanged;
             // 
             // dateTimePickerTo
             // 
             dateTimePickerTo.CalendarFont = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dateTimePickerTo.Dock = DockStyle.Fill;
             dateTimePickerTo.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dateTimePickerTo.Format = DateTimePickerFormat.Short;
             dateTimePickerTo.Location = new Point(157, 141);
             dateTimePickerTo.Name = "dateTimePickerTo";
             dateTimePickerTo.Size = new Size(148, 28);
             dateTimePickerTo.TabIndex = 55;
+            dateTimePickerTo.ValueChanged += dateTimePickerTo_ValueChanged;
             // 
             // label3
             // 
@@ -855,17 +853,6 @@
             labelAccountFilter.Size = new Size(111, 20);
             labelAccountFilter.TabIndex = 26;
             labelAccountFilter.Text = "Lọc tài khoản:";
-            // 
-            // buttonFilterConfirm
-            // 
-            tableLayoutPanel4.SetColumnSpan(buttonFilterConfirm, 2);
-            buttonFilterConfirm.Dock = DockStyle.Fill;
-            buttonFilterConfirm.Image = (Image)resources.GetObject("buttonFilterConfirm.Image");
-            buttonFilterConfirm.Location = new Point(3, 176);
-            buttonFilterConfirm.Name = "buttonFilterConfirm";
-            buttonFilterConfirm.Size = new Size(302, 57);
-            buttonFilterConfirm.TabIndex = 56;
-            buttonFilterConfirm.UseVisualStyleBackColor = true;
             // 
             // tableLayoutPanel5
             // 
@@ -944,7 +931,6 @@
         private Label labelStatus;
         private Panel panel2;
         private Button buttonAddAccount;
-        private Button buttonDeleteAccount;
         private Button buttonEditAccount;
         private Button buttonCancelAccount;
         private Button buttonSaveAccount;
@@ -965,18 +951,10 @@
         private Label labelAccountTypeFilter;
         private ComboBox comboBoxAccountTypeFilter;
         private Label labelStatusFilter;
-        private ComboBox comboBoxStatusFilter;
+        private ComboBox comboBoxAccountStatusFilter;
         private DataGridView dataGridViewAccountManagement;
         private Label label1;
         private TextBox textBoxAccountName;
-        private Button buttonResetUsername;
-        private DataGridViewTextBoxColumn CustomerID;
-        private DataGridViewTextBoxColumn AccountName;
-        private DataGridViewTextBoxColumn AccountID;
-        private DataGridViewTextBoxColumn AccountType;
-        private DataGridViewTextBoxColumn Balance;
-        private DataGridViewTextBoxColumn AccountOpenDate;
-        private DataGridViewTextBoxColumn Status;
         private Label label2;
         private Label label3;
         private Button buttonExportPDF;
@@ -984,7 +962,13 @@
         private Button buttonExportCSV;
         private DateTimePicker dateTimePickerFrom;
         private DateTimePicker dateTimePickerTo;
-        private Button buttonFilterConfirm;
         private TableLayoutPanel tableLayoutPanel5;
+        private DataGridViewTextBoxColumn CustomerID;
+        private DataGridViewTextBoxColumn AccountName;
+        private DataGridViewTextBoxColumn AccountID;
+        private DataGridViewTextBoxColumn AccountTypeName;
+        private DataGridViewTextBoxColumn Balance;
+        private DataGridViewTextBoxColumn AccountOpenDate;
+        private DataGridViewTextBoxColumn AccountStatus;
     }
 }

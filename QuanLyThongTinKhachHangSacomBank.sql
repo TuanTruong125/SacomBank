@@ -132,7 +132,7 @@ VALUES
 
 INSERT INTO CUSTOMER (FullName, Gender, DateOfBirth, Nationality, CitizenID, CustomerAddress, Phone, Email, RegistrationDate, CustomerTypeID)
 VALUES
-  (N'Trương Anh Tuấn', N'Nam', '1992-03-10', N'Việt Nam', '123456001', N'Hà Nội', '0912345670', 'tuan.truong@email.com', '2025-01-01', 1),
+  (N'Trương Minh Tuấn', N'Nam', '1992-03-10', N'Việt Nam', '123456001', N'Hà Nội', '0912345670', 'tuan.truongminh@email.com', '2025-01-01', 1),
   (N'Nguyễn Thị Mai', N'Nữ', '1989-07-20', N'Việt Nam', '123456002', N'Hải Phòng', '0912345671', 'mai.nguyen@email.com', '2025-01-05', 1),
   (N'Công Ty TNHH ABC', N'Nam', '2000-01-01', N'Việt Nam', '123456003', N'Hồ Chí Minh', '0912345672', 'abc.company@email.com', '2025-01-10', 2),
   (N'Trần Văn Bình', N'Nam', '1990-11-12', N'Việt Nam', '123456004', N'Nghệ An', '0912345673', 'binh.tran@email.com', '2025-01-15', 1),
