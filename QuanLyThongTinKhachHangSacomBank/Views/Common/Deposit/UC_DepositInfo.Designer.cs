@@ -42,7 +42,7 @@
             labelDeposit = new Label();
             labelError = new Label();
             labelDescription = new Label();
-            textBoxDescription = new TextBox();
+            textBoxTransactionDescription = new TextBox();
             labelBalance = new Label();
             textBoxBalance = new TextBox();
             panel1 = new Panel();
@@ -175,14 +175,14 @@
             // 
             // labelError
             // 
-            labelError.AutoSize = true;
-            labelError.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelError.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelError.ForeColor = Color.Red;
-            labelError.Location = new Point(211, 422);
+            labelError.Location = new Point(3, 422);
             labelError.Name = "labelError";
-            labelError.Size = new Size(240, 20);
+            labelError.Size = new Size(685, 20);
             labelError.TabIndex = 70;
             labelError.Text = "Vui lòng nhập đầy đủ thông tin!";
+            labelError.TextAlign = ContentAlignment.MiddleCenter;
             labelError.Visible = false;
             // 
             // labelDescription
@@ -195,13 +195,13 @@
             labelDescription.TabIndex = 72;
             labelDescription.Text = "Nội dung";
             // 
-            // textBoxDescription
+            // textBoxTransactionDescription
             // 
-            textBoxDescription.Font = new Font("Roboto", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxDescription.Location = new Point(211, 377);
-            textBoxDescription.Name = "textBoxDescription";
-            textBoxDescription.Size = new Size(417, 35);
-            textBoxDescription.TabIndex = 71;
+            textBoxTransactionDescription.Font = new Font("Roboto", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBoxTransactionDescription.Location = new Point(211, 377);
+            textBoxTransactionDescription.Name = "textBoxTransactionDescription";
+            textBoxTransactionDescription.Size = new Size(417, 35);
+            textBoxTransactionDescription.TabIndex = 71;
             // 
             // labelBalance
             // 
@@ -257,7 +257,7 @@
             Controls.Add(labelBalance);
             Controls.Add(textBoxBalance);
             Controls.Add(labelDescription);
-            Controls.Add(textBoxDescription);
+            Controls.Add(textBoxTransactionDescription);
             Controls.Add(labelError);
             Controls.Add(labelAmount);
             Controls.Add(buttonCancel);
@@ -293,7 +293,7 @@
         private Label labelDeposit;
         private Label labelError;
         private Label labelDescription;
-        private TextBox textBoxDescription;
+        private TextBox textBoxTransactionDescription;
         private Label labelBalance;
         private TextBox textBoxBalance;
         private Panel panel1;

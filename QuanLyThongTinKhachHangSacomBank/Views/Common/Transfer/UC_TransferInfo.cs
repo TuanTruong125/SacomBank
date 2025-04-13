@@ -34,7 +34,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Transfer
         public event EventHandler ConfirmRequested;
         public event EventHandler CancelRequested;
         public event EventHandler ReceiverAccountIDLostFocus;
-        public event EventHandler SenderAccountIDLostFocus; // Thêm sự kiện
+        public event EventHandler SenderAccountIDLostFocus;
 
         private readonly AccountModel currentAccount;
         private readonly bool isEmployee;

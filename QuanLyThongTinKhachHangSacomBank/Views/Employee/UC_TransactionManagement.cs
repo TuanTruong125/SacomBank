@@ -33,7 +33,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
             try
             {
                 InitializeComponent();
-                depositController = new DepositController();
+                depositController = new DepositController(currentEmployee, dbContext, configuration);
                 withdrawController = new WithdrawController();
                 transferController = new TransferController(currentAccount, currentEmployee, dbContext, configuration, customerHomeView);
                 payController = new PayController();

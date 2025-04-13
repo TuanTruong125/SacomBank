@@ -30,11 +30,20 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormTransactionHistory));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             pictureBox1 = new PictureBox();
             panel2 = new Panel();
             panel1 = new Panel();
             label1 = new Label();
             dataGridViewTransactionHistory = new DataGridView();
+            TransactionID = new DataGridViewTextBoxColumn();
+            TransactionTypeName = new DataGridViewTextBoxColumn();
+            ServiceID = new DataGridViewTextBoxColumn();
+            Amount = new DataGridViewTextBoxColumn();
+            TransactionDate = new DataGridViewTextBoxColumn();
+            TransactionDescription = new DataGridViewTextBoxColumn();
+            FromAccount = new DataGridViewTextBoxColumn();
+            ToAccount = new DataGridViewTextBoxColumn();
             groupBox1 = new GroupBox();
             groupBox3 = new GroupBox();
             comboBoxTransactionTypeNameFilter = new ComboBox();
@@ -47,14 +56,6 @@
             buttonExportExcel = new Button();
             buttonExportCSV = new Button();
             buttonExportPDF = new Button();
-            TransactionID = new DataGridViewTextBoxColumn();
-            TransactionTypeName = new DataGridViewTextBoxColumn();
-            ServiceID = new DataGridViewTextBoxColumn();
-            Amount = new DataGridViewTextBoxColumn();
-            TransactionDate = new DataGridViewTextBoxColumn();
-            TransactionDescription = new DataGridViewTextBoxColumn();
-            FromAccount = new DataGridViewTextBoxColumn();
-            ToAccount = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             ((System.ComponentModel.ISupportInitialize)dataGridViewTransactionHistory).BeginInit();
             groupBox1.SuspendLayout();
@@ -116,6 +117,14 @@
             dataGridViewTransactionHistory.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewTransactionHistory.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewTransactionHistory.Columns.AddRange(new DataGridViewColumn[] { TransactionID, TransactionTypeName, ServiceID, Amount, TransactionDate, TransactionDescription, FromAccount, ToAccount });
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridViewTransactionHistory.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewTransactionHistory.EnableHeadersVisualStyles = false;
             dataGridViewTransactionHistory.GridColor = Color.White;
             dataGridViewTransactionHistory.Location = new Point(12, 298);
@@ -125,6 +134,62 @@
             dataGridViewTransactionHistory.RowHeadersWidth = 51;
             dataGridViewTransactionHistory.Size = new Size(925, 302);
             dataGridViewTransactionHistory.TabIndex = 19;
+            // 
+            // TransactionID
+            // 
+            TransactionID.HeaderText = "Mã giao dịch";
+            TransactionID.MinimumWidth = 6;
+            TransactionID.Name = "TransactionID";
+            TransactionID.Width = 140;
+            // 
+            // TransactionTypeName
+            // 
+            TransactionTypeName.HeaderText = "Loại giao dịch";
+            TransactionTypeName.MinimumWidth = 6;
+            TransactionTypeName.Name = "TransactionTypeName";
+            TransactionTypeName.Width = 150;
+            // 
+            // ServiceID
+            // 
+            ServiceID.HeaderText = "Mã dịch vụ";
+            ServiceID.MinimumWidth = 6;
+            ServiceID.Name = "ServiceID";
+            ServiceID.Width = 124;
+            // 
+            // Amount
+            // 
+            Amount.HeaderText = "Số tiền";
+            Amount.MinimumWidth = 6;
+            Amount.Name = "Amount";
+            Amount.Width = 93;
+            // 
+            // TransactionDate
+            // 
+            TransactionDate.HeaderText = "Ngày giao dịch";
+            TransactionDate.MinimumWidth = 6;
+            TransactionDate.Name = "TransactionDate";
+            TransactionDate.Width = 156;
+            // 
+            // TransactionDescription
+            // 
+            TransactionDescription.HeaderText = "Nội dung";
+            TransactionDescription.MinimumWidth = 6;
+            TransactionDescription.Name = "TransactionDescription";
+            TransactionDescription.Width = 108;
+            // 
+            // FromAccount
+            // 
+            FromAccount.HeaderText = "Từ";
+            FromAccount.MinimumWidth = 6;
+            FromAccount.Name = "FromAccount";
+            FromAccount.Width = 57;
+            // 
+            // ToAccount
+            // 
+            ToAccount.HeaderText = "Đến";
+            ToAccount.MinimumWidth = 6;
+            ToAccount.Name = "ToAccount";
+            ToAccount.Width = 68;
             // 
             // groupBox1
             // 
@@ -267,62 +332,6 @@
             buttonExportPDF.TextImageRelation = TextImageRelation.TextBeforeImage;
             buttonExportPDF.UseVisualStyleBackColor = true;
             buttonExportPDF.Click += buttonExportPDF_Click;
-            // 
-            // TransactionID
-            // 
-            TransactionID.HeaderText = "Mã giao dịch";
-            TransactionID.MinimumWidth = 6;
-            TransactionID.Name = "TransactionID";
-            TransactionID.Width = 140;
-            // 
-            // TransactionTypeName
-            // 
-            TransactionTypeName.HeaderText = "Loại giao dịch";
-            TransactionTypeName.MinimumWidth = 6;
-            TransactionTypeName.Name = "TransactionTypeName";
-            TransactionTypeName.Width = 150;
-            // 
-            // ServiceID
-            // 
-            ServiceID.HeaderText = "Mã dịch vụ";
-            ServiceID.MinimumWidth = 6;
-            ServiceID.Name = "ServiceID";
-            ServiceID.Width = 124;
-            // 
-            // Amount
-            // 
-            Amount.HeaderText = "Số tiền";
-            Amount.MinimumWidth = 6;
-            Amount.Name = "Amount";
-            Amount.Width = 93;
-            // 
-            // TransactionDate
-            // 
-            TransactionDate.HeaderText = "Ngày giao dịch";
-            TransactionDate.MinimumWidth = 6;
-            TransactionDate.Name = "TransactionDate";
-            TransactionDate.Width = 156;
-            // 
-            // TransactionDescription
-            // 
-            TransactionDescription.HeaderText = "Nội dung";
-            TransactionDescription.MinimumWidth = 6;
-            TransactionDescription.Name = "TransactionDescription";
-            TransactionDescription.Width = 108;
-            // 
-            // FromAccount
-            // 
-            FromAccount.HeaderText = "Từ";
-            FromAccount.MinimumWidth = 6;
-            FromAccount.Name = "FromAccount";
-            FromAccount.Width = 57;
-            // 
-            // ToAccount
-            // 
-            ToAccount.HeaderText = "Đến";
-            ToAccount.MinimumWidth = 6;
-            ToAccount.Name = "ToAccount";
-            ToAccount.Width = 68;
             // 
             // FormTransactionHistory
             // 

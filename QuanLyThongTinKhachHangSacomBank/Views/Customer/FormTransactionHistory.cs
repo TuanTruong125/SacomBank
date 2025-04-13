@@ -91,7 +91,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
             foreach (var transaction in transactions)
             {
                 dataGridViewTransactionHistory.Rows.Add(
-                    transaction.TransactionID,
+                    $"GD{transaction.TransactionID}",
                     transaction.TransactionTypeName,
                     transaction.ServiceID,
                     transaction.Amount,

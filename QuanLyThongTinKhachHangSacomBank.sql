@@ -71,8 +71,8 @@ CREATE TABLE [TRANSACTION]
   TransactionCode AS ('GD' + CAST(TransactionID AS NVARCHAR(10))) PERSISTED,
   Amount DECIMAL(18,0) NOT NULL CHECK (Amount >= 0),
   TransactionDate DATETIME NOT NULL,
-  ReceiverAccountID INT NOT NULL,
-  ReceiverAccountName NVARCHAR(50) NOT NULL,
+  ReceiverAccountID INT NULL,
+  ReceiverAccountName NVARCHAR(50) NULL,
   TransactionStatus NVARCHAR(20) NOT NULL CHECK (TransactionStatus IN (N'Hoàn tất', N'Đang xử lý', N'Thất bại')),
   HandledBy INT NULL, -- Có thể NULL nếu giao dịch tự động
   TransactionDescription NVARCHAR(255) NULL,
@@ -151,7 +151,7 @@ VALUES
 
 INSERT INTO ACCOUNT (AccountName, Balance, AccountOpenDate, Username, UserPassword, PINCode, AccountStatus, CustomerID, AccountTypeID)
 VALUES
-  (N'TRUONG ANH TUAN', 8000000, '2025-01-01', '0912345670', 'pass123', '111111', N'Hoạt động', 1, 1),
+  (N'TRUONG MINH TUAN', 8000000, '2025-01-01', '0912345670', 'pass123', '111111', N'Hoạt động', 1, 1),
   (N'NGUYEN THI MAI', 7500000, '2025-01-05', '0912345671', 'pass123', '222222', N'Hoạt động', 2, 1),
   (N'CONG TY TNHH ABC', 15000000, '2025-01-10', '0912345672', 'pass123', '333333', N'Hoạt động', 3, 2),
   (N'TRAN VAN BINH', 4500000, '2025-01-15', '0912345673', 'pass123', '444444', N'Hoạt động', 4, 1),

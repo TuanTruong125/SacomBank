@@ -80,7 +80,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         FROM [TRANSACTION] t
                         JOIN TRANSACTION_TYPE tt ON t.TransactionTypeID = tt.TransactionTypeID
                         JOIN ACCOUNT a ON t.AccountID = a.AccountID
-                        JOIN ACCOUNT r ON t.ReceiverAccountID = r.AccountID
+                        LEFT JOIN ACCOUNT r ON t.ReceiverAccountID = r.AccountID
                         WHERE (t.AccountID = @AccountID OR t.ReceiverAccountID = @AccountID)
                         AND t.TransactionDate BETWEEN @FromDate AND @ToDate";
 
@@ -122,7 +122,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                 {
                                     formattedAmount = $"+ {amount:N0} VND"; // + 200,000 VND
                                     fromAccount = "NGAN HANG TMCP SAI GON THUONG TIN";
-                                    toAccount = reader["ReceiverAccountName"].ToString();
+                                    toAccount = reader["SenderAccountName"].ToString();
                                 }
                                 else if (transactionType == "Rút tiền")
                                 {
@@ -198,18 +198,15 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
         {
             try
             {
-                // Kiểm tra để tránh gọi SaveFileDialog nhiều lần
-                bool isFileSaved = false;
-
                 SaveFileDialog saveFileDialog = new SaveFileDialog
                 {
                     Filter = "PDF files (*.pdf)|*.pdf",
                     FileName = "TransactionHistory.pdf"
                 };
 
-                if (!isFileSaved && saveFileDialog.ShowDialog() == DialogResult.OK)
+                if (saveFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    Document document = new Document(PageSize.A4, 36, 36, 36, 36);
+                    Document document = new Document(PageSize.A4.Rotate(), 36, 36, 36, 36); // Xoay ngang để hiển thị 8 cột
                     PdfWriter writer = PdfWriter.GetInstance(document, new FileStream(saveFileDialog.FileName, FileMode.Create));
                     document.Open();
 
@@ -250,7 +247,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     // Bảng dữ liệu
                     PdfPTable pdfTable = new PdfPTable(8); // 8 cột
                     pdfTable.WidthPercentage = 100;
-                    pdfTable.SetWidths(new float[] { 1f, 1.5f, 1f, 1.5f, 1.5f, 2f, 2f, 2f });
+                    pdfTable.SetWidths(new float[] { 1f, 1.5f, 1f, 1.5f, 1.5f, 2f, 2f, 2f }); // Tỷ lệ cột hợp lý
 
                     // Thêm tiêu đề cột với màu nền
                     string[] headers = { "Mã giao dịch", "Loại giao dịch", "Mã dịch vụ", "Số tiền", "Ngày giao dịch", "Nội dung", "Từ", "Đến" };
@@ -268,7 +265,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     // Thêm dữ liệu từ danh sách currentTransactions
                     foreach (var transaction in currentTransactions)
                     {
-                        pdfTable.AddCell(new Phrase(transaction.TransactionID.ToString(), vietnameseFont));
+                        pdfTable.AddCell(new Phrase($"GD{transaction.TransactionID}", vietnameseFont));
                         pdfTable.AddCell(new Phrase(transaction.TransactionTypeName, vietnameseFont));
                         pdfTable.AddCell(new Phrase(transaction.ServiceID, vietnameseFont));
                         pdfTable.AddCell(new Phrase(transaction.Amount, vietnameseFont));
@@ -309,7 +306,6 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     document.Add(footerTable);
 
                     document.Close();
-                    isFileSaved = true; // Đánh dấu file đã được lưu
                     MessageBox.Show("Xuất PDF thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
@@ -350,24 +346,40 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     worksheet = (Excel.Worksheet)workbook.Sheets[1];
                     worksheet.Name = "TransactionHistory";
 
-                    // Header "Sacombank" màu xanh dương, in nghiêng, font lớn, gộp ô (2 hàng, 2 cột), không có border
+                    // Header "Sacombank" màu đỏ đậm, in nghiêng, font lớn, gộp ô (2 hàng, 2 cột), không có border
                     Excel.Range headerRange = worksheet.Range[worksheet.Cells[1, 1], worksheet.Cells[2, 2]];
                     headerRange.Merge();
                     headerRange.Value = "Sacombank";
                     headerRange.Font.Name = "Arial";
                     headerRange.Font.Bold = true; // Arial Bold
                     headerRange.Font.Size = 16;
-                    headerRange.Font.Color = System.Drawing.Color.DarkRed.ToArgb(); // Màu 
+                    headerRange.Font.Color = System.Drawing.Color.DarkRed.ToArgb(); // Màu đỏ đậm
                     headerRange.Font.Italic = true;
                     headerRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignCenter; // Căn giữa
                     headerRange.VerticalAlignment = Excel.XlVAlign.xlVAlignCenter; // Căn giữa theo chiều dọc
-                    // Không thêm border cho ô "Sacombank"
 
-                    // Tiêu đề cột (bắt đầu từ hàng 4 vì hàng 1-2 đã dùng cho "Sacombank")
+                    // Tiêu đề "LỊCH SỬ GIAO DỊCH" (hàng 3)
+                    Excel.Range subHeaderRange = worksheet.Range[worksheet.Cells[3, 1], worksheet.Cells[3, 2]];
+                    subHeaderRange.Merge();
+                    subHeaderRange.Value = "LỊCH SỬ GIAO DỊCH";
+                    subHeaderRange.Font.Name = "Arial";
+                    subHeaderRange.Font.Bold = true;
+                    subHeaderRange.Font.Size = 12;
+                    subHeaderRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+
+                    // Ngày xuất (hàng 4)
+                    Excel.Range dateRange = worksheet.Range[worksheet.Cells[4, 1], worksheet.Cells[4, 2]];
+                    dateRange.Merge();
+                    dateRange.Value = $"Ngày xuất: {DateTime.Now:dd/MM/yyyy HH:mm:ss}";
+                    dateRange.Font.Name = "Arial";
+                    dateRange.Font.Size = 10;
+                    dateRange.HorizontalAlignment = Excel.XlHAlign.xlHAlignLeft;
+
+                    // Tiêu đề cột (bắt đầu từ hàng 6)
                     string[] headers = { "Mã giao dịch", "Loại giao dịch", "Mã dịch vụ", "Số tiền", "Ngày giao dịch", "Nội dung", "Từ", "Đến" };
                     for (int i = 0; i < headers.Length; i++)
                     {
-                        Excel.Range headerCell = worksheet.Cells[4, i + 1];
+                        Excel.Range headerCell = worksheet.Cells[6, i + 1];
                         headerCell.Value = headers[i];
                         headerCell.Font.Bold = true; // In đậm chữ
                         headerCell.Interior.Color = System.Drawing.Color.FromArgb(252, 186, 3).ToArgb(); // Tô màu nền
@@ -375,24 +387,48 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         headerCell.Borders.Weight = Excel.XlBorderWeight.xlThin;
                     }
 
-                    // Thêm dữ liệu từ danh sách currentTransactions (bắt đầu từ hàng 5)
+                    // Thêm dữ liệu từ danh sách currentTransactions (bắt đầu từ hàng 7)
                     for (int i = 0; i < currentTransactions.Count; i++)
                     {
                         var transaction = currentTransactions[i];
-                        Excel.Range rowRange = worksheet.Range[worksheet.Cells[i + 5, 1], worksheet.Cells[i + 5, 8]];
-                        worksheet.Cells[i + 5, 1] = transaction.TransactionID.ToString();
-                        worksheet.Cells[i + 5, 2] = transaction.TransactionTypeName;
-                        worksheet.Cells[i + 5, 3] = transaction.ServiceID;
-                        worksheet.Cells[i + 5, 4] = transaction.Amount;
-                        worksheet.Cells[i + 5, 5] = transaction.TransactionDate;
-                        worksheet.Cells[i + 5, 6] = transaction.TransactionDescription;
-                        worksheet.Cells[i + 5, 7] = transaction.FromAccount;
-                        worksheet.Cells[i + 5, 8] = transaction.ToAccount;
+                        Excel.Range rowRange = worksheet.Range[worksheet.Cells[i + 7, 1], worksheet.Cells[i + 7, 8]];
+                        worksheet.Cells[i + 7, 1] = $"GD{transaction.TransactionID}";
+                        worksheet.Cells[i + 7, 2] = transaction.TransactionTypeName;
+                        worksheet.Cells[i + 7, 3] = transaction.ServiceID;
+                        worksheet.Cells[i + 7, 4] = transaction.Amount;
+                        worksheet.Cells[i + 7, 5] = transaction.TransactionDate;
+                        worksheet.Cells[i + 7, 6] = transaction.TransactionDescription;
+                        worksheet.Cells[i + 7, 7] = transaction.FromAccount;
+                        worksheet.Cells[i + 7, 8] = transaction.ToAccount;
 
                         // Thêm border cho các ô dữ liệu
                         rowRange.Borders.LineStyle = Excel.XlLineStyle.xlContinuous;
                         rowRange.Borders.Weight = Excel.XlBorderWeight.xlThin;
                     }
+
+                    // Footer (thêm vào sau dữ liệu)
+                    int lastRow = currentTransactions.Count + 8; // +8 để cách 1 dòng sau dữ liệu
+                    Excel.Range footerRange1 = worksheet.Cells[lastRow, 1];
+                    footerRange1.Value = "NGÂN HÀNG THƯƠNG MẠI CỔ PHẦN SÀI GÒN THƯƠNG TÍN";
+                    footerRange1.Font.Name = "Arial";
+                    footerRange1.Font.Bold = true;
+                    footerRange1.Font.Size = 10;
+                    footerRange1.Font.Color = System.Drawing.Color.FromArgb(255, 147, 0).ToArgb(); // Màu cam
+
+                    Excel.Range footerRange2 = worksheet.Cells[lastRow + 1, 1];
+                    footerRange2.Value = "•  266 - 268 Nam Kỳ Khởi Nghĩa, Q.3, TP.HCM";
+                    footerRange2.Font.Name = "Arial";
+                    footerRange2.Font.Size = 10;
+
+                    Excel.Range footerRange3 = worksheet.Cells[lastRow + 2, 1];
+                    footerRange3.Value = "•  1800 5858 88/+84 28 3526 6060";
+                    footerRange3.Font.Name = "Arial";
+                    footerRange3.Font.Size = 10;
+
+                    Excel.Range footerRange4 = worksheet.Cells[lastRow + 3, 1];
+                    footerRange4.Value = "•  sacombank.com.vn/ask@sacombank.com";
+                    footerRange4.Font.Name = "Arial";
+                    footerRange4.Font.Size = 10;
 
                     // Autosize cột dựa trên dữ liệu
                     for (int i = 1; i <= 8; i++) // Từ cột 1 đến cột 8
@@ -461,7 +497,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
                         string[] rowData = new string[]
                         {
-                            transaction.TransactionID.ToString(),
+                            $"GD{transaction.TransactionID}",
                             transactionTypeName,
                             serviceId,
                             amount,
