@@ -176,7 +176,7 @@
             labelEmployeeName.AutoSize = true;
             labelEmployeeName.FlatStyle = FlatStyle.Flat;
             labelEmployeeName.Font = new Font("Roboto", 10.2F);
-            labelEmployeeName.Location = new Point(467, 339);
+            labelEmployeeName.Location = new Point(394, 339);
             labelEmployeeName.Name = "labelEmployeeName";
             labelEmployeeName.Size = new Size(82, 20);
             labelEmployeeName.TabIndex = 82;
@@ -187,7 +187,7 @@
             labelTransactionDate.AutoSize = true;
             labelTransactionDate.FlatStyle = FlatStyle.Flat;
             labelTransactionDate.Font = new Font("Roboto", 10.2F);
-            labelTransactionDate.Location = new Point(467, 306);
+            labelTransactionDate.Location = new Point(394, 306);
             labelTransactionDate.Name = "labelTransactionDate";
             labelTransactionDate.Size = new Size(78, 20);
             labelTransactionDate.TabIndex = 81;
@@ -198,7 +198,7 @@
             labelAccountBalance.AutoSize = true;
             labelAccountBalance.FlatStyle = FlatStyle.Flat;
             labelAccountBalance.Font = new Font("Roboto", 10.2F);
-            labelAccountBalance.Location = new Point(467, 240);
+            labelAccountBalance.Location = new Point(394, 240);
             labelAccountBalance.Name = "labelAccountBalance";
             labelAccountBalance.Size = new Size(54, 20);
             labelAccountBalance.TabIndex = 80;
@@ -209,7 +209,7 @@
             labelCustomerName.AutoSize = true;
             labelCustomerName.FlatStyle = FlatStyle.Flat;
             labelCustomerName.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCustomerName.Location = new Point(467, 171);
+            labelCustomerName.Location = new Point(394, 171);
             labelCustomerName.Name = "labelCustomerName";
             labelCustomerName.Size = new Size(114, 20);
             labelCustomerName.TabIndex = 79;
@@ -232,7 +232,7 @@
             labelCustomerAccountID.AutoSize = true;
             labelCustomerAccountID.FlatStyle = FlatStyle.Flat;
             labelCustomerAccountID.Font = new Font("Roboto", 10.2F);
-            labelCustomerAccountID.Location = new Point(467, 208);
+            labelCustomerAccountID.Location = new Point(394, 208);
             labelCustomerAccountID.Name = "labelCustomerAccountID";
             labelCustomerAccountID.Size = new Size(106, 20);
             labelCustomerAccountID.TabIndex = 77;

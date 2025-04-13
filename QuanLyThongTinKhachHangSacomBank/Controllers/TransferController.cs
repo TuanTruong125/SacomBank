@@ -554,7 +554,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                     Alignment = Element.ALIGN_LEFT
                                 });
 
-                                document.Add(new Paragraph("HÓA ĐƠN GIAO DỊCH", subHeaderFont)
+                                document.Add(new Paragraph("HÓA ĐƠN GIAO DỊCH CHUYỂN TIỀN", subHeaderFont)
                                 {
                                     Alignment = Element.ALIGN_LEFT
                                 });

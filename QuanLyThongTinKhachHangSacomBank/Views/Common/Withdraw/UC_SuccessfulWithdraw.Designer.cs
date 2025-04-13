@@ -44,7 +44,6 @@
             labelCustomer = new Label();
             panelDepositInform = new Panel();
             pictureBoxSuccessfulWithdraw = new PictureBox();
-            labelAmount = new Label();
             labelAccountID = new Label();
             buttonInvoice = new Button();
             labelWithdrawInform = new Label();
@@ -68,21 +67,21 @@
             // 
             // labelTransactionDescription
             // 
-            labelTransactionDescription.AutoSize = true;
             labelTransactionDescription.FlatStyle = FlatStyle.Flat;
             labelTransactionDescription.Font = new Font("Roboto", 10.2F);
-            labelTransactionDescription.Location = new Point(476, 386);
+            labelTransactionDescription.Location = new Point(3, 417);
             labelTransactionDescription.Name = "labelTransactionDescription";
-            labelTransactionDescription.Size = new Size(169, 20);
+            labelTransactionDescription.Size = new Size(685, 20);
             labelTransactionDescription.TabIndex = 102;
             labelTransactionDescription.Text = "Rút tiền từ ngân hàng";
+            labelTransactionDescription.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // labelEmployeeName
             // 
             labelEmployeeName.AutoSize = true;
             labelEmployeeName.FlatStyle = FlatStyle.Flat;
             labelEmployeeName.Font = new Font("Roboto", 10.2F);
-            labelEmployeeName.Location = new Point(476, 349);
+            labelEmployeeName.Location = new Point(372, 349);
             labelEmployeeName.Name = "labelEmployeeName";
             labelEmployeeName.Size = new Size(82, 20);
             labelEmployeeName.TabIndex = 101;
@@ -93,7 +92,7 @@
             labelTransactionDate.AutoSize = true;
             labelTransactionDate.FlatStyle = FlatStyle.Flat;
             labelTransactionDate.Font = new Font("Roboto", 10.2F);
-            labelTransactionDate.Location = new Point(476, 314);
+            labelTransactionDate.Location = new Point(372, 314);
             labelTransactionDate.Name = "labelTransactionDate";
             labelTransactionDate.Size = new Size(78, 20);
             labelTransactionDate.TabIndex = 100;
@@ -104,7 +103,7 @@
             labelAccountBalance.AutoSize = true;
             labelAccountBalance.FlatStyle = FlatStyle.Flat;
             labelAccountBalance.Font = new Font("Roboto", 10.2F);
-            labelAccountBalance.Location = new Point(476, 250);
+            labelAccountBalance.Location = new Point(372, 250);
             labelAccountBalance.Name = "labelAccountBalance";
             labelAccountBalance.Size = new Size(54, 20);
             labelAccountBalance.TabIndex = 99;
@@ -115,7 +114,7 @@
             labelCustomerName.AutoSize = true;
             labelCustomerName.FlatStyle = FlatStyle.Flat;
             labelCustomerName.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            labelCustomerName.Location = new Point(476, 181);
+            labelCustomerName.Location = new Point(372, 181);
             labelCustomerName.Name = "labelCustomerName";
             labelCustomerName.Size = new Size(114, 20);
             labelCustomerName.TabIndex = 98;
@@ -123,22 +122,22 @@
             // 
             // labelCustomerAmount
             // 
-            labelCustomerAmount.AutoSize = true;
             labelCustomerAmount.FlatStyle = FlatStyle.Flat;
-            labelCustomerAmount.Font = new Font("Roboto SemiCondensed", 10.2F, FontStyle.Bold);
+            labelCustomerAmount.Font = new Font("Roboto SemiCondensed Medium", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelCustomerAmount.ForeColor = SystemColors.HotTrack;
-            labelCustomerAmount.Location = new Point(476, 145);
+            labelCustomerAmount.Location = new Point(3, 117);
             labelCustomerAmount.Name = "labelCustomerAmount";
-            labelCustomerAmount.Size = new Size(32, 20);
+            labelCustomerAmount.Size = new Size(685, 38);
             labelCustomerAmount.TabIndex = 97;
             labelCustomerAmount.Text = "0 đ";
+            labelCustomerAmount.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // labelCustomerAccountID
             // 
             labelCustomerAccountID.AutoSize = true;
             labelCustomerAccountID.FlatStyle = FlatStyle.Flat;
             labelCustomerAccountID.Font = new Font("Roboto", 10.2F);
-            labelCustomerAccountID.Location = new Point(476, 218);
+            labelCustomerAccountID.Location = new Point(372, 218);
             labelCustomerAccountID.Name = "labelCustomerAccountID";
             labelCustomerAccountID.Size = new Size(106, 20);
             labelCustomerAccountID.TabIndex = 96;
@@ -149,7 +148,7 @@
             labelDescription.AutoSize = true;
             labelDescription.FlatStyle = FlatStyle.Flat;
             labelDescription.Font = new Font("Roboto SemiCondensed", 10.2F, FontStyle.Bold);
-            labelDescription.Location = new Point(39, 386);
+            labelDescription.Location = new Point(316, 386);
             labelDescription.Name = "labelDescription";
             labelDescription.Size = new Size(73, 20);
             labelDescription.TabIndex = 95;
@@ -202,7 +201,7 @@
             // panelDepositInform
             // 
             panelDepositInform.BackColor = Color.Black;
-            panelDepositInform.Location = new Point(66, 120);
+            panelDepositInform.Location = new Point(66, 162);
             panelDepositInform.Name = "panelDepositInform";
             panelDepositInform.Size = new Size(500, 3);
             panelDepositInform.TabIndex = 90;
@@ -210,23 +209,12 @@
             // pictureBoxSuccessfulWithdraw
             // 
             pictureBoxSuccessfulWithdraw.Image = (Image)resources.GetObject("pictureBoxSuccessfulWithdraw.Image");
-            pictureBoxSuccessfulWithdraw.Location = new Point(291, 5);
+            pictureBoxSuccessfulWithdraw.Location = new Point(313, 5);
             pictureBoxSuccessfulWithdraw.Name = "pictureBoxSuccessfulWithdraw";
             pictureBoxSuccessfulWithdraw.Size = new Size(70, 70);
             pictureBoxSuccessfulWithdraw.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBoxSuccessfulWithdraw.TabIndex = 89;
             pictureBoxSuccessfulWithdraw.TabStop = false;
-            // 
-            // labelAmount
-            // 
-            labelAmount.AutoSize = true;
-            labelAmount.FlatStyle = FlatStyle.Flat;
-            labelAmount.Font = new Font("Roboto SemiCondensed", 10.2F, FontStyle.Bold);
-            labelAmount.Location = new Point(39, 145);
-            labelAmount.Name = "labelAmount";
-            labelAmount.Size = new Size(59, 20);
-            labelAmount.TabIndex = 88;
-            labelAmount.Text = "Số tiền";
             // 
             // labelAccountID
             // 
@@ -255,14 +243,14 @@
             // 
             // labelWithdrawInform
             // 
-            labelWithdrawInform.AutoSize = true;
             labelWithdrawInform.Font = new Font("Roboto SemiCondensed Medium", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelWithdrawInform.ForeColor = Color.LimeGreen;
-            labelWithdrawInform.Location = new Point(225, 78);
+            labelWithdrawInform.Location = new Point(3, 78);
             labelWithdrawInform.Name = "labelWithdrawInform";
-            labelWithdrawInform.Size = new Size(227, 28);
+            labelWithdrawInform.Size = new Size(685, 28);
             labelWithdrawInform.TabIndex = 85;
             labelWithdrawInform.Text = "Rút tiền thành công!";
+            labelWithdrawInform.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // panel2
             // 
@@ -292,7 +280,6 @@
             Controls.Add(labelCustomer);
             Controls.Add(panelDepositInform);
             Controls.Add(pictureBoxSuccessfulWithdraw);
-            Controls.Add(labelAmount);
             Controls.Add(labelAccountID);
             Controls.Add(buttonInvoice);
             Controls.Add(labelWithdrawInform);
@@ -320,7 +307,6 @@
         private Label labelCustomer;
         private Panel panelDepositInform;
         private PictureBox pictureBoxSuccessfulWithdraw;
-        private Label labelAmount;
         private Label labelAccountID;
         private Button buttonInvoice;
         private Label labelWithdrawInform;

@@ -146,13 +146,13 @@
             // 
             // labelDepositInfo
             // 
-            labelDepositInfo.AutoSize = true;
             labelDepositInfo.Font = new Font("Roboto SemiCondensed Medium", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelDepositInfo.Location = new Point(259, 56);
+            labelDepositInfo.Location = new Point(3, 56);
             labelDepositInfo.Name = "labelDepositInfo";
-            labelDepositInfo.Size = new Size(169, 28);
+            labelDepositInfo.Size = new Size(685, 28);
             labelDepositInfo.TabIndex = 60;
             labelDepositInfo.Text = "Nhập thông tin";
+            labelDepositInfo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // textBoxAccountID
             // 
@@ -164,14 +164,14 @@
             // 
             // labelDeposit
             // 
-            labelDeposit.AutoSize = true;
             labelDeposit.Font = new Font("Roboto SemiCondensed", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelDeposit.ForeColor = Color.LimeGreen;
-            labelDeposit.Location = new Point(279, 15);
+            labelDeposit.Location = new Point(3, 15);
             labelDeposit.Name = "labelDeposit";
-            labelDeposit.Size = new Size(138, 41);
+            labelDeposit.Size = new Size(685, 41);
             labelDeposit.TabIndex = 58;
             labelDeposit.Text = "Nạp tiền";
+            labelDeposit.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // labelError
             // 

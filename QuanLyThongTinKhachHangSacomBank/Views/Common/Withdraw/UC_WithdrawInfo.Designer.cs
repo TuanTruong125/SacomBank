@@ -42,7 +42,7 @@
             textBoxAccountID = new TextBox();
             labelWithdraw = new Label();
             labelDescription = new Label();
-            textBoxDescription = new TextBox();
+            textBoxTransactionDescription = new TextBox();
             labelBalance = new Label();
             textBoxBalance = new TextBox();
             panel1 = new Panel();
@@ -52,14 +52,14 @@
             // 
             // labelError
             // 
-            labelError.AutoSize = true;
-            labelError.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelError.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelError.ForeColor = Color.Red;
-            labelError.Location = new Point(211, 426);
+            labelError.Location = new Point(3, 426);
             labelError.Name = "labelError";
-            labelError.Size = new Size(240, 20);
+            labelError.Size = new Size(685, 20);
             labelError.TabIndex = 83;
             labelError.Text = "Vui lòng nhập đầy đủ thông tin!";
+            labelError.TextAlign = ContentAlignment.MiddleCenter;
             labelError.Visible = false;
             // 
             // labelAmount
@@ -158,13 +158,13 @@
             // 
             // labelWithdrawInfo
             // 
-            labelWithdrawInfo.AutoSize = true;
             labelWithdrawInfo.Font = new Font("Roboto SemiCondensed Medium", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelWithdrawInfo.Location = new Point(259, 56);
+            labelWithdrawInfo.Location = new Point(3, 56);
             labelWithdrawInfo.Name = "labelWithdrawInfo";
-            labelWithdrawInfo.Size = new Size(169, 28);
+            labelWithdrawInfo.Size = new Size(685, 28);
             labelWithdrawInfo.TabIndex = 73;
             labelWithdrawInfo.Text = "Nhập thông tin";
+            labelWithdrawInfo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // textBoxAccountID
             // 
@@ -176,14 +176,14 @@
             // 
             // labelWithdraw
             // 
-            labelWithdraw.AutoSize = true;
             labelWithdraw.Font = new Font("Roboto SemiCondensed", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelWithdraw.ForeColor = Color.Crimson;
-            labelWithdraw.Location = new Point(279, 15);
+            labelWithdraw.Location = new Point(3, 15);
             labelWithdraw.Name = "labelWithdraw";
-            labelWithdraw.Size = new Size(130, 41);
+            labelWithdraw.Size = new Size(685, 41);
             labelWithdraw.TabIndex = 71;
             labelWithdraw.Text = "Rút tiền";
+            labelWithdraw.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // labelDescription
             // 
@@ -195,13 +195,13 @@
             labelDescription.TabIndex = 85;
             labelDescription.Text = "Nội dung";
             // 
-            // textBoxDescription
+            // textBoxTransactionDescription
             // 
-            textBoxDescription.Font = new Font("Roboto", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxDescription.Location = new Point(211, 383);
-            textBoxDescription.Name = "textBoxDescription";
-            textBoxDescription.Size = new Size(417, 35);
-            textBoxDescription.TabIndex = 84;
+            textBoxTransactionDescription.Font = new Font("Roboto", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBoxTransactionDescription.Location = new Point(211, 383);
+            textBoxTransactionDescription.Name = "textBoxTransactionDescription";
+            textBoxTransactionDescription.Size = new Size(417, 35);
+            textBoxTransactionDescription.TabIndex = 84;
             // 
             // labelBalance
             // 
@@ -257,7 +257,7 @@
             Controls.Add(labelBalance);
             Controls.Add(textBoxBalance);
             Controls.Add(labelDescription);
-            Controls.Add(textBoxDescription);
+            Controls.Add(textBoxTransactionDescription);
             Controls.Add(labelError);
             Controls.Add(labelAmount);
             Controls.Add(buttonCancel);
@@ -293,7 +293,7 @@
         private TextBox textBoxAccountID;
         private Label labelWithdraw;
         private Label labelDescription;
-        private TextBox textBoxDescription;
+        private TextBox textBoxTransactionDescription;
         private Label labelBalance;
         private TextBox textBoxBalance;
         private Panel panel1;

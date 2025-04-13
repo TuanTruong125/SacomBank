@@ -369,7 +369,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                     Alignment = Element.ALIGN_LEFT
                                 });
 
-                                document.Add(new Paragraph("HÓA ĐƠN GIAO DỊCH", subHeaderFont)
+                                document.Add(new Paragraph("HÓA ĐƠN GIAO DỊCH NẠP TIỀN", subHeaderFont)
                                 {
                                     Alignment = Element.ALIGN_LEFT
                                 });
@@ -420,7 +420,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                 subTableTransaction.AddCell(new PdfPCell(new Phrase("Phương thức", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
                                 subTableTransaction.AddCell(new PdfPCell(new Phrase("Tại quầy", boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
                                 subTableTransaction.AddCell(new PdfPCell(new Phrase("Người xử lý", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
-                                subTableTransaction.AddCell(new PdfPCell(new Phrase("Nhân viên", boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableTransaction.AddCell(new PdfPCell(new Phrase(currentEmployee?.EmployeeName ?? "Nhân viên", boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
                                 table.AddCell(new PdfPCell(subTableTransaction) { Border = PdfPCell.BOX, Padding = 5f });
 
                                 document.Add(table);
