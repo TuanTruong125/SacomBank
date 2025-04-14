@@ -32,7 +32,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Models
 
         [Required]
         [StringLength(50)]
-        public string EmmployeeRole { get; set; }
+        public string EmployeeRole { get; set; }
 
         [Required]
         [StringLength(15)]

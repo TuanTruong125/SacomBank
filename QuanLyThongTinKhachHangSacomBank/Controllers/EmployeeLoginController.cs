@@ -100,7 +100,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                             EmployeeDateOfBirth = reader.GetDateTime(reader.GetOrdinal("EmployeeDateOfBirth")),
                             EmployeeCitizenID = reader.GetString(reader.GetOrdinal("EmployeeCitizenID")),
                             EmployeeAddress = reader.GetString(reader.GetOrdinal("EmployeeAddress")),
-                            EmmployeeRole = reader.GetString(reader.GetOrdinal("EmmployeeRole")),
+                            EmployeeRole = reader.GetString(reader.GetOrdinal("EmmployeeRole")),
                             EmployeePhone = reader.GetString(reader.GetOrdinal("EmployeePhone")),
                             EmployeeEmail = reader.GetString(reader.GetOrdinal("EmployeeEmail")),
                             HireDate = reader.GetDateTime(reader.GetOrdinal("HireDate")),

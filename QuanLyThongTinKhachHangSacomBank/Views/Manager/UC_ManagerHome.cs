@@ -10,6 +10,8 @@ using System.Windows.Forms;
 using QuanLyThongTinKhachHangSacomBank.Views.Common.Notification;
 using QuanLyThongTinKhachHangSacomBank.Controllers;
 using QuanLyThongTinKhachHangSacomBank.Models;
+using Microsoft.Extensions.Configuration;
+using QuanLyThongTinKhachHangSacomBank.Data;
 
 namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
 {
@@ -17,6 +19,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
     {
         private readonly NotificationController notificationController;
         private readonly EmployeeModel currentEmployee;
+        private readonly DatabaseContext dbContext;
+        private readonly IConfiguration configuration;
 
         public UC_ManagerHome(EmployeeModel employee)
         {

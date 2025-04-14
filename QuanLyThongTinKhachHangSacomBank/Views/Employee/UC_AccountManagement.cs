@@ -44,12 +44,12 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
         void SetAccountOpenDate(DateTime openDate);
         void SetAccountStatus(string status);
         void LoadAccountTypes(List<AccountTypeModel> accountTypes);
-        void LoadAccounts(List<AccountModel> accounts);
+        void LoadAccounts(List<AccountDisplayModel> accounts);
         void SetDateFilter(DateTime fromDate, DateTime toDate);
 
         // Điều khiển trạng thái control
         void EnableControls(bool enable);
-        void EnableControls(bool enable, bool customerIDOnly);
+        void EnableControls(bool enable, bool customerIDOnly, bool editMode = false);
         void EnableResetButtons(bool enable);
         void ClearInputs();
         void SetControlState(bool enableAdd, bool enableEdit, bool enableCancel, bool enableSave);
@@ -135,39 +135,38 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
                 comboBoxAccountTypeFilter.SelectedIndex = 0; // Đặt giá trị mặc định
         }
 
-        public void LoadAccounts(List<AccountModel> accounts)
+        public void LoadAccounts(List<AccountDisplayModel> accounts)
         {
             dataGridViewAccountManagement.Rows.Clear();
             foreach (var account in accounts)
             {
-                string accountTypeName = account.AccountTypeID == 1 ? "Cá nhân" : "Doanh nghiệp";
                 dataGridViewAccountManagement.Rows.Add(
-                    "KH" + account.CustomerID, // Thêm tiền tố "KH"
+                    account.CustomerCode, // Đã có tiền tố "KH"
                     account.AccountName,
-                    "TK" + account.AccountID, // Thêm tiền tố "TK" cho mã tài khoản
-                    accountTypeName,
-                    account.Balance.ToString("N0"),
-                    account.AccountOpenDate.ToString("dd/MM/yyyy"),
+                    account.AccountCode, // Đã có tiền tố "TK"
+                    account.AccountTypeName,
+                    account.Balance,
+                    account.AccountOpenDate,
                     account.AccountStatus
                 );
             }
         }
 
         // Điều khiển trạng thái control
-        public void EnableControls(bool enable) // Implement the interface method
+        public void EnableControls(bool enable)
         {
-            EnableControls(enable, false);
+            EnableControls(enable, false, false);
         }
 
-        public void EnableControls(bool enable, bool customerIDOnly = false)
+        public void EnableControls(bool enable, bool customerIDOnly = false, bool editMode = false)
         {
-            textBoxCustomerID.Enabled = enable;
-            textBoxAccountID.Enabled = false;
-            textBoxAccountName.Enabled = enable && !customerIDOnly;
-            comboBoxAccountTypeName.Enabled = enable && !customerIDOnly;
-            textBoxBalance.Enabled = enable && !customerIDOnly;
-            comboBoxAccountStatus.Enabled = enable && !customerIDOnly;
-            dateTimePickerAccountOpenDate.Enabled = enable && !customerIDOnly;
+            textBoxCustomerID.Enabled = enable && customerIDOnly; // Chỉ bật trong chế độ thêm
+            textBoxAccountID.Enabled = false; // Luôn tắt
+            textBoxAccountName.Enabled = enable && !customerIDOnly && !editMode; // Tắt trong editMode
+            comboBoxAccountTypeName.Enabled = enable && !customerIDOnly && !editMode; // Tắt trong editMode
+            textBoxBalance.Enabled = enable && !customerIDOnly && !editMode; // Tắt trong editMode
+            comboBoxAccountStatus.Enabled = enable && !customerIDOnly; // Bật trong editMode hoặc chế độ thêm
+            dateTimePickerAccountOpenDate.Enabled = enable && !customerIDOnly && !editMode; // Tắt trong editMode
         }
 
         public void EnableResetButtons(bool enable)
@@ -243,18 +242,18 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
                 {
                     var account = new AccountModel
                     {
-                        CustomerID = int.Parse(row.Cells["CustomerID"].Value.ToString().Replace("KH", "")),
-                        AccountName = row.Cells["AccountName"].Value.ToString(),
-                        AccountID = int.Parse(row.Cells["AccountID"].Value.ToString().Replace("TK", "")),
-                        AccountTypeID = row.Cells["AccountTypeName"].Value.ToString() == "Cá nhân" ? 1 : 2,
-                        Balance = decimal.Parse(row.Cells["Balance"].Value.ToString(), System.Globalization.NumberStyles.AllowThousands),
-                        AccountOpenDate = DateTime.ParseExact(row.Cells["AccountOpenDate"].Value.ToString(), "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture),
-                        AccountStatus = row.Cells["AccountStatus"].Value.ToString()
+                        CustomerID = int.Parse(row.Cells[0].Value.ToString().Replace("KH", "")), // Cột CustomerCode
+                        AccountName = row.Cells[1].Value.ToString(), // Cột AccountName
+                        AccountID = int.Parse(row.Cells[2].Value.ToString().Replace("TK", "")), // Cột AccountCode
+                        AccountTypeID = row.Cells[3].Value.ToString() == "Cá nhân" ? 1 : 2, // Cột AccountTypeName
+                        Balance = decimal.Parse(row.Cells[4].Value.ToString(), System.Globalization.NumberStyles.AllowThousands), // Cột Balance
+                        AccountOpenDate = DateTime.ParseExact(row.Cells[5].Value.ToString(), "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture), // Cột AccountOpenDate
+                        AccountStatus = row.Cells[6].Value.ToString() // Cột AccountStatus
                     };
 
                     // Load dữ liệu lên grAccountInfo nhưng không cho phép thao tác
-                    SetCustomerID(account.CustomerID.ToString());
-                    SetAccountID(account.AccountID.ToString());
+                    SetCustomerID(row.Cells[0].Value.ToString()); // Giữ nguyên "KH"
+                    SetAccountID(row.Cells[2].Value.ToString()); // Giữ nguyên "TK"
                     SetAccountName(account.AccountName);
                     SetAccountTypeName(account.AccountTypeID == 1 ? "Cá nhân" : "Doanh nghiệp");
                     SetBalance(account.Balance);
@@ -356,9 +355,9 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
 
     public class AccountDisplayModel
     {
-        public int CustomerID { get; set; }
+        public string CustomerCode { get; set; }
         public string AccountName { get; set; }
-        public int AccountID { get; set; }
+        public string AccountCode { get; set; }
         public string AccountTypeName { get; set; }
         public string Balance { get; set; } // Định dạng N0
         public string AccountOpenDate { get; set; } // Định dạng dd/MM/yyyy

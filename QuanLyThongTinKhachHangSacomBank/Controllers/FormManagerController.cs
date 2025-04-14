@@ -55,7 +55,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
         public void LoadManagerSetting()
         {
-            view.LoadUserControl(new UC_ManagerSetting());
+            view.LoadUserControl(new UC_ManagerSetting(employee, dbContext, configuration));
         }
     }
     

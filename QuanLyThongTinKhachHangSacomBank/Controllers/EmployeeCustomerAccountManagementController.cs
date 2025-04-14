@@ -116,10 +116,11 @@ public class EmployeeCustomerAccountManagementController : IOTPController
             {
                 connection.Open();
                 string query = @"
-                    SELECT a.*, at.AccountTypeName
-                    FROM ACCOUNT a
-                    JOIN ACCOUNT_TYPE at ON a.AccountTypeID = at.AccountTypeID
-                    WHERE a.AccountOpenDate BETWEEN @FromDate AND @ToDate";
+                SELECT a.*, at.AccountTypeName, c.CustomerCode
+                FROM ACCOUNT a
+                JOIN ACCOUNT_TYPE at ON a.AccountTypeID = at.AccountTypeID
+                JOIN CUSTOMER c ON a.CustomerID = c.CustomerID
+                WHERE a.AccountOpenDate BETWEEN @FromDate AND @ToDate";
 
                 if (!string.IsNullOrEmpty(accountTypeFilter) && accountTypeFilter != "Không áp dụng")
                 {
@@ -170,17 +171,16 @@ public class EmployeeCustomerAccountManagementController : IOTPController
 
                             currentAccounts.Add(new AccountDisplayModel
                             {
-                                CustomerID = account.CustomerID,
+                                CustomerCode = reader.GetString(12), // Cột CustomerCode
                                 AccountName = account.AccountName,
-                                AccountID = account.AccountID,
-                                AccountTypeName = reader.GetString(11),
+                                AccountCode = account.AccountCode,
+                                AccountTypeName = reader.GetString(11), // Cột AccountTypeName
                                 Balance = account.Balance.ToString("N0"),
                                 AccountOpenDate = account.AccountOpenDate.ToString("dd/MM/yyyy"),
                                 AccountStatus = account.AccountStatus
                             });
                         }
-                        view.LoadAccounts(accounts);
-
+                        view.LoadAccounts(currentAccounts);
                     }
                 }
             }
@@ -290,20 +290,32 @@ public class EmployeeCustomerAccountManagementController : IOTPController
 
     public void OnEditAccountRequested()
     {
+        // Kiểm tra xem có hàng nào được chọn trong DataGridView không
         if (view.GetSelectedRowCount() == 0)
         {
             view.ShowMessage("Vui lòng chọn một tài khoản để chỉnh sửa!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
         }
 
+        // Đặt trạng thái chỉnh sửa
         isAdding = false;
         isEditing = true;
 
+        // Lấy hàng được chọn từ DataGridView
         var selectedRow = view.GetSelectedRow();
-        int accountID = int.Parse(selectedRow.Cells["AccountID"].Value.ToString());
+        string accountIDText = selectedRow.Cells[2].Value.ToString(); // Cột AccountCode
+        accountIDText = accountIDText.Replace("TK", ""); // Loại bỏ tiền tố "TK"
+
+        // Kiểm tra và phân tích cú pháp AccountID
+        if (!int.TryParse(accountIDText, out int accountID))
+        {
+            view.ShowMessage("Mã tài khoản không hợp lệ!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
 
         try
         {
+            // Kiểm tra DatabaseContext
             if (dbContext == null)
             {
                 view.ShowMessage("DatabaseContext không được khởi tạo!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -313,12 +325,15 @@ public class EmployeeCustomerAccountManagementController : IOTPController
             using (var connection = dbContext.GetConnection())
             {
                 connection.Open();
-                string query = @"
-                    SELECT a.*, at.AccountTypeName 
-                    FROM ACCOUNT a 
-                    JOIN ACCOUNT_TYPE at ON a.AccountTypeID = at.AccountTypeID 
-                    WHERE a.AccountID = @AccountID";
-                using (var command = new SqlCommand(query, connection))
+
+                // Truy vấn thông tin tài khoản
+                string accountQuery = @"
+                SELECT a.*, at.AccountTypeName 
+                FROM ACCOUNT a 
+                JOIN ACCOUNT_TYPE at ON a.AccountTypeID = at.AccountTypeID 
+                WHERE a.AccountID = @AccountID";
+
+                using (var command = new SqlCommand(accountQuery, connection))
                 {
                     command.Parameters.AddWithValue("@AccountID", accountID);
                     using (var reader = command.ExecuteReader())
@@ -340,47 +355,72 @@ public class EmployeeCustomerAccountManagementController : IOTPController
                                 AccountTypeID = reader.GetInt32(10)
                             };
                         }
-                    }
-
-                    // Lấy thông tin khách hàng
-                    string customerQuery = "SELECT * FROM CUSTOMER WHERE CustomerID = @CustomerID";
-                    using (var customerCommand = new SqlCommand(customerQuery, connection))
-                    {
-                        customerCommand.Parameters.AddWithValue("@CustomerID", selectedAccount.CustomerID);
-                        using (var customerReader = customerCommand.ExecuteReader())
+                        else
                         {
-                            if (customerReader.Read())
-                            {
-                                selectedCustomer = new CustomerModel
-                                {
-                                    CustomerID = customerReader.GetInt32(0),
-                                    CustomerCode = customerReader.GetString(1),
-                                    FullName = customerReader.GetString(2),
-                                    Gender = customerReader.GetString(3),
-                                    DateOfBirth = customerReader.GetDateTime(4),
-                                    Nationality = customerReader.GetString(5),
-                                    CitizenID = customerReader.GetString(6),
-                                    CustomerAddress = customerReader.GetString(7),
-                                    Phone = customerReader.GetString(8),
-                                    Email = customerReader.GetString(9),
-                                    RegistrationDate = customerReader.GetDateTime(10),
-                                    CustomerTypeID = customerReader.GetInt32(11)
-                                };
-                            }
+                            view.ShowMessage("Không tìm thấy tài khoản!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
                         }
                     }
-
-                    string accountTypeName = accountTypes.FirstOrDefault(at => at.AccountTypeID == selectedAccount.AccountTypeID)?.AccountTypeName ?? "Không xác định";
-
-                    view.EnableControls(false); // Tắt tất cả trước
-                    view.EnableControls(true, false); // Chỉ cho phép chỉnh sửa trạng thái tài khoản
-                    view.SetControlState(false, false, true, true);
                 }
+
+                // Truy vấn thông tin khách hàng
+                string customerQuery = @"
+                SELECT c.*, ct.CustomerTypeName 
+                FROM CUSTOMER c 
+                JOIN CUSTOMER_TYPE ct ON c.CustomerTypeID = ct.CustomerTypeID 
+                WHERE c.CustomerID = @CustomerID";
+
+                using (var customerCommand = new SqlCommand(customerQuery, connection))
+                {
+                    customerCommand.Parameters.AddWithValue("@CustomerID", selectedAccount.CustomerID);
+                    using (var customerReader = customerCommand.ExecuteReader())
+                    {
+                        if (customerReader.Read())
+                        {
+                            selectedCustomer = new CustomerModel
+                            {
+                                CustomerID = customerReader.GetInt32(0),
+                                CustomerCode = customerReader.GetString(1),
+                                FullName = customerReader.GetString(2),
+                                Gender = customerReader.GetString(3),
+                                DateOfBirth = customerReader.GetDateTime(4),
+                                Nationality = customerReader.GetString(5),
+                                CitizenID = customerReader.GetString(6),
+                                CustomerAddress = customerReader.GetString(7),
+                                Phone = customerReader.GetString(8),
+                                Email = customerReader.GetString(9),
+                                RegistrationDate = customerReader.GetDateTime(10),
+                                CustomerTypeID = customerReader.GetInt32(11)
+                            };
+                        }
+                        else
+                        {
+                            view.ShowMessage("Không tìm thấy thông tin khách hàng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+                }
+
+                // Cập nhật giao diện với dữ liệu tài khoản
+                view.SetCustomerID(selectedCustomer.CustomerCode); // Hiển thị mã khách hàng (KHxxx)
+                view.SetAccountID(selectedAccount.AccountCode); // Hiển thị mã tài khoản (TKxxx)
+                view.SetAccountName(selectedAccount.AccountName);
+                view.SetAccountTypeName(selectedAccount.AccountTypeID == 1 ? "Cá nhân" : "Doanh nghiệp");
+                view.SetBalance(selectedAccount.Balance);
+                view.SetAccountOpenDate(selectedAccount.AccountOpenDate);
+                view.SetAccountStatus(selectedAccount.AccountStatus);
+
+                // Bật chỉ combobox trạng thái để chỉnh sửa
+                view.EnableControls(true, false, true); // editMode = true để chỉ bật comboBoxAccountStatus
+                view.SetControlState(false, false, true, true); // Cập nhật trạng thái nút
             }
         }
         catch (Exception ex)
         {
             view.ShowMessage($"Lỗi khi tải thông tin tài khoản: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            isEditing = false;
+            view.EnableControls(false);
+            view.SetControlState(true, false, false, false);
         }
     }
 
@@ -398,6 +438,7 @@ public class EmployeeCustomerAccountManagementController : IOTPController
     {
         if (isAdding)
         {
+            // Giữ nguyên logic cho chế độ thêm
             string customerIDText = view.GetCustomerID();
             Console.WriteLine($"CustomerIDText: {customerIDText}");
             customerIDText = customerIDText.Replace("KH", "");
@@ -450,10 +491,10 @@ public class EmployeeCustomerAccountManagementController : IOTPController
 
                     // Lấy thông tin khách hàng
                     string query = @"
-                        SELECT c.*, ct.CustomerTypeName
-                        FROM CUSTOMER c
-                        JOIN CUSTOMER_TYPE ct ON c.CustomerTypeID = ct.CustomerTypeID
-                        WHERE c.CustomerID = @CustomerID";
+                    SELECT c.*, ct.CustomerTypeName
+                    FROM CUSTOMER c
+                    JOIN CUSTOMER_TYPE ct ON c.CustomerTypeID = ct.CustomerTypeID
+                    WHERE c.CustomerID = @CustomerID";
 
                     using (var command = new SqlCommand(query, connection))
                     {
@@ -541,7 +582,9 @@ public class EmployeeCustomerAccountManagementController : IOTPController
                 return;
             }
 
+            // Chỉ cập nhật trạng thái tài khoản
             selectedAccount.AccountStatus = view.GetAccountStatus();
+
             UpdateAccount(selectedAccount);
 
             isEditing = false;
@@ -650,9 +693,9 @@ public class EmployeeCustomerAccountManagementController : IOTPController
             {
                 connection.Open();
                 string updateQuery = @"
-                    UPDATE ACCOUNT
-                    SET AccountStatus = @AccountStatus
-                    WHERE AccountID = @AccountID";
+                UPDATE ACCOUNT
+                SET AccountStatus = @AccountStatus
+                WHERE AccountID = @AccountID";
 
                 using (var command = new SqlCommand(updateQuery, connection))
                 {
@@ -666,7 +709,7 @@ public class EmployeeCustomerAccountManagementController : IOTPController
         }
         catch (Exception ex)
         {
-            view.ShowMessage($"Lỗi khi cập nhật tài khoản: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            view.ShowMessage($"Lỗi khi cập nhật trạng thái tài khoản: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
     }
 
@@ -939,13 +982,14 @@ public class EmployeeCustomerAccountManagementController : IOTPController
             {
                 connection.Open();
                 string query = @"
-                    SELECT a.*, at.AccountTypeName
-                    FROM ACCOUNT a
-                    JOIN ACCOUNT_TYPE at ON a.AccountTypeID = at.AccountTypeID
-                    WHERE (a.AccountName LIKE '%' + @SearchText + '%'
-                        OR a.AccountCode LIKE '%' + @SearchText + '%'
-                        OR CAST(a.CustomerID AS NVARCHAR) LIKE '%' + @SearchText + '%')
-                        AND a.AccountOpenDate BETWEEN @FromDate AND @ToDate";
+                SELECT a.*, at.AccountTypeName, c.CustomerCode
+                FROM ACCOUNT a
+                JOIN ACCOUNT_TYPE at ON a.AccountTypeID = at.AccountTypeID
+                JOIN CUSTOMER c ON a.CustomerID = c.CustomerID
+                WHERE (a.AccountName LIKE '%' + @SearchText + '%'
+                    OR a.AccountCode LIKE '%' + @SearchText + '%'
+                    OR c.CustomerCode LIKE '%' + @SearchText + '%')
+                    AND a.AccountOpenDate BETWEEN @FromDate AND @ToDate";
 
                 string accountTypeFilter = view.GetAccountTypeFilter();
                 string statusFilter = view.GetStatusFilter();
@@ -964,7 +1008,9 @@ public class EmployeeCustomerAccountManagementController : IOTPController
 
                 using (var command = new SqlCommand(query, connection))
                 {
-                    command.Parameters.AddWithValue("@SearchText", searchText);
+                    // Loại bỏ tiền tố "KH" và "TK" trước khi tìm kiếm
+                    string cleanedSearchText = searchText.Replace("KH", "").Replace("TK", "");
+                    command.Parameters.AddWithValue("@SearchText", cleanedSearchText);
                     command.Parameters.AddWithValue("@FromDate", view.GetFromDate());
                     command.Parameters.AddWithValue("@ToDate", view.GetToDate());
                     if (accountTypeFilter != "Không áp dụng")
@@ -1000,17 +1046,16 @@ public class EmployeeCustomerAccountManagementController : IOTPController
 
                             currentAccounts.Add(new AccountDisplayModel
                             {
-                                CustomerID = account.CustomerID,
+                                CustomerCode = reader.GetString(12), // Cột CustomerCode
                                 AccountName = account.AccountName,
-                                AccountID = account.AccountID,
-                                AccountTypeName = reader.GetString(11),
+                                AccountCode = account.AccountCode,
+                                AccountTypeName = reader.GetString(11), // Cột AccountTypeName
                                 Balance = account.Balance.ToString("N0"),
                                 AccountOpenDate = account.AccountOpenDate.ToString("dd/MM/yyyy"),
                                 AccountStatus = account.AccountStatus
                             });
                         }
-                        view.LoadAccounts(accounts);
-
+                        view.LoadAccounts(currentAccounts);
                     }
                 }
             }
@@ -1092,9 +1137,9 @@ public class EmployeeCustomerAccountManagementController : IOTPController
                 // Thêm dữ liệu từ danh sách currentAccounts
                 foreach (var account in currentAccounts)
                 {
-                    pdfTable.AddCell(new Phrase("KH" + account.CustomerID, vietnameseFont));
+                    pdfTable.AddCell(new Phrase("KH" + account.CustomerCode, vietnameseFont));
                     pdfTable.AddCell(new Phrase(account.AccountName, vietnameseFont));
-                    pdfTable.AddCell(new Phrase("TK" + account.AccountID, vietnameseFont));
+                    pdfTable.AddCell(new Phrase("TK" + account.AccountCode, vietnameseFont));
                     pdfTable.AddCell(new Phrase(account.AccountTypeName, vietnameseFont));
                     pdfTable.AddCell(new Phrase(account.Balance, vietnameseFont));
                     pdfTable.AddCell(new Phrase(account.AccountOpenDate, vietnameseFont));
@@ -1218,9 +1263,9 @@ public class EmployeeCustomerAccountManagementController : IOTPController
                 {
                     var account = currentAccounts[i];
                     Excel.Range rowRange = worksheet.Range[worksheet.Cells[i + 7, 1], worksheet.Cells[i + 7, 7]];
-                    worksheet.Cells[i + 7, 1] = "KH" + account.CustomerID;
+                    worksheet.Cells[i + 7, 1] = "KH" + account.CustomerCode;
                     worksheet.Cells[i + 7, 2] = account.AccountName;
-                    worksheet.Cells[i + 7, 3] = "TK" + account.AccountID;
+                    worksheet.Cells[i + 7, 3] = "TK" + account.AccountCode;
                     worksheet.Cells[i + 7, 4] = account.AccountTypeName;
                     worksheet.Cells[i + 7, 5] = account.Balance;
                     worksheet.Cells[i + 7, 6] = account.AccountOpenDate;
@@ -1313,9 +1358,9 @@ public class EmployeeCustomerAccountManagementController : IOTPController
                 {
                     string[] rowData = new string[]
                     {
-                    ("KH" + account.CustomerID)?.Replace("\"", "\"\"") ?? "",
+                    ("KH" + account.CustomerCode)?.Replace("\"", "\"\"") ?? "",
                     account.AccountName?.Replace("\"", "\"\"") ?? "",
-                    ("TK" + account.AccountID)?.Replace("\"", "\"\"") ?? "",
+                    ("TK" + account.AccountCode)?.Replace("\"", "\"\"") ?? "",
                     account.AccountTypeName?.Replace("\"", "\"\"") ?? "",
                     account.Balance?.Replace("\"", "\"\"") ?? "",
                     account.AccountOpenDate?.Replace("\"", "\"\"") ?? "",

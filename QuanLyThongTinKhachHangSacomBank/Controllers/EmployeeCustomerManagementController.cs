@@ -13,10 +13,11 @@ using QuanLyThongTinKhachHangSacomBank.Data;
 using QuanLyThongTinKhachHangSacomBank.Models;
 using QuanLyThongTinKhachHangSacomBank.Views.Employee;
 using Excel = Microsoft.Office.Interop.Excel;
+using QuanLyThongTinKhachHangSacomBank.Views.Common;
 
 namespace QuanLyThongTinKhachHangSacomBank.Controllers
 {
-    public class EmployeeCustomerManagementController
+    public class EmployeeCustomerManagementController : IOTPController
     {
         private readonly IEmployeeCustomerManagementView view;
         private readonly DatabaseContext dbContext;
@@ -26,6 +27,11 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
         private List<CustomerDisplayModel> currentCustomers; // Lưu trữ danh sách hiển thị
         private CustomerModel selectedCustomer;
         private bool isAdding;
+
+        // Triển khai IOTPController để cung cấp thông tin cho OTPController 
+        // Luôn trả về thông tin từ textbox trong chế độ sửa
+        public string Phone => view.GetPhone();
+        public string Email => view.GetEmail();
 
         public EmployeeCustomerManagementController(IEmployeeCustomerManagementView view, DatabaseContext dbContext, IConfiguration configuration)
         {
@@ -372,6 +378,33 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 return;
             }
 
+            // Kiểm tra số điện thoại có trùng với bất kỳ nhân viên nào không
+            try
+            {
+                using (var connection = dbContext.GetConnection())
+                {
+                    connection.Open();
+
+                    string checkEmployeePhoneQuery = "SELECT COUNT(*) FROM EMPLOYEE WHERE EmployeePhone = @Phone";
+                    using (var command = new SqlCommand(checkEmployeePhoneQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@Phone", phone);
+                        int employeePhoneCount = (int)command.ExecuteScalar();
+
+                        if (employeePhoneCount > 0)
+                        {
+                            view.ShowMessage("Số điện thoại này đã được sử dụng bởi một nhân viên trong hệ thống!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                view.ShowMessage($"Lỗi khi kiểm tra số điện thoại nhân viên: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
 
 
             // Nếu không có lỗi, tiến hành thêm hoặc sửa khách hàng
@@ -410,17 +443,31 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     return;
                 }
 
-                // Cập nhật thông tin khách hàng
-                selectedCustomer.FullName = view.GetFullName();
-                selectedCustomer.Gender = view.GetGender();
-                selectedCustomer.DateOfBirth = view.GetDateOfBirth();
-                selectedCustomer.Nationality = view.GetNationality();
-                selectedCustomer.CitizenID = view.GetCitizenID();
-                selectedCustomer.CustomerAddress = view.GetAddress();
-                selectedCustomer.Phone = view.GetPhone();
-                selectedCustomer.Email = view.GetEmail();
+                // Hiển thị Form OTP để xác nhận
+                using (var formOTP = new FormOTP())
+                {
+                    var otpController = new OTPController(formOTP, formOTP, this, configuration);
 
-                UpdateCustomer(selectedCustomer);
+                    // Cho phép cả hai phương thức gửi OTP (SMS và Email), gửi đến thông tin mới
+                    if (formOTP.ShowDialog() == DialogResult.OK)
+                    {
+                        // Cập nhật thông tin khách hàng
+                        selectedCustomer.FullName = view.GetFullName();
+                        selectedCustomer.Gender = view.GetGender();
+                        selectedCustomer.DateOfBirth = view.GetDateOfBirth();
+                        selectedCustomer.Nationality = view.GetNationality();
+                        selectedCustomer.CitizenID = view.GetCitizenID();
+                        selectedCustomer.CustomerAddress = view.GetAddress();
+                        selectedCustomer.Phone = view.GetPhone();
+                        selectedCustomer.Email = view.GetEmail();
+
+                        UpdateCustomer(selectedCustomer);
+                    }
+                    else
+                    {
+                        view.ShowMessage("Xác nhận OTP thất bại. Thông tin khách hàng chưa được cập nhật.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                    }
+                }
             }
         }
 
@@ -517,13 +564,15 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         {
                             // Cập nhật AccountName và Username trong bảng ACCOUNT
                             string updateAccountQuery = @"
-                        UPDATE ACCOUNT
-                        SET AccountName = @AccountName, Username = @Username
-                        WHERE CustomerID = @CustomerID";
+                                UPDATE ACCOUNT
+                                SET AccountName = @AccountName, Username = @Username
+                                WHERE CustomerID = @CustomerID";
                             using (var updateCommand = new SqlCommand(updateAccountQuery, connection))
                             {
                                 updateCommand.Parameters.AddWithValue("@CustomerID", customer.CustomerID);
-                                updateCommand.Parameters.AddWithValue("@AccountName", customer.FullName.ToUpper());
+                                // Chuyển tên thành in hoa không dấu (ví dụ: "Đặng Kim Liên" thành "DANG KIM LIEN")
+                                string accountName = RemoveVietnameseDiacritics(customer.FullName).ToUpper();
+                                updateCommand.Parameters.AddWithValue("@AccountName", accountName);
                                 updateCommand.Parameters.AddWithValue("@Username", customer.Phone);
                                 updateCommand.ExecuteNonQuery();
                             }
@@ -538,6 +587,58 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             {
                 view.ShowMessage($"Lỗi khi cập nhật khách hàng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        // Phương thức chuyển đổi tên tiếng Việt có dấu thành không dấu
+        private string RemoveVietnameseDiacritics(string text)
+        {
+            if (string.IsNullOrEmpty(text))
+                return text;
+
+            string[] vietnameseChars = new string[]
+            {
+                "áàảãạăắằẳẵặâấầẩẫậ",
+                "éèẻẽẹêếềểễệ",
+                "íìỉĩị",
+                "óòỏõọôốồổỗộơớờởỡợ",
+                "úùủũụưứừửữự",
+                "ýỳỷỹỵ",
+                "đ"
+            };
+
+            string[] replacementChars = new string[] { "a", "e", "i", "o", "u", "y", "d" };
+
+            for (int i = 0; i < vietnameseChars.Length; i++)
+            {
+                foreach (char c in vietnameseChars[i])
+                {
+                    text = text.Replace(c, replacementChars[i][0]);
+                }
+            }
+
+            // Chuyển các ký tự hoa tương ứng (Á, À, Đ, v.v.)
+            vietnameseChars = new string[]
+            {
+                "ÁÀẢÃẠĂẮẰẲẴẶÂẤẦẨẪẬ",
+                "ÉÈẺẼẸÊẾỀỂỄỆ",
+                "ÍÌỈĨỊ",
+                "ÓÒỎÕỌÔỐỒỔỖỘƠỚỜỞỠỢ",
+                "ÚÙỦŨỤƯỨỪỬỮỰ",
+                "ÝỲỶỸỴ",
+                "Đ"
+            };
+
+            replacementChars = new string[] { "A", "E", "I", "O", "U", "Y", "D" };
+
+            for (int i = 0; i < vietnameseChars.Length; i++)
+            {
+                foreach (char c in vietnameseChars[i])
+                {
+                    text = text.Replace(c, replacementChars[i][0]);
+                }
+            }
+
+            return text;
         }
 
         public void SearchCustomers(string searchText, DateTime fromDate, DateTime toDate, string customerTypeFilter)

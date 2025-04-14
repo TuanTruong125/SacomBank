@@ -28,12 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_CustomerPersonal));
-            textBoxUsername = new TextBox();
-            buttonEditAccount = new Button();
-            buttonSaveAccount = new Button();
-            pictureBox2 = new PictureBox();
             label1 = new Label();
             textBoxCustomerID = new TextBox();
             label2 = new Label();
@@ -43,29 +38,26 @@
             label4 = new Label();
             textBoxDateOfBirth = new TextBox();
             label5 = new Label();
-            groupBox1 = new GroupBox();
-            tableLayoutPanel4 = new TableLayoutPanel();
-            label14 = new Label();
-            pictureBox3 = new PictureBox();
-            comboBoxLanguage = new ComboBox();
-            cyberSwitchDarkMode = new ReaLTaiizor.Controls.CyberSwitch();
-            label13 = new Label();
             textBoxCitizenID = new TextBox();
             label6 = new Label();
             label7 = new Label();
             label9 = new Label();
             label10 = new Label();
             textBoxNationality = new TextBox();
-            textBoxPassword = new TextBox();
             label8 = new Label();
-            toolTip1 = new ToolTip(components);
             textBoxAddress = new TextBox();
-            label11 = new Label();
-            tableLayoutPanel3 = new TableLayoutPanel();
-            label12 = new Label();
-            label15 = new Label();
-            textBoxPINCode = new TextBox();
             groupBoxAccountSetting = new GroupBox();
+            tableLayoutPanel3 = new TableLayoutPanel();
+            pictureBox2 = new PictureBox();
+            label11 = new Label();
+            textBoxUsername = new TextBox();
+            label12 = new Label();
+            textBoxPassword = new TextBox();
+            cyberButtonConfirm = new ReaLTaiizor.Controls.CyberButton();
+            cyberButtonCancel = new ReaLTaiizor.Controls.CyberButton();
+            cyberButtonEdit = new ReaLTaiizor.Controls.CyberButton();
+            label13 = new Label();
+            textBoxPINCode = new TextBox();
             textBoxPhone = new TextBox();
             textBoxEmail = new TextBox();
             textBoxRegistrationDate = new TextBox();
@@ -73,64 +65,14 @@
             tableLayoutPanel2 = new TableLayoutPanel();
             groupBoxCustomerInfo = new GroupBox();
             tableLayoutPanel1 = new TableLayoutPanel();
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
-            groupBox1.SuspendLayout();
-            tableLayoutPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
-            tableLayoutPanel3.SuspendLayout();
             groupBoxAccountSetting.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             tableLayoutPanel2.SuspendLayout();
             groupBoxCustomerInfo.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
-            // 
-            // textBoxUsername
-            // 
-            textBoxUsername.BackColor = SystemColors.ActiveCaption;
-            textBoxUsername.Dock = DockStyle.Fill;
-            textBoxUsername.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxUsername.Location = new Point(3, 36);
-            textBoxUsername.Name = "textBoxUsername";
-            textBoxUsername.ReadOnly = true;
-            textBoxUsername.Size = new Size(438, 32);
-            textBoxUsername.TabIndex = 17;
-            // 
-            // buttonEditAccount
-            // 
-            buttonEditAccount.BackColor = SystemColors.HotTrack;
-            buttonEditAccount.Dock = DockStyle.Fill;
-            buttonEditAccount.Image = (Image)resources.GetObject("buttonEditAccount.Image");
-            buttonEditAccount.Location = new Point(455, 36);
-            buttonEditAccount.Name = "buttonEditAccount";
-            buttonEditAccount.Size = new Size(44, 38);
-            buttonEditAccount.TabIndex = 19;
-            toolTip1.SetToolTip(buttonEditAccount, "Sửa");
-            buttonEditAccount.UseVisualStyleBackColor = false;
-            // 
-            // buttonSaveAccount
-            // 
-            buttonSaveAccount.BackColor = Color.LimeGreen;
-            buttonSaveAccount.Dock = DockStyle.Fill;
-            buttonSaveAccount.Image = (Image)resources.GetObject("buttonSaveAccount.Image");
-            buttonSaveAccount.Location = new Point(455, 185);
-            buttonSaveAccount.Name = "buttonSaveAccount";
-            buttonSaveAccount.Size = new Size(44, 38);
-            buttonSaveAccount.TabIndex = 20;
-            toolTip1.SetToolTip(buttonSaveAccount, "Lưu");
-            buttonSaveAccount.UseVisualStyleBackColor = false;
-            // 
-            // pictureBox2
-            // 
-            pictureBox2.Dock = DockStyle.Fill;
-            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(505, 3);
-            pictureBox2.Name = "pictureBox2";
-            tableLayoutPanel3.SetRowSpan(pictureBox2, 8);
-            pictureBox2.Size = new Size(46, 244);
-            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox2.TabIndex = 21;
-            pictureBox2.TabStop = false;
             // 
             // label1
             // 
@@ -236,129 +178,6 @@
             label5.TabIndex = 8;
             label5.Text = "CCCD/Passport";
             // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(tableLayoutPanel4);
-            groupBox1.Dock = DockStyle.Fill;
-            groupBox1.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBox1.ForeColor = Color.DeepSkyBlue;
-            groupBox1.Location = new Point(569, 469);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(560, 281);
-            groupBox1.TabIndex = 3;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Cài đặt chung";
-            // 
-            // tableLayoutPanel4
-            // 
-            tableLayoutPanel4.ColumnCount = 4;
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 22.02166F));
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 23.2851982F));
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 45.8483772F));
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.66426F));
-            tableLayoutPanel4.Controls.Add(label14, 0, 2);
-            tableLayoutPanel4.Controls.Add(pictureBox3, 3, 0);
-            tableLayoutPanel4.Controls.Add(comboBoxLanguage, 1, 1);
-            tableLayoutPanel4.Controls.Add(cyberSwitchDarkMode, 1, 2);
-            tableLayoutPanel4.Controls.Add(label13, 0, 1);
-            tableLayoutPanel4.Dock = DockStyle.Fill;
-            tableLayoutPanel4.Location = new Point(3, 28);
-            tableLayoutPanel4.Name = "tableLayoutPanel4";
-            tableLayoutPanel4.RowCount = 4;
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 33.6F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 16F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 18.4F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 32F));
-            tableLayoutPanel4.Size = new Size(554, 250);
-            tableLayoutPanel4.TabIndex = 0;
-            // 
-            // label14
-            // 
-            label14.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            label14.AutoSize = true;
-            label14.Font = new Font("Roboto SemiCondensed", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label14.ForeColor = Color.Black;
-            label14.Location = new Point(3, 136);
-            label14.Name = "label14";
-            label14.Size = new Size(116, 22);
-            label14.TabIndex = 17;
-            label14.Text = "Chế độ tối";
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.Dock = DockStyle.Fill;
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(508, 3);
-            pictureBox3.Name = "pictureBox3";
-            tableLayoutPanel4.SetRowSpan(pictureBox3, 4);
-            pictureBox3.Size = new Size(43, 244);
-            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox3.TabIndex = 20;
-            pictureBox3.TabStop = false;
-            // 
-            // comboBoxLanguage
-            // 
-            comboBoxLanguage.Dock = DockStyle.Fill;
-            comboBoxLanguage.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxLanguage.Font = new Font("Roboto SemiCondensed", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            comboBoxLanguage.FormattingEnabled = true;
-            comboBoxLanguage.Items.AddRange(new object[] { "Tiếng Việt", "English" });
-            comboBoxLanguage.Location = new Point(125, 87);
-            comboBoxLanguage.Name = "comboBoxLanguage";
-            comboBoxLanguage.Size = new Size(123, 32);
-            comboBoxLanguage.TabIndex = 18;
-            // 
-            // cyberSwitchDarkMode
-            // 
-            cyberSwitchDarkMode.Alpha = 50;
-            cyberSwitchDarkMode.BackColor = Color.Transparent;
-            cyberSwitchDarkMode.Background = true;
-            cyberSwitchDarkMode.Background_WidthPen = 2F;
-            cyberSwitchDarkMode.BackgroundPen = true;
-            cyberSwitchDarkMode.Checked = false;
-            cyberSwitchDarkMode.ColorBackground = Color.FromArgb(37, 52, 68);
-            cyberSwitchDarkMode.ColorBackground_1 = Color.FromArgb(37, 52, 68);
-            cyberSwitchDarkMode.ColorBackground_2 = Color.FromArgb(41, 63, 86);
-            cyberSwitchDarkMode.ColorBackground_Pen = Color.FromArgb(29, 200, 238);
-            cyberSwitchDarkMode.ColorBackground_Value_1 = Color.FromArgb(28, 200, 238);
-            cyberSwitchDarkMode.ColorBackground_Value_2 = Color.FromArgb(100, 208, 232);
-            cyberSwitchDarkMode.ColorLighting = Color.FromArgb(29, 200, 238);
-            cyberSwitchDarkMode.ColorPen_1 = Color.FromArgb(37, 52, 68);
-            cyberSwitchDarkMode.ColorPen_2 = Color.FromArgb(41, 63, 86);
-            cyberSwitchDarkMode.ColorValue = Color.FromArgb(29, 200, 238);
-            cyberSwitchDarkMode.CyberSwitchStyle = ReaLTaiizor.Enum.Cyber.StateStyle.Custom;
-            cyberSwitchDarkMode.Dock = DockStyle.Fill;
-            cyberSwitchDarkMode.Font = new Font("Arial", 11F);
-            cyberSwitchDarkMode.ForeColor = Color.FromArgb(245, 245, 245);
-            cyberSwitchDarkMode.Lighting = false;
-            cyberSwitchDarkMode.LinearGradient_Background = false;
-            cyberSwitchDarkMode.LinearGradient_Value = false;
-            cyberSwitchDarkMode.LinearGradientPen = false;
-            cyberSwitchDarkMode.Location = new Point(125, 127);
-            cyberSwitchDarkMode.Name = "cyberSwitchDarkMode";
-            cyberSwitchDarkMode.PenWidth = 10;
-            cyberSwitchDarkMode.RGB = false;
-            cyberSwitchDarkMode.Rounding = true;
-            cyberSwitchDarkMode.RoundingInt = 90;
-            cyberSwitchDarkMode.Size = new Size(123, 40);
-            cyberSwitchDarkMode.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            cyberSwitchDarkMode.TabIndex = 19;
-            cyberSwitchDarkMode.Tag = "Cyber";
-            cyberSwitchDarkMode.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            cyberSwitchDarkMode.Timer_RGB = 300;
-            // 
-            // label13
-            // 
-            label13.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            label13.AutoSize = true;
-            label13.Font = new Font("Roboto SemiCondensed", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label13.ForeColor = Color.Black;
-            label13.Location = new Point(3, 93);
-            label13.Name = "label13";
-            label13.Size = new Size(116, 22);
-            label13.TabIndex = 16;
-            label13.Text = "Ngôn ngữ";
-            // 
             // textBoxCitizenID
             // 
             textBoxCitizenID.BackColor = SystemColors.ActiveCaption;
@@ -429,17 +248,6 @@
             textBoxNationality.Size = new Size(578, 32);
             textBoxNationality.TabIndex = 15;
             // 
-            // textBoxPassword
-            // 
-            textBoxPassword.BackColor = SystemColors.ActiveCaption;
-            textBoxPassword.Dock = DockStyle.Fill;
-            textBoxPassword.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxPassword.Location = new Point(3, 111);
-            textBoxPassword.Name = "textBoxPassword";
-            textBoxPassword.ReadOnly = true;
-            textBoxPassword.Size = new Size(438, 32);
-            textBoxPassword.TabIndex = 18;
-            // 
             // label8
             // 
             label8.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
@@ -463,48 +271,89 @@
             textBoxAddress.Size = new Size(578, 32);
             textBoxAddress.TabIndex = 16;
             // 
+            // groupBoxAccountSetting
+            // 
+            tableLayoutPanel1.SetColumnSpan(groupBoxAccountSetting, 2);
+            groupBoxAccountSetting.Controls.Add(tableLayoutPanel3);
+            groupBoxAccountSetting.Dock = DockStyle.Fill;
+            groupBoxAccountSetting.Font = new Font("Roboto SemiCondensed SemiBold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBoxAccountSetting.ForeColor = Color.SteelBlue;
+            groupBoxAccountSetting.Location = new Point(3, 469);
+            groupBoxAccountSetting.Name = "groupBoxAccountSetting";
+            groupBoxAccountSetting.Size = new Size(1126, 281);
+            groupBoxAccountSetting.TabIndex = 2;
+            groupBoxAccountSetting.TabStop = false;
+            groupBoxAccountSetting.Text = "Cài đặt tài khoản";
+            // 
+            // tableLayoutPanel3
+            // 
+            tableLayoutPanel3.ColumnCount = 8;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 28.00773F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.701581F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 0.639409661F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.7055845F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 0.583554864F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.7055826F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 21.875F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5.178571F));
+            tableLayoutPanel3.Controls.Add(pictureBox2, 7, 0);
+            tableLayoutPanel3.Controls.Add(label11, 0, 0);
+            tableLayoutPanel3.Controls.Add(textBoxUsername, 0, 1);
+            tableLayoutPanel3.Controls.Add(label12, 0, 2);
+            tableLayoutPanel3.Controls.Add(textBoxPassword, 0, 3);
+            tableLayoutPanel3.Controls.Add(cyberButtonConfirm, 5, 4);
+            tableLayoutPanel3.Controls.Add(cyberButtonCancel, 1, 4);
+            tableLayoutPanel3.Controls.Add(cyberButtonEdit, 3, 4);
+            tableLayoutPanel3.Controls.Add(label13, 3, 2);
+            tableLayoutPanel3.Controls.Add(textBoxPINCode, 3, 3);
+            tableLayoutPanel3.Dock = DockStyle.Fill;
+            tableLayoutPanel3.Location = new Point(3, 28);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 6;
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 16.4907646F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 16.4907646F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 16.4907646F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 16.4907646F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 23.7467F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 10.2902365F));
+            tableLayoutPanel3.Size = new Size(1120, 250);
+            tableLayoutPanel3.TabIndex = 1;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Dock = DockStyle.Fill;
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(1064, 3);
+            pictureBox2.Name = "pictureBox2";
+            tableLayoutPanel3.SetRowSpan(pictureBox2, 6);
+            pictureBox2.Size = new Size(53, 244);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 21;
+            pictureBox2.TabStop = false;
+            // 
             // label11
             // 
             label11.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label11.AutoSize = true;
             label11.Font = new Font("Roboto SemiCondensed", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label11.ForeColor = Color.Black;
-            label11.Location = new Point(3, 11);
+            label11.Location = new Point(3, 19);
             label11.Name = "label11";
             label11.Size = new Size(86, 22);
             label11.TabIndex = 15;
             label11.Text = "Username";
             // 
-            // tableLayoutPanel3
+            // textBoxUsername
             // 
-            tableLayoutPanel3.ColumnCount = 4;
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 80.28933F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 1.44665468F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.041592F));
-            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.222424F));
-            tableLayoutPanel3.Controls.Add(label11, 0, 1);
-            tableLayoutPanel3.Controls.Add(label12, 0, 3);
-            tableLayoutPanel3.Controls.Add(textBoxUsername, 0, 2);
-            tableLayoutPanel3.Controls.Add(textBoxPassword, 0, 4);
-            tableLayoutPanel3.Controls.Add(buttonEditAccount, 2, 2);
-            tableLayoutPanel3.Controls.Add(pictureBox2, 3, 0);
-            tableLayoutPanel3.Controls.Add(label15, 0, 5);
-            tableLayoutPanel3.Controls.Add(textBoxPINCode, 0, 6);
-            tableLayoutPanel3.Controls.Add(buttonSaveAccount, 2, 6);
-            tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(3, 28);
-            tableLayoutPanel3.Name = "tableLayoutPanel3";
-            tableLayoutPanel3.RowCount = 8;
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 3.2F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 17.6F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 12.4F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 17.2F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 12.4F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 17.6F));
-            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 9.6F));
-            tableLayoutPanel3.Size = new Size(554, 250);
-            tableLayoutPanel3.TabIndex = 0;
+            textBoxUsername.BackColor = SystemColors.ActiveCaption;
+            tableLayoutPanel3.SetColumnSpan(textBoxUsername, 7);
+            textBoxUsername.Dock = DockStyle.Fill;
+            textBoxUsername.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBoxUsername.Location = new Point(3, 44);
+            textBoxUsername.Name = "textBoxUsername";
+            textBoxUsername.ReadOnly = true;
+            textBoxUsername.Size = new Size(1055, 32);
+            textBoxUsername.TabIndex = 17;
             // 
             // label12
             // 
@@ -512,47 +361,173 @@
             label12.AutoSize = true;
             label12.Font = new Font("Roboto SemiCondensed", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label12.ForeColor = Color.Black;
-            label12.Location = new Point(3, 86);
+            label12.Location = new Point(3, 101);
             label12.Name = "label12";
             label12.Size = new Size(80, 22);
             label12.TabIndex = 16;
             label12.Text = "Mật khẩu";
             // 
-            // label15
+            // textBoxPassword
             // 
-            label15.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            label15.AutoSize = true;
-            label15.Font = new Font("Roboto SemiCondensed", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label15.ForeColor = Color.Black;
-            label15.Location = new Point(3, 160);
-            label15.Name = "label15";
-            label15.Size = new Size(66, 22);
-            label15.TabIndex = 22;
-            label15.Text = "Mã PIN";
+            textBoxPassword.BackColor = SystemColors.ActiveCaption;
+            tableLayoutPanel3.SetColumnSpan(textBoxPassword, 3);
+            textBoxPassword.Dock = DockStyle.Fill;
+            textBoxPassword.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBoxPassword.Location = new Point(3, 126);
+            textBoxPassword.Name = "textBoxPassword";
+            textBoxPassword.ReadOnly = true;
+            textBoxPassword.Size = new Size(477, 32);
+            textBoxPassword.TabIndex = 18;
+            // 
+            // cyberButtonConfirm
+            // 
+            cyberButtonConfirm.Alpha = 20;
+            cyberButtonConfirm.BackColor = Color.Transparent;
+            cyberButtonConfirm.Background = true;
+            cyberButtonConfirm.Background_WidthPen = 4F;
+            cyberButtonConfirm.BackgroundPen = true;
+            cyberButtonConfirm.ColorBackground = Color.FromArgb(37, 52, 68);
+            cyberButtonConfirm.ColorBackground_1 = SystemColors.HotTrack;
+            cyberButtonConfirm.ColorBackground_2 = Color.DeepSkyBlue;
+            cyberButtonConfirm.ColorBackground_Pen = Color.FromArgb(29, 200, 238);
+            cyberButtonConfirm.ColorLighting = Color.FromArgb(29, 200, 238);
+            cyberButtonConfirm.ColorPen_1 = SystemColors.HotTrack;
+            cyberButtonConfirm.ColorPen_2 = Color.DeepSkyBlue;
+            cyberButtonConfirm.CyberButtonStyle = ReaLTaiizor.Enum.Cyber.StateStyle.Custom;
+            cyberButtonConfirm.Dock = DockStyle.Fill;
+            cyberButtonConfirm.Effect_1 = true;
+            cyberButtonConfirm.Effect_1_ColorBackground = Color.FromArgb(29, 200, 238);
+            cyberButtonConfirm.Effect_1_Transparency = 25;
+            cyberButtonConfirm.Effect_2 = true;
+            cyberButtonConfirm.Effect_2_ColorBackground = Color.White;
+            cyberButtonConfirm.Effect_2_Transparency = 20;
+            cyberButtonConfirm.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold);
+            cyberButtonConfirm.ForeColor = Color.FromArgb(245, 245, 245);
+            cyberButtonConfirm.Lighting = false;
+            cyberButtonConfirm.LinearGradient_Background = true;
+            cyberButtonConfirm.LinearGradientPen = true;
+            cyberButtonConfirm.Location = new Point(656, 167);
+            cyberButtonConfirm.Name = "cyberButtonConfirm";
+            cyberButtonConfirm.PenWidth = 15;
+            cyberButtonConfirm.Rounding = true;
+            cyberButtonConfirm.RoundingInt = 70;
+            cyberButtonConfirm.Size = new Size(158, 53);
+            cyberButtonConfirm.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            cyberButtonConfirm.TabIndex = 22;
+            cyberButtonConfirm.Tag = "Cyber";
+            cyberButtonConfirm.TextButton = "Lưu";
+            cyberButtonConfirm.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            cyberButtonConfirm.Timer_Effect_1 = 5;
+            cyberButtonConfirm.Timer_RGB = 300;
+            cyberButtonConfirm.Click += cyberButtonConfirm_Click;
+            // 
+            // cyberButtonCancel
+            // 
+            cyberButtonCancel.Alpha = 20;
+            cyberButtonCancel.BackColor = Color.Transparent;
+            cyberButtonCancel.Background = true;
+            cyberButtonCancel.Background_WidthPen = 4F;
+            cyberButtonCancel.BackgroundPen = true;
+            cyberButtonCancel.ColorBackground = Color.FromArgb(37, 52, 68);
+            cyberButtonCancel.ColorBackground_1 = Color.Red;
+            cyberButtonCancel.ColorBackground_2 = Color.FromArgb(255, 128, 128);
+            cyberButtonCancel.ColorBackground_Pen = Color.FromArgb(29, 200, 238);
+            cyberButtonCancel.ColorLighting = Color.FromArgb(29, 200, 238);
+            cyberButtonCancel.ColorPen_1 = Color.Red;
+            cyberButtonCancel.ColorPen_2 = Color.FromArgb(255, 128, 128);
+            cyberButtonCancel.CyberButtonStyle = ReaLTaiizor.Enum.Cyber.StateStyle.Custom;
+            cyberButtonCancel.Dock = DockStyle.Fill;
+            cyberButtonCancel.Effect_1 = true;
+            cyberButtonCancel.Effect_1_ColorBackground = Color.FromArgb(29, 200, 238);
+            cyberButtonCancel.Effect_1_Transparency = 25;
+            cyberButtonCancel.Effect_2 = true;
+            cyberButtonCancel.Effect_2_ColorBackground = Color.White;
+            cyberButtonCancel.Effect_2_Transparency = 20;
+            cyberButtonCancel.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold);
+            cyberButtonCancel.ForeColor = Color.FromArgb(245, 245, 245);
+            cyberButtonCancel.Lighting = false;
+            cyberButtonCancel.LinearGradient_Background = true;
+            cyberButtonCancel.LinearGradientPen = true;
+            cyberButtonCancel.Location = new Point(315, 167);
+            cyberButtonCancel.Name = "cyberButtonCancel";
+            cyberButtonCancel.PenWidth = 15;
+            cyberButtonCancel.Rounding = true;
+            cyberButtonCancel.RoundingInt = 70;
+            cyberButtonCancel.Size = new Size(158, 53);
+            cyberButtonCancel.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            cyberButtonCancel.TabIndex = 208;
+            cyberButtonCancel.Tag = "Cyber";
+            cyberButtonCancel.TextButton = "Hủy";
+            cyberButtonCancel.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            cyberButtonCancel.Timer_Effect_1 = 5;
+            cyberButtonCancel.Timer_RGB = 300;
+            cyberButtonCancel.Click += cyberButtonCancel_Click;
+            // 
+            // cyberButtonEdit
+            // 
+            cyberButtonEdit.Alpha = 20;
+            cyberButtonEdit.BackColor = Color.Transparent;
+            cyberButtonEdit.Background = true;
+            cyberButtonEdit.Background_WidthPen = 4F;
+            cyberButtonEdit.BackgroundPen = true;
+            cyberButtonEdit.ColorBackground = Color.FromArgb(37, 52, 68);
+            cyberButtonEdit.ColorBackground_1 = Color.Teal;
+            cyberButtonEdit.ColorBackground_2 = Color.Turquoise;
+            cyberButtonEdit.ColorBackground_Pen = Color.FromArgb(29, 200, 238);
+            cyberButtonEdit.ColorLighting = Color.FromArgb(29, 200, 238);
+            cyberButtonEdit.ColorPen_1 = Color.Teal;
+            cyberButtonEdit.ColorPen_2 = Color.Turquoise;
+            cyberButtonEdit.CyberButtonStyle = ReaLTaiizor.Enum.Cyber.StateStyle.Custom;
+            cyberButtonEdit.Dock = DockStyle.Fill;
+            cyberButtonEdit.Effect_1 = true;
+            cyberButtonEdit.Effect_1_ColorBackground = Color.FromArgb(29, 200, 238);
+            cyberButtonEdit.Effect_1_Transparency = 25;
+            cyberButtonEdit.Effect_2 = true;
+            cyberButtonEdit.Effect_2_ColorBackground = Color.White;
+            cyberButtonEdit.Effect_2_Transparency = 20;
+            cyberButtonEdit.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold);
+            cyberButtonEdit.ForeColor = Color.FromArgb(245, 245, 245);
+            cyberButtonEdit.Lighting = false;
+            cyberButtonEdit.LinearGradient_Background = true;
+            cyberButtonEdit.LinearGradientPen = true;
+            cyberButtonEdit.Location = new Point(486, 167);
+            cyberButtonEdit.Name = "cyberButtonEdit";
+            cyberButtonEdit.PenWidth = 15;
+            cyberButtonEdit.Rounding = true;
+            cyberButtonEdit.RoundingInt = 70;
+            cyberButtonEdit.Size = new Size(158, 53);
+            cyberButtonEdit.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            cyberButtonEdit.TabIndex = 209;
+            cyberButtonEdit.Tag = "Cyber";
+            cyberButtonEdit.TextButton = "Sửa";
+            cyberButtonEdit.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            cyberButtonEdit.Timer_Effect_1 = 5;
+            cyberButtonEdit.Timer_RGB = 300;
+            cyberButtonEdit.Click += cyberButtonEdit_Click;
+            // 
+            // label13
+            // 
+            label13.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            label13.AutoSize = true;
+            label13.Font = new Font("Roboto SemiCondensed", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label13.ForeColor = Color.Black;
+            label13.Location = new Point(486, 101);
+            label13.Name = "label13";
+            label13.Size = new Size(66, 22);
+            label13.TabIndex = 210;
+            label13.Text = "Mã PIN";
             // 
             // textBoxPINCode
             // 
             textBoxPINCode.BackColor = SystemColors.ActiveCaption;
+            tableLayoutPanel3.SetColumnSpan(textBoxPINCode, 4);
             textBoxPINCode.Dock = DockStyle.Fill;
             textBoxPINCode.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxPINCode.Location = new Point(3, 185);
+            textBoxPINCode.Location = new Point(486, 126);
             textBoxPINCode.Name = "textBoxPINCode";
             textBoxPINCode.ReadOnly = true;
-            textBoxPINCode.Size = new Size(438, 32);
-            textBoxPINCode.TabIndex = 23;
-            // 
-            // groupBoxAccountSetting
-            // 
-            groupBoxAccountSetting.Controls.Add(tableLayoutPanel3);
-            groupBoxAccountSetting.Dock = DockStyle.Fill;
-            groupBoxAccountSetting.Font = new Font("Roboto SemiCondensed SemiBold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBoxAccountSetting.ForeColor = Color.SteelBlue;
-            groupBoxAccountSetting.Location = new Point(3, 469);
-            groupBoxAccountSetting.Name = "groupBoxAccountSetting";
-            groupBoxAccountSetting.Size = new Size(560, 281);
-            groupBoxAccountSetting.TabIndex = 2;
-            groupBoxAccountSetting.TabStop = false;
-            groupBoxAccountSetting.Text = "Cài đặt tài khoản";
+            textBoxPINCode.Size = new Size(572, 32);
+            textBoxPINCode.TabIndex = 211;
             // 
             // textBoxPhone
             // 
@@ -665,7 +640,6 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.Controls.Add(groupBoxCustomerInfo, 0, 0);
             tableLayoutPanel1.Controls.Add(groupBoxAccountSetting, 0, 1);
-            tableLayoutPanel1.Controls.Add(groupBox1, 1, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
@@ -682,14 +656,10 @@
             Controls.Add(tableLayoutPanel1);
             Name = "UC_CustomerPersonal";
             Size = new Size(1132, 753);
-            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
-            groupBox1.ResumeLayout(false);
-            tableLayoutPanel4.ResumeLayout(false);
-            tableLayoutPanel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            groupBoxAccountSetting.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
-            groupBoxAccountSetting.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             tableLayoutPanel2.ResumeLayout(false);
             tableLayoutPanel2.PerformLayout();
@@ -699,16 +669,6 @@
         }
 
         #endregion
-
-        private TextBox textBoxUsername;
-        private Button buttonEditAccount;
-        private ToolTip toolTip1;
-        private Button buttonSaveAccount;
-        private PictureBox pictureBox2;
-        private TableLayoutPanel tableLayoutPanel3;
-        private Label label11;
-        private Label label12;
-        private TextBox textBoxPassword;
         private Label label1;
         private TextBox textBoxCustomerID;
         private Label label2;
@@ -718,13 +678,6 @@
         private Label label4;
         private TextBox textBoxDateOfBirth;
         private Label label5;
-        private GroupBox groupBox1;
-        private TableLayoutPanel tableLayoutPanel4;
-        private Label label14;
-        private PictureBox pictureBox3;
-        private ComboBox comboBoxLanguage;
-        private ReaLTaiizor.Controls.CyberSwitch cyberSwitchDarkMode;
-        private Label label13;
         private TextBox textBoxCitizenID;
         private Label label6;
         private Label label7;
@@ -741,7 +694,16 @@
         private TableLayoutPanel tableLayoutPanel2;
         private GroupBox groupBoxCustomerInfo;
         private TableLayoutPanel tableLayoutPanel1;
-        private Label label15;
+        private TableLayoutPanel tableLayoutPanel3;
+        private PictureBox pictureBox2;
+        private Label label11;
+        private TextBox textBoxUsername;
+        private Label label12;
+        private TextBox textBoxPassword;
+        private ReaLTaiizor.Controls.CyberButton cyberButtonConfirm;
+        private ReaLTaiizor.Controls.CyberButton cyberButtonCancel;
+        private ReaLTaiizor.Controls.CyberButton cyberButtonEdit;
+        private Label label13;
         private TextBox textBoxPINCode;
     }
 }

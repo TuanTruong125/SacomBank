@@ -40,6 +40,11 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
             {
                 InitializeComponent();
                 InitializeMenuButtons();
+
+                // Kiểm tra các tham số đầu vào
+                this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext), "DatabaseContext không được null!");
+                this.configuration = configuration ?? throw new ArgumentNullException(nameof(configuration), "IConfiguration không được null!");
+
                 controller = new FormCustomerController(this, account, null, dbContext, configuration);
 
                 // Đăng ký sự kiện
