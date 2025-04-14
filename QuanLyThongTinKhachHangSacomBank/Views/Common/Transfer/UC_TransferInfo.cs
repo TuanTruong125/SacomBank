@@ -6,6 +6,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Transfer
 {
     public interface ITransferViewData
     {
+        string TransactionCode { get; set; }
         string AccountName { get; }
         string AccountID { get; set; } // Thêm setter để có thể cập nhật từ controller
         string Phone { get; }
@@ -103,6 +104,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Transfer
             textBoxAmount.KeyPress += TextBoxAmount_KeyPress;
         }
 
+
+        public string TransactionCode { get; set; }
         public string AccountName => textBoxAccountName.Text;
         public string AccountID
         {

@@ -15,6 +15,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 {
     class WithdrawController
     {
+        public event EventHandler TransactionCompleted;
+
         private IWithdrawView withdrawView;
         private UserControl activeUC;
         private readonly DatabaseContext dbContext;
@@ -163,7 +165,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     if (formOTP.ShowDialog() == DialogResult.OK)
                     {
                         lastWithdrawViewData = withdrawViewData;
-                        SaveTransaction(withdrawViewData);
+                        string transactionCode = SaveTransaction(withdrawViewData); // Lấy TransactionCode
+                        lastWithdrawViewData.TransactionCode = transactionCode; // Gán TransactionCode
                         isTransactionSuccessful = true;
 
                         activeUC = new UC_SuccessfulWithdraw();
@@ -178,7 +181,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             }
         }
 
-        private void SaveTransaction(IWithdrawViewData withdrawViewData)
+        private string SaveTransaction(IWithdrawViewData withdrawViewData)
         {
             using (var connection = dbContext.GetConnection())
             {
@@ -199,8 +202,11 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                             transactionTypeID = (int)result;
                         }
 
+                        // Thêm giao dịch và lấy TransactionID
+                        int newTransactionId;
                         using (var command = new SqlCommand(
                             "INSERT INTO [TRANSACTION] (Amount, TransactionDate, TransactionStatus, HandledBy, TransactionDescription, TransactionMethod, AccountID, TransactionTypeID) " +
+                            "OUTPUT INSERTED.TransactionID " +
                             "VALUES (@Amount, @TransactionDate, @TransactionStatus, @HandledBy, @TransactionDescription, @TransactionMethod, @AccountID, @TransactionTypeID)", connection, transaction))
                         {
                             command.Parameters.AddWithValue("@Amount", decimal.Parse(withdrawViewData.Amount));
@@ -211,7 +217,20 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                             command.Parameters.AddWithValue("@TransactionMethod", "Tại quầy");
                             command.Parameters.AddWithValue("@AccountID", senderAccount.AccountID);
                             command.Parameters.AddWithValue("@TransactionTypeID", transactionTypeID);
-                            command.ExecuteNonQuery();
+                            newTransactionId = (int)command.ExecuteScalar(); // Lấy TransactionID
+                        }
+
+                        // Lấy TransactionCode từ bản ghi vừa thêm
+                        string transactionCode;
+                        using (var command = new SqlCommand(
+                            "SELECT TransactionCode FROM [TRANSACTION] WHERE TransactionID = @TransactionID", connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@TransactionID", newTransactionId);
+                            transactionCode = command.ExecuteScalar()?.ToString();
+                            if (string.IsNullOrEmpty(transactionCode))
+                            {
+                                throw new Exception("Không thể lấy TransactionCode sau khi thêm giao dịch.");
+                            }
                         }
 
                         using (var command = new SqlCommand("UPDATE ACCOUNT SET Balance = Balance - @Amount WHERE AccountID = @AccountID", connection, transaction))
@@ -223,6 +242,9 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
                         senderAccount.Balance -= decimal.Parse(withdrawViewData.Amount);
                         transaction.Commit();
+
+                        TransactionCompleted?.Invoke(this, EventArgs.Empty);
+                        return transactionCode; // Trả về TransactionCode
                     }
                     catch (Exception ex)
                     {
@@ -364,7 +386,12 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                     Alignment = Element.ALIGN_LEFT
                                 });
 
-                                document.Add(new Paragraph($"Ngày giao dịch: {DateTime.Now:dd/MM/yyyy HH:mm:ss}", font)
+                                document.Add(new Paragraph($"Ngày xuất: {DateTime.Now:dd/MM/yyyy HH:mm:ss}", font)
+                                {
+                                    Alignment = Element.ALIGN_LEFT
+                                });
+
+                                document.Add(new Paragraph($"Mã giao dịch: {lastWithdrawViewData.TransactionCode}", font) // Sử dụng TransactionCode
                                 {
                                     Alignment = Element.ALIGN_LEFT
                                 });
@@ -390,7 +417,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                 PdfPTable subTableCustomer = new PdfPTable(new float[] { 1, 2 });
                                 subTableCustomer.WidthPercentage = 100;
                                 subTableCustomer.DefaultCell.Border = PdfPCell.NO_BORDER;
-                                subTableCustomer.AddCell(new PdfPCell(new Phrase("Họ và tên", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableCustomer.AddCell(new PdfPCell(new Phrase("Khách hàng", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
                                 subTableCustomer.AddCell(new PdfPCell(new Phrase(customerFullname, boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
                                 subTableCustomer.AddCell(new PdfPCell(new Phrase("Mã tài khoản", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
                                 subTableCustomer.AddCell(new PdfPCell(new Phrase(senderAccount.AccountCode, boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });

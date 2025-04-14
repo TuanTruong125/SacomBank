@@ -13,6 +13,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Withdraw
 {
     public interface IWithdrawViewData
     {
+        string TransactionCode { get; set; }
         string AccountName { get; }
         string AccountID { get; }
         string Phone { get; }
@@ -87,7 +88,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Withdraw
         }
 
 
-
+        public string TransactionCode { get; set; }
         public string AccountName => textBoxAccountName.Text;
         public string AccountID => textBoxAccountID.Text;
         public string Phone => textBoxPhone.Text;

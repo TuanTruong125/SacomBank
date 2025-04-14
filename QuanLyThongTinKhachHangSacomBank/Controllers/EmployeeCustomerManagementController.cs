@@ -108,11 +108,11 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 {
                     connection.Open();
                     string query = @"
-                SELECT c.CustomerID, c.CustomerCode, c.FullName, c.Gender, c.DateOfBirth, c.Nationality, 
-                       c.CitizenID, c.CustomerAddress, c.Phone, c.Email, c.RegistrationDate, ct.CustomerTypeName
-                FROM CUSTOMER c
-                JOIN CUSTOMER_TYPE ct ON c.CustomerTypeID = ct.CustomerTypeID
-                WHERE c.RegistrationDate BETWEEN @FromDate AND @ToDate";
+                        SELECT c.CustomerID, c.CustomerCode, c.FullName, c.Gender, c.DateOfBirth, c.Nationality, 
+                               c.CitizenID, c.CustomerAddress, c.Phone, c.Email, c.RegistrationDate, ct.CustomerTypeName
+                        FROM CUSTOMER c
+                        JOIN CUSTOMER_TYPE ct ON c.CustomerTypeID = ct.CustomerTypeID
+                        WHERE c.RegistrationDate BETWEEN @FromDate AND @ToDate";
 
                     if (customerTypeFilter != "Không áp dụng")
                     {

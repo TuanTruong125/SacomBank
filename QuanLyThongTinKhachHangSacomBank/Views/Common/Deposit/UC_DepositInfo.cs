@@ -13,6 +13,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Deposit
 {
     public interface IDepositViewData
     {
+        string TransactionCode { get; set; }
         string AccountName { get; }
         string AccountID { get; }
         string Phone { get; }
@@ -86,7 +87,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Deposit
             }
         }
 
-
+        public string TransactionCode { get; set; }
         public string AccountName => textBoxAccountName.Text;
         public string AccountID => textBoxAccountID.Text;
         public string Phone => textBoxPhone.Text;

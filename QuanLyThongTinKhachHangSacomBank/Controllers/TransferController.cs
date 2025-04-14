@@ -16,6 +16,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 {
     class TransferController
     {
+        public event EventHandler TransactionCompleted;
+
         private ITransferView transferView;
         private UserControl activeUC;
         private readonly AccountModel currentAccount; // Tài khoản người gửi (có thể null nếu là nhân viên)
@@ -266,7 +268,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         if (amount < 10000000) // Dưới 10 triệu VND
                         {
                             // Chỉ cần xác nhận bằng mã PIN
-                            FormPINCode formPINCode = new FormPINCode(senderAccount); // Truyền senderAccount
+                            FormPINCode formPINCode = new FormPINCode(senderAccount);
                             var pinController = new PINCodeController(formPINCode, formPINCode, senderAccount);
                             if (formPINCode.ShowDialog() == DialogResult.OK)
                             {
@@ -276,7 +278,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         else // Từ 10 triệu VND trở lên
                         {
                             // Yêu cầu nhập mã PIN trước
-                            FormPINCode formPINCode = new FormPINCode(senderAccount); // Truyền senderAccount
+                            FormPINCode formPINCode = new FormPINCode(senderAccount);
                             var pinController = new PINCodeController(formPINCode, formPINCode, senderAccount);
                             bool pinVerified = formPINCode.ShowDialog() == DialogResult.OK;
 
@@ -300,8 +302,169 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         lastReceiverAccount = receiverAccount;
                         lastIsEmployee = isEmployee;
 
-                        // Thực hiện giao dịch
-                        SaveTransaction(transferViewData, receiverAccount, isEmployee);
+                        // Thực hiện giao dịch và lấy TransactionCode
+                        string transactionCode = SaveTransaction(transferViewData, receiverAccount, isEmployee);
+                        lastTransferViewData.TransactionCode = transactionCode; // Gán TransactionCode
+
+                        // Đánh dấu giao dịch thành công
+                        isTransactionSuccessful = true;
+
+                        // Cập nhật số dư ngay lập tức sau khi giao dịch thành công
+                        if (customerHomeView != null && !isEmployee)
+                        {
+                            customerHomeView.SetBalance(senderAccount.Balance.ToString("#,##0") + " VND");
+                        }
+
+                        // Chuyển sang giao diện thành công
+                        activeUC = new UC_SuccessfulTransfer();
+                        SetupSuccessfulTransfer(activeUC as ISuccessfulTransferView, transferViewData, receiverAccount, isEmployee);
+                        transferView.LoadUserControl(activeUC);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show($"Lỗi khi xác nhận chuyển tiền: {ex.Message}\nStackTrace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+            try
+            {
+                if (activeUC is ITransferViewData transferViewData)
+                {
+                    // Kiểm tra thông tin đầu vào
+                    if (string.IsNullOrWhiteSpace(transferViewData.AccountID) ||
+                        string.IsNullOrWhiteSpace(transferViewData.ReceiverAccountID) ||
+                        string.IsNullOrWhiteSpace(transferViewData.Amount) ||
+                        transferViewData.BankSelectedIndex == -1)
+                    {
+                        transferViewData.ShowError("Vui lòng nhập đầy đủ thông tin!");
+                        return;
+                    }
+
+                    // Load tài khoản người gửi nếu chưa có (trường hợp nhân viên)
+                    if (senderAccount == null)
+                    {
+                        senderAccount = GetAccountByCode(transferViewData.AccountID);
+                        if (senderAccount == null)
+                        {
+                            transferViewData.ShowError("Tài khoản người gửi không tồn tại!");
+                            return;
+                        }
+                    }
+
+                    // Kiểm tra trạng thái tài khoản người gửi
+                    if (senderAccount.AccountStatus == "Khóa")
+                    {
+                        transferViewData.ShowError("Tài khoản người gửi đang bị khóa!");
+                        return;
+                    }
+
+                    if (senderAccount.AccountStatus == "Đóng")
+                    {
+                        transferViewData.ShowError("Tài khoản người gửi đã bị đóng!");
+                        return;
+                    }
+
+                    // Load tài khoản người nhận
+                    AccountModel receiverAccount = GetAccountByCode(transferViewData.ReceiverAccountID);
+                    if (receiverAccount == null)
+                    {
+                        transferViewData.ShowError("Tài khoản người nhận không tồn tại!");
+                        return;
+                    }
+
+                    // Kiểm tra nếu tài khoản người nhận trùng với tài khoản người gửi
+                    if (receiverAccount.AccountCode == senderAccount.AccountCode)
+                    {
+                        transferViewData.ShowError("Tài khoản người nhận không hợp lệ!");
+                        return;
+                    }
+
+                    // Kiểm tra trạng thái tài khoản người nhận
+                    if (receiverAccount.AccountStatus == "Khóa")
+                    {
+                        transferViewData.ShowError("Tài khoản người nhận đang bị khóa!");
+                        return;
+                    }
+
+                    if (receiverAccount.AccountStatus == "Đóng")
+                    {
+                        transferViewData.ShowError("Tài khoản người nhận đã bị đóng!");
+                        return;
+                    }
+
+                    // Kiểm tra số dư tài khoản người gửi
+                    decimal amount = decimal.Parse(transferViewData.Amount);
+                    if (amount > senderAccount.Balance)
+                    {
+                        transferViewData.ShowError("Số dư không đủ để thực hiện giao dịch!");
+                        return;
+                    }
+
+                    // Kiểm tra số tiền gửi tối thiểu
+                    if (amount < 5000)
+                    {
+                        transferViewData.ShowError("Số tiền chuyển tối thiểu là 5,000 VND!");
+                        return;
+                    }
+
+                    transferViewData.HideError();
+
+                    // Xác nhận giao dịch
+                    bool isVerified = false;
+
+                    if (isEmployee)
+                    {
+                        // Trường hợp nhân viên: Chỉ cần xác nhận bằng OTP
+                        FormOTP formOTP = new FormOTP();
+                        var otpController = new OTPController(formOTP, formOTP, new OTPControllerAdapter(senderAccount, dbContext), configuration);
+                        if (formOTP.ShowDialog() == DialogResult.OK)
+                        {
+                            isVerified = true;
+                        }
+                    }
+                    else
+                    {
+                        // Trường hợp khách hàng: Kiểm tra số tiền giao dịch
+                        if (amount < 10000000) // Dưới 10 triệu VND
+                        {
+                            // Chỉ cần xác nhận bằng mã PIN
+                            FormPINCode formPINCode = new FormPINCode(senderAccount);
+                            var pinController = new PINCodeController(formPINCode, formPINCode, senderAccount);
+                            if (formPINCode.ShowDialog() == DialogResult.OK)
+                            {
+                                isVerified = true;
+                            }
+                        }
+                        else // Từ 10 triệu VND trở lên
+                        {
+                            // Yêu cầu nhập mã PIN trước
+                            FormPINCode formPINCode = new FormPINCode(senderAccount);
+                            var pinController = new PINCodeController(formPINCode, formPINCode, senderAccount);
+                            bool pinVerified = formPINCode.ShowDialog() == DialogResult.OK;
+
+                            // Nếu mã PIN đúng, tiếp tục xác nhận bằng OTP
+                            if (pinVerified)
+                            {
+                                FormOTP formOTP = new FormOTP();
+                                var otpController = new OTPController(formOTP, formOTP, new OTPControllerAdapter(senderAccount, dbContext), configuration);
+                                if (formOTP.ShowDialog() == DialogResult.OK)
+                                {
+                                    isVerified = true;
+                                }
+                            }
+                        }
+                    }
+
+                    if (isVerified)
+                    {
+                        // Lưu thông tin giao dịch ngay khi xác nhận thành công
+                        lastTransferViewData = transferViewData;
+                        lastReceiverAccount = receiverAccount;
+                        lastIsEmployee = isEmployee;
+
+                        // Thực hiện giao dịch và lấy TransactionCode
+                        string transactionCode = SaveTransaction(transferViewData, receiverAccount, isEmployee);
+                        lastTransferViewData.TransactionCode = transactionCode; // Gán TransactionCode
 
                         // Đánh dấu giao dịch thành công
                         isTransactionSuccessful = true;
@@ -325,7 +488,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             }
         }
 
-        private void SaveTransaction(ITransferViewData transferViewData, AccountModel receiverAccount, bool isEmployee)
+        private string SaveTransaction(ITransferViewData transferViewData, AccountModel receiverAccount, bool isEmployee)
         {
             using (var connection = dbContext.GetConnection())
             {
@@ -339,12 +502,19 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         using (var command = new SqlCommand("SELECT TransactionTypeID FROM TRANSACTION_TYPE WHERE TransactionTypeName = @TransactionTypeName", connection, transaction))
                         {
                             command.Parameters.AddWithValue("@TransactionTypeName", "Chuyển tiền");
-                            transactionTypeID = (int)command.ExecuteScalar();
+                            var result = command.ExecuteScalar();
+                            if (result == null)
+                            {
+                                throw new Exception("Không tìm thấy TransactionTypeID cho 'Chuyển tiền'.");
+                            }
+                            transactionTypeID = (int)result;
                         }
 
-                        // Thêm giao dịch vào bảng TRANSACTION
+                        // Thêm giao dịch và lấy TransactionID
+                        int newTransactionId;
                         using (var command = new SqlCommand(
                             "INSERT INTO [TRANSACTION] (Amount, TransactionDate, ReceiverAccountID, TransactionStatus, HandledBy, TransactionDescription, TransactionMethod, ReceiverAccountName, AccountID, TransactionTypeID) " +
+                            "OUTPUT INSERTED.TransactionID " +
                             "VALUES (@Amount, @TransactionDate, @ReceiverAccountID, @TransactionStatus, @HandledBy, @TransactionDescription, @TransactionMethod, @ReceiverAccountName, @AccountID, @TransactionTypeID)", connection, transaction))
                         {
                             command.Parameters.AddWithValue("@Amount", decimal.Parse(transferViewData.Amount));
@@ -357,7 +527,20 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                             command.Parameters.AddWithValue("@ReceiverAccountName", receiverAccount.AccountName);
                             command.Parameters.AddWithValue("@AccountID", senderAccount.AccountID);
                             command.Parameters.AddWithValue("@TransactionTypeID", transactionTypeID);
-                            command.ExecuteNonQuery();
+                            newTransactionId = (int)command.ExecuteScalar(); // Lấy TransactionID
+                        }
+
+                        // Lấy TransactionCode từ bản ghi vừa thêm
+                        string transactionCode;
+                        using (var command = new SqlCommand(
+                            "SELECT TransactionCode FROM [TRANSACTION] WHERE TransactionID = @TransactionID", connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@TransactionID", newTransactionId);
+                            transactionCode = command.ExecuteScalar()?.ToString();
+                            if (string.IsNullOrEmpty(transactionCode))
+                            {
+                                throw new Exception("Không thể lấy TransactionCode sau khi thêm giao dịch.");
+                            }
                         }
 
                         // Cập nhật số dư tài khoản người gửi
@@ -381,6 +564,9 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         receiverAccount.Balance += decimal.Parse(transferViewData.Amount);
 
                         transaction.Commit();
+
+                        TransactionCompleted?.Invoke(this, EventArgs.Empty);
+                        return transactionCode; // Trả về TransactionCode
                     }
                     catch (Exception ex)
                     {
@@ -559,7 +745,12 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                     Alignment = Element.ALIGN_LEFT
                                 });
 
-                                document.Add(new Paragraph($"Ngày giao dịch: {DateTime.Now:dd/MM/yyyy HH:mm:ss}", font)
+                                document.Add(new Paragraph($"Ngày xuất: {DateTime.Now:dd/MM/yyyy HH:mm:ss}", font)
+                                {
+                                    Alignment = Element.ALIGN_LEFT
+                                });
+
+                                document.Add(new Paragraph($"Mã giao dịch: {lastTransferViewData.TransactionCode}", font) // Sử dụng TransactionCode
                                 {
                                     Alignment = Element.ALIGN_LEFT
                                 });
@@ -589,7 +780,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                 PdfPTable subTableSender = new PdfPTable(new float[] { 1, 2 });
                                 subTableSender.WidthPercentage = 100;
                                 subTableSender.DefaultCell.Border = PdfPCell.NO_BORDER;
-                                subTableSender.AddCell(new PdfPCell(new Phrase("Họ và tên", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableSender.AddCell(new PdfPCell(new Phrase("Khách hàng", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
                                 subTableSender.AddCell(new PdfPCell(new Phrase(senderFullname, boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
                                 subTableSender.AddCell(new PdfPCell(new Phrase("Mã tài khoản", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
                                 subTableSender.AddCell(new PdfPCell(new Phrase(senderAccount.AccountCode, boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
@@ -603,7 +794,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                 PdfPTable subTableReceiver = new PdfPTable(new float[] { 1, 2 });
                                 subTableReceiver.WidthPercentage = 100;
                                 subTableReceiver.DefaultCell.Border = PdfPCell.NO_BORDER;
-                                subTableReceiver.AddCell(new PdfPCell(new Phrase("Họ và tên", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                                subTableReceiver.AddCell(new PdfPCell(new Phrase("Người nhận", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
                                 subTableReceiver.AddCell(new PdfPCell(new Phrase(receiverFullname, boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
                                 subTableReceiver.AddCell(new PdfPCell(new Phrase("Mã tài khoản", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
                                 subTableReceiver.AddCell(new PdfPCell(new Phrase(lastReceiverAccount.AccountCode, boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
