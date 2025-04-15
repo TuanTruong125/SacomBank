@@ -129,42 +129,24 @@
         a/xYdHqYtdYAR8AHsJ+11kg6AHbz+d/lG8YKiDegXYA9AAAAAElFTkSuQmCC
 </value>
   </data>
-  <metadata name="ChatID.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="RequestID.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="AccountID.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Title.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="CustomerID.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="Message.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="FullName.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="RequestDate.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
   <metadata name="HandledBy.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="ChatDate.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
+  <metadata name="RequestStatus.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
     <value>True</value>
   </metadata>
-  <metadata name="ViewStatus.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <metadata name="ChatStatus.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">
-    <value>True</value>
-  </metadata>
-  <data name="buttonFilterConfirm.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
-    <value>
-        iVBORw0KGgoAAAANSUhEUgAAACgAAAAoCAYAAACM/rhtAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wQAADsEBuJFr7QAAAV5JREFUWEftmLsuBlEUhT+XuESh0YiIUlArJDTUaFSUWk8gWoVahEbtDUSnUHgB
-        FREJOiIaRFyzk9GsbPOfMf85Ic6XrHLtveac2ZmdgUwm8yPmgXPgI5GOgQkNUcaVUyS2TjVEGWpOpWDU
-        mErBqDGVgrl0zLF1piHK2HUKxNaGhihjErhzisTSBTCkIcroAbaAF6dYs/UALACtGqIRA8A+8OoUbZYe
-        gRWgS5uH0gtsAjdO8bqyQVwGOrRpVezoZ4FD4M1pVFV2I3YzM0CLNqvDCLAHPDtNQ3UPrFUdiFDsafuB
-        HeDJad5I18BiMYBRsXdmteKE3wJzQJsWi8l0sYFoGNUJMK7mVEw5gVSDakrJmBNI1a2mlOSAdckB65ID
-        1uXPBnwvPm/rQLuaUuIFtG+0rWb2d6JTDanRgHZy28Bw6sXgO2xH/NpqbOteKrbwX0MfcAAcAaO/5dQy
-        mX/FJ5D44VquRt/rAAAAAElFTkSuQmCC
-</value>
-  </data>
   <data name="pictureBox1.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAFkAAAH0CAYAAABW/oErAAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1
@@ -395,7 +377,7 @@
         rE5NeIAt5D78fyH9+fI+3b1KAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="buttonChat.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="buttonViewRequest.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAArJJREFUaEPt
         mc112zAMx3ME5ItHyAjZIN6g2aDZIN4g2aDZwN6g2SDZINnA3iDaoH1QQT34b1ERYIrNQb/3eDFIkCY+
@@ -429,7 +411,7 @@
         5W/L09HOZE/RVeXExEQvPya+2lARPlbVAAAAAElFTkSuQmCC
 </value>
   </data>
-  <data name="buttonCancel.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+  <data name="buttonDeny.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAAcJJREFUaEPt
         mNFtwzAMRPNJbtsN0g3aDdoRukG6QTpCNmlBwAKUi2Qd7Uudon4AkQ9Kd6RMIYAOh52dHQlmdnT3s5l9
@@ -440,6 +422,23 @@
         91ji2SUr1ik+1UTWc5aMWKP4GCUcp2ETGc8hrFir+CqXaoL1pGDEGn9kNxcWm3ioP7JR8QVsAvMFZg0N
         I1Z9gW7xhdLEQ30BNVJPqRiJ1FMqRiL1lIqRSD2lYiRST6kYidQzHlgrweHz+Vrg+V3yuPu3n9eDJc/n
         a8PdP7COVUxfoh6ne0V4aE5+Z+cf8APaFSnoO0P1twAAAABJRU5ErkJggg==
+</value>
+  </data>
+  <data name="buttonHandle.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAArJJREFUaEPt
+        mc112zAMx3ME5ItHyAjZIN6g2aDZIN4g2aDZwN6g2SDZINnA3iDaoH1QQT34b1ERYIrNQb/3eDFIkCY+
+        CIpXVwsLC0VYrVY3RPTIzL+Z+Z2I/tgmv4lM+khfHP9fIKJrZv5FRAdc8IR20LHXqHd21uv1moh2A4uK
+        tp3oxHlmoWmaO2b+HFhEy8wvRHRPRBvrJupeG5FpnxbHi07RfTpbYTK7/haZWMbIWNQnboV9L0bMqwFo
+        JzvKjmJfL2ox0WV1l3UpXLy4QckJdIPEtU7+BPYLwczPsPhn7FOK4nOpn5ZTOAH8E5H46lCz9tlGTIx9
+        5sK6k6wh5K5EtDc7cQwpCaLnTB/YbsvL6WjNWCLbeNHsZNcw/cQGP3xDeS2Y+SNkBVvbhIOoAJBEDigf
+        RI/9NKhFeW1s2TGpiiWiJ2O2bObBdHdJG3MPyEhblJ8BJ2I2eHERlzbUn7DBPLahPXAZ2aA8UcsCWsWm
+        fu8oP8MqnuRzMwMxmbVUj6tzJVxrcnWuhGtNrs4ViLiQvSXNEsRjQYtAEH+g/Awo4mZLo6gvRySNbs1E
+        e5QnalnAfZDZSlRqcZTXxt5JJqd1WwV+o2LuiPIs4EavKK8FVAVPKM+iNyJfFViYiy40AnzvzKbTOdAN
+        7Of3BH0HXCmr3wngO1Trvo/bGJiUewuC6TmURNy5txD6ub1fvNt1ElaJO3gCZL69Zg/RUWztMZZ7iei2
+        RHYiop8DDyR7t98nrA9aE+przIM+Idn3gdemaX6cavkaGZN5ioq5TcIqFZ+c+oSkf2onf1KsY3dQS+Jb
+        2e0BV0mtDQUsMqA41+TT39lLS6TJroddBoFy2rbuCUlTbBfYGnxbWzs5mmyAfMIpmyTsY4MsTGPiy5NY
+        Y0T+nGyAXIpOrKO6ug0oEfwLCwv/+AuJaBofuZFJMwAAAABJRU5ErkJggg==
 </value>
   </data>
 </root>

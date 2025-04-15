@@ -29,41 +29,25 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_CustomerChat));
-            buttonSendMessage = new Button();
-            textBoxMessage = new TextBox();
-            flowLayoutPanelMessage = new FlowLayoutPanel();
+            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
             panel2 = new Panel();
             panel1 = new Panel();
             label1 = new Label();
-            cyberButtonEndChat = new ReaLTaiizor.Controls.CyberButton();
+            textBoxTitle = new TextBox();
+            buttonSendMessage = new Button();
+            label2 = new Label();
+            label3 = new Label();
+            richTextBoxMessage = new RichTextBox();
+            dataGridViewChat = new DataGridView();
+            RequestID = new DataGridViewTextBoxColumn();
+            Title = new DataGridViewTextBoxColumn();
+            Message = new DataGridViewTextBoxColumn();
+            RequestDate = new DataGridViewTextBoxColumn();
+            HandledBy = new DataGridViewTextBoxColumn();
+            RequestStatus = new DataGridViewTextBoxColumn();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewChat).BeginInit();
             SuspendLayout();
-            // 
-            // buttonSendMessage
-            // 
-            buttonSendMessage.BackColor = Color.Transparent;
-            buttonSendMessage.Image = (Image)resources.GetObject("buttonSendMessage.Image");
-            buttonSendMessage.Location = new Point(734, 381);
-            buttonSendMessage.Name = "buttonSendMessage";
-            buttonSendMessage.Size = new Size(35, 32);
-            buttonSendMessage.TabIndex = 17;
-            buttonSendMessage.UseVisualStyleBackColor = false;
-            // 
-            // textBoxMessage
-            // 
-            textBoxMessage.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxMessage.Location = new Point(3, 381);
-            textBoxMessage.Name = "textBoxMessage";
-            textBoxMessage.PlaceholderText = "Nhập tin nhắn . . .";
-            textBoxMessage.Size = new Size(725, 32);
-            textBoxMessage.TabIndex = 16;
-            // 
-            // flowLayoutPanelMessage
-            // 
-            flowLayoutPanelMessage.BorderStyle = BorderStyle.FixedSingle;
-            flowLayoutPanelMessage.Location = new Point(3, 34);
-            flowLayoutPanelMessage.Name = "flowLayoutPanelMessage";
-            flowLayoutPanelMessage.Size = new Size(766, 341);
-            flowLayoutPanelMessage.TabIndex = 15;
             // 
             // panel2
             // 
@@ -85,77 +69,177 @@
             // 
             label1.AutoSize = true;
             label1.Font = new Font("Roboto SemiCondensed", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label1.Location = new Point(286, 3);
+            label1.Location = new Point(316, 3);
             label1.Name = "label1";
-            label1.Size = new Size(194, 28);
+            label1.Size = new Size(129, 28);
             label1.TabIndex = 12;
-            label1.Text = "Chat với nhân viên";
+            label1.Text = "Tạo yêu cầu";
             // 
-            // cyberButtonEndChat
+            // textBoxTitle
             // 
-            cyberButtonEndChat.Alpha = 20;
-            cyberButtonEndChat.BackColor = Color.Transparent;
-            cyberButtonEndChat.Background = true;
-            cyberButtonEndChat.Background_WidthPen = 4F;
-            cyberButtonEndChat.BackgroundPen = true;
-            cyberButtonEndChat.ColorBackground = Color.FromArgb(37, 52, 68);
-            cyberButtonEndChat.ColorBackground_1 = Color.Red;
-            cyberButtonEndChat.ColorBackground_2 = Color.FromArgb(255, 128, 128);
-            cyberButtonEndChat.ColorBackground_Pen = Color.FromArgb(29, 200, 238);
-            cyberButtonEndChat.ColorLighting = Color.FromArgb(29, 200, 238);
-            cyberButtonEndChat.ColorPen_1 = Color.Red;
-            cyberButtonEndChat.ColorPen_2 = Color.FromArgb(255, 128, 128);
-            cyberButtonEndChat.CyberButtonStyle = ReaLTaiizor.Enum.Cyber.StateStyle.Custom;
-            cyberButtonEndChat.Effect_1 = true;
-            cyberButtonEndChat.Effect_1_ColorBackground = Color.FromArgb(29, 200, 238);
-            cyberButtonEndChat.Effect_1_Transparency = 25;
-            cyberButtonEndChat.Effect_2 = true;
-            cyberButtonEndChat.Effect_2_ColorBackground = Color.White;
-            cyberButtonEndChat.Effect_2_Transparency = 20;
-            cyberButtonEndChat.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold);
-            cyberButtonEndChat.ForeColor = Color.FromArgb(245, 245, 245);
-            cyberButtonEndChat.Lighting = false;
-            cyberButtonEndChat.LinearGradient_Background = true;
-            cyberButtonEndChat.LinearGradientPen = true;
-            cyberButtonEndChat.Location = new Point(286, 419);
-            cyberButtonEndChat.Name = "cyberButtonEndChat";
-            cyberButtonEndChat.PenWidth = 15;
-            cyberButtonEndChat.Rounding = true;
-            cyberButtonEndChat.RoundingInt = 70;
-            cyberButtonEndChat.Size = new Size(220, 49);
-            cyberButtonEndChat.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            cyberButtonEndChat.TabIndex = 177;
-            cyberButtonEndChat.Tag = "Cyber";
-            cyberButtonEndChat.TextButton = "Kết thúc đoạn Chat";
-            cyberButtonEndChat.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            cyberButtonEndChat.Timer_Effect_1 = 5;
-            cyberButtonEndChat.Timer_RGB = 300;
+            textBoxTitle.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBoxTitle.Location = new Point(89, 57);
+            textBoxTitle.Name = "textBoxTitle";
+            textBoxTitle.PlaceholderText = "Nhập tiêu đề yêu cầu . . .";
+            textBoxTitle.Size = new Size(680, 32);
+            textBoxTitle.TabIndex = 16;
+            // 
+            // buttonSendMessage
+            // 
+            buttonSendMessage.BackColor = Color.Transparent;
+            buttonSendMessage.Font = new Font("Segoe UI Semibold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonSendMessage.ForeColor = SystemColors.HotTrack;
+            buttonSendMessage.Image = (Image)resources.GetObject("buttonSendMessage.Image");
+            buttonSendMessage.Location = new Point(280, 284);
+            buttonSendMessage.Name = "buttonSendMessage";
+            buttonSendMessage.Size = new Size(218, 51);
+            buttonSendMessage.TabIndex = 17;
+            buttonSendMessage.Text = "Gửi yêu cầu";
+            buttonSendMessage.TextImageRelation = TextImageRelation.TextBeforeImage;
+            buttonSendMessage.UseVisualStyleBackColor = false;
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Location = new Point(3, 60);
+            label2.Name = "label2";
+            label2.Size = new Size(86, 24);
+            label2.TabIndex = 18;
+            label2.Text = "Tiêu đề:";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Location = new Point(3, 92);
+            label3.Name = "label3";
+            label3.Size = new Size(100, 24);
+            label3.TabIndex = 19;
+            label3.Text = "Nội dung:";
+            // 
+            // richTextBoxMessage
+            // 
+            richTextBoxMessage.BorderStyle = BorderStyle.None;
+            richTextBoxMessage.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            richTextBoxMessage.Location = new Point(3, 119);
+            richTextBoxMessage.Name = "richTextBoxMessage";
+            richTextBoxMessage.Size = new Size(766, 159);
+            richTextBoxMessage.TabIndex = 20;
+            richTextBoxMessage.Text = "";
+            // 
+            // dataGridViewChat
+            // 
+            dataGridViewChat.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridViewChat.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewChat.BackgroundColor = Color.White;
+            dataGridViewChat.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
+            dataGridViewChat.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle5.BackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle5.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
+            dataGridViewChat.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewChat.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewChat.Columns.AddRange(new DataGridViewColumn[] { RequestID, Title, Message, RequestDate, HandledBy, RequestStatus });
+            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle6.BackColor = SystemColors.Window;
+            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
+            dataGridViewChat.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewChat.EnableHeadersVisualStyles = false;
+            dataGridViewChat.GridColor = Color.White;
+            dataGridViewChat.Location = new Point(3, 341);
+            dataGridViewChat.Name = "dataGridViewChat";
+            dataGridViewChat.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewChat.RowHeadersVisible = false;
+            dataGridViewChat.RowHeadersWidth = 51;
+            dataGridViewChat.Size = new Size(766, 237);
+            dataGridViewChat.TabIndex = 21;
+            // 
+            // RequestID
+            // 
+            RequestID.HeaderText = "Mã yêu cầu";
+            RequestID.MinimumWidth = 6;
+            RequestID.Name = "RequestID";
+            RequestID.Width = 129;
+            // 
+            // Title
+            // 
+            Title.HeaderText = "Tiêu đề";
+            Title.MinimumWidth = 6;
+            Title.Name = "Title";
+            Title.Width = 98;
+            // 
+            // Message
+            // 
+            Message.HeaderText = "Tin nhắn";
+            Message.MinimumWidth = 6;
+            Message.Name = "Message";
+            Message.Width = 107;
+            // 
+            // RequestDate
+            // 
+            RequestDate.HeaderText = "Ngày yêu cầu";
+            RequestDate.MinimumWidth = 6;
+            RequestDate.Name = "RequestDate";
+            RequestDate.Width = 145;
+            // 
+            // HandledBy
+            // 
+            HandledBy.HeaderText = "Nhân viên xử lý";
+            HandledBy.MinimumWidth = 6;
+            HandledBy.Name = "HandledBy";
+            HandledBy.Width = 161;
+            // 
+            // RequestStatus
+            // 
+            RequestStatus.HeaderText = "Trạng thái";
+            RequestStatus.MinimumWidth = 6;
+            RequestStatus.Name = "RequestStatus";
+            RequestStatus.Width = 119;
             // 
             // UC_CustomerChat
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(cyberButtonEndChat);
+            Controls.Add(dataGridViewChat);
+            Controls.Add(richTextBoxMessage);
+            Controls.Add(label3);
+            Controls.Add(label2);
             Controls.Add(buttonSendMessage);
-            Controls.Add(textBoxMessage);
-            Controls.Add(flowLayoutPanelMessage);
+            Controls.Add(textBoxTitle);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Controls.Add(label1);
             Name = "UC_CustomerChat";
-            Size = new Size(772, 471);
+            Size = new Size(772, 581);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewChat).EndInit();
             ResumeLayout(false);
             PerformLayout();
         }
 
         #endregion
-
-        private Button buttonSendMessage;
-        private TextBox textBoxMessage;
-        private FlowLayoutPanel flowLayoutPanelMessage;
         private Panel panel2;
         private Panel panel1;
         private Label label1;
-        private ReaLTaiizor.Controls.CyberButton cyberButtonEndChat;
+        private TextBox textBoxTitle;
+        private Button buttonSendMessage;
+        private Label label2;
+        private Label label3;
+        private RichTextBox richTextBoxMessage;
+        private DataGridView dataGridViewChat;
+        private DataGridViewTextBoxColumn RequestID;
+        private DataGridViewTextBoxColumn Title;
+        private DataGridViewTextBoxColumn Message;
+        private DataGridViewTextBoxColumn RequestDate;
+        private DataGridViewTextBoxColumn HandledBy;
+        private DataGridViewTextBoxColumn RequestStatus;
     }
 }

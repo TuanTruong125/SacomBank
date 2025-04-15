@@ -43,7 +43,7 @@
             // 
             buttonSendMessage.BackColor = Color.Transparent;
             buttonSendMessage.Image = (Image)resources.GetObject("buttonSendMessage.Image");
-            buttonSendMessage.Location = new Point(734, 435);
+            buttonSendMessage.Location = new Point(734, 546);
             buttonSendMessage.Name = "buttonSendMessage";
             buttonSendMessage.Size = new Size(35, 32);
             buttonSendMessage.TabIndex = 23;
@@ -52,7 +52,7 @@
             // textBoxMessage
             // 
             textBoxMessage.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxMessage.Location = new Point(3, 435);
+            textBoxMessage.Location = new Point(3, 546);
             textBoxMessage.Name = "textBoxMessage";
             textBoxMessage.PlaceholderText = "Nhập tin nhắn . . .";
             textBoxMessage.Size = new Size(725, 32);
@@ -63,7 +63,7 @@
             flowLayoutPanelMessage.BorderStyle = BorderStyle.FixedSingle;
             flowLayoutPanelMessage.Location = new Point(3, 43);
             flowLayoutPanelMessage.Name = "flowLayoutPanelMessage";
-            flowLayoutPanelMessage.Size = new Size(766, 386);
+            flowLayoutPanelMessage.Size = new Size(766, 497);
             flowLayoutPanelMessage.TabIndex = 21;
             // 
             // panel2
@@ -115,7 +115,7 @@
             Controls.Add(panel1);
             Controls.Add(label1);
             Name = "UC_ChatBot";
-            Size = new Size(772, 471);
+            Size = new Size(772, 581);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             ResumeLayout(false);
             PerformLayout();

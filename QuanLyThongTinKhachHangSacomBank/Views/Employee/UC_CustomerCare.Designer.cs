@@ -30,41 +30,38 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_CustomerCare));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel2 = new Panel();
             labelRequestFilter = new Label();
             textBoxRequestSearch = new TextBox();
             buttonRequestSearch = new Button();
-            labelViewStatusFilter = new Label();
-            comboBoxViewStatusFilter = new ComboBox();
             labelStatusFilter = new Label();
-            comboBoxChatStatusFilter = new ComboBox();
+            comboBoxRequestStatusFilter = new ComboBox();
             groupBox2 = new GroupBox();
             tableLayoutPanel4 = new TableLayoutPanel();
-            dataGridViewCustomerCareManagement = new DataGridView();
-            ChatID = new DataGridViewTextBoxColumn();
-            AccountID = new DataGridViewTextBoxColumn();
-            CustomerID = new DataGridViewTextBoxColumn();
-            FullName = new DataGridViewTextBoxColumn();
-            HandledBy = new DataGridViewTextBoxColumn();
-            ChatDate = new DataGridViewTextBoxColumn();
-            ViewStatus = new DataGridViewTextBoxColumn();
-            ChatStatus = new DataGridViewTextBoxColumn();
             label1 = new Label();
             label2 = new Label();
             dateTimePickerForm = new DateTimePicker();
             dateTimePickerTo = new DateTimePicker();
-            buttonFilterConfirm = new Button();
+            dataGridViewChat = new DataGridView();
+            RequestID = new DataGridViewTextBoxColumn();
+            Title = new DataGridViewTextBoxColumn();
+            Message = new DataGridViewTextBoxColumn();
+            RequestDate = new DataGridViewTextBoxColumn();
+            HandledBy = new DataGridViewTextBoxColumn();
+            RequestStatus = new DataGridViewTextBoxColumn();
             pictureBox1 = new PictureBox();
             panel1 = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
-            buttonChat = new Button();
+            buttonViewRequest = new Button();
             buttonDone = new Button();
-            buttonCancel = new Button();
+            buttonDeny = new Button();
+            buttonHandle = new Button();
             groupBox1 = new GroupBox();
             tableLayoutPanel1 = new TableLayoutPanel();
             groupBox2.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewCustomerCareManagement).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewChat).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             tableLayoutPanel2.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -87,7 +84,7 @@
             tableLayoutPanel4.SetColumnSpan(labelRequestFilter, 2);
             labelRequestFilter.Font = new Font("Roboto SemiCondensed", 10.2F, FontStyle.Bold);
             labelRequestFilter.ForeColor = Color.Black;
-            labelRequestFilter.Location = new Point(104, 21);
+            labelRequestFilter.Location = new Point(95, 21);
             labelRequestFilter.Name = "labelRequestFilter";
             labelRequestFilter.Size = new Size(100, 20);
             labelRequestFilter.TabIndex = 26;
@@ -97,10 +94,10 @@
             // 
             textBoxRequestSearch.Dock = DockStyle.Fill;
             textBoxRequestSearch.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxRequestSearch.Location = new Point(311, 3);
+            textBoxRequestSearch.Location = new Point(293, 3);
             textBoxRequestSearch.Name = "textBoxRequestSearch";
             textBoxRequestSearch.PlaceholderText = "Tìm kiếm . . .";
-            textBoxRequestSearch.Size = new Size(617, 32);
+            textBoxRequestSearch.Size = new Size(635, 32);
             textBoxRequestSearch.TabIndex = 2;
             textBoxRequestSearch.WordWrap = false;
             // 
@@ -116,58 +113,33 @@
             buttonRequestSearch.TabIndex = 6;
             buttonRequestSearch.UseVisualStyleBackColor = false;
             // 
-            // labelViewStatusFilter
-            // 
-            labelViewStatusFilter.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
-            labelViewStatusFilter.AutoSize = true;
-            labelViewStatusFilter.BackColor = Color.Transparent;
-            labelViewStatusFilter.Font = new Font("Roboto SemiCondensed", 10.2F, FontStyle.Bold);
-            labelViewStatusFilter.ForeColor = Color.Black;
-            labelViewStatusFilter.Location = new Point(3, 52);
-            labelViewStatusFilter.Name = "labelViewStatusFilter";
-            labelViewStatusFilter.Size = new Size(144, 20);
-            labelViewStatusFilter.TabIndex = 27;
-            labelViewStatusFilter.Text = "Trạng thái tin nhắn";
-            // 
-            // comboBoxViewStatusFilter
-            // 
-            comboBoxViewStatusFilter.BackColor = SystemColors.Window;
-            tableLayoutPanel4.SetColumnSpan(comboBoxViewStatusFilter, 2);
-            comboBoxViewStatusFilter.Dock = DockStyle.Fill;
-            comboBoxViewStatusFilter.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxViewStatusFilter.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            comboBoxViewStatusFilter.FormattingEnabled = true;
-            comboBoxViewStatusFilter.Items.AddRange(new object[] { "Không áp dụng", "Tin nhắn mới!", "Đã xem" });
-            comboBoxViewStatusFilter.Location = new Point(3, 75);
-            comboBoxViewStatusFilter.Name = "comboBoxViewStatusFilter";
-            comboBoxViewStatusFilter.Size = new Size(302, 28);
-            comboBoxViewStatusFilter.TabIndex = 28;
-            // 
             // labelStatusFilter
             // 
-            labelStatusFilter.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
+            labelStatusFilter.Anchor = AnchorStyles.Bottom;
             labelStatusFilter.AutoSize = true;
             labelStatusFilter.BackColor = Color.Transparent;
+            tableLayoutPanel4.SetColumnSpan(labelStatusFilter, 2);
             labelStatusFilter.Font = new Font("Roboto SemiCondensed", 10.2F, FontStyle.Bold);
             labelStatusFilter.ForeColor = Color.Black;
-            labelStatusFilter.Location = new Point(3, 114);
+            labelStatusFilter.Location = new Point(74, 114);
             labelStatusFilter.Name = "labelStatusFilter";
-            labelStatusFilter.Size = new Size(158, 20);
+            labelStatusFilter.Size = new Size(142, 20);
             labelStatusFilter.TabIndex = 32;
-            labelStatusFilter.Text = "Trạng thái đoạn chat";
+            labelStatusFilter.Text = "Trạng thái yêu cầu";
+            labelStatusFilter.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // comboBoxChatStatusFilter
+            // comboBoxRequestStatusFilter
             // 
-            tableLayoutPanel4.SetColumnSpan(comboBoxChatStatusFilter, 2);
-            comboBoxChatStatusFilter.Dock = DockStyle.Fill;
-            comboBoxChatStatusFilter.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxChatStatusFilter.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            comboBoxChatStatusFilter.FormattingEnabled = true;
-            comboBoxChatStatusFilter.Items.AddRange(new object[] { "Không áp dụng", "Chưa xử lý", "Đang xử lý", "Đã xử lý" });
-            comboBoxChatStatusFilter.Location = new Point(3, 137);
-            comboBoxChatStatusFilter.Name = "comboBoxChatStatusFilter";
-            comboBoxChatStatusFilter.Size = new Size(302, 28);
-            comboBoxChatStatusFilter.TabIndex = 47;
+            tableLayoutPanel4.SetColumnSpan(comboBoxRequestStatusFilter, 2);
+            comboBoxRequestStatusFilter.Dock = DockStyle.Fill;
+            comboBoxRequestStatusFilter.DropDownStyle = ComboBoxStyle.DropDownList;
+            comboBoxRequestStatusFilter.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBoxRequestStatusFilter.FormattingEnabled = true;
+            comboBoxRequestStatusFilter.Items.AddRange(new object[] { "Không áp dụng", "Chưa xử lý", "Đang xử lý", "Đã xử lý", "Từ chối xử lý" });
+            comboBoxRequestStatusFilter.Location = new Point(3, 137);
+            comboBoxRequestStatusFilter.Name = "comboBoxRequestStatusFilter";
+            comboBoxRequestStatusFilter.Size = new Size(284, 28);
+            comboBoxRequestStatusFilter.TabIndex = 47;
             // 
             // groupBox2
             // 
@@ -187,32 +159,29 @@
             // tableLayoutPanel4
             // 
             tableLayoutPanel4.ColumnCount = 5;
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.838129F));
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.8597126F));
-            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 56.02518F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.0395679F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.0395679F));
+            tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 57.6438866F));
             tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4.226619F));
             tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.05036F));
             tableLayoutPanel4.Controls.Add(textBoxRequestSearch, 2, 0);
             tableLayoutPanel4.Controls.Add(buttonRequestSearch, 3, 0);
-            tableLayoutPanel4.Controls.Add(dataGridViewCustomerCareManagement, 2, 1);
-            tableLayoutPanel4.Controls.Add(labelViewStatusFilter, 0, 1);
-            tableLayoutPanel4.Controls.Add(comboBoxViewStatusFilter, 0, 2);
-            tableLayoutPanel4.Controls.Add(labelStatusFilter, 0, 3);
-            tableLayoutPanel4.Controls.Add(comboBoxChatStatusFilter, 0, 4);
+            tableLayoutPanel4.Controls.Add(comboBoxRequestStatusFilter, 0, 4);
             tableLayoutPanel4.Controls.Add(labelRequestFilter, 0, 0);
             tableLayoutPanel4.Controls.Add(label1, 0, 5);
             tableLayoutPanel4.Controls.Add(label2, 1, 5);
             tableLayoutPanel4.Controls.Add(dateTimePickerForm, 0, 6);
             tableLayoutPanel4.Controls.Add(dateTimePickerTo, 1, 6);
-            tableLayoutPanel4.Controls.Add(buttonFilterConfirm, 0, 7);
+            tableLayoutPanel4.Controls.Add(dataGridViewChat, 2, 1);
+            tableLayoutPanel4.Controls.Add(labelStatusFilter, 0, 3);
             tableLayoutPanel4.Dock = DockStyle.Fill;
             tableLayoutPanel4.Location = new Point(3, 28);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 9;
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 13.2679462F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 10.0642252F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 10.0642252F));
-            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 10.0642252F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 3.215434F));
+            tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 16.7202568F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 10.0642252F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 10.9765768F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 11.5863867F));
@@ -220,85 +189,6 @@
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 4.98772144F));
             tableLayoutPanel4.Size = new Size(1112, 311);
             tableLayoutPanel4.TabIndex = 9;
-            // 
-            // dataGridViewCustomerCareManagement
-            // 
-            dataGridViewCustomerCareManagement.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewCustomerCareManagement.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewCustomerCareManagement.BackgroundColor = Color.White;
-            dataGridViewCustomerCareManagement.BorderStyle = BorderStyle.None;
-            dataGridViewCustomerCareManagement.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
-            dataGridViewCustomerCareManagement.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            dataGridViewCustomerCareManagement.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
-            dataGridViewCustomerCareManagement.ColumnHeadersHeight = 29;
-            dataGridViewCustomerCareManagement.Columns.AddRange(new DataGridViewColumn[] { ChatID, AccountID, CustomerID, FullName, HandledBy, ChatDate, ViewStatus, ChatStatus });
-            tableLayoutPanel4.SetColumnSpan(dataGridViewCustomerCareManagement, 3);
-            dataGridViewCustomerCareManagement.Dock = DockStyle.Fill;
-            dataGridViewCustomerCareManagement.EnableHeadersVisualStyles = false;
-            dataGridViewCustomerCareManagement.GridColor = Color.White;
-            dataGridViewCustomerCareManagement.Location = new Point(311, 44);
-            dataGridViewCustomerCareManagement.Name = "dataGridViewCustomerCareManagement";
-            dataGridViewCustomerCareManagement.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCustomerCareManagement.RowHeadersVisible = false;
-            dataGridViewCustomerCareManagement.RowHeadersWidth = 51;
-            tableLayoutPanel4.SetRowSpan(dataGridViewCustomerCareManagement, 8);
-            dataGridViewCustomerCareManagement.Size = new Size(798, 264);
-            dataGridViewCustomerCareManagement.TabIndex = 48;
-            // 
-            // ChatID
-            // 
-            ChatID.HeaderText = "Mã đoạn chat";
-            ChatID.MinimumWidth = 6;
-            ChatID.Name = "ChatID";
-            // 
-            // AccountID
-            // 
-            AccountID.HeaderText = "Mã tài khoản";
-            AccountID.MinimumWidth = 6;
-            AccountID.Name = "AccountID";
-            // 
-            // CustomerID
-            // 
-            CustomerID.HeaderText = "Mã khách hàng";
-            CustomerID.MinimumWidth = 6;
-            CustomerID.Name = "CustomerID";
-            // 
-            // FullName
-            // 
-            FullName.HeaderText = "Họ tên khách hàng";
-            FullName.MinimumWidth = 6;
-            FullName.Name = "FullName";
-            // 
-            // HandledBy
-            // 
-            HandledBy.HeaderText = "Nhân viên tiếp nhận";
-            HandledBy.MinimumWidth = 6;
-            HandledBy.Name = "HandledBy";
-            // 
-            // ChatDate
-            // 
-            ChatDate.HeaderText = "Ngày chat";
-            ChatDate.MinimumWidth = 6;
-            ChatDate.Name = "ChatDate";
-            // 
-            // ViewStatus
-            // 
-            ViewStatus.HeaderText = "Trạng thái tin nhắn";
-            ViewStatus.MinimumWidth = 6;
-            ViewStatus.Name = "ViewStatus";
-            // 
-            // ChatStatus
-            // 
-            ChatStatus.HeaderText = "Trạng thái đoạn chat";
-            ChatStatus.MinimumWidth = 6;
-            ChatStatus.Name = "ChatStatus";
             // 
             // label1
             // 
@@ -320,7 +210,7 @@
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Roboto SemiCondensed", 10.2F, FontStyle.Bold);
             label2.ForeColor = Color.Black;
-            label2.Location = new Point(168, 179);
+            label2.Location = new Point(148, 179);
             label2.Name = "label2";
             label2.Size = new Size(38, 20);
             label2.TabIndex = 50;
@@ -330,39 +220,110 @@
             // 
             dateTimePickerForm.Dock = DockStyle.Fill;
             dateTimePickerForm.Font = new Font("Roboto", 10.2F);
+            dateTimePickerForm.Format = DateTimePickerFormat.Short;
             dateTimePickerForm.Location = new Point(3, 202);
             dateTimePickerForm.Name = "dateTimePickerForm";
-            dateTimePickerForm.Size = new Size(159, 28);
+            dateTimePickerForm.Size = new Size(139, 28);
             dateTimePickerForm.TabIndex = 51;
             // 
             // dateTimePickerTo
             // 
             dateTimePickerTo.Dock = DockStyle.Fill;
             dateTimePickerTo.Font = new Font("Roboto", 10.2F);
-            dateTimePickerTo.Location = new Point(168, 202);
+            dateTimePickerTo.Format = DateTimePickerFormat.Short;
+            dateTimePickerTo.Location = new Point(148, 202);
             dateTimePickerTo.Name = "dateTimePickerTo";
-            dateTimePickerTo.Size = new Size(137, 28);
+            dateTimePickerTo.Size = new Size(139, 28);
             dateTimePickerTo.TabIndex = 52;
             // 
-            // buttonFilterConfirm
+            // dataGridViewChat
             // 
-            tableLayoutPanel4.SetColumnSpan(buttonFilterConfirm, 2);
-            buttonFilterConfirm.Dock = DockStyle.Fill;
-            buttonFilterConfirm.Image = (Image)resources.GetObject("buttonFilterConfirm.Image");
-            buttonFilterConfirm.Location = new Point(3, 238);
-            buttonFilterConfirm.Name = "buttonFilterConfirm";
-            buttonFilterConfirm.Size = new Size(302, 52);
-            buttonFilterConfirm.TabIndex = 53;
-            buttonFilterConfirm.UseVisualStyleBackColor = true;
+            dataGridViewChat.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
+            dataGridViewChat.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewChat.BackgroundColor = Color.White;
+            dataGridViewChat.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
+            dataGridViewChat.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle1.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dataGridViewChat.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewChat.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewChat.Columns.AddRange(new DataGridViewColumn[] { RequestID, Title, Message, RequestDate, HandledBy, RequestStatus });
+            tableLayoutPanel4.SetColumnSpan(dataGridViewChat, 3);
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.HotTrack;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridViewChat.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewChat.Dock = DockStyle.Fill;
+            dataGridViewChat.EnableHeadersVisualStyles = false;
+            dataGridViewChat.GridColor = Color.White;
+            dataGridViewChat.Location = new Point(293, 44);
+            dataGridViewChat.Name = "dataGridViewChat";
+            dataGridViewChat.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewChat.RowHeadersVisible = false;
+            dataGridViewChat.RowHeadersWidth = 51;
+            tableLayoutPanel4.SetRowSpan(dataGridViewChat, 8);
+            dataGridViewChat.Size = new Size(816, 264);
+            dataGridViewChat.TabIndex = 53;
+            // 
+            // RequestID
+            // 
+            RequestID.HeaderText = "Mã yêu cầu";
+            RequestID.MinimumWidth = 6;
+            RequestID.Name = "RequestID";
+            RequestID.Width = 129;
+            // 
+            // Title
+            // 
+            Title.HeaderText = "Tiêu đề";
+            Title.MinimumWidth = 6;
+            Title.Name = "Title";
+            Title.Width = 98;
+            // 
+            // Message
+            // 
+            Message.HeaderText = "Tin nhắn";
+            Message.MinimumWidth = 6;
+            Message.Name = "Message";
+            Message.Width = 107;
+            // 
+            // RequestDate
+            // 
+            RequestDate.HeaderText = "Ngày yêu cầu";
+            RequestDate.MinimumWidth = 6;
+            RequestDate.Name = "RequestDate";
+            RequestDate.Width = 145;
+            // 
+            // HandledBy
+            // 
+            HandledBy.HeaderText = "Nhân viên xử lý";
+            HandledBy.MinimumWidth = 6;
+            HandledBy.Name = "HandledBy";
+            HandledBy.Width = 161;
+            // 
+            // RequestStatus
+            // 
+            RequestStatus.HeaderText = "Trạng thái";
+            RequestStatus.MinimumWidth = 6;
+            RequestStatus.Name = "RequestStatus";
+            RequestStatus.Width = 119;
             // 
             // pictureBox1
             // 
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(1051, 3);
+            pictureBox1.Location = new Point(1045, 3);
             pictureBox1.Name = "pictureBox1";
             tableLayoutPanel2.SetRowSpan(pictureBox1, 3);
-            pictureBox1.Size = new Size(58, 304);
+            pictureBox1.Size = new Size(64, 304);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 9;
             pictureBox1.TabStop = false;
@@ -377,21 +338,23 @@
             // 
             // tableLayoutPanel2
             // 
-            tableLayoutPanel2.ColumnCount = 9;
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.9280577F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.9388485F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10.3417263F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.9388485F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10.7913666F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.9388485F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 7.19424438F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.193012F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5.58862162F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Absolute, 20F));
-            tableLayoutPanel2.Controls.Add(pictureBox1, 8, 0);
-            tableLayoutPanel2.Controls.Add(buttonChat, 1, 1);
-            tableLayoutPanel2.Controls.Add(buttonDone, 3, 1);
-            tableLayoutPanel2.Controls.Add(buttonCancel, 5, 1);
+            tableLayoutPanel2.ColumnCount = 11;
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10.0329237F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.5907755F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 7.11425257F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.5907755F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5.47250175F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.5907755F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 7.38787651F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.5907755F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4.92525244F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4.75587654F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5.948215F));
+            tableLayoutPanel2.Controls.Add(pictureBox1, 10, 0);
+            tableLayoutPanel2.Controls.Add(buttonViewRequest, 1, 1);
+            tableLayoutPanel2.Controls.Add(buttonDone, 5, 1);
+            tableLayoutPanel2.Controls.Add(buttonDeny, 7, 1);
+            tableLayoutPanel2.Controls.Add(buttonHandle, 3, 1);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(3, 28);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -402,20 +365,20 @@
             tableLayoutPanel2.Size = new Size(1112, 310);
             tableLayoutPanel2.TabIndex = 0;
             // 
-            // buttonChat
+            // buttonViewRequest
             // 
-            buttonChat.BackColor = Color.PaleTurquoise;
-            buttonChat.Dock = DockStyle.Fill;
-            buttonChat.ForeColor = Color.Black;
-            buttonChat.Image = (Image)resources.GetObject("buttonChat.Image");
-            buttonChat.ImageAlign = ContentAlignment.TopCenter;
-            buttonChat.Location = new Point(169, 73);
-            buttonChat.Name = "buttonChat";
-            buttonChat.Size = new Size(149, 163);
-            buttonChat.TabIndex = 10;
-            buttonChat.Text = "Liên hệ khách hàng";
-            buttonChat.UseVisualStyleBackColor = false;
-            buttonChat.Click += buttonChat_Click;
+            buttonViewRequest.BackColor = Color.PaleTurquoise;
+            buttonViewRequest.Dock = DockStyle.Fill;
+            buttonViewRequest.ForeColor = Color.Black;
+            buttonViewRequest.Image = (Image)resources.GetObject("buttonViewRequest.Image");
+            buttonViewRequest.ImageAlign = ContentAlignment.TopCenter;
+            buttonViewRequest.Location = new Point(114, 73);
+            buttonViewRequest.Name = "buttonViewRequest";
+            buttonViewRequest.Size = new Size(145, 163);
+            buttonViewRequest.TabIndex = 10;
+            buttonViewRequest.Text = "Xem yêu cầu";
+            buttonViewRequest.UseVisualStyleBackColor = false;
+            buttonViewRequest.Click += buttonChat_Click;
             // 
             // buttonDone
             // 
@@ -424,26 +387,40 @@
             buttonDone.ForeColor = Color.Black;
             buttonDone.Image = (Image)resources.GetObject("buttonDone.Image");
             buttonDone.ImageAlign = ContentAlignment.TopCenter;
-            buttonDone.Location = new Point(439, 73);
+            buttonDone.Location = new Point(555, 73);
             buttonDone.Name = "buttonDone";
-            buttonDone.Size = new Size(149, 163);
+            buttonDone.Size = new Size(145, 163);
             buttonDone.TabIndex = 12;
             buttonDone.Text = "Hoàn thành";
             buttonDone.UseVisualStyleBackColor = false;
             // 
-            // buttonCancel
+            // buttonDeny
             // 
-            buttonCancel.BackColor = Color.Tomato;
-            buttonCancel.Dock = DockStyle.Fill;
-            buttonCancel.ForeColor = Color.Black;
-            buttonCancel.Image = (Image)resources.GetObject("buttonCancel.Image");
-            buttonCancel.ImageAlign = ContentAlignment.TopCenter;
-            buttonCancel.Location = new Point(714, 73);
-            buttonCancel.Name = "buttonCancel";
-            buttonCancel.Size = new Size(149, 163);
-            buttonCancel.TabIndex = 13;
-            buttonCancel.Text = "Hủy";
-            buttonCancel.UseVisualStyleBackColor = false;
+            buttonDeny.BackColor = Color.Tomato;
+            buttonDeny.Dock = DockStyle.Fill;
+            buttonDeny.ForeColor = Color.Black;
+            buttonDeny.Image = (Image)resources.GetObject("buttonDeny.Image");
+            buttonDeny.ImageAlign = ContentAlignment.TopCenter;
+            buttonDeny.Location = new Point(788, 73);
+            buttonDeny.Name = "buttonDeny";
+            buttonDeny.Size = new Size(145, 163);
+            buttonDeny.TabIndex = 13;
+            buttonDeny.Text = "Hủy";
+            buttonDeny.UseVisualStyleBackColor = false;
+            // 
+            // buttonHandle
+            // 
+            buttonHandle.BackColor = Color.FromArgb(255, 255, 128);
+            buttonHandle.Dock = DockStyle.Fill;
+            buttonHandle.ForeColor = Color.Black;
+            buttonHandle.Image = (Image)resources.GetObject("buttonHandle.Image");
+            buttonHandle.ImageAlign = ContentAlignment.TopCenter;
+            buttonHandle.Location = new Point(344, 73);
+            buttonHandle.Name = "buttonHandle";
+            buttonHandle.Size = new Size(145, 163);
+            buttonHandle.TabIndex = 14;
+            buttonHandle.Text = "Xử lý yêu cầu";
+            buttonHandle.UseVisualStyleBackColor = false;
             // 
             // groupBox1
             // 
@@ -486,7 +463,7 @@
             groupBox2.ResumeLayout(false);
             tableLayoutPanel4.ResumeLayout(false);
             tableLayoutPanel4.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewCustomerCareManagement).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewChat).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             tableLayoutPanel2.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
@@ -506,10 +483,8 @@
         private Label labelRequestFilter;
         private TextBox textBoxRequestSearch;
         private Button buttonRequestSearch;
-        private Label labelViewStatusFilter;
-        private ComboBox comboBoxViewStatusFilter;
         private Label labelStatusFilter;
-        private ComboBox comboBoxChatStatusFilter;
+        private ComboBox comboBoxRequestStatusFilter;
         private DataGridView dataGridViewTransactionManagement;
         private TableLayoutPanel tableLayoutPanel4;
         private GroupBox groupBox2;
@@ -518,22 +493,20 @@
         private Panel panel1;
         private TableLayoutPanel tableLayoutPanel2;
         private PictureBox pictureBox1;
-        private Button buttonChat;
+        private Button buttonViewRequest;
         private Button buttonDone;
-        private Button buttonCancel;
-        private DataGridView dataGridViewCustomerCareManagement;
-        private DataGridViewTextBoxColumn ChatID;
-        private DataGridViewTextBoxColumn AccountID;
-        private DataGridViewTextBoxColumn CustomerID;
-        private DataGridViewTextBoxColumn FullName;
-        private DataGridViewTextBoxColumn HandledBy;
-        private DataGridViewTextBoxColumn ChatDate;
-        private DataGridViewTextBoxColumn ViewStatus;
-        private DataGridViewTextBoxColumn ChatStatus;
+        private Button buttonDeny;
         private Label label1;
         private Label label2;
         private DateTimePicker dateTimePickerForm;
         private DateTimePicker dateTimePickerTo;
-        private Button buttonFilterConfirm;
+        private DataGridView dataGridViewChat;
+        private DataGridViewTextBoxColumn RequestID;
+        private DataGridViewTextBoxColumn Title;
+        private DataGridViewTextBoxColumn Message;
+        private DataGridViewTextBoxColumn RequestDate;
+        private DataGridViewTextBoxColumn HandledBy;
+        private DataGridViewTextBoxColumn RequestStatus;
+        private Button buttonHandle;
     }
 }

@@ -50,14 +50,14 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Chat
             // 
             panelMainContentChat.Location = new Point(12, 81);
             panelMainContentChat.Name = "panelMainContentChat";
-            panelMainContentChat.Size = new Size(772, 471);
+            panelMainContentChat.Size = new Size(772, 581);
             panelMainContentChat.TabIndex = 2;
             // 
             // FormChat
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(796, 564);
+            ClientSize = new Size(796, 674);
             Controls.Add(panelMainContentChat);
             Controls.Add(pictureBoxTopPanel);
             FormBorderStyle = FormBorderStyle.FixedSingle;
