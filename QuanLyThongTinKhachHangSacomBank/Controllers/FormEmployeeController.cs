@@ -66,7 +66,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
         public void LoadCustomerCare()
         {
-            view.LoadUserControl(new UC_CustomerCare());
+            view.LoadUserControl(new UC_CustomerCare(dbContext, currentEmployee));
         }
 
         public void LoadSetting()

@@ -1,4 +1,5 @@
-﻿using QuanLyThongTinKhachHangSacomBank.Views.Common.Deposit;
+﻿using QuanLyThongTinKhachHangSacomBank.Models;
+using QuanLyThongTinKhachHangSacomBank.Views.Common.Deposit;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -67,6 +68,29 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Chat
             {
                 MessageBox.Show($"Lỗi khi hiển thị FormChat: {ex.Message}\nStackTrace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+    }
+
+
+    public class RequestDisplayModel
+    {
+        public string CustomerCode { get; set; } // Lấy trực tiếp từ CSDL, đã có tiền tố "KH"
+        public string RequestCode { get; set; }
+        public string Title { get; set; }
+        public string RequestMessage { get; set; }
+        public string RequestDate { get; set; } // Định dạng dd/MM/yyyy HH:mm:ss
+        public string EmployeeName { get; set; }
+        public string RequestStatus { get; set; }
+
+        public RequestDisplayModel(RequestModel request, string customerCode)
+        {
+            CustomerCode = customerCode; // Không cần thêm "KH", vì CSDL đã có tiền tố
+            RequestCode = request.RequestCode;
+            Title = request.Title;
+            RequestMessage = request.RequestMessage;
+            RequestDate = request.RequestDate.ToString("dd/MM/yyyy HH:mm:ss");
+            EmployeeName = request.EmployeeName ?? "Chưa tiếp nhận";
+            RequestStatus = request.RequestStatus;
         }
     }
 }

@@ -59,7 +59,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
                 payController = new PayController();
                 showCustomerAccountInfoController = new ShowCustomerAccountInfoController(new FormShowCustomerAccountInfo(), dbContext);
                 customerServiceManagementController = new CustomerServiceManagementController();
-                chatController = new ChatController();
+                chatController = new ChatController(dbContext);
 
             }
             catch (Exception ex)
@@ -148,7 +148,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
         {
             try
             {
-                chatController.OpenChat(new UC_CustomerChat());
+                chatController.OpenChat(new UC_CustomerChat(currentAccount), currentAccount);
             }
             catch (Exception ex)
             {

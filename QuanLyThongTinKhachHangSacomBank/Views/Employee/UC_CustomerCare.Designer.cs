@@ -44,6 +44,7 @@
             dateTimePickerForm = new DateTimePicker();
             dateTimePickerTo = new DateTimePicker();
             dataGridViewChat = new DataGridView();
+            CustomerID = new DataGridViewTextBoxColumn();
             RequestID = new DataGridViewTextBoxColumn();
             Title = new DataGridViewTextBoxColumn();
             Message = new DataGridViewTextBoxColumn();
@@ -112,6 +113,7 @@
             buttonRequestSearch.Size = new Size(41, 35);
             buttonRequestSearch.TabIndex = 6;
             buttonRequestSearch.UseVisualStyleBackColor = false;
+            buttonRequestSearch.Click += buttonRequestSearch_Click;
             // 
             // labelStatusFilter
             // 
@@ -135,7 +137,7 @@
             comboBoxRequestStatusFilter.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxRequestStatusFilter.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBoxRequestStatusFilter.FormattingEnabled = true;
-            comboBoxRequestStatusFilter.Items.AddRange(new object[] { "Không áp dụng", "Chưa xử lý", "Đang xử lý", "Đã xử lý", "Từ chối xử lý" });
+            comboBoxRequestStatusFilter.Items.AddRange(new object[] { "Không áp dụng", "Chờ xử lý", "Đang xử lý", "Đã xử lý", "Từ chối xử lý" });
             comboBoxRequestStatusFilter.Location = new Point(3, 137);
             comboBoxRequestStatusFilter.Name = "comboBoxRequestStatusFilter";
             comboBoxRequestStatusFilter.Size = new Size(284, 28);
@@ -252,7 +254,7 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             dataGridViewChat.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewChat.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewChat.Columns.AddRange(new DataGridViewColumn[] { RequestID, Title, Message, RequestDate, HandledBy, RequestStatus });
+            dataGridViewChat.Columns.AddRange(new DataGridViewColumn[] { CustomerID, RequestID, Title, Message, RequestDate, HandledBy, RequestStatus });
             tableLayoutPanel4.SetColumnSpan(dataGridViewChat, 3);
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
@@ -273,6 +275,13 @@
             tableLayoutPanel4.SetRowSpan(dataGridViewChat, 8);
             dataGridViewChat.Size = new Size(816, 264);
             dataGridViewChat.TabIndex = 53;
+            // 
+            // CustomerID
+            // 
+            CustomerID.HeaderText = "Mã khách hàng";
+            CustomerID.MinimumWidth = 6;
+            CustomerID.Name = "CustomerID";
+            CustomerID.Width = 159;
             // 
             // RequestID
             // 
@@ -378,7 +387,7 @@
             buttonViewRequest.TabIndex = 10;
             buttonViewRequest.Text = "Xem yêu cầu";
             buttonViewRequest.UseVisualStyleBackColor = false;
-            buttonViewRequest.Click += buttonChat_Click;
+            buttonViewRequest.Click += buttonViewRequest_Click;
             // 
             // buttonDone
             // 
@@ -393,6 +402,7 @@
             buttonDone.TabIndex = 12;
             buttonDone.Text = "Hoàn thành";
             buttonDone.UseVisualStyleBackColor = false;
+            buttonDone.Click += buttonDone_Click;
             // 
             // buttonDeny
             // 
@@ -407,6 +417,7 @@
             buttonDeny.TabIndex = 13;
             buttonDeny.Text = "Hủy";
             buttonDeny.UseVisualStyleBackColor = false;
+            buttonDeny.Click += buttonDeny_Click;
             // 
             // buttonHandle
             // 
@@ -421,6 +432,7 @@
             buttonHandle.TabIndex = 14;
             buttonHandle.Text = "Xử lý yêu cầu";
             buttonHandle.UseVisualStyleBackColor = false;
+            buttonHandle.Click += buttonHandle_Click;
             // 
             // groupBox1
             // 
@@ -501,12 +513,13 @@
         private DateTimePicker dateTimePickerForm;
         private DateTimePicker dateTimePickerTo;
         private DataGridView dataGridViewChat;
+        private Button buttonHandle;
+        private DataGridViewTextBoxColumn CustomerID;
         private DataGridViewTextBoxColumn RequestID;
         private DataGridViewTextBoxColumn Title;
         private DataGridViewTextBoxColumn Message;
         private DataGridViewTextBoxColumn RequestDate;
         private DataGridViewTextBoxColumn HandledBy;
         private DataGridViewTextBoxColumn RequestStatus;
-        private Button buttonHandle;
     }
 }

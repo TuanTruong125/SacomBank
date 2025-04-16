@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_CustomerChat));
-            DataGridViewCellStyle dataGridViewCellStyle5 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle6 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             panel2 = new Panel();
             panel1 = new Panel();
             label1 = new Label();
@@ -40,6 +40,7 @@
             label3 = new Label();
             richTextBoxMessage = new RichTextBox();
             dataGridViewChat = new DataGridView();
+            CustomerID = new DataGridViewTextBoxColumn();
             RequestID = new DataGridViewTextBoxColumn();
             Title = new DataGridViewTextBoxColumn();
             Message = new DataGridViewTextBoxColumn();
@@ -97,6 +98,7 @@
             buttonSendMessage.Text = "Gửi yêu cầu";
             buttonSendMessage.TextImageRelation = TextImageRelation.TextBeforeImage;
             buttonSendMessage.UseVisualStyleBackColor = false;
+            buttonSendMessage.Click += buttonSendMessage_Click;
             // 
             // label2
             // 
@@ -135,24 +137,24 @@
             dataGridViewChat.BackgroundColor = Color.White;
             dataGridViewChat.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
             dataGridViewChat.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle5.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle5.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle5.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle5.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle5.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle5.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle5.WrapMode = DataGridViewTriState.False;
-            dataGridViewChat.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle5;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle1.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dataGridViewChat.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewChat.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewChat.Columns.AddRange(new DataGridViewColumn[] { RequestID, Title, Message, RequestDate, HandledBy, RequestStatus });
-            dataGridViewCellStyle6.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle6.BackColor = SystemColors.Window;
-            dataGridViewCellStyle6.Font = new Font("Segoe UI", 9F);
-            dataGridViewCellStyle6.ForeColor = SystemColors.ControlText;
-            dataGridViewCellStyle6.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle6.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle6.WrapMode = DataGridViewTriState.False;
-            dataGridViewChat.DefaultCellStyle = dataGridViewCellStyle6;
+            dataGridViewChat.Columns.AddRange(new DataGridViewColumn[] { CustomerID, RequestID, Title, Message, RequestDate, HandledBy, RequestStatus });
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Segoe UI", 9F);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridViewChat.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewChat.EnableHeadersVisualStyles = false;
             dataGridViewChat.GridColor = Color.White;
             dataGridViewChat.Location = new Point(3, 341);
@@ -162,6 +164,13 @@
             dataGridViewChat.RowHeadersWidth = 51;
             dataGridViewChat.Size = new Size(766, 237);
             dataGridViewChat.TabIndex = 21;
+            // 
+            // CustomerID
+            // 
+            CustomerID.HeaderText = "Mã khách hàng";
+            CustomerID.MinimumWidth = 6;
+            CustomerID.Name = "CustomerID";
+            CustomerID.Width = 159;
             // 
             // RequestID
             // 
@@ -235,6 +244,7 @@
         private Label label3;
         private RichTextBox richTextBoxMessage;
         private DataGridView dataGridViewChat;
+        private DataGridViewTextBoxColumn CustomerID;
         private DataGridViewTextBoxColumn RequestID;
         private DataGridViewTextBoxColumn Title;
         private DataGridViewTextBoxColumn Message;
