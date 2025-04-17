@@ -32,20 +32,6 @@
             pictureBox1 = new PictureBox();
             panel1 = new Panel();
             groupBox1 = new GroupBox();
-            label25 = new Label();
-            label24 = new Label();
-            label22 = new Label();
-            label23 = new Label();
-            label20 = new Label();
-            label21 = new Label();
-            label19 = new Label();
-            parrotGradientPanel2 = new ReaLTaiizor.Controls.ParrotGradientPanel();
-            label16 = new Label();
-            label18 = new Label();
-            label10 = new Label();
-            pictureBox3 = new PictureBox();
-            label11 = new Label();
-            crownDockPanel3 = new ReaLTaiizor.Docking.Crown.CrownDockPanel();
             label17 = new Label();
             label14 = new Label();
             label15 = new Label();
@@ -65,10 +51,20 @@
             label2 = new Label();
             label1 = new Label();
             parrotGradientPanel1 = new ReaLTaiizor.Controls.ParrotGradientPanel();
+            label10 = new Label();
+            label11 = new Label();
+            label16 = new Label();
+            label18 = new Label();
+            crownDockPanel3 = new ReaLTaiizor.Docking.Crown.CrownDockPanel();
+            label21 = new Label();
+            label22 = new Label();
+            crownDockPanel4 = new ReaLTaiizor.Docking.Crown.CrownDockPanel();
+            label23 = new Label();
+            label24 = new Label();
+            crownDockPanel5 = new ReaLTaiizor.Docking.Crown.CrownDockPanel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             groupBox1.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
             SuspendLayout();
             // 
@@ -88,24 +84,21 @@
             panel1.Controls.Add(groupBox1);
             panel1.Location = new Point(-6, -5);
             panel1.Name = "panel1";
-            panel1.Size = new Size(888, 1928);
+            panel1.Size = new Size(888, 1349);
             panel1.TabIndex = 2;
             // 
             // groupBox1
             // 
-            groupBox1.Controls.Add(label25);
-            groupBox1.Controls.Add(label24);
-            groupBox1.Controls.Add(label22);
             groupBox1.Controls.Add(label23);
-            groupBox1.Controls.Add(label20);
+            groupBox1.Controls.Add(label24);
+            groupBox1.Controls.Add(crownDockPanel5);
             groupBox1.Controls.Add(label21);
-            groupBox1.Controls.Add(label19);
-            groupBox1.Controls.Add(parrotGradientPanel2);
+            groupBox1.Controls.Add(label22);
+            groupBox1.Controls.Add(crownDockPanel4);
+            groupBox1.Controls.Add(label10);
+            groupBox1.Controls.Add(label11);
             groupBox1.Controls.Add(label16);
             groupBox1.Controls.Add(label18);
-            groupBox1.Controls.Add(label10);
-            groupBox1.Controls.Add(pictureBox3);
-            groupBox1.Controls.Add(label11);
             groupBox1.Controls.Add(crownDockPanel3);
             groupBox1.Controls.Add(label17);
             groupBox1.Controls.Add(label14);
@@ -129,154 +122,10 @@
             groupBox1.Font = new Font("Roboto SemiCondensed Medium", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.Location = new Point(18, 99);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(865, 1819);
+            groupBox1.Size = new Size(865, 1237);
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Tiết kiệm";
-            // 
-            // label25
-            // 
-            label25.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label25.Location = new Point(6, 1681);
-            label25.Name = "label25";
-            label25.Size = new Size(850, 33);
-            label25.TabIndex = 35;
-            label25.Text = "❁ Nhận thông báo giao dịch qua Sacombank App.";
-            // 
-            // label24
-            // 
-            label24.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label24.Location = new Point(6, 1648);
-            label24.Name = "label24";
-            label24.Size = new Size(850, 33);
-            label24.TabIndex = 34;
-            label24.Text = "❁ Linh hoạt nộp, rút, tất toán và nhận lãi cả ngày nghỉ/lễ.";
-            // 
-            // label22
-            // 
-            label22.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label22.Location = new Point(6, 1565);
-            label22.Name = "label22";
-            label22.Size = new Size(850, 82);
-            label22.TabIndex = 33;
-            label22.Text = resources.GetString("label22.Text");
-            // 
-            // label23
-            // 
-            label23.AutoSize = true;
-            label23.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label23.Location = new Point(6, 1530);
-            label23.Name = "label23";
-            label23.Size = new Size(294, 24);
-            label23.TabIndex = 32;
-            label23.Text = "Thông tin chi tiết chương trình";
-            // 
-            // label20
-            // 
-            label20.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label20.Location = new Point(6, 1498);
-            label20.Name = "label20";
-            label20.Size = new Size(766, 33);
-            label20.TabIndex = 31;
-            label20.Text = "❁ Khách hàng cá nhân.";
-            // 
-            // label21
-            // 
-            label21.AutoSize = true;
-            label21.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label21.Location = new Point(6, 1463);
-            label21.Name = "label21";
-            label21.Size = new Size(199, 24);
-            label21.TabIndex = 30;
-            label21.Text = "Khách hàng áp dụng";
-            // 
-            // label19
-            // 
-            label19.AutoSize = true;
-            label19.Font = new Font("Roboto SemiCondensed Medium", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label19.ForeColor = Color.Black;
-            label19.Location = new Point(6, 1352);
-            label19.Name = "label19";
-            label19.Size = new Size(182, 28);
-            label19.TabIndex = 29;
-            label19.Text = "Nội dung ưu đãi";
-            // 
-            // parrotGradientPanel2
-            // 
-            parrotGradientPanel2.BottomLeft = SystemColors.HotTrack;
-            parrotGradientPanel2.BottomRight = Color.Cyan;
-            parrotGradientPanel2.CompositingQualityType = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
-            parrotGradientPanel2.InterpolationType = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
-            parrotGradientPanel2.Location = new Point(6, 815);
-            parrotGradientPanel2.Name = "parrotGradientPanel2";
-            parrotGradientPanel2.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
-            parrotGradientPanel2.PrimerColor = Color.White;
-            parrotGradientPanel2.Size = new Size(734, 5);
-            parrotGradientPanel2.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
-            parrotGradientPanel2.Style = ReaLTaiizor.Controls.ParrotGradientPanel.GradientStyle.Corners;
-            parrotGradientPanel2.TabIndex = 1;
-            parrotGradientPanel2.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            parrotGradientPanel2.TopLeft = Color.DeepSkyBlue;
-            parrotGradientPanel2.TopRight = Color.Fuchsia;
-            // 
-            // label16
-            // 
-            label16.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label16.Location = new Point(6, 1427);
-            label16.Name = "label16";
-            label16.Size = new Size(766, 33);
-            label16.TabIndex = 28;
-            label16.Text = "❁ Lâu dài.";
-            // 
-            // label18
-            // 
-            label18.AutoSize = true;
-            label18.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label18.Location = new Point(6, 1392);
-            label18.Name = "label18";
-            label18.Size = new Size(178, 24);
-            label18.TabIndex = 27;
-            label18.Text = "Thời gian áp dụng";
-            // 
-            // label10
-            // 
-            label10.AutoSize = true;
-            label10.Font = new Font("Roboto SemiCondensed Medium", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label10.ForeColor = SystemColors.HotTrack;
-            label10.Location = new Point(217, 1283);
-            label10.Name = "label10";
-            label10.Size = new Size(432, 28);
-            label10.TabIndex = 26;
-            label10.Text = "Tích lũy thông minh – Đỉnh cao sinh lời";
-            // 
-            // pictureBox3
-            // 
-            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
-            pictureBox3.Location = new Point(77, 867);
-            pictureBox3.Name = "pictureBox3";
-            pictureBox3.Size = new Size(713, 407);
-            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
-            pictureBox3.TabIndex = 25;
-            pictureBox3.TabStop = false;
-            // 
-            // label11
-            // 
-            label11.AutoSize = true;
-            label11.Font = new Font("Roboto SemiCondensed Medium", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label11.ForeColor = SystemColors.HotTrack;
-            label11.Location = new Point(6, 838);
-            label11.Name = "label11";
-            label11.Size = new Size(138, 28);
-            label11.TabIndex = 24;
-            label11.Text = "Khuyến mãi";
-            // 
-            // crownDockPanel3
-            // 
-            crownDockPanel3.BackColor = Color.FromArgb(60, 63, 65);
-            crownDockPanel3.Location = new Point(6, 1333);
-            crownDockPanel3.Name = "crownDockPanel3";
-            crownDockPanel3.Size = new Size(850, 1);
-            crownDockPanel3.TabIndex = 23;
             // 
             // label17
             // 
@@ -309,7 +158,7 @@
             // 
             buttonScrollToTopSavingsDetail.FlatAppearance.BorderSize = 0;
             buttonScrollToTopSavingsDetail.Image = (Image)resources.GetObject("buttonScrollToTopSavingsDetail.Image");
-            buttonScrollToTopSavingsDetail.Location = new Point(396, 1748);
+            buttonScrollToTopSavingsDetail.Location = new Point(408, 1193);
             buttonScrollToTopSavingsDetail.Name = "buttonScrollToTopSavingsDetail";
             buttonScrollToTopSavingsDetail.Size = new Size(65, 65);
             buttonScrollToTopSavingsDetail.TabIndex = 19;
@@ -359,7 +208,7 @@
             label6.Name = "label6";
             label6.Size = new Size(766, 33);
             label6.TabIndex = 12;
-            label6.Text = "❁ Số tiền gửi tối thiểu: 50.000 VND hoặc 50 USD/EUR/AUD.";
+            label6.Text = "❁ Số tiền gửi tối thiểu: 50.000 VND.";
             // 
             // label7
             // 
@@ -368,7 +217,7 @@
             label7.Name = "label7";
             label7.Size = new Size(766, 33);
             label7.TabIndex = 11;
-            label7.Text = "❁ Gửi tiết kiệm có kỳ hạn dài: từ 1 đến 36 tháng.";
+            label7.Text = "❁ Gửi tiết kiệm có kì hạn dài: từ 12 đến 36 tháng.";
             // 
             // label8
             // 
@@ -464,6 +313,105 @@
             parrotGradientPanel1.TopLeft = Color.DeepSkyBlue;
             parrotGradientPanel1.TopRight = Color.Fuchsia;
             // 
+            // label10
+            // 
+            label10.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label10.Location = new Point(6, 931);
+            label10.Name = "label10";
+            label10.Size = new Size(766, 33);
+            label10.TabIndex = 27;
+            label10.Text = "❁ 36 tháng - Lãi suất hàng tháng: 5,27%/năm.";
+            // 
+            // label11
+            // 
+            label11.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label11.Location = new Point(6, 898);
+            label11.Name = "label11";
+            label11.Size = new Size(766, 33);
+            label11.TabIndex = 26;
+            label11.Text = "❁ 24 tháng - Lãi suất hàng tháng: 5,41%/năm.";
+            // 
+            // label16
+            // 
+            label16.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label16.Location = new Point(6, 865);
+            label16.Name = "label16";
+            label16.Size = new Size(766, 33);
+            label16.TabIndex = 25;
+            label16.Text = "❁ 12 tháng - Lãi suất hàng tháng: 5,27%/năm.";
+            // 
+            // label18
+            // 
+            label18.AutoSize = true;
+            label18.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label18.Location = new Point(6, 830);
+            label18.Name = "label18";
+            label18.Size = new Size(173, 24);
+            label18.TabIndex = 24;
+            label18.Text = "Lãi suất và kì hạn";
+            // 
+            // crownDockPanel3
+            // 
+            crownDockPanel3.BackColor = Color.FromArgb(60, 63, 65);
+            crownDockPanel3.Location = new Point(6, 812);
+            crownDockPanel3.Name = "crownDockPanel3";
+            crownDockPanel3.Size = new Size(850, 1);
+            crownDockPanel3.TabIndex = 23;
+            // 
+            // label21
+            // 
+            label21.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label21.Location = new Point(6, 1019);
+            label21.Name = "label21";
+            label21.Size = new Size(766, 33);
+            label21.TabIndex = 30;
+            label21.Text = "❁ Lãi đơn theo kỳ hạn tháng.";
+            // 
+            // label22
+            // 
+            label22.AutoSize = true;
+            label22.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label22.Location = new Point(6, 984);
+            label22.Name = "label22";
+            label22.Size = new Size(200, 24);
+            label22.TabIndex = 29;
+            label22.Text = "Phương thức tính lãi";
+            // 
+            // crownDockPanel4
+            // 
+            crownDockPanel4.BackColor = Color.FromArgb(60, 63, 65);
+            crownDockPanel4.Location = new Point(6, 966);
+            crownDockPanel4.Name = "crownDockPanel4";
+            crownDockPanel4.Size = new Size(850, 1);
+            crownDockPanel4.TabIndex = 28;
+            // 
+            // label23
+            // 
+            label23.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label23.Location = new Point(6, 1109);
+            label23.Name = "label23";
+            label23.Size = new Size(850, 59);
+            label23.TabIndex = 33;
+            label23.Text = "❁ Toàn bộ tiền gửi rút trước hạn áp dụng mức lãi suất tiền gửi không kỳ hạn thấp nhất có hiệu lực tại thời điểm rút trước hạn.";
+            // 
+            // label24
+            // 
+            label24.AutoSize = true;
+            label24.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label24.Location = new Point(6, 1074);
+            label24.Name = "label24";
+            label24.Size = new Size(196, 24);
+            label24.TabIndex = 32;
+            label24.Text = "Rút toàn bộ tiền gửi";
+            // 
+            // crownDockPanel5
+            // 
+            crownDockPanel5.BackColor = Color.FromArgb(60, 63, 65);
+            crownDockPanel5.Location = new Point(6, 1056);
+            crownDockPanel5.Name = "crownDockPanel5";
+            crownDockPanel5.Size = new Size(850, 1);
+            crownDockPanel5.TabIndex = 31;
+            // 
             // FormSavingsDetail
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -482,7 +430,6 @@
             panel1.ResumeLayout(false);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
             ResumeLayout(false);
         }
@@ -511,19 +458,16 @@
         private Label label17;
         private Label label14;
         private Label label15;
+        private Label label10;
         private Label label11;
-        private ReaLTaiizor.Docking.Crown.CrownDockPanel crownDockPanel3;
-        private PictureBox pictureBox3;
         private Label label16;
         private Label label18;
-        private Label label10;
-        private ReaLTaiizor.Controls.ParrotGradientPanel parrotGradientPanel2;
-        private Label label19;
-        private Label label20;
+        private ReaLTaiizor.Docking.Crown.CrownDockPanel crownDockPanel3;
         private Label label21;
-        private Label label25;
-        private Label label24;
         private Label label22;
+        private ReaLTaiizor.Docking.Crown.CrownDockPanel crownDockPanel4;
         private Label label23;
+        private Label label24;
+        private ReaLTaiizor.Docking.Crown.CrownDockPanel crownDockPanel5;
     }
 }

@@ -8,6 +8,10 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using QuanLyThongTinKhachHangSacomBank.Controllers;
+using System.Configuration;
+using Microsoft.Extensions.Configuration;
+using QuanLyThongTinKhachHangSacomBank.Data;
+using QuanLyThongTinKhachHangSacomBank.Models;
 
 namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
 {
@@ -17,16 +21,18 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
         private readonly LoanApplicationController loanApplicationController;
         private readonly SavingsDetailController savingsDetailController;
         private readonly OpenSavingsController openSavingsController;
+        private readonly CustomerServiceController customerServiceController;
 
-        public UC_CustomerService()
+        public UC_CustomerService(AccountModel currentAccount, DatabaseContext dbContext, IConfiguration configuration)
         {
             try
             {
                 InitializeComponent();
                 loanDetailController = new LoanDetailController();
-                loanApplicationController = new LoanApplicationController();
+                loanApplicationController = new LoanApplicationController(currentAccount, dbContext, configuration);
                 savingsDetailController = new SavingsDetailController();
-                openSavingsController = new OpenSavingsController();
+                openSavingsController = new OpenSavingsController(currentAccount, dbContext, configuration);
+                customerServiceController = new CustomerServiceController(this, currentAccount, dbContext, configuration);
 
 
             }
@@ -35,6 +41,13 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
                 MessageBox.Show($"Lỗi khi khởi tạo UC_CustomerService: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 throw;
             }
+        }
+
+        // Phương thức để vô hiệu hóa các nút liên quan đến tiết kiệm
+        public void DisableSavingsButtons()
+        {
+            cyberButtonSavingsDetail.Visible = false; // Vô hiệu hóa nút "Chi tiết tiết kiệm"
+            cyberButtonSavings.Visible = false; // Vô hiệu hóa nút "Đăng ký tiết kiệm"
         }
 
         private void cyberButtonLoanDetail_Click(object sender, EventArgs e)

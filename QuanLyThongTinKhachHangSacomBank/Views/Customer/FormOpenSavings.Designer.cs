@@ -36,7 +36,7 @@
             labelCreatedDate = new Label();
             label1 = new Label();
             comboBoxServiceTypeName = new ComboBox();
-            textBoxDescription = new TextBox();
+            textBoxServiceDescription = new TextBox();
             panel1 = new Panel();
             labelDescription = new Label();
             labelDuration = new Label();
@@ -155,6 +155,7 @@
             // 
             dateTimePickerCreatedDate.CalendarFont = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dateTimePickerCreatedDate.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dateTimePickerCreatedDate.Format = DateTimePickerFormat.Short;
             dateTimePickerCreatedDate.Location = new Point(319, 386);
             dateTimePickerCreatedDate.Name = "dateTimePickerCreatedDate";
             dateTimePickerCreatedDate.Size = new Size(490, 32);
@@ -164,7 +165,7 @@
             // 
             labelCreatedDate.AutoSize = true;
             labelCreatedDate.Font = new Font("Roboto SemiCondensed", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelCreatedDate.Location = new Point(227, 386);
+            labelCreatedDate.Location = new Point(227, 392);
             labelCreatedDate.Name = "labelCreatedDate";
             labelCreatedDate.Size = new Size(86, 24);
             labelCreatedDate.TabIndex = 202;
@@ -191,13 +192,13 @@
             comboBoxServiceTypeName.Size = new Size(248, 32);
             comboBoxServiceTypeName.TabIndex = 200;
             // 
-            // textBoxDescription
+            // textBoxServiceDescription
             // 
-            textBoxDescription.Font = new Font("Roboto", 12F);
-            textBoxDescription.Location = new Point(328, 501);
-            textBoxDescription.Name = "textBoxDescription";
-            textBoxDescription.Size = new Size(464, 32);
-            textBoxDescription.TabIndex = 199;
+            textBoxServiceDescription.Font = new Font("Roboto", 12F);
+            textBoxServiceDescription.Location = new Point(328, 499);
+            textBoxServiceDescription.Name = "textBoxServiceDescription";
+            textBoxServiceDescription.Size = new Size(464, 32);
+            textBoxServiceDescription.TabIndex = 199;
             // 
             // panel1
             // 
@@ -229,14 +230,14 @@
             // 
             // labelPay
             // 
-            labelPay.AutoSize = true;
             labelPay.Font = new Font("Roboto SemiCondensed", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelPay.ForeColor = Color.MediumSeaGreen;
-            labelPay.Location = new Point(355, 80);
+            labelPay.Location = new Point(12, 80);
             labelPay.Name = "labelPay";
-            labelPay.Size = new Size(322, 41);
+            labelPay.Size = new Size(998, 41);
             labelPay.TabIndex = 180;
             labelPay.Text = "Đăng ký gửi tiết kiệm";
+            labelPay.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // textBoxAccountID
             // 
@@ -251,7 +252,7 @@
             comboBoxDuration.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxDuration.Font = new Font("Roboto", 12F);
             comboBoxDuration.FormattingEnabled = true;
-            comboBoxDuration.Items.AddRange(new object[] { "Tiền mặt", "Tài khoản thanh toán" });
+            comboBoxDuration.Items.AddRange(new object[] { "12 tháng", "24 tháng", "36 tháng" });
             comboBoxDuration.Location = new Point(711, 310);
             comboBoxDuration.Name = "comboBoxDuration";
             comboBoxDuration.Size = new Size(248, 32);
@@ -259,13 +260,13 @@
             // 
             // labelPayInfo
             // 
-            labelPayInfo.AutoSize = true;
             labelPayInfo.Font = new Font("Roboto SemiCondensed Medium", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelPayInfo.Location = new Point(427, 129);
+            labelPayInfo.Location = new Point(12, 129);
             labelPayInfo.Name = "labelPayInfo";
-            labelPayInfo.Size = new Size(169, 28);
+            labelPayInfo.Size = new Size(998, 28);
             labelPayInfo.TabIndex = 182;
             labelPayInfo.Text = "Nhập thông tin";
+            labelPayInfo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // textBoxTotalPrincipalAmount
             // 
@@ -361,14 +362,14 @@
             // 
             // labelError
             // 
-            labelError.AutoSize = true;
-            labelError.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelError.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelError.ForeColor = Color.Red;
-            labelError.Location = new Point(400, 547);
+            labelError.Location = new Point(12, 547);
             labelError.Name = "labelError";
-            labelError.Size = new Size(240, 20);
+            labelError.Size = new Size(998, 20);
             labelError.TabIndex = 188;
             labelError.Text = "Vui lòng nhập đầy đủ thông tin!";
+            labelError.TextAlign = ContentAlignment.MiddleCenter;
             labelError.Visible = false;
             // 
             // labelCustomer
@@ -411,7 +412,7 @@
             Controls.Add(labelCreatedDate);
             Controls.Add(label1);
             Controls.Add(comboBoxServiceTypeName);
-            Controls.Add(textBoxDescription);
+            Controls.Add(textBoxServiceDescription);
             Controls.Add(panel1);
             Controls.Add(labelDescription);
             Controls.Add(labelDuration);
@@ -437,7 +438,7 @@
             MaximizeBox = false;
             Name = "FormOpenSavings";
             StartPosition = FormStartPosition.CenterScreen;
-            Text = "FormSavings";
+            Text = "Đăng ký Gửi tiết kiệm";
             ((System.ComponentModel.ISupportInitialize)pictureBoxTopPanel).EndInit();
             ResumeLayout(false);
             PerformLayout();
@@ -452,7 +453,7 @@
         private Label labelCreatedDate;
         private Label label1;
         private ComboBox comboBoxServiceTypeName;
-        private TextBox textBoxDescription;
+        private TextBox textBoxServiceDescription;
         private Panel panel1;
         private Label labelDescription;
         private Label labelDuration;

@@ -32,6 +32,16 @@
             pictureBox1 = new PictureBox();
             panel1 = new Panel();
             groupBox1 = new GroupBox();
+            buttonScrollToTopLoanDetail = new Button();
+            label10 = new Label();
+            label11 = new Label();
+            label12 = new Label();
+            label13 = new Label();
+            crownDockPanel2 = new ReaLTaiizor.Docking.Crown.CrownDockPanel();
+            label9 = new Label();
+            label6 = new Label();
+            label7 = new Label();
+            label8 = new Label();
             crownDockPanel1 = new ReaLTaiizor.Docking.Crown.CrownDockPanel();
             label5 = new Label();
             label4 = new Label();
@@ -40,16 +50,18 @@
             label2 = new Label();
             label1 = new Label();
             parrotGradientPanel1 = new ReaLTaiizor.Controls.ParrotGradientPanel();
-            label6 = new Label();
-            label7 = new Label();
-            label8 = new Label();
-            label9 = new Label();
-            label10 = new Label();
-            label11 = new Label();
-            label12 = new Label();
-            label13 = new Label();
-            crownDockPanel2 = new ReaLTaiizor.Docking.Crown.CrownDockPanel();
-            buttonScrollToTopLoanDetail = new Button();
+            label14 = new Label();
+            label15 = new Label();
+            label16 = new Label();
+            label17 = new Label();
+            crownDockPanel3 = new ReaLTaiizor.Docking.Crown.CrownDockPanel();
+            label20 = new Label();
+            label21 = new Label();
+            crownDockPanel4 = new ReaLTaiizor.Docking.Crown.CrownDockPanel();
+            label19 = new Label();
+            label22 = new Label();
+            label23 = new Label();
+            crownDockPanel5 = new ReaLTaiizor.Docking.Crown.CrownDockPanel();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             panel1.SuspendLayout();
             groupBox1.SuspendLayout();
@@ -72,11 +84,23 @@
             panel1.Controls.Add(groupBox1);
             panel1.Location = new Point(-2, -1);
             panel1.Name = "panel1";
-            panel1.Size = new Size(888, 945);
+            panel1.Size = new Size(888, 1282);
             panel1.TabIndex = 1;
             // 
             // groupBox1
             // 
+            groupBox1.Controls.Add(label19);
+            groupBox1.Controls.Add(label22);
+            groupBox1.Controls.Add(label23);
+            groupBox1.Controls.Add(crownDockPanel5);
+            groupBox1.Controls.Add(label20);
+            groupBox1.Controls.Add(label21);
+            groupBox1.Controls.Add(crownDockPanel4);
+            groupBox1.Controls.Add(label14);
+            groupBox1.Controls.Add(label15);
+            groupBox1.Controls.Add(label16);
+            groupBox1.Controls.Add(label17);
+            groupBox1.Controls.Add(crownDockPanel3);
             groupBox1.Controls.Add(buttonScrollToTopLoanDetail);
             groupBox1.Controls.Add(label10);
             groupBox1.Controls.Add(label11);
@@ -98,10 +122,103 @@
             groupBox1.Font = new Font("Roboto SemiCondensed Medium", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBox1.Location = new Point(14, 99);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new Size(871, 845);
+            groupBox1.Size = new Size(871, 1170);
             groupBox1.TabIndex = 0;
             groupBox1.TabStop = false;
             groupBox1.Text = "Vay vốn";
+            // 
+            // buttonScrollToTopLoanDetail
+            // 
+            buttonScrollToTopLoanDetail.FlatAppearance.BorderSize = 0;
+            buttonScrollToTopLoanDetail.Image = (Image)resources.GetObject("buttonScrollToTopLoanDetail.Image");
+            buttonScrollToTopLoanDetail.Location = new Point(397, 1127);
+            buttonScrollToTopLoanDetail.Name = "buttonScrollToTopLoanDetail";
+            buttonScrollToTopLoanDetail.Size = new Size(65, 65);
+            buttonScrollToTopLoanDetail.TabIndex = 19;
+            buttonScrollToTopLoanDetail.UseVisualStyleBackColor = true;
+            buttonScrollToTopLoanDetail.Click += buttonScrollToTopLoanDetail_Click;
+            // 
+            // label10
+            // 
+            label10.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label10.Location = new Point(6, 710);
+            label10.Name = "label10";
+            label10.Size = new Size(766, 33);
+            label10.TabIndex = 18;
+            label10.Text = "❁ Chứng từ chứng minh thu nhập, mục đích sử dụng vốn.";
+            // 
+            // label11
+            // 
+            label11.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label11.Location = new Point(6, 677);
+            label11.Name = "label11";
+            label11.Size = new Size(766, 33);
+            label11.TabIndex = 17;
+            label11.Text = "❁ Thời hạn vay lên đến 20 năm.";
+            // 
+            // label12
+            // 
+            label12.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label12.Location = new Point(6, 644);
+            label12.Name = "label12";
+            label12.Size = new Size(766, 33);
+            label12.TabIndex = 16;
+            label12.Text = "❁ CCCD, Xác nhận thông tin về cư trú.";
+            // 
+            // label13
+            // 
+            label13.AutoSize = true;
+            label13.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label13.Location = new Point(6, 609);
+            label13.Name = "label13";
+            label13.Size = new Size(194, 24);
+            label13.TabIndex = 15;
+            label13.Text = "Điều kiện và thủ tục";
+            // 
+            // crownDockPanel2
+            // 
+            crownDockPanel2.BackColor = Color.FromArgb(60, 63, 65);
+            crownDockPanel2.Location = new Point(6, 591);
+            crownDockPanel2.Name = "crownDockPanel2";
+            crownDockPanel2.Size = new Size(850, 1);
+            crownDockPanel2.TabIndex = 14;
+            // 
+            // label9
+            // 
+            label9.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label9.Location = new Point(6, 552);
+            label9.Name = "label9";
+            label9.Size = new Size(766, 33);
+            label9.TabIndex = 13;
+            label9.Text = "❁ Tài sản bảo đảm là bất động sản và phương tiện vận chuyển….";
+            // 
+            // label6
+            // 
+            label6.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label6.Location = new Point(6, 519);
+            label6.Name = "label6";
+            label6.Size = new Size(766, 33);
+            label6.TabIndex = 12;
+            label6.Text = "❁ Thời hạn vay lên đến 20 năm.";
+            // 
+            // label7
+            // 
+            label7.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label7.Location = new Point(6, 486);
+            label7.Name = "label7";
+            label7.Size = new Size(766, 33);
+            label7.TabIndex = 11;
+            label7.Text = "❁ Số tiền vay đến 100% nhu cầu.";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.Location = new Point(6, 451);
+            label8.Name = "label8";
+            label8.Size = new Size(87, 24);
+            label8.TabIndex = 10;
+            label8.Text = "Đặc tính";
             // 
             // crownDockPanel1
             // 
@@ -187,98 +304,113 @@
             parrotGradientPanel1.TopLeft = Color.DeepSkyBlue;
             parrotGradientPanel1.TopRight = Color.Fuchsia;
             // 
-            // label6
+            // label14
             // 
-            label6.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label6.Location = new Point(6, 519);
-            label6.Name = "label6";
-            label6.Size = new Size(766, 33);
-            label6.TabIndex = 12;
-            label6.Text = "❁ Thời hạn vay lên đến 20 năm.";
+            label14.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label14.Location = new Point(6, 866);
+            label14.Name = "label14";
+            label14.Size = new Size(766, 33);
+            label14.TabIndex = 24;
+            label14.Text = "❁ 36 tháng - Lãi suất: 1,4%/tháng.";
             // 
-            // label7
+            // label15
             // 
-            label7.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label7.Location = new Point(6, 486);
-            label7.Name = "label7";
-            label7.Size = new Size(766, 33);
-            label7.TabIndex = 11;
-            label7.Text = "❁ Số tiền vay đến 100% nhu cầu.";
+            label15.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label15.Location = new Point(6, 833);
+            label15.Name = "label15";
+            label15.Size = new Size(766, 33);
+            label15.TabIndex = 23;
+            label15.Text = "❁ 24 tháng - Lãi suất: 1,4%/tháng.";
             // 
-            // label8
+            // label16
             // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.Location = new Point(6, 451);
-            label8.Name = "label8";
-            label8.Size = new Size(87, 24);
-            label8.TabIndex = 10;
-            label8.Text = "Đặc tính";
+            label16.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label16.Location = new Point(6, 800);
+            label16.Name = "label16";
+            label16.Size = new Size(766, 33);
+            label16.TabIndex = 22;
+            label16.Text = "❁ 12 tháng - Lãi suất: 1,4%/tháng.";
             // 
-            // label9
+            // label17
             // 
-            label9.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label9.Location = new Point(6, 552);
-            label9.Name = "label9";
-            label9.Size = new Size(766, 33);
-            label9.TabIndex = 13;
-            label9.Text = "❁ Tài sản bảo đảm là bất động sản và phương tiện vận chuyển….";
+            label17.AutoSize = true;
+            label17.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label17.Location = new Point(6, 765);
+            label17.Name = "label17";
+            label17.Size = new Size(175, 24);
+            label17.TabIndex = 21;
+            label17.Text = "Lãi suất và Kì hạn";
             // 
-            // label10
+            // crownDockPanel3
             // 
-            label10.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label10.Location = new Point(6, 710);
-            label10.Name = "label10";
-            label10.Size = new Size(766, 33);
-            label10.TabIndex = 18;
-            label10.Text = "❁ Chứng từ chứng minh thu nhập, mục đích sử dụng vốn.";
+            crownDockPanel3.BackColor = Color.FromArgb(60, 63, 65);
+            crownDockPanel3.Location = new Point(6, 747);
+            crownDockPanel3.Name = "crownDockPanel3";
+            crownDockPanel3.Size = new Size(850, 1);
+            crownDockPanel3.TabIndex = 20;
             // 
-            // label11
+            // label20
             // 
-            label11.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label11.Location = new Point(6, 677);
-            label11.Name = "label11";
-            label11.Size = new Size(766, 33);
-            label11.TabIndex = 17;
-            label11.Text = "❁ Thời hạn vay lên đến 20 năm.";
+            label20.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label20.Location = new Point(6, 954);
+            label20.Name = "label20";
+            label20.Size = new Size(766, 33);
+            label20.TabIndex = 27;
+            label20.Text = "❁ Góp đều.";
             // 
-            // label12
+            // label21
             // 
-            label12.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            label12.Location = new Point(6, 644);
-            label12.Name = "label12";
-            label12.Size = new Size(766, 33);
-            label12.TabIndex = 16;
-            label12.Text = "❁ CCCD, Xác nhận thông tin về cư trú.";
+            label21.AutoSize = true;
+            label21.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label21.Location = new Point(6, 919);
+            label21.Name = "label21";
+            label21.Size = new Size(200, 24);
+            label21.TabIndex = 26;
+            label21.Text = "Phương thức tính lãi";
             // 
-            // label13
+            // crownDockPanel4
             // 
-            label13.AutoSize = true;
-            label13.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label13.Location = new Point(6, 609);
-            label13.Name = "label13";
-            label13.Size = new Size(194, 24);
-            label13.TabIndex = 15;
-            label13.Text = "Điều kiện và thủ tục";
+            crownDockPanel4.BackColor = Color.FromArgb(60, 63, 65);
+            crownDockPanel4.Location = new Point(6, 901);
+            crownDockPanel4.Name = "crownDockPanel4";
+            crownDockPanel4.Size = new Size(850, 1);
+            crownDockPanel4.TabIndex = 25;
             // 
-            // crownDockPanel2
+            // label19
             // 
-            crownDockPanel2.BackColor = Color.FromArgb(60, 63, 65);
-            crownDockPanel2.Location = new Point(6, 591);
-            crownDockPanel2.Name = "crownDockPanel2";
-            crownDockPanel2.Size = new Size(850, 1);
-            crownDockPanel2.TabIndex = 14;
+            label19.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label19.Location = new Point(6, 1072);
+            label19.Name = "label19";
+            label19.Size = new Size(850, 33);
+            label19.TabIndex = 31;
+            label19.Text = "❁ Phí chậm thanh toán: 3% x số tiền (gốc +lãi)/tháng, Tối thiểu là 80.000 VND, Tối đa: 500.000 VND";
             // 
-            // buttonScrollToTopLoanDetail
+            // label22
             // 
-            buttonScrollToTopLoanDetail.FlatAppearance.BorderSize = 0;
-            buttonScrollToTopLoanDetail.Image = (Image)resources.GetObject("buttonScrollToTopLoanDetail.Image");
-            buttonScrollToTopLoanDetail.Location = new Point(401, 763);
-            buttonScrollToTopLoanDetail.Name = "buttonScrollToTopLoanDetail";
-            buttonScrollToTopLoanDetail.Size = new Size(65, 65);
-            buttonScrollToTopLoanDetail.TabIndex = 19;
-            buttonScrollToTopLoanDetail.UseVisualStyleBackColor = true;
-            buttonScrollToTopLoanDetail.Click += buttonScrollToTopLoanDetail_Click;
+            label22.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            label22.Location = new Point(6, 1039);
+            label22.Name = "label22";
+            label22.Size = new Size(766, 33);
+            label22.TabIndex = 30;
+            label22.Text = "❁ Phí tất toán trước hạn: 2% x Dư nợ gốc còn lại";
+            // 
+            // label23
+            // 
+            label23.AutoSize = true;
+            label23.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label23.Location = new Point(6, 1004);
+            label23.Name = "label23";
+            label23.Size = new Size(401, 24);
+            label23.TabIndex = 29;
+            label23.Text = "Phí tất toán trước hạn và chậm thanh toán";
+            // 
+            // crownDockPanel5
+            // 
+            crownDockPanel5.BackColor = Color.FromArgb(60, 63, 65);
+            crownDockPanel5.Location = new Point(6, 986);
+            crownDockPanel5.Name = "crownDockPanel5";
+            crownDockPanel5.Size = new Size(850, 1);
+            crownDockPanel5.TabIndex = 28;
             // 
             // FormLoanDetail
             // 
@@ -325,5 +457,17 @@
         private Label label13;
         private ReaLTaiizor.Docking.Crown.CrownDockPanel crownDockPanel2;
         private Button buttonScrollToTopLoanDetail;
+        private Label label14;
+        private Label label15;
+        private Label label16;
+        private Label label17;
+        private ReaLTaiizor.Docking.Crown.CrownDockPanel crownDockPanel3;
+        private Label label20;
+        private Label label21;
+        private ReaLTaiizor.Docking.Crown.CrownDockPanel crownDockPanel4;
+        private Label label19;
+        private Label label22;
+        private Label label23;
+        private ReaLTaiizor.Docking.Crown.CrownDockPanel crownDockPanel5;
     }
 }

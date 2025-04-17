@@ -86,7 +86,8 @@ CREATE TABLE [TRANSACTION]
 );
 
 -- BẢNG YÊU CẦU (REQUEST)
-CREATE TABLE REQUEST (
+CREATE TABLE REQUEST 
+(
   RequestID INT IDENTITY(1,1) PRIMARY KEY,
   RequestCode AS ('YC' + CAST(RequestID AS NVARCHAR(10))) PERSISTED,
   Title NVARCHAR(100) NOT NULL,
@@ -97,6 +98,41 @@ CREATE TABLE REQUEST (
   CustomerID INT NOT NULL,
   FOREIGN KEY (CustomerID) REFERENCES CUSTOMER(CustomerID),
   FOREIGN KEY (HandledBy) REFERENCES EMPLOYEE(EmployeeID)
+);
+
+CREATE TABLE SERVICE_TYPE 
+(
+  ServiceTypeID INT IDENTITY(1,1) PRIMARY KEY,
+  ServiceTypeCode AS ('LDV' + CAST(ServiceTypeID AS NVARCHAR(10))) PERSISTED,
+  ServiceTypeName NVARCHAR(100) NOT NULL,
+  ServiceTypeDescription NVARCHAR(255) NOT NULL
+);
+
+CREATE TABLE [SERVICE] 
+(
+  ServiceID INT IDENTITY(1,1) PRIMARY KEY,
+  ServiceCode AS ('DV' + CAST(ServiceID AS NVARCHAR(10))) PERSISTED,
+
+  TotalPrincipalAmount DECIMAL(18,0) NOT NULL CHECK (TotalPrincipalAmount >= 0),
+  Duration NVARCHAR(10) NOT NULL,
+  InterestRate DECIMAL(5,2) NOT NULL CHECK (InterestRate >= 0),
+  TotalInterestAmount DECIMAL(18,0) NULL CHECK (TotalInterestAmount >= 0),
+  ServiceDescription NVARCHAR(255) NULL,
+  CreatedDate DATETIME NOT NULL,
+  ApplicableDate DATETIME NULL,
+  EndDate DATETIME NULL,
+  ApprovalStatus NVARCHAR(20) NOT NULL CHECK (ApprovalStatus IN (N'Chờ duyệt', N'Đã duyệt', N'Từ chối')),
+  ServiceStatus NVARCHAR(20) NOT NULL CHECK (ServiceStatus IN (N'Chờ hoạt động', N'Đang hoạt động', N'Đã tất toán', N'Hủy', N'Trễ hạn thanh toán')),
+
+  HandledBy INT NULL,
+  CustomerID INT NOT NULL,
+  AccountID INT NOT NULL,
+  ServiceTypeID INT NOT NULL,
+
+  FOREIGN KEY (HandledBy) REFERENCES EMPLOYEE(EmployeeID),
+  FOREIGN KEY (CustomerID) REFERENCES CUSTOMER(CustomerID),
+  FOREIGN KEY (AccountID) REFERENCES ACCOUNT(AccountID),
+  FOREIGN KEY (ServiceTypeID) REFERENCES SERVICE_TYPE(ServiceTypeID)
 );
 
 -- BẢNG NHÂN VIÊN
@@ -132,6 +168,8 @@ DROP TABLE EMPLOYEE
 DROP TABLE TRANSACTION_TYPE
 DROP TABLE [TRANSACTION]
 DROP TABLE REQUEST
+DROP TABLE SERVICE_TYPE
+DROP TABLE [SERVICE]
 
 
 
@@ -185,6 +223,10 @@ VALUES
   (N'Chuyển tiền', N'Chuyển tiền từ tài khoản này sang tài khoản khác trong nội bộ'),
   (N'Thanh toán', N'Thanh toán dịch vụ vay vốn của tài khoản');
 
+INSERT INTO SERVICE_TYPE (ServiceTypeName, ServiceTypeDescription)
+VALUES 
+(N'Vay vốn', N'Dịch vụ cho khách hàng vay tiền với lãi suất nhất định'),
+(N'Gửi tiết kiệm', N'Dịch vụ gửi tiền tiết kiệm và nhận lãi theo kỳ hạn');
 
 
 

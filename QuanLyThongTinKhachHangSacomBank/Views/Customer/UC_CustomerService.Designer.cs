@@ -315,12 +315,12 @@
             cyberButtonLoan.Background_WidthPen = 4F;
             cyberButtonLoan.BackgroundPen = true;
             cyberButtonLoan.ColorBackground = Color.FromArgb(37, 52, 68);
-            cyberButtonLoan.ColorBackground_1 = Color.FromArgb(255, 128, 0);
-            cyberButtonLoan.ColorBackground_2 = Color.Gold;
+            cyberButtonLoan.ColorBackground_1 = Color.Teal;
+            cyberButtonLoan.ColorBackground_2 = Color.Turquoise;
             cyberButtonLoan.ColorBackground_Pen = Color.FromArgb(29, 200, 238);
             cyberButtonLoan.ColorLighting = Color.FromArgb(29, 200, 238);
-            cyberButtonLoan.ColorPen_1 = Color.FromArgb(255, 128, 0);
-            cyberButtonLoan.ColorPen_2 = Color.Gold;
+            cyberButtonLoan.ColorPen_1 = Color.Teal;
+            cyberButtonLoan.ColorPen_2 = Color.Turquoise;
             cyberButtonLoan.CyberButtonStyle = ReaLTaiizor.Enum.Cyber.StateStyle.Custom;
             cyberButtonLoan.Dock = DockStyle.Fill;
             cyberButtonLoan.Effect_1 = true;

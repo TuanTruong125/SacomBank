@@ -30,7 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FormLoanApplication));
             pictureBoxTopPanel = new PictureBox();
-            textBoxDescription = new TextBox();
+            textBoxServiceDescription = new TextBox();
             panel1 = new Panel();
             labelDescription = new Label();
             labelDuration = new Label();
@@ -55,9 +55,9 @@
             comboBoxServiceTypeName = new ComboBox();
             labelCreatedDate = new Label();
             dateTimePickerCreatedDate = new DateTimePicker();
-            cyberButtonSendRequest = new ReaLTaiizor.Controls.CyberButton();
             cyberButtonCancel = new ReaLTaiizor.Controls.CyberButton();
             textBoxInterestRate = new TextBox();
+            cyberButtonSendRequest = new ReaLTaiizor.Controls.CyberButton();
             ((System.ComponentModel.ISupportInitialize)pictureBoxTopPanel).BeginInit();
             SuspendLayout();
             // 
@@ -71,17 +71,17 @@
             pictureBoxTopPanel.TabIndex = 40;
             pictureBoxTopPanel.TabStop = false;
             // 
-            // textBoxDescription
+            // textBoxServiceDescription
             // 
-            textBoxDescription.Font = new Font("Roboto", 12F);
-            textBoxDescription.Location = new Point(325, 483);
-            textBoxDescription.Name = "textBoxDescription";
-            textBoxDescription.Size = new Size(464, 32);
-            textBoxDescription.TabIndex = 169;
+            textBoxServiceDescription.Font = new Font("Roboto", 12F);
+            textBoxServiceDescription.Location = new Point(325, 483);
+            textBoxServiceDescription.Name = "textBoxServiceDescription";
+            textBoxServiceDescription.Size = new Size(464, 32);
+            textBoxServiceDescription.TabIndex = 169;
             // 
             // panel1
             // 
-            panel1.BackColor = Color.Gold;
+            panel1.BackColor = Color.MediumSeaGreen;
             panel1.Location = new Point(226, 421);
             panel1.Name = "panel1";
             panel1.Size = new Size(580, 5);
@@ -109,14 +109,14 @@
             // 
             // labelPay
             // 
-            labelPay.AutoSize = true;
             labelPay.Font = new Font("Roboto SemiCondensed", 19.8000011F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelPay.ForeColor = Color.Gold;
-            labelPay.Location = new Point(386, 74);
+            labelPay.ForeColor = Color.MediumSeaGreen;
+            labelPay.Location = new Point(12, 74);
             labelPay.Name = "labelPay";
-            labelPay.Size = new Size(250, 41);
+            labelPay.Size = new Size(998, 41);
             labelPay.TabIndex = 145;
             labelPay.Text = "Đăng ký vay vốn";
+            labelPay.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // textBoxAccountID
             // 
@@ -131,7 +131,7 @@
             comboBoxDuration.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxDuration.Font = new Font("Roboto", 12F);
             comboBoxDuration.FormattingEnabled = true;
-            comboBoxDuration.Items.AddRange(new object[] { "Tiền mặt", "Tài khoản thanh toán" });
+            comboBoxDuration.Items.AddRange(new object[] { "12 tháng", "24 tháng", "36 tháng" });
             comboBoxDuration.Location = new Point(708, 292);
             comboBoxDuration.Name = "comboBoxDuration";
             comboBoxDuration.Size = new Size(248, 32);
@@ -139,13 +139,13 @@
             // 
             // labelPayInfo
             // 
-            labelPayInfo.AutoSize = true;
             labelPayInfo.Font = new Font("Roboto SemiCondensed Medium", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelPayInfo.Location = new Point(424, 115);
+            labelPayInfo.Location = new Point(12, 115);
             labelPayInfo.Name = "labelPayInfo";
-            labelPayInfo.Size = new Size(169, 28);
+            labelPayInfo.Size = new Size(998, 28);
             labelPayInfo.TabIndex = 147;
             labelPayInfo.Text = "Nhập thông tin";
+            labelPayInfo.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // textBoxTotalPrincipalAmount
             // 
@@ -241,14 +241,14 @@
             // 
             // labelError
             // 
-            labelError.AutoSize = true;
-            labelError.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelError.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelError.ForeColor = Color.Red;
-            labelError.Location = new Point(386, 525);
+            labelError.Location = new Point(12, 525);
             labelError.Name = "labelError";
-            labelError.Size = new Size(240, 20);
+            labelError.Size = new Size(998, 20);
             labelError.TabIndex = 156;
             labelError.Text = "Vui lòng nhập đầy đủ thông tin!";
+            labelError.TextAlign = ContentAlignment.MiddleCenter;
             labelError.Visible = false;
             // 
             // labelCustomer
@@ -304,51 +304,11 @@
             // 
             dateTimePickerCreatedDate.CalendarFont = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dateTimePickerCreatedDate.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dateTimePickerCreatedDate.Format = DateTimePickerFormat.Short;
             dateTimePickerCreatedDate.Location = new Point(316, 368);
             dateTimePickerCreatedDate.Name = "dateTimePickerCreatedDate";
             dateTimePickerCreatedDate.Size = new Size(490, 32);
             dateTimePickerCreatedDate.TabIndex = 174;
-            // 
-            // cyberButtonSendRequest
-            // 
-            cyberButtonSendRequest.Alpha = 20;
-            cyberButtonSendRequest.BackColor = Color.Transparent;
-            cyberButtonSendRequest.Background = true;
-            cyberButtonSendRequest.Background_WidthPen = 4F;
-            cyberButtonSendRequest.BackgroundPen = true;
-            cyberButtonSendRequest.ColorBackground = Color.FromArgb(37, 52, 68);
-            cyberButtonSendRequest.ColorBackground_1 = Color.FromArgb(255, 128, 0);
-            cyberButtonSendRequest.ColorBackground_2 = Color.Gold;
-            cyberButtonSendRequest.ColorBackground_Pen = Color.FromArgb(29, 200, 238);
-            cyberButtonSendRequest.ColorLighting = Color.FromArgb(29, 200, 238);
-            cyberButtonSendRequest.ColorPen_1 = Color.FromArgb(255, 128, 0);
-            cyberButtonSendRequest.ColorPen_2 = Color.Gold;
-            cyberButtonSendRequest.CyberButtonStyle = ReaLTaiizor.Enum.Cyber.StateStyle.Custom;
-            cyberButtonSendRequest.Effect_1 = true;
-            cyberButtonSendRequest.Effect_1_ColorBackground = Color.FromArgb(29, 200, 238);
-            cyberButtonSendRequest.Effect_1_Transparency = 25;
-            cyberButtonSendRequest.Effect_2 = true;
-            cyberButtonSendRequest.Effect_2_ColorBackground = Color.White;
-            cyberButtonSendRequest.Effect_2_Transparency = 20;
-            cyberButtonSendRequest.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold);
-            cyberButtonSendRequest.ForeColor = Color.FromArgb(245, 245, 245);
-            cyberButtonSendRequest.Lighting = false;
-            cyberButtonSendRequest.LinearGradient_Background = true;
-            cyberButtonSendRequest.LinearGradientPen = true;
-            cyberButtonSendRequest.Location = new Point(540, 564);
-            cyberButtonSendRequest.Name = "cyberButtonSendRequest";
-            cyberButtonSendRequest.PenWidth = 15;
-            cyberButtonSendRequest.Rounding = true;
-            cyberButtonSendRequest.RoundingInt = 70;
-            cyberButtonSendRequest.Size = new Size(187, 56);
-            cyberButtonSendRequest.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
-            cyberButtonSendRequest.TabIndex = 175;
-            cyberButtonSendRequest.Tag = "Cyber";
-            cyberButtonSendRequest.TextButton = "Gửi yêu cầu";
-            cyberButtonSendRequest.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
-            cyberButtonSendRequest.Timer_Effect_1 = 5;
-            cyberButtonSendRequest.Timer_RGB = 300;
-            cyberButtonSendRequest.Click += cyberButtonSendRequest_Click;
             // 
             // cyberButtonCancel
             // 
@@ -399,19 +359,60 @@
             textBoxInterestRate.Size = new Size(248, 32);
             textBoxInterestRate.TabIndex = 177;
             // 
+            // cyberButtonSendRequest
+            // 
+            cyberButtonSendRequest.Alpha = 20;
+            cyberButtonSendRequest.BackColor = Color.Transparent;
+            cyberButtonSendRequest.Background = true;
+            cyberButtonSendRequest.Background_WidthPen = 4F;
+            cyberButtonSendRequest.BackgroundPen = true;
+            cyberButtonSendRequest.ColorBackground = Color.FromArgb(37, 52, 68);
+            cyberButtonSendRequest.ColorBackground_1 = Color.Teal;
+            cyberButtonSendRequest.ColorBackground_2 = Color.Turquoise;
+            cyberButtonSendRequest.ColorBackground_Pen = Color.FromArgb(29, 200, 238);
+            cyberButtonSendRequest.ColorLighting = Color.FromArgb(29, 200, 238);
+            cyberButtonSendRequest.ColorPen_1 = Color.Teal;
+            cyberButtonSendRequest.ColorPen_2 = Color.Turquoise;
+            cyberButtonSendRequest.CyberButtonStyle = ReaLTaiizor.Enum.Cyber.StateStyle.Custom;
+            cyberButtonSendRequest.Effect_1 = true;
+            cyberButtonSendRequest.Effect_1_ColorBackground = Color.FromArgb(29, 200, 238);
+            cyberButtonSendRequest.Effect_1_Transparency = 25;
+            cyberButtonSendRequest.Effect_2 = true;
+            cyberButtonSendRequest.Effect_2_ColorBackground = Color.White;
+            cyberButtonSendRequest.Effect_2_Transparency = 20;
+            cyberButtonSendRequest.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold);
+            cyberButtonSendRequest.ForeColor = Color.FromArgb(245, 245, 245);
+            cyberButtonSendRequest.Lighting = false;
+            cyberButtonSendRequest.LinearGradient_Background = true;
+            cyberButtonSendRequest.LinearGradientPen = true;
+            cyberButtonSendRequest.Location = new Point(542, 564);
+            cyberButtonSendRequest.Name = "cyberButtonSendRequest";
+            cyberButtonSendRequest.PenWidth = 15;
+            cyberButtonSendRequest.Rounding = true;
+            cyberButtonSendRequest.RoundingInt = 70;
+            cyberButtonSendRequest.Size = new Size(187, 56);
+            cyberButtonSendRequest.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            cyberButtonSendRequest.TabIndex = 205;
+            cyberButtonSendRequest.Tag = "Cyber";
+            cyberButtonSendRequest.TextButton = "Gửi yêu cầu";
+            cyberButtonSendRequest.TextRenderingHint = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            cyberButtonSendRequest.Timer_Effect_1 = 5;
+            cyberButtonSendRequest.Timer_RGB = 300;
+            cyberButtonSendRequest.Click += cyberButtonSendRequest_Click;
+            // 
             // FormLoanApplication
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(1022, 653);
+            Controls.Add(cyberButtonSendRequest);
             Controls.Add(textBoxInterestRate);
             Controls.Add(cyberButtonCancel);
-            Controls.Add(cyberButtonSendRequest);
             Controls.Add(dateTimePickerCreatedDate);
             Controls.Add(labelCreatedDate);
             Controls.Add(label1);
             Controls.Add(comboBoxServiceTypeName);
-            Controls.Add(textBoxDescription);
+            Controls.Add(textBoxServiceDescription);
             Controls.Add(panel1);
             Controls.Add(labelDescription);
             Controls.Add(labelDuration);
@@ -447,7 +448,7 @@
         #endregion
 
         private PictureBox pictureBoxTopPanel;
-        private TextBox textBoxDescription;
+        private TextBox textBoxServiceDescription;
         private Panel panel1;
         private Label labelDescription;
         private Label labelDuration;
@@ -472,8 +473,8 @@
         private ComboBox comboBoxServiceTypeName;
         private Label labelCreatedDate;
         private DateTimePicker dateTimePickerCreatedDate;
-        private ReaLTaiizor.Controls.CyberButton cyberButtonSendRequest;
         private ReaLTaiizor.Controls.CyberButton cyberButtonCancel;
         private TextBox textBoxInterestRate;
+        private ReaLTaiizor.Controls.CyberButton cyberButtonSendRequest;
     }
 }

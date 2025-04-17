@@ -117,7 +117,14 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
         public void LoadCustomerService()
         {
-            view.LoadUserControl(new UC_CustomerService());
+            if (loggedInAccount == null || dbContext == null || configuration == null)
+            {
+                MessageBox.Show("Không thể load thông tin tài khoản hoặc cơ sở dữ liệu!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+
+            UC_CustomerService customerService = new UC_CustomerService(loggedInAccount, dbContext, configuration);
+            view.LoadUserControl(customerService);
         }
 
         public void LoadCustomerPersonal()
