@@ -54,7 +54,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
         public void LoadServiceManagement()
         {
-            view.LoadUserControl(new UC_ServiceManagement());
+            view.LoadUserControl(new UC_ServiceManagement(dbContext, configuration, currentEmployee));
         }
 
         public void LoadTransactionManagement()
