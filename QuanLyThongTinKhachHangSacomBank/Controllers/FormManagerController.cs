@@ -40,7 +40,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
         public void LoadEmployeeManagement()
         {
-            view.LoadUserControl(new UC_EmployeeManagement());
+            view.LoadUserControl(new UC_EmployeeManagement(employee, dbContext, configuration));
         }
 
         public void LoadRequestManagement()
