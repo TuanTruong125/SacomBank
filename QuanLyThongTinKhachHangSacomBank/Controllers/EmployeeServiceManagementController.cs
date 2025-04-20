@@ -200,8 +200,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                     InterestRate = service.InterestRate.ToString("F2") + " %/năm",
                                     TotalInterestAmount = service.TotalInterestAmount?.ToString("N0") ?? "0",
                                     CreatedDate = service.CreatedDate.ToString("dd/MM/yyyy HH:mm:ss"),
-                                    ApplicableDate = service.ApplicableDate?.ToString("dd/MM/yyyy") ?? "",
-                                    EndDate = service.EndDate?.ToString("dd/MM/yyyy") ?? "",
+                                    ApplicableDate = service.ApplicableDate?.ToString("dd/MM/yyyy HH:mm:ss") ?? "",
+                                    EndDate = service.EndDate?.ToString("dd/MM/yyyy HH:mm:ss") ?? "",
                                     ApprovalStatus = service.ApprovalStatus,
                                     ServiceStatus = service.ServiceStatus,
                                     ServiceDescription = service.ServiceDescription ?? "",
@@ -238,8 +238,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 view.SetTotalInterestAmount(service.TotalInterestAmount ?? 0);
                 view.SetDuration(service.Duration);
                 view.SetCreatedDate(service.CreatedDate.ToString("dd/MM/yyyy HH:mm:ss"));
-                view.SetApplicableDate(service.ApplicableDate?.ToString("dd/MM/yyyy") ?? "");
-                view.SetEndDate(service.EndDate?.ToString("dd/MM/yyyy") ?? "");
+                view.SetApplicableDate(service.ApplicableDate?.ToString("dd/MM/yyyy HH:mm:ss") ?? "");
+                view.SetEndDate(service.EndDate?.ToString("dd/MM/yyyy HH:mm:ss") ?? "");
                 view.SetApprovalStatus(service.ApprovalStatus);
                 view.SetStatus(service.ServiceStatus);
                 view.SetServiceDescription(service.ServiceDescription ?? "");
@@ -1119,8 +1119,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                     InterestRate = service.InterestRate.ToString("F2") + " %/năm",
                                     TotalInterestAmount = service.TotalInterestAmount?.ToString("N0") ?? "0",
                                     CreatedDate = service.CreatedDate.ToString("dd/MM/yyyy HH:mm:ss"),
-                                    ApplicableDate = service.ApplicableDate?.ToString("dd/MM/yyyy") ?? "",
-                                    EndDate = service.EndDate?.ToString("dd/MM/yyyy") ?? "",
+                                    ApplicableDate = service.ApplicableDate?.ToString("dd/MM/yyyy HH:mm:ss") ?? "",
+                                    EndDate = service.EndDate?.ToString("dd/MM/yyyy HH:mm:ss") ?? "",
                                     ApprovalStatus = service.ApprovalStatus,
                                     ServiceStatus = service.ServiceStatus,
                                     ServiceDescription = service.ServiceDescription ?? "",

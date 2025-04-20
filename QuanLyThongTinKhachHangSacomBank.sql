@@ -3,6 +3,14 @@ GO
 USE QuanLyThongTinKhachHangSacomBank
 GO
 
+USE master;
+GO
+ALTER DATABASE QuanLyThongTinKhachHangSacomBank
+SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+GO
+DROP DATABASE QuanLyThongTinKhachHangSacomBank;
+GO
+
 -- BẢNG LOẠI KHÁCH HÀNG
 CREATE TABLE CUSTOMER_TYPE (
   CustomerTypeID INT IDENTITY(1,1) PRIMARY KEY,
@@ -144,7 +152,7 @@ CREATE TABLE EMPLOYEE (
   EmployeeDateOfBirth DATE NOT NULL,
   EmployeeCitizenID VARCHAR(20) NOT NULL UNIQUE,
   EmployeeAddress NVARCHAR(255) NOT NULL,
-  EmmployeeRole NVARCHAR(50) NOT NULL,
+  EmployeeRole NVARCHAR(50) NOT NULL,
   EmployeePhone VARCHAR(15) NOT NULL UNIQUE,
   EmployeeEmail VARCHAR(100) NOT NULL UNIQUE CHECK (EmployeeEmail LIKE '%_@__%.__%'),
   HireDate DATE NOT NULL,
@@ -233,7 +241,7 @@ VALUES
 
 -- Quản lý
 INSERT INTO EMPLOYEE (EmployeeName, EmployeeGender, EmployeeDateOfBirth, EmployeeCitizenID, EmployeeAddress,
-  EmmployeeRole, EmployeePhone, EmployeeEmail, HireDate, Salary,
+  EmployeeRole, EmployeePhone, EmployeeEmail, HireDate, Salary,
   EmployeeUsername, EmployeePassword, AccessLevel, ManagerID)
 VALUES
   (N'Đặng Thị Lan', N'Nữ', '1980-01-01', '999000001', N'Quận 1, TP.HCM',
@@ -243,7 +251,7 @@ VALUES
 
 -- Nhân viên dưới quyền
 INSERT INTO EMPLOYEE (EmployeeName, EmployeeGender, EmployeeDateOfBirth, EmployeeCitizenID, EmployeeAddress,
-  EmmployeeRole, EmployeePhone, EmployeeEmail, HireDate, Salary,
+  EmployeeRole, EmployeePhone, EmployeeEmail, HireDate, Salary,
   EmployeeUsername, EmployeePassword, AccessLevel, ManagerID)
 VALUES
   (N'Trần Văn Hòa', N'Nam', '1990-02-02', '999000002', N'Quận 2, TP.HCM',

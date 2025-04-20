@@ -11,10 +11,8 @@ using System.Runtime.InteropServices;
 
 namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
 {
-    public partial class UC_EmployeeManagement : UserControl
     public interface IEmployeeManagementView
     {
-        public UC_EmployeeManagement();
         // Thuộc tính
         string EmployeeSearchText { get; }
         string SelectedGender { get; }
@@ -240,9 +238,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
             // Tạo đối tượng nhân viên với các trường thông tin chung
             var employee = new EmployeeModel
             {
-                // THÊM DÒNG NÀY - đảm bảo EmployeeCode được đặt đúng giá trị
                 EmployeeCode = textBoxEmployeeID.Text.Trim(),
-
                 EmployeeName = textBoxEmployeeName.Text.Trim(),
                 EmployeeGender = comboBoxEmployeeGender.SelectedItem.ToString(),
                 EmployeeDateOfBirth = dateTimePickerEmployeeDateOfBirth.Value,

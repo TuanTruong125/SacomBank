@@ -160,9 +160,9 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
             return decimal.TryParse(text, out decimal amount) ? amount : 0;
         }
         public string GetDuration() => comboBoxDuration.SelectedItem?.ToString();
-        public string GetCreatedDate() => dateTimePickerCreatedDate.Value.ToString("dd/MM/yyyy");
-        public string GetApplicableDate() => dateTimePickerApplicableDate.Value.ToString("dd/MM/yyyy");
-        public string GetEndDate() => dateTimePickerEndDate.Value.ToString("dd/MM/yyyy");
+        public string GetCreatedDate() => dateTimePickerCreatedDate.Value.ToString("dd/MM/yyyy HH:mm:ss");
+        public string GetApplicableDate() => dateTimePickerApplicableDate.Value.ToString("dd/MM/yyyy HH:mm:ss");
+        public string GetEndDate() => dateTimePickerEndDate.Value.ToString("dd/MM/yyyy HH:mm:ss");
         public string GetHandledBy() => textBoxHandledBy.Text.Trim();
         public string GetApprovalStatus() => comboBoxApprovalStatus.SelectedItem?.ToString() ?? "Chờ duyệt";
         public string GetStatus() => comboBoxServiceStatus.SelectedItem?.ToString() ?? "Chờ hoạt động";
@@ -223,9 +223,9 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
 
             try
             {
-                DateTime applicableDate = DateTime.ParseExact(value, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                DateTime applicableDate = DateTime.ParseExact(value, "dd/MM/yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
                 dateTimePickerApplicableDate.Format = DateTimePickerFormat.Custom;
-                dateTimePickerApplicableDate.CustomFormat = "dd/MM/yyyy";
+                dateTimePickerApplicableDate.CustomFormat = "dd/MM/yyyy HH:mm:ss";
                 dateTimePickerApplicableDate.Value = applicableDate;
             }
             catch (FormatException ex)
@@ -247,9 +247,9 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
 
             try
             {
-                DateTime endDate = DateTime.ParseExact(value, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                DateTime endDate = DateTime.ParseExact(value, "dd/MM/yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture);
                 dateTimePickerEndDate.Format = DateTimePickerFormat.Custom;
-                dateTimePickerEndDate.CustomFormat = "dd/MM/yyyy";
+                dateTimePickerEndDate.CustomFormat = "dd/MM/yyyy HH:mm:ss";
                 dateTimePickerEndDate.Value = endDate;
             }
             catch (FormatException ex)
@@ -414,8 +414,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
                             TotalInterestAmount = string.IsNullOrEmpty(row.Cells[9].Value?.ToString()) ? null : decimal.Parse(row.Cells[9].Value.ToString(), System.Globalization.NumberStyles.AllowThousands),
                             Duration = row.Cells[7].Value?.ToString() ?? "",
                             CreatedDate = row.Cells[10].Value != null ? DateTime.ParseExact(row.Cells[10].Value.ToString(), "dd/MM/yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture) : DateTime.Now,
-                            ApplicableDate = string.IsNullOrEmpty(row.Cells[11].Value?.ToString()) ? null : DateTime.ParseExact(row.Cells[11].Value.ToString(), "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture),
-                            EndDate = string.IsNullOrEmpty(row.Cells[12].Value?.ToString()) ? null : DateTime.ParseExact(row.Cells[12].Value.ToString(), "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture),
+                            ApplicableDate = string.IsNullOrEmpty(row.Cells[11].Value?.ToString()) ? null : DateTime.ParseExact(row.Cells[11].Value.ToString(), "dd/MM/yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture),
+                            EndDate = string.IsNullOrEmpty(row.Cells[12].Value?.ToString()) ? null : DateTime.ParseExact(row.Cells[12].Value.ToString(), "dd/MM/yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture),
                             HandledBy = controller.GetEmployeeIDFromName(employeeName),
                             ApprovalStatus = row.Cells[14].Value?.ToString() ?? "",
                             ServiceStatus = row.Cells[15].Value?.ToString() ?? "",
@@ -442,8 +442,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
                         SetTotalInterestAmount(service.TotalInterestAmount ?? 0);
                         SetDuration(service.Duration);
                         SetCreatedDate(service.CreatedDate.ToString("dd/MM/yyyy HH:mm:ss"));
-                        SetApplicableDate(service.ApplicableDate?.ToString("dd/MM/yyyy") ?? "");
-                        SetEndDate(service.EndDate?.ToString("dd/MM/yyyy") ?? "");
+                        SetApplicableDate(service.ApplicableDate?.ToString("dd/MM/yyyy HH:mm:ss") ?? "");
+                        SetEndDate(service.EndDate?.ToString("dd/MM/yyyy HH:mm:ss") ?? "");
                         SetApprovalStatus(service.ApprovalStatus);
                         SetStatus(service.ServiceStatus);
                         SetServiceDescription(service.ServiceDescription);
