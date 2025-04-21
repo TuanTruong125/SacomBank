@@ -214,7 +214,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             {
                 view.SetCustomerID($"KH{serviceRequest.CustomerID}");
                 view.SetAccountID($"TK{serviceRequest.AccountID}");
-                view.SetServiceTypeName(serviceRequest.ServiceTypeID == 1 ? "Gửi tiết kiệm" : "Vay vốn");
+                view.SetServiceTypeName(serviceRequest.ServiceTypeID == 1 ? "Vay vốn" : "Gửi tiết kiệm");
                 view.SetServiceID(serviceRequest.ServiceCode);
                 view.SetTotalPrincipalAmount(serviceRequest.TotalPrincipalAmount);
                 view.SetInterestRate(serviceRequest.InterestRate);
@@ -574,10 +574,11 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         SET Balance = Balance + @BalanceChange
                         WHERE AccountID = @AccountID";
 
-                    if (selectedService.ServiceTypeID == 1) // Gửi tiết kiệm
+                    if (selectedService.ServiceTypeID == 2) // Gửi tiết kiệm
                     {
                         balanceChange = -balanceChange; // Giảm số dư
                     }
+
                     // ServiceTypeID == 2 (Vay vốn) thì tăng số dư (balanceChange đã là dương)
 
                     using (var command = new SqlCommand(accountUpdateQuery, connection))
@@ -591,6 +592,56 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                             view.ShowMessage("Không thể cập nhật số dư tài khoản. Vui lòng thử lại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
+                    }
+
+                    // Tạo bản ghi LOAN_PAYMENT nếu là dịch vụ vay vốn (ServiceTypeID == 1)
+                    if (selectedService.ServiceTypeID == 1)
+                    {
+                        // Tính toán các giá trị cho LOAN_PAYMENT
+                        decimal principalDue = selectedService.TotalPrincipalAmount / durationMonths;
+                        decimal interestDue = (selectedService.TotalInterestAmount ?? 0) / durationMonths;
+                        decimal lateFee = 0;
+                        decimal totalDue = principalDue + interestDue + lateFee;
+                        decimal remainingDebt = selectedService.TotalPrincipalAmount;
+                        string payNotification = $"Thanh toán khoản vay của mã dịch vụ '{selectedService.ServiceCode}' tháng 1";
+                        DateTime dueDate = applicableDate.AddMonths(1);
+                        string paymentStatus = "Chưa thanh toán";
+
+                        // Chèn bản ghi vào LOAN_PAYMENT và lấy PayLoanID, PayLoanCode vừa tạo
+                        string loanPaymentInsertQuery = @"
+                    INSERT INTO LOAN_PAYMENT (ServiceID, PrincipalDue, InterestDue, LateFee, TotalDue, RemainingDebt, PayNotification, DueDate, PaymentStatus)
+                    OUTPUT INSERTED.PayLoanID, INSERTED.PayLoanCode
+                    VALUES (@ServiceID, @PrincipalDue, @InterestDue, @LateFee, @TotalDue, @RemainingDebt, @PayNotification, @DueDate, @PaymentStatus)";
+
+                        string newPayLoanId = "";
+                        string newPayLoanCode = "";
+
+                        using (var command = new SqlCommand(loanPaymentInsertQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@ServiceID", selectedService.ServiceID);
+                            command.Parameters.AddWithValue("@PrincipalDue", principalDue);
+                            command.Parameters.AddWithValue("@InterestDue", interestDue);
+                            command.Parameters.AddWithValue("@LateFee", lateFee);
+                            command.Parameters.AddWithValue("@TotalDue", totalDue);
+                            command.Parameters.AddWithValue("@RemainingDebt", remainingDebt);
+                            command.Parameters.AddWithValue("@PayNotification", payNotification);
+                            command.Parameters.AddWithValue("@DueDate", dueDate);
+                            command.Parameters.AddWithValue("@PaymentStatus", paymentStatus);
+
+                            using (var reader = command.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    newPayLoanId = reader.GetInt32(0).ToString(); // Lấy PayLoanID
+                                    newPayLoanCode = reader.GetString(1); // Lấy PayLoanCode
+                                }
+                                else
+                                {
+                                    view.ShowMessage("Không thể tạo bản ghi LOAN_PAYMENT. Vui lòng thử lại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+                            }
+                        } 
                     }
 
                     // Cập nhật trạng thái trong selectedService

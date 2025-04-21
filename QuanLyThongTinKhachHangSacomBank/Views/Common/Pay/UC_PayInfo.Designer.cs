@@ -51,7 +51,7 @@
             labelPayInfo = new Label();
             textBoxAccountID = new TextBox();
             labelPay = new Label();
-            textBoxDescription = new TextBox();
+            textBoxTransactionDescription = new TextBox();
             labelPayID = new Label();
             textBoxPayLoanID = new TextBox();
             SuspendLayout();
@@ -156,14 +156,14 @@
             // 
             // labelError
             // 
-            labelError.AutoSize = true;
-            labelError.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            labelError.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelError.ForeColor = Color.Red;
-            labelError.Location = new Point(335, 456);
+            labelError.Location = new Point(3, 459);
             labelError.Name = "labelError";
-            labelError.Size = new Size(240, 20);
+            labelError.Size = new Size(929, 20);
             labelError.TabIndex = 126;
             labelError.Text = "Vui lòng nhập đầy đủ thông tin!";
+            labelError.TextAlign = ContentAlignment.MiddleCenter;
             labelError.Visible = false;
             // 
             // labelBalance
@@ -281,13 +281,13 @@
             labelPay.TabIndex = 115;
             labelPay.Text = "Thanh toán";
             // 
-            // textBoxDescription
+            // textBoxTransactionDescription
             // 
-            textBoxDescription.Font = new Font("Roboto", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxDescription.Location = new Point(274, 414);
-            textBoxDescription.Name = "textBoxDescription";
-            textBoxDescription.Size = new Size(464, 35);
-            textBoxDescription.TabIndex = 143;
+            textBoxTransactionDescription.Font = new Font("Roboto", 13.8F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBoxTransactionDescription.Location = new Point(274, 414);
+            textBoxTransactionDescription.Name = "textBoxTransactionDescription";
+            textBoxTransactionDescription.Size = new Size(464, 35);
+            textBoxTransactionDescription.TabIndex = 143;
             // 
             // labelPayID
             // 
@@ -313,7 +313,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(labelPayID);
             Controls.Add(textBoxPayLoanID);
-            Controls.Add(textBoxDescription);
+            Controls.Add(textBoxTransactionDescription);
             Controls.Add(panel1);
             Controls.Add(labelDescription);
             Controls.Add(labelPay);
@@ -368,7 +368,7 @@
         private Label labelPayInfo;
         private TextBox textBoxAccountID;
         private Label labelPay;
-        private TextBox textBoxDescription;
+        private TextBox textBoxTransactionDescription;
         private Label labelPayID;
         private TextBox textBoxPayLoanID;
     }

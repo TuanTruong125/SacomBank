@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_CustomerHome));
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             tableLayoutPanel1 = new TableLayoutPanel();
             labelAccountName = new Label();
             buttonNotification = new Button();
@@ -61,10 +62,14 @@
             dataGridViewServiceNotification = new DataGridView();
             PayLoanID = new DataGridViewTextBoxColumn();
             ServiceID = new DataGridViewTextBoxColumn();
-            ServiceType = new DataGridViewTextBoxColumn();
+            ServiceTypeName = new DataGridViewTextBoxColumn();
+            PrincipalDue = new DataGridViewTextBoxColumn();
+            InterestDue = new DataGridViewTextBoxColumn();
+            LateFee = new DataGridViewTextBoxColumn();
             TotalDue = new DataGridViewTextBoxColumn();
-            DueDate = new DataGridViewTextBoxColumn();
+            RemainingDebt = new DataGridViewTextBoxColumn();
             PayNotification = new DataGridViewTextBoxColumn();
+            DueDate = new DataGridViewTextBoxColumn();
             PaymentStatus = new DataGridViewTextBoxColumn();
             parrotClock1 = new ReaLTaiizor.Controls.ParrotClock();
             pictureBox5 = new PictureBox();
@@ -584,7 +589,7 @@
             // 
             // dataGridViewServiceNotification
             // 
-            dataGridViewServiceNotification.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewServiceNotification.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataGridViewServiceNotification.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataGridViewServiceNotification.BackgroundColor = Color.White;
             dataGridViewServiceNotification.BorderStyle = BorderStyle.None;
@@ -599,8 +604,16 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             dataGridViewServiceNotification.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewServiceNotification.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewServiceNotification.Columns.AddRange(new DataGridViewColumn[] { PayLoanID, ServiceID, ServiceType, TotalDue, DueDate, PayNotification, PaymentStatus });
+            dataGridViewServiceNotification.Columns.AddRange(new DataGridViewColumn[] { PayLoanID, ServiceID, ServiceTypeName, PrincipalDue, InterestDue, LateFee, TotalDue, RemainingDebt, PayNotification, DueDate, PaymentStatus });
             tableLayoutPanel5.SetColumnSpan(dataGridViewServiceNotification, 2);
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.HotTrack;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridViewServiceNotification.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewServiceNotification.Dock = DockStyle.Fill;
             dataGridViewServiceNotification.EnableHeadersVisualStyles = false;
             dataGridViewServiceNotification.GridColor = Color.White;
@@ -618,42 +631,77 @@
             PayLoanID.HeaderText = "Mã thanh toán";
             PayLoanID.MinimumWidth = 6;
             PayLoanID.Name = "PayLoanID";
+            PayLoanID.Width = 153;
             // 
             // ServiceID
             // 
             ServiceID.HeaderText = "Mã dịch vụ";
             ServiceID.MinimumWidth = 6;
             ServiceID.Name = "ServiceID";
+            ServiceID.Width = 124;
             // 
-            // ServiceType
+            // ServiceTypeName
             // 
-            ServiceType.HeaderText = "Loại dịch vụ";
-            ServiceType.MinimumWidth = 6;
-            ServiceType.Name = "ServiceType";
+            ServiceTypeName.HeaderText = "Loại dịch vụ";
+            ServiceTypeName.MinimumWidth = 6;
+            ServiceTypeName.Name = "ServiceTypeName";
+            ServiceTypeName.Width = 134;
+            // 
+            // PrincipalDue
+            // 
+            PrincipalDue.HeaderText = "Tiền gốc";
+            PrincipalDue.MinimumWidth = 6;
+            PrincipalDue.Name = "PrincipalDue";
+            PrincipalDue.Width = 106;
+            // 
+            // InterestDue
+            // 
+            InterestDue.HeaderText = "Tiền lãi";
+            InterestDue.MinimumWidth = 6;
+            InterestDue.Name = "InterestDue";
+            InterestDue.Width = 97;
+            // 
+            // LateFee
+            // 
+            LateFee.HeaderText = "Phí chậm thanh toán";
+            LateFee.MinimumWidth = 6;
+            LateFee.Name = "LateFee";
+            LateFee.Width = 203;
             // 
             // TotalDue
             // 
-            TotalDue.HeaderText = "Số tiền thanh toán";
+            TotalDue.HeaderText = "Tổng thanh toán";
             TotalDue.MinimumWidth = 6;
             TotalDue.Name = "TotalDue";
+            TotalDue.Width = 168;
             // 
-            // DueDate
+            // RemainingDebt
             // 
-            DueDate.HeaderText = "Ngày đến hạn";
-            DueDate.MinimumWidth = 6;
-            DueDate.Name = "DueDate";
+            RemainingDebt.HeaderText = "Số nợ còn lại";
+            RemainingDebt.MinimumWidth = 6;
+            RemainingDebt.Name = "RemainingDebt";
+            RemainingDebt.Width = 141;
             // 
             // PayNotification
             // 
             PayNotification.HeaderText = "Thông báo thanh toán";
             PayNotification.MinimumWidth = 6;
             PayNotification.Name = "PayNotification";
+            PayNotification.Width = 214;
+            // 
+            // DueDate
+            // 
+            DueDate.HeaderText = "Ngày đến hạn";
+            DueDate.MinimumWidth = 6;
+            DueDate.Name = "DueDate";
+            DueDate.Width = 148;
             // 
             // PaymentStatus
             // 
             PaymentStatus.HeaderText = "Trạng thái";
             PaymentStatus.MinimumWidth = 6;
             PaymentStatus.Name = "PaymentStatus";
+            PaymentStatus.Width = 119;
             // 
             // parrotClock1
             // 
@@ -1228,10 +1276,14 @@
         private Label label8;
         private DataGridViewTextBoxColumn PayLoanID;
         private DataGridViewTextBoxColumn ServiceID;
-        private DataGridViewTextBoxColumn ServiceType;
+        private DataGridViewTextBoxColumn ServiceTypeName;
+        private DataGridViewTextBoxColumn PrincipalDue;
+        private DataGridViewTextBoxColumn InterestDue;
+        private DataGridViewTextBoxColumn LateFee;
         private DataGridViewTextBoxColumn TotalDue;
-        private DataGridViewTextBoxColumn DueDate;
+        private DataGridViewTextBoxColumn RemainingDebt;
         private DataGridViewTextBoxColumn PayNotification;
+        private DataGridViewTextBoxColumn DueDate;
         private DataGridViewTextBoxColumn PaymentStatus;
     }
 }

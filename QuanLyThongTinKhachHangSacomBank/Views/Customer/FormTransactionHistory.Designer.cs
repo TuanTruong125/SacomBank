@@ -219,7 +219,7 @@
             comboBoxTransactionTypeNameFilter.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxTransactionTypeNameFilter.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBoxTransactionTypeNameFilter.FormattingEnabled = true;
-            comboBoxTransactionTypeNameFilter.Items.AddRange(new object[] { "Không áp dụng", "Nạp tiền", "Rút tiền", "Chuyển tiền", "Thanh toán" });
+            comboBoxTransactionTypeNameFilter.Items.AddRange(new object[] { "Không áp dụng", "Nạp tiền", "Rút tiền", "Chuyển tiền", "Thanh toán khoản vay" });
             comboBoxTransactionTypeNameFilter.Location = new Point(6, 56);
             comboBoxTransactionTypeNameFilter.Name = "comboBoxTransactionTypeNameFilter";
             comboBoxTransactionTypeNameFilter.Size = new Size(209, 28);

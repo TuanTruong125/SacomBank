@@ -70,12 +70,13 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
                 depositController = new DepositController(currentEmployee, dbContext, configuration);
                 withdrawController = new WithdrawController(currentEmployee, dbContext, configuration);
                 transferController = new TransferController(currentAccount, currentEmployee, dbContext, configuration, customerHomeView);
-                payController = new PayController();
+                payController = new PayController(currentAccount, currentEmployee, dbContext, configuration, customerHomeView);
 
                 // Đăng ký sự kiện TransactionCompleted từ các controller
                 depositController.TransactionCompleted += (s, e) => RefreshTransactions();
                 withdrawController.TransactionCompleted += (s, e) => RefreshTransactions();
                 transferController.TransactionCompleted += (s, e) => RefreshTransactions();
+                payController.TransactionCompleted += (s, e) => RefreshTransactions();
 
 
                 // Cấu hình DataGridView
@@ -247,7 +248,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
         {
             try
             {
-                payController.OpenPay(new UC_PayInfo(), isEmployee: true);
+                payController.OpenPay(new UC_PayInfo(currentAccount, isEmployee: true), isEmployee: true);
             }
             catch (Exception ex)
             {

@@ -15,11 +15,15 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Pay
     {
         void LoadUserControl(UserControl uc);
         void ShowForm();
+        Form FindForm();
+
+        event EventHandler<FormClosingEventArgs> FormClosing;
     }
 
     public partial class FormPay : Form, IPayView
     {
         private UserControl activeUC = null;  // UserControl đang hiển thị
+        public event EventHandler<FormClosingEventArgs> FormClosing;
 
         public FormPay()
         {
@@ -66,6 +70,11 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Pay
             {
                 MessageBox.Show($"Lỗi khi hiển thị FormPay: {ex.Message}\nStackTrace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        protected virtual void OnFormClosing(FormClosingEventArgs e)
+        {
+            FormClosing?.Invoke(this, e);
         }
     }
 }

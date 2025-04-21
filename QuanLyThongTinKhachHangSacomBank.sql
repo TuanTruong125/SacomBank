@@ -108,6 +108,7 @@ CREATE TABLE REQUEST
   FOREIGN KEY (HandledBy) REFERENCES EMPLOYEE(EmployeeID)
 );
 
+-- BẢNG LOẠI DỊCH VỤ
 CREATE TABLE SERVICE_TYPE 
 (
   ServiceTypeID INT IDENTITY(1,1) PRIMARY KEY,
@@ -116,6 +117,7 @@ CREATE TABLE SERVICE_TYPE
   ServiceTypeDescription NVARCHAR(255) NOT NULL
 );
 
+-- BẢNG DỊCH VỤ
 CREATE TABLE [SERVICE] 
 (
   ServiceID INT IDENTITY(1,1) PRIMARY KEY,
@@ -141,6 +143,50 @@ CREATE TABLE [SERVICE]
   FOREIGN KEY (CustomerID) REFERENCES CUSTOMER(CustomerID),
   FOREIGN KEY (AccountID) REFERENCES ACCOUNT(AccountID),
   FOREIGN KEY (ServiceTypeID) REFERENCES SERVICE_TYPE(ServiceTypeID)
+);
+
+-- BẢNG THAHH TOÁN KHOẢN VAY
+CREATE TABLE LOAN_PAYMENT
+(
+    PayLoanID INT IDENTITY(1,1) PRIMARY KEY,
+    PayLoanCode AS ('TTV' + CAST(PayLoanID AS NVARCHAR(10))) PERSISTED, -- Mã tự động phát sinh
+    PrincipalDue DECIMAL(18,0) NOT NULL CHECK (PrincipalDue >= 0), -- Số tiền gốc phải trả
+    InterestDue DECIMAL(18,0) NOT NULL CHECK (InterestDue >= 0), -- Số tiền lãi phải trả
+	LateFee DECIMAL(18,0) NOT NULL DEFAULT 0 CHECK (LateFee >= 0), -- Phí trễ hạn
+    TotalDue DECIMAL(18,0) NOT NULL CHECK (TotalDue >= 0), -- Tổng số tiền phải trả (gốc + lãi + phí trễ hạn nếu có)
+    RemainingDebt DECIMAL(18,0) NOT NULL CHECK (RemainingDebt >= 0), -- Số nợ còn lại
+    PayNotification NVARCHAR(100) NOT NULL, -- Thông báo thanh toán
+	DueDate DATETIME NOT NULL, -- Ngày đến hạn thanh toán
+	PaymentStatus NVARCHAR(20) NOT NULL CHECK (PaymentStatus IN (N'Chưa thanh toán', N'Đã thanh toán', N'Trễ hạn')), -- Trạng thái thanh toán
+    ServiceID INT NOT NULL,
+    FOREIGN KEY (ServiceID) REFERENCES SERVICE(ServiceID)
+);
+
+-- BẢNG DOANH THU
+CREATE TABLE REVENUE
+(
+    RevenueID INT IDENTITY(1,1) PRIMARY KEY,
+    RevenueCode AS ('DT' + CAST(RevenueID AS NVARCHAR(10))) PERSISTED, -- Mã tự động phát sinh
+    PrincipalAmount DECIMAL(18,0) NOT NULL CHECK (PrincipalAmount >= 0), -- Số tiền gốc thu được
+    InterestAmount DECIMAL(18,0) NOT NULL CHECK (InterestAmount >= 0), -- Số tiền lãi thu được
+    LateFee DECIMAL(18,0) NOT NULL CHECK (LateFee >= 0), -- Phí trễ hạn thu được
+    TotalAmount DECIMAL(18,0) NOT NULL CHECK (TotalAmount >= 0), -- Tổng số tiền thu được
+	RevenueDate DATETIME NOT NULL, -- Ngày ghi nhận doanh thu
+    PayLoanID INT NOT NULL, -- Liên kết với khoản thanh toán vay
+    ProfitID INT NOT NULL, -- Liên kết với bảng PROFIT
+    FOREIGN KEY (PayLoanID) REFERENCES LOAN_PAYMENT(PayLoanID),
+    FOREIGN KEY (ProfitID) REFERENCES PROFIT(ProfitID)
+);
+
+-- BẢNG LỢI NHUẬN
+CREATE TABLE PROFIT
+(
+    ProfitID INT IDENTITY(1,1) PRIMARY KEY,
+    ProfitCode AS ('LN' + CAST(ProfitID AS NVARCHAR(10))) PERSISTED, -- Mã tự động phát sinh    
+    TotalRevenue DECIMAL(18,0) NOT NULL CHECK (TotalRevenue >= 0), -- Tổng doanh thu
+    TotalExpense DECIMAL(18,0) NOT NULL CHECK (TotalExpense >= 0), -- Tổng chi phí
+	NetProfit DECIMAL(18,0) NOT NULL CHECK (NetProfit >= 0), -- Lợi nhuận ròng
+    ProfitDate DATE NOT NULL -- Ngày ghi nhận lợi nhuận
 );
 
 -- BẢNG NHÂN VIÊN
@@ -178,8 +224,9 @@ DROP TABLE [TRANSACTION]
 DROP TABLE REQUEST
 DROP TABLE SERVICE_TYPE
 DROP TABLE [SERVICE]
-
-
+DROP TABLE LOAN_PAYMENT
+DROP TABLE REVENUE
+DROP TABLE PROFIT
 
 
 
@@ -229,7 +276,7 @@ VALUES
   (N'Nạp tiền', N'Nạp tiền vào tài khoản từ nguồn như quầy giao dịch, ATM'),
   (N'Rút tiền', N'Rút tiền mặt từ tài khoản qua ATM, quầy giao dịch hoặc các kênh khác'),
   (N'Chuyển tiền', N'Chuyển tiền từ tài khoản này sang tài khoản khác trong nội bộ'),
-  (N'Thanh toán', N'Thanh toán dịch vụ vay vốn của tài khoản');
+  (N'Thanh toán khoản vay', N'Thanh toán dịch vụ vay vốn của tài khoản');
 
 INSERT INTO SERVICE_TYPE (ServiceTypeName, ServiceTypeDescription)
 VALUES 
