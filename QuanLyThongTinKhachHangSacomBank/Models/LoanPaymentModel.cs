@@ -9,7 +9,7 @@
         public decimal LateFee { get; set; }
         public decimal TotalDue { get; set; }
         public decimal RemainingDebt { get; set; }        
-        public bool PayNotification { get; set; }
+        public string PayNotification { get; set; }
         public DateTime DueDate { get; set; }
         public string PaymentStatus { get; set; }        
         public int ServiceID { get; set; }

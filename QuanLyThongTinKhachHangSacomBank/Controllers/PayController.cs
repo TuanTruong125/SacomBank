@@ -16,6 +16,7 @@ using static System.Runtime.InteropServices.JavaScript.JSType;
 using System.Security.Policy;
 using iTextSharp.text.pdf;
 using iTextSharp.text;
+using QuanLyThongTinKhachHangSacomBank.AutoTasks;
 
 namespace QuanLyThongTinKhachHangSacomBank.Controllers
 {
@@ -582,13 +583,18 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                             command.ExecuteNonQuery();
                         }
 
-                        // Kiểm tra lại PaymentStatus và lấy thông tin RemainingDebt, PrincipalDue
+                        // Kiểm tra lại PaymentStatus và lấy thông tin từ LOAN_PAYMENT
                         string paymentStatus;
                         decimal remainingDebt;
                         decimal principalDue;
+                        decimal interestDue;
+                        decimal lateFee;
+                        decimal totalDue;
+                        int payLoanId;
                         using (var command = new SqlCommand(
-                            "SELECT PaymentStatus, RemainingDebt, PrincipalDue FROM LOAN_PAYMENT WITH (UPDLOCK) WHERE PayLoanCode = @PayLoanCode",
-                            connection, transaction))
+                        "SELECT PayLoanID, PaymentStatus, RemainingDebt, PrincipalDue, InterestDue, LateFee, TotalDue " +
+                        "FROM LOAN_PAYMENT WITH (UPDLOCK) WHERE PayLoanCode = @PayLoanCode",
+                        connection, transaction))
                         {
                             command.Parameters.AddWithValue("@PayLoanCode", payViewData.PayLoanID);
                             using (var reader = command.ExecuteReader())
@@ -597,9 +603,13 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                 {
                                     throw new Exception("Mã thanh toán không tồn tại!");
                                 }
+                                payLoanId = reader.GetInt32("PayLoanID");
                                 paymentStatus = reader["PaymentStatus"].ToString();
                                 remainingDebt = reader.GetDecimal("RemainingDebt");
                                 principalDue = reader.GetDecimal("PrincipalDue");
+                                interestDue = reader.GetDecimal("InterestDue");
+                                lateFee = reader.GetDecimal("LateFee");
+                                totalDue = reader.GetDecimal("TotalDue");
                             }
                         }
 
@@ -626,6 +636,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                             throw new Exception($"Số nợ còn lại không thể âm! Số tiền thanh toán ({amount.ToString("N0")} VND) lớn hơn số nợ còn lại ({remainingDebt.ToString("N0")} VND).");
                         }
 
+                        // Cập nhật LOAN_PAYMENT
                         using (var command = new SqlCommand(
                             "UPDATE LOAN_PAYMENT SET PaymentStatus = @PaymentStatus, RemainingDebt = @RemainingDebt WHERE PayLoanCode = @PayLoanCode",
                             connection, transaction))
@@ -635,6 +646,23 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                             command.Parameters.AddWithValue("@RemainingDebt", newRemainingDebt);
                             command.ExecuteNonQuery();
                         }
+
+                        // Tạo bản ghi REVENUE
+                        using (var command = new SqlCommand(
+                        "INSERT INTO REVENUE (PrincipalAmount, InterestAmount, LateFee, TotalAmount, RevenueDate, PayLoanID, ProfitID) " +
+                        "VALUES (@PrincipalAmount, @InterestAmount, @LateFee, @TotalAmount, @RevenueDate, @PayLoanID, NULL)",
+                        connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@PrincipalAmount", principalDue);
+                            command.Parameters.AddWithValue("@InterestAmount", interestDue);
+                            command.Parameters.AddWithValue("@LateFee", lateFee);
+                            command.Parameters.AddWithValue("@TotalAmount", totalDue);
+                            command.Parameters.AddWithValue("@RevenueDate", DateTime.Now);
+                            command.Parameters.AddWithValue("@PayLoanID", payLoanId);
+                            command.ExecuteNonQuery();
+                        }
+
+
 
                         // Cập nhật số dư trong đối tượng senderAccount
                         senderAccount.Balance -= amount;

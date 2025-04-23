@@ -598,12 +598,12 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     if (selectedService.ServiceTypeID == 1)
                     {
                         // Tính toán các giá trị cho LOAN_PAYMENT
-                        decimal principalDue = selectedService.TotalPrincipalAmount / durationMonths;
-                        decimal interestDue = (selectedService.TotalInterestAmount ?? 0) / durationMonths;
+                        decimal principalDue = Math.Floor(selectedService.TotalPrincipalAmount / durationMonths); // Lấy nguyên phần nguyên
+                        decimal interestDue = Math.Floor((selectedService.TotalInterestAmount ?? 0) / durationMonths); // Lấy nguyên phần nguyên
                         decimal lateFee = 0;
                         decimal totalDue = principalDue + interestDue + lateFee;
                         decimal remainingDebt = selectedService.TotalPrincipalAmount;
-                        string payNotification = $"Thanh toán khoản vay của mã dịch vụ '{selectedService.ServiceCode}' tháng 1";
+                        string payNotification = $"Thanh toán khoản vay của mã dịch vụ '{selectedService.ServiceCode}' tháng thứ 1";
                         DateTime dueDate = applicableDate.AddMonths(1);
                         string paymentStatus = "Chưa thanh toán";
 
