@@ -67,7 +67,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
                     // Truy vấn SQL để lấy dữ liệu giao dịch, bao gồm ServiceID từ LOAN_PAYMENT thông qua SERVICE và ACCOUNT
                     string query = @"
-                SELECT 
+                        SELECT DISTINCT
                     t.TransactionID,
                     t.Amount,
                     t.TransactionDate,
@@ -77,13 +77,19 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     tt.TransactionTypeName,
                     a.AccountName AS SenderAccountName,
                     r.AccountName AS ReceiverAccountName,
-                    lp.ServiceID
+                    -- Lấy ServiceID thông qua bảng SERVICE dựa trên AccountID
+                    (SELECT TOP 1 s.ServiceID 
+                        FROM [SERVICE] s 
+                        WHERE s.AccountID = t.AccountID 
+                        AND EXISTS (
+                            SELECT 1 
+                            FROM LOAN_PAYMENT lp 
+                            WHERE lp.ServiceID = s.ServiceID
+                        )) AS ServiceID
                 FROM [TRANSACTION] t
                 JOIN TRANSACTION_TYPE tt ON t.TransactionTypeID = tt.TransactionTypeID
                 JOIN ACCOUNT a ON t.AccountID = a.AccountID
                 LEFT JOIN ACCOUNT r ON t.ReceiverAccountID = r.AccountID
-                LEFT JOIN [SERVICE] s ON a.AccountID = s.AccountID
-                LEFT JOIN LOAN_PAYMENT lp ON s.ServiceID = lp.ServiceID
                 WHERE (t.AccountID = @AccountID OR t.ReceiverAccountID = @AccountID)
                 AND t.TransactionDate BETWEEN @FromDate AND @ToDate";
 

@@ -172,7 +172,7 @@ CREATE TABLE REVENUE
     LateFee DECIMAL(18,0) NOT NULL CHECK (LateFee >= 0), -- Phí trễ hạn thu được
     TotalAmount DECIMAL(18,0) NOT NULL CHECK (TotalAmount >= 0), -- Tổng số tiền thu được
 	RevenueDate DATETIME NOT NULL, -- Ngày ghi nhận doanh thu
-    PayLoanID INT NOT NULL, -- Liên kết với khoản thanh toán vay
+    PayLoanID INT NULL, -- Liên kết với khoản thanh toán vay
     ProfitID INT NULL, -- Liên kết với bảng PROFIT
     FOREIGN KEY (PayLoanID) REFERENCES LOAN_PAYMENT(PayLoanID),
     FOREIGN KEY (ProfitID) REFERENCES PROFIT(ProfitID)
