@@ -229,7 +229,7 @@ CREATE TABLE EMPLOYEE (
   EmployeePhone VARCHAR(15) NOT NULL UNIQUE,
   EmployeeEmail VARCHAR(100) NOT NULL UNIQUE CHECK (EmployeeEmail LIKE '%_@__%.__%'),
   HireDate DATE NOT NULL,
-  Salary DECIMAL(18,2) NOT NULL CHECK (Salary >= 0),
+  Salary DECIMAL(18,0) NOT NULL CHECK (Salary >= 0),
   EmployeeUsername NVARCHAR(50) NOT NULL UNIQUE,
   EmployeePassword NVARCHAR(256) NOT NULL,
   AccessLevel INT NOT NULL CHECK (AccessLevel BETWEEN 1 AND 2), -- 1: Nhân viên, 2: Quản lý

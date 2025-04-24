@@ -16,6 +16,7 @@ namespace QuanLyThongTinKhachHangSacomBank
         private static LoanPaymentAutoTask loanPaymentAutoTask;
         private static ProfitAutoTask profitAutoTask;
         private static SavingsPaymentAutoTask savingsPaymentAutoTask;
+        private static GeneralExpenseAutoTask generalExpenseAutoTask;
 
         [STAThread]
         static void Main()
@@ -33,6 +34,7 @@ namespace QuanLyThongTinKhachHangSacomBank
                 loanPaymentAutoTask = new LoanPaymentAutoTask(dbContext);
                 profitAutoTask = new ProfitAutoTask(dbContext);
                 savingsPaymentAutoTask = new SavingsPaymentAutoTask(dbContext);
+                generalExpenseAutoTask = new GeneralExpenseAutoTask(dbContext);
 
                 ApplicationConfiguration.Initialize();
                 Application.EnableVisualStyles();
@@ -135,6 +137,7 @@ namespace QuanLyThongTinKhachHangSacomBank
                 loanPaymentAutoTask?.Stop();
                 profitAutoTask?.Stop();
                 savingsPaymentAutoTask?.Stop();
+                generalExpenseAutoTask?.Stop();
 
 
             }
