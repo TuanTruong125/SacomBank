@@ -185,9 +185,36 @@ CREATE TABLE PROFIT
     ProfitCode AS ('LN' + CAST(ProfitID AS NVARCHAR(10))) PERSISTED, -- Mã tự động phát sinh    
     TotalRevenue DECIMAL(18,0) NOT NULL CHECK (TotalRevenue >= 0), -- Tổng doanh thu
     TotalExpense DECIMAL(18,0) NOT NULL CHECK (TotalExpense >= 0), -- Tổng chi phí
-	NetProfit DECIMAL(18,0) NOT NULL CHECK (NetProfit >= 0), -- Lợi nhuận ròng
+	NetProfit DECIMAL(18,0) NOT NULL, -- Lợi nhuận ròng
     ProfitDate DATE NOT NULL -- Ngày ghi nhận lợi nhuận
 );
+
+-- BẢNG TRẢ LÃI TIẾT KIỆM
+CREATE TABLE SAVINGS_PAYMENT (
+    PaySavingsID INT IDENTITY(1,1) PRIMARY KEY,
+    PaySavingsCode AS ('TTTK' + CAST(PaySavingsID AS NVARCHAR(10))) PERSISTED, -- Mã tự sinh    
+    MonthlyInterestAmount DECIMAL(18,0) NOT NULL CHECK (MonthlyInterestAmount >= 0), -- Lãi hàng tháng
+	TotalInterestPaid DECIMAL(18,0) NOT NULL CHECK (TotalInterestPaid >= 0), -- Tổng lãi đã trả
+    LastInterestPaidDate DATETIME NOT NULL, -- Ngày trả lãi gần nhất	
+    ServiceID INT NOT NULL,
+    FOREIGN KEY (ServiceID) REFERENCES SERVICE(ServiceID)
+);
+
+-- BẢNG CHI PHÍ
+CREATE TABLE EXPENSE (
+    ExpenseID INT IDENTITY(1,1) PRIMARY KEY,
+    ExpenseCode AS ('CP' + CAST(ExpenseID AS NVARCHAR(10))) PERSISTED, -- Mã tự sinh    
+    InterestPaid DECIMAL(18,0) NULL CHECK (InterestPaid >= 0),
+    EmployeeSalary DECIMAL(18,0) NULL CHECK (EmployeeSalary >= 0),
+    SystemMaintenanceFee DECIMAL(18,0) NULL CHECK (SystemMaintenanceFee >= 0),
+	ExpenseDate DATETIME NOT NULL, -- Ngày chi
+    PaySavingsID INT NULL, -- Liên kết với bảng trả lãi tiết kiệm
+    ProfitID INT NULL, -- Liên kết với bảng PROFIT
+    FOREIGN KEY (PaySavingsID) REFERENCES SAVINGS_PAYMENT(PaySavingsID),
+    FOREIGN KEY (ProfitID) REFERENCES PROFIT(ProfitID)
+);
+
+
 
 -- BẢNG NHÂN VIÊN
 CREATE TABLE EMPLOYEE (
@@ -212,7 +239,6 @@ CREATE TABLE EMPLOYEE (
 
 
 
-
 -- XÓA BẢNG
 DROP TABLE CUSTOMER_TYPE
 DROP TABLE CUSTOMER
@@ -227,6 +253,8 @@ DROP TABLE [SERVICE]
 DROP TABLE LOAN_PAYMENT
 DROP TABLE REVENUE
 DROP TABLE PROFIT
+DROP TABLE EXPENSE
+DROP TABLE SAVINGS_PAYMENT
 
 
 
