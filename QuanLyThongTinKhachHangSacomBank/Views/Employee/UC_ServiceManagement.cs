@@ -430,6 +430,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
                             EnableInputControls(false);
                             EnableButtons(false, false, false, true, false);
                             buttonLoanPrepayment.Enabled = false;
+                            buttonCancelSavings.Enabled = false;
                             return;
                         }
 
@@ -455,8 +456,13 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
                         bool isPendingApproval = service.ApprovalStatus == "Chờ duyệt";
                         EnableButtons(true, isPendingApproval, isPendingApproval, true, false);
 
+                        // Kích hoạt nút LoanPrepayment
                         bool canPrepay = (service.ServiceStatus == "Đang hoạt động" || service.ServiceStatus == "Trễ hạn thanh toán") && service.ServiceTypeID == 1; // Chỉ áp dụng cho "Vay vốn"
                         buttonLoanPrepayment.Enabled = canPrepay;
+
+                        // Kích hoạt nút CancelSavings
+                        bool canCancelSavings = service.ServiceStatus == "Đang hoạt động" && service.ServiceTypeID == 2; // Chỉ áp dụng cho "Gửi tiết kiệm" và trạng thái "Đang hoạt động"
+                        buttonCancelSavings.Enabled = canCancelSavings;
                     }
                     catch (Exception ex)
                     {
@@ -473,6 +479,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
                 EnableInputControls(false, false, false); // Bật các textbox, không chỉ định accountIDOnly hay editModeLimited
                 EnableButtons(false, false, false, false, false);
                 buttonLoanPrepayment.Enabled = false;
+                buttonCancelSavings.Enabled = false;
                 if (!isAdding && !isEditing)
                 {
                     controller.OnServiceDeselected();

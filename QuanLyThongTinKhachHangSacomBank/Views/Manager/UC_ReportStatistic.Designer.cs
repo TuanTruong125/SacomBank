@@ -29,8 +29,9 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_ReportStatistic));
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             tableLayoutPanel1 = new TableLayoutPanel();
             panel1 = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
@@ -73,24 +74,30 @@
             RevenueDate = new DataGridViewTextBoxColumn();
             groupBox2 = new GroupBox();
             tableLayoutPanel7 = new TableLayoutPanel();
+            dataGridViewExpense = new DataGridView();
+            panel5 = new Panel();
+            tableLayoutPanel8 = new TableLayoutPanel();
+            label8 = new Label();
+            label9 = new Label();
+            dateTimePickerFrom = new DateTimePicker();
+            dateTimePickerTo = new DateTimePicker();
+            buttonExportPDF = new Button();
+            buttonExportExcel = new Button();
+            pictureBox7 = new PictureBox();
+            groupBox3 = new GroupBox();
+            tableLayoutPanel9 = new TableLayoutPanel();
             dataGridViewProfit = new DataGridView();
+            PaySavingsID = new DataGridViewTextBoxColumn();
+            ExpenseID = new DataGridViewTextBoxColumn();
+            InterestPaid = new DataGridViewTextBoxColumn();
+            EmployeeSalary = new DataGridViewTextBoxColumn();
+            SystemMaintenanceFee = new DataGridViewTextBoxColumn();
+            ExpenseDate = new DataGridViewTextBoxColumn();
             ProfitID = new DataGridViewTextBoxColumn();
             TotalRevenue = new DataGridViewTextBoxColumn();
             TotalExpense = new DataGridViewTextBoxColumn();
             NetProfit = new DataGridViewTextBoxColumn();
             ProfitDate = new DataGridViewTextBoxColumn();
-            panel5 = new Panel();
-            tableLayoutPanel8 = new TableLayoutPanel();
-            label7 = new Label();
-            label8 = new Label();
-            label9 = new Label();
-            comboBoxMonthQuarterFilter = new ComboBox();
-            dateTimePickerFrom = new DateTimePicker();
-            dateTimePickerTo = new DateTimePicker();
-            buttonFilterConfirm = new Button();
-            buttonExportPDF = new Button();
-            buttonExportExcel = new Button();
-            pictureBox7 = new PictureBox();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
@@ -111,10 +118,13 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewRevenue).BeginInit();
             groupBox2.SuspendLayout();
             tableLayoutPanel7.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)dataGridViewProfit).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewExpense).BeginInit();
             panel5.SuspendLayout();
             tableLayoutPanel8.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).BeginInit();
+            groupBox3.SuspendLayout();
+            tableLayoutPanel9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewProfit).BeginInit();
             SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -130,6 +140,7 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
+            tableLayoutPanel1.Controls.Add(groupBox3, 5, 7);
             tableLayoutPanel1.Controls.Add(panel1, 1, 1);
             tableLayoutPanel1.Controls.Add(groupBox1, 0, 4);
             tableLayoutPanel1.Controls.Add(groupBox2, 0, 7);
@@ -286,7 +297,7 @@
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 23.20675F));
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 26.58228F));
             tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutPanel3.Controls.Add(labelRevenueDate, 1, 1);
+            tableLayoutPanel3.Controls.Add(labelRevenueDate, 0, 1);
             tableLayoutPanel3.Controls.Add(label1, 0, 2);
             tableLayoutPanel3.Controls.Add(label2, 0, 3);
             tableLayoutPanel3.Controls.Add(labelTotalRevenue, 2, 2);
@@ -306,12 +317,12 @@
             // labelRevenueDate
             // 
             labelRevenueDate.AutoSize = true;
-            tableLayoutPanel3.SetColumnSpan(labelRevenueDate, 2);
+            tableLayoutPanel3.SetColumnSpan(labelRevenueDate, 4);
             labelRevenueDate.Dock = DockStyle.Fill;
             labelRevenueDate.Font = new Font("Roboto SemiCondensed Medium", 9F, FontStyle.Bold);
-            labelRevenueDate.Location = new Point(62, 8);
+            labelRevenueDate.Location = new Point(3, 8);
             labelRevenueDate.Name = "labelRevenueDate";
-            labelRevenueDate.Size = new Size(112, 19);
+            labelRevenueDate.Size = new Size(231, 19);
             labelRevenueDate.TabIndex = 0;
             labelRevenueDate.Text = "Date";
             labelRevenueDate.TextAlign = ContentAlignment.MiddleCenter;
@@ -362,6 +373,7 @@
             tableLayoutPanel3.SetColumnSpan(labelMaxRevenueAmount, 2);
             labelMaxRevenueAmount.Dock = DockStyle.Fill;
             labelMaxRevenueAmount.Font = new Font("Roboto SemiCondensed Medium", 7.8F, FontStyle.Bold);
+            labelMaxRevenueAmount.ForeColor = SystemColors.HotTrack;
             labelMaxRevenueAmount.Location = new Point(117, 50);
             labelMaxRevenueAmount.Name = "labelMaxRevenueAmount";
             labelMaxRevenueAmount.Size = new Size(117, 34);
@@ -387,7 +399,7 @@
             tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.7679329F));
             tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 35.0210953F));
             tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutPanel4.Controls.Add(labelExpenseDate, 1, 1);
+            tableLayoutPanel4.Controls.Add(labelExpenseDate, 0, 1);
             tableLayoutPanel4.Controls.Add(label3, 0, 2);
             tableLayoutPanel4.Controls.Add(label4, 0, 3);
             tableLayoutPanel4.Controls.Add(labelTotalExpense, 2, 2);
@@ -407,12 +419,12 @@
             // labelExpenseDate
             // 
             labelExpenseDate.AutoSize = true;
-            tableLayoutPanel4.SetColumnSpan(labelExpenseDate, 2);
+            tableLayoutPanel4.SetColumnSpan(labelExpenseDate, 4);
             labelExpenseDate.Dock = DockStyle.Fill;
             labelExpenseDate.Font = new Font("Roboto SemiCondensed Medium", 9F, FontStyle.Bold);
-            labelExpenseDate.Location = new Point(62, 8);
+            labelExpenseDate.Location = new Point(3, 8);
             labelExpenseDate.Name = "labelExpenseDate";
-            labelExpenseDate.Size = new Size(112, 18);
+            labelExpenseDate.Size = new Size(231, 18);
             labelExpenseDate.TabIndex = 0;
             labelExpenseDate.Text = "Date";
             labelExpenseDate.TextAlign = ContentAlignment.MiddleCenter;
@@ -463,6 +475,7 @@
             tableLayoutPanel4.SetColumnSpan(labelMaxExpenseAmount, 2);
             labelMaxExpenseAmount.Dock = DockStyle.Fill;
             labelMaxExpenseAmount.Font = new Font("Roboto SemiCondensed Medium", 7.8F, FontStyle.Bold);
+            labelMaxExpenseAmount.ForeColor = Color.Red;
             labelMaxExpenseAmount.Location = new Point(97, 49);
             labelMaxExpenseAmount.Name = "labelMaxExpenseAmount";
             labelMaxExpenseAmount.Size = new Size(137, 35);
@@ -488,7 +501,7 @@
             tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.016394F));
             tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 40.57377F));
             tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 25F));
-            tableLayoutPanel5.Controls.Add(labelProfitDate, 1, 1);
+            tableLayoutPanel5.Controls.Add(labelProfitDate, 0, 1);
             tableLayoutPanel5.Controls.Add(label5, 0, 2);
             tableLayoutPanel5.Controls.Add(label6, 0, 3);
             tableLayoutPanel5.Controls.Add(labelNetProfit, 2, 2);
@@ -508,12 +521,12 @@
             // labelProfitDate
             // 
             labelProfitDate.AutoSize = true;
-            tableLayoutPanel5.SetColumnSpan(labelProfitDate, 2);
+            tableLayoutPanel5.SetColumnSpan(labelProfitDate, 4);
             labelProfitDate.Dock = DockStyle.Fill;
             labelProfitDate.Font = new Font("Roboto SemiCondensed Medium", 9F, FontStyle.Bold);
-            labelProfitDate.Location = new Point(64, 8);
+            labelProfitDate.Location = new Point(3, 8);
             labelProfitDate.Name = "labelProfitDate";
-            labelProfitDate.Size = new Size(115, 18);
+            labelProfitDate.Size = new Size(238, 18);
             labelProfitDate.TabIndex = 0;
             labelProfitDate.Text = "Date";
             labelProfitDate.TextAlign = ContentAlignment.MiddleCenter;
@@ -564,6 +577,7 @@
             tableLayoutPanel5.SetColumnSpan(labelMaxNetProfit, 2);
             labelMaxNetProfit.Dock = DockStyle.Fill;
             labelMaxNetProfit.Font = new Font("Roboto SemiCondensed Medium", 7.8F, FontStyle.Bold);
+            labelMaxNetProfit.ForeColor = Color.ForestGreen;
             labelMaxNetProfit.Location = new Point(86, 49);
             labelMaxNetProfit.Name = "labelMaxNetProfit";
             labelMaxNetProfit.Size = new Size(155, 35);
@@ -610,14 +624,14 @@
             dataGridViewRevenue.BackgroundColor = Color.White;
             dataGridViewRevenue.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
             dataGridViewRevenue.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            dataGridViewRevenue.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle2.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridViewRevenue.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewRevenue.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewRevenue.Columns.AddRange(new DataGridViewColumn[] { PayLoanID, RevenueID, PrincipalAmount, InterestAmount, LateFee, TotalAmount, RevenueDate });
             tableLayoutPanel6.SetColumnSpan(dataGridViewRevenue, 2);
@@ -677,25 +691,25 @@
             // 
             // groupBox2
             // 
-            tableLayoutPanel1.SetColumnSpan(groupBox2, 10);
+            tableLayoutPanel1.SetColumnSpan(groupBox2, 5);
             groupBox2.Controls.Add(tableLayoutPanel7);
             groupBox2.Dock = DockStyle.Fill;
             groupBox2.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            groupBox2.ForeColor = Color.ForestGreen;
+            groupBox2.ForeColor = Color.Red;
             groupBox2.Location = new Point(3, 528);
             groupBox2.Name = "groupBox2";
             tableLayoutPanel1.SetRowSpan(groupBox2, 3);
-            groupBox2.Size = new Size(1126, 222);
+            groupBox2.Size = new Size(559, 222);
             groupBox2.TabIndex = 2;
             groupBox2.TabStop = false;
-            groupBox2.Text = "Dữ liệu lợi nhuận";
+            groupBox2.Text = "Dữ liệu chi phí";
             // 
             // tableLayoutPanel7
             // 
             tableLayoutPanel7.ColumnCount = 2;
             tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 7.589286F));
             tableLayoutPanel7.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 92.41071F));
-            tableLayoutPanel7.Controls.Add(dataGridViewProfit, 0, 0);
+            tableLayoutPanel7.Controls.Add(dataGridViewExpense, 0, 0);
             tableLayoutPanel7.Dock = DockStyle.Fill;
             tableLayoutPanel7.Location = new Point(3, 28);
             tableLayoutPanel7.Name = "tableLayoutPanel7";
@@ -704,68 +718,38 @@
             tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 24.0837688F));
             tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
             tableLayoutPanel7.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
-            tableLayoutPanel7.Size = new Size(1120, 191);
+            tableLayoutPanel7.Size = new Size(553, 191);
             tableLayoutPanel7.TabIndex = 0;
             // 
-            // dataGridViewProfit
+            // dataGridViewExpense
             // 
-            dataGridViewProfit.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
-            dataGridViewProfit.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
-            dataGridViewProfit.BackgroundColor = Color.White;
-            dataGridViewProfit.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
-            dataGridViewProfit.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = Color.ForestGreen;
-            dataGridViewCellStyle2.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = Color.White;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridViewProfit.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
-            dataGridViewProfit.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewProfit.Columns.AddRange(new DataGridViewColumn[] { ProfitID, TotalRevenue, TotalExpense, NetProfit, ProfitDate });
-            tableLayoutPanel7.SetColumnSpan(dataGridViewProfit, 2);
-            dataGridViewProfit.Dock = DockStyle.Fill;
-            dataGridViewProfit.EnableHeadersVisualStyles = false;
-            dataGridViewProfit.GridColor = Color.White;
-            dataGridViewProfit.Location = new Point(3, 3);
-            dataGridViewProfit.Name = "dataGridViewProfit";
-            dataGridViewProfit.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewProfit.RowHeadersVisible = false;
-            dataGridViewProfit.RowHeadersWidth = 51;
-            tableLayoutPanel7.SetRowSpan(dataGridViewProfit, 4);
-            dataGridViewProfit.Size = new Size(1114, 185);
-            dataGridViewProfit.TabIndex = 21;
-            // 
-            // ProfitID
-            // 
-            ProfitID.HeaderText = "Mã lợi nhuận";
-            ProfitID.MinimumWidth = 6;
-            ProfitID.Name = "ProfitID";
-            // 
-            // TotalRevenue
-            // 
-            TotalRevenue.HeaderText = "Tổng doanh thu";
-            TotalRevenue.MinimumWidth = 6;
-            TotalRevenue.Name = "TotalRevenue";
-            // 
-            // TotalExpense
-            // 
-            TotalExpense.HeaderText = "Tổng chi trả";
-            TotalExpense.MinimumWidth = 6;
-            TotalExpense.Name = "TotalExpense";
-            // 
-            // NetProfit
-            // 
-            NetProfit.HeaderText = "Lợi nhuận ròng";
-            NetProfit.MinimumWidth = 6;
-            NetProfit.Name = "NetProfit";
-            // 
-            // ProfitDate
-            // 
-            ProfitDate.HeaderText = "Ngày";
-            ProfitDate.MinimumWidth = 6;
-            ProfitDate.Name = "ProfitDate";
+            dataGridViewExpense.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewExpense.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewExpense.BackgroundColor = Color.White;
+            dataGridViewExpense.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
+            dataGridViewExpense.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = Color.LightCoral;
+            dataGridViewCellStyle3.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dataGridViewExpense.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewExpense.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewExpense.Columns.AddRange(new DataGridViewColumn[] { PaySavingsID, ExpenseID, InterestPaid, EmployeeSalary, SystemMaintenanceFee, ExpenseDate });
+            tableLayoutPanel7.SetColumnSpan(dataGridViewExpense, 2);
+            dataGridViewExpense.Dock = DockStyle.Fill;
+            dataGridViewExpense.EnableHeadersVisualStyles = false;
+            dataGridViewExpense.GridColor = Color.White;
+            dataGridViewExpense.Location = new Point(3, 3);
+            dataGridViewExpense.Name = "dataGridViewExpense";
+            dataGridViewExpense.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewExpense.RowHeadersVisible = false;
+            dataGridViewExpense.RowHeadersWidth = 51;
+            tableLayoutPanel7.SetRowSpan(dataGridViewExpense, 4);
+            dataGridViewExpense.Size = new Size(547, 185);
+            dataGridViewExpense.TabIndex = 21;
             // 
             // panel5
             // 
@@ -790,13 +774,10 @@
             tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.354503F));
             tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.619253F));
             tableLayoutPanel8.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.772805F));
-            tableLayoutPanel8.Controls.Add(label7, 1, 0);
             tableLayoutPanel8.Controls.Add(label8, 3, 0);
             tableLayoutPanel8.Controls.Add(label9, 4, 0);
-            tableLayoutPanel8.Controls.Add(comboBoxMonthQuarterFilter, 1, 1);
             tableLayoutPanel8.Controls.Add(dateTimePickerFrom, 3, 1);
             tableLayoutPanel8.Controls.Add(dateTimePickerTo, 4, 1);
-            tableLayoutPanel8.Controls.Add(buttonFilterConfirm, 6, 0);
             tableLayoutPanel8.Controls.Add(buttonExportPDF, 7, 0);
             tableLayoutPanel8.Controls.Add(buttonExportExcel, 8, 0);
             tableLayoutPanel8.Dock = DockStyle.Fill;
@@ -807,18 +788,6 @@
             tableLayoutPanel8.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel8.Size = new Size(1126, 69);
             tableLayoutPanel8.TabIndex = 0;
-            // 
-            // label7
-            // 
-            label7.AutoSize = true;
-            label7.Dock = DockStyle.Fill;
-            label7.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.Location = new Point(104, 0);
-            label7.Name = "label7";
-            label7.Size = new Size(238, 34);
-            label7.TabIndex = 3;
-            label7.Text = "Lọc theo tháng/quý:";
-            label7.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label8
             // 
@@ -844,22 +813,11 @@
             label9.Text = "Đến:";
             label9.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // comboBoxMonthQuarterFilter
-            // 
-            comboBoxMonthQuarterFilter.Dock = DockStyle.Fill;
-            comboBoxMonthQuarterFilter.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxMonthQuarterFilter.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            comboBoxMonthQuarterFilter.FormattingEnabled = true;
-            comboBoxMonthQuarterFilter.Items.AddRange(new object[] { "Tháng 1", "Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng 7", "Tháng 8", "Tháng 9", "Tháng 10", "Tháng 11", "Tháng 12", "Quý 1", "Quý 2", "Quý 3", "Quý 4" });
-            comboBoxMonthQuarterFilter.Location = new Point(104, 37);
-            comboBoxMonthQuarterFilter.Name = "comboBoxMonthQuarterFilter";
-            comboBoxMonthQuarterFilter.Size = new Size(238, 28);
-            comboBoxMonthQuarterFilter.TabIndex = 6;
-            // 
             // dateTimePickerFrom
             // 
             dateTimePickerFrom.CalendarFont = new Font("Roboto", 10.2F);
             dateTimePickerFrom.Dock = DockStyle.Fill;
+            dateTimePickerFrom.Format = DateTimePickerFormat.Short;
             dateTimePickerFrom.Location = new Point(355, 37);
             dateTimePickerFrom.Name = "dateTimePickerFrom";
             dateTimePickerFrom.Size = new Size(177, 27);
@@ -869,21 +827,11 @@
             // 
             dateTimePickerTo.CalendarFont = new Font("Roboto", 10.2F);
             dateTimePickerTo.Dock = DockStyle.Fill;
+            dateTimePickerTo.Format = DateTimePickerFormat.Short;
             dateTimePickerTo.Location = new Point(538, 37);
             dateTimePickerTo.Name = "dateTimePickerTo";
             dateTimePickerTo.Size = new Size(177, 27);
             dateTimePickerTo.TabIndex = 8;
-            // 
-            // buttonFilterConfirm
-            // 
-            buttonFilterConfirm.Dock = DockStyle.Fill;
-            buttonFilterConfirm.Image = (Image)resources.GetObject("buttonFilterConfirm.Image");
-            buttonFilterConfirm.Location = new Point(728, 3);
-            buttonFilterConfirm.Name = "buttonFilterConfirm";
-            tableLayoutPanel8.SetRowSpan(buttonFilterConfirm, 2);
-            buttonFilterConfirm.Size = new Size(68, 63);
-            buttonFilterConfirm.TabIndex = 9;
-            buttonFilterConfirm.UseVisualStyleBackColor = true;
             // 
             // buttonExportPDF
             // 
@@ -929,6 +877,134 @@
             pictureBox7.TabIndex = 4;
             pictureBox7.TabStop = false;
             // 
+            // groupBox3
+            // 
+            tableLayoutPanel1.SetColumnSpan(groupBox3, 5);
+            groupBox3.Controls.Add(tableLayoutPanel9);
+            groupBox3.Dock = DockStyle.Fill;
+            groupBox3.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBox3.ForeColor = Color.ForestGreen;
+            groupBox3.Location = new Point(568, 528);
+            groupBox3.Name = "groupBox3";
+            tableLayoutPanel1.SetRowSpan(groupBox3, 3);
+            groupBox3.Size = new Size(561, 222);
+            groupBox3.TabIndex = 22;
+            groupBox3.TabStop = false;
+            groupBox3.Text = "Dữ liệu lợi nhuận";
+            // 
+            // tableLayoutPanel9
+            // 
+            tableLayoutPanel9.ColumnCount = 2;
+            tableLayoutPanel9.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 7.589286F));
+            tableLayoutPanel9.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 92.41071F));
+            tableLayoutPanel9.Controls.Add(dataGridViewProfit, 0, 0);
+            tableLayoutPanel9.Dock = DockStyle.Fill;
+            tableLayoutPanel9.Location = new Point(3, 28);
+            tableLayoutPanel9.Name = "tableLayoutPanel9";
+            tableLayoutPanel9.RowCount = 4;
+            tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 25.13089F));
+            tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 24.0837688F));
+            tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel9.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel9.Size = new Size(555, 191);
+            tableLayoutPanel9.TabIndex = 0;
+            // 
+            // dataGridViewProfit
+            // 
+            dataGridViewProfit.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridViewProfit.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
+            dataGridViewProfit.BackgroundColor = Color.White;
+            dataGridViewProfit.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
+            dataGridViewProfit.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = Color.ForestGreen;
+            dataGridViewCellStyle1.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.White;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dataGridViewProfit.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewProfit.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewProfit.Columns.AddRange(new DataGridViewColumn[] { ProfitID, TotalRevenue, TotalExpense, NetProfit, ProfitDate });
+            tableLayoutPanel9.SetColumnSpan(dataGridViewProfit, 2);
+            dataGridViewProfit.Dock = DockStyle.Fill;
+            dataGridViewProfit.EnableHeadersVisualStyles = false;
+            dataGridViewProfit.GridColor = Color.White;
+            dataGridViewProfit.Location = new Point(3, 3);
+            dataGridViewProfit.Name = "dataGridViewProfit";
+            dataGridViewProfit.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
+            dataGridViewProfit.RowHeadersVisible = false;
+            dataGridViewProfit.RowHeadersWidth = 51;
+            tableLayoutPanel9.SetRowSpan(dataGridViewProfit, 4);
+            dataGridViewProfit.Size = new Size(549, 185);
+            dataGridViewProfit.TabIndex = 22;
+            // 
+            // PaySavingsID
+            // 
+            PaySavingsID.HeaderText = "Mã chi trả lãi suất";
+            PaySavingsID.MinimumWidth = 6;
+            PaySavingsID.Name = "PaySavingsID";
+            // 
+            // ExpenseID
+            // 
+            ExpenseID.HeaderText = "Mã chi trả";
+            ExpenseID.MinimumWidth = 6;
+            ExpenseID.Name = "ExpenseID";
+            // 
+            // InterestPaid
+            // 
+            InterestPaid.HeaderText = "Số tiền lãi";
+            InterestPaid.MinimumWidth = 6;
+            InterestPaid.Name = "InterestPaid";
+            // 
+            // EmployeeSalary
+            // 
+            EmployeeSalary.HeaderText = "Chi lương";
+            EmployeeSalary.MinimumWidth = 6;
+            EmployeeSalary.Name = "EmployeeSalary";
+            // 
+            // SystemMaintenanceFee
+            // 
+            SystemMaintenanceFee.HeaderText = "Phí hệ thống";
+            SystemMaintenanceFee.MinimumWidth = 6;
+            SystemMaintenanceFee.Name = "SystemMaintenanceFee";
+            // 
+            // ExpenseDate
+            // 
+            ExpenseDate.HeaderText = "Ngày";
+            ExpenseDate.MinimumWidth = 6;
+            ExpenseDate.Name = "ExpenseDate";
+            // 
+            // ProfitID
+            // 
+            ProfitID.HeaderText = "Mã lợi nhuận";
+            ProfitID.MinimumWidth = 6;
+            ProfitID.Name = "ProfitID";
+            // 
+            // TotalRevenue
+            // 
+            TotalRevenue.HeaderText = "Tổng doanh thu";
+            TotalRevenue.MinimumWidth = 6;
+            TotalRevenue.Name = "TotalRevenue";
+            // 
+            // TotalExpense
+            // 
+            TotalExpense.HeaderText = "Tổng chi trả";
+            TotalExpense.MinimumWidth = 6;
+            TotalExpense.Name = "TotalExpense";
+            // 
+            // NetProfit
+            // 
+            NetProfit.HeaderText = "Lợi nhuận ròng";
+            NetProfit.MinimumWidth = 6;
+            NetProfit.Name = "NetProfit";
+            // 
+            // ProfitDate
+            // 
+            ProfitDate.HeaderText = "Ngày";
+            ProfitDate.MinimumWidth = 6;
+            ProfitDate.Name = "ProfitDate";
+            // 
             // UC_ReportStatistic
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
@@ -959,11 +1035,14 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewRevenue).EndInit();
             groupBox2.ResumeLayout(false);
             tableLayoutPanel7.ResumeLayout(false);
-            ((System.ComponentModel.ISupportInitialize)dataGridViewProfit).EndInit();
+            ((System.ComponentModel.ISupportInitialize)dataGridViewExpense).EndInit();
             panel5.ResumeLayout(false);
             tableLayoutPanel8.ResumeLayout(false);
             tableLayoutPanel8.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox7).EndInit();
+            groupBox3.ResumeLayout(false);
+            tableLayoutPanel9.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)dataGridViewProfit).EndInit();
             ResumeLayout(false);
         }
 
@@ -1006,16 +1085,13 @@
         private Button buttonExportPDF;
         private Panel panel5;
         private TableLayoutPanel tableLayoutPanel8;
-        private Label label7;
         private Label label8;
         private Label label9;
-        private ComboBox comboBoxMonthQuarterFilter;
         private DateTimePicker dateTimePickerFrom;
         private DateTimePicker dateTimePickerTo;
-        private Button buttonFilterConfirm;
         private Button buttonExportExcel;
         private DataGridView dataGridViewRevenue;
-        private DataGridView dataGridViewProfit;
+        private DataGridView dataGridViewExpense;
         private PictureBox pictureBox7;
         private DataGridViewTextBoxColumn PayLoanID;
         private DataGridViewTextBoxColumn RevenueID;
@@ -1024,6 +1100,15 @@
         private DataGridViewTextBoxColumn LateFee;
         private DataGridViewTextBoxColumn TotalAmount;
         private DataGridViewTextBoxColumn RevenueDate;
+        private GroupBox groupBox3;
+        private TableLayoutPanel tableLayoutPanel9;
+        private DataGridView dataGridViewProfit;
+        private DataGridViewTextBoxColumn PaySavingsID;
+        private DataGridViewTextBoxColumn ExpenseID;
+        private DataGridViewTextBoxColumn InterestPaid;
+        private DataGridViewTextBoxColumn EmployeeSalary;
+        private DataGridViewTextBoxColumn SystemMaintenanceFee;
+        private DataGridViewTextBoxColumn ExpenseDate;
         private DataGridViewTextBoxColumn ProfitID;
         private DataGridViewTextBoxColumn TotalRevenue;
         private DataGridViewTextBoxColumn TotalExpense;
