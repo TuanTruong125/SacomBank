@@ -50,7 +50,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
         public void LoadReportStatistic()
         {
-            view.LoadUserControl(new UC_ReportStatistic());
+            view.LoadUserControl(new UC_ReportStatistic(dbContext, configuration));
         }
 
         public void LoadManagerSetting()
