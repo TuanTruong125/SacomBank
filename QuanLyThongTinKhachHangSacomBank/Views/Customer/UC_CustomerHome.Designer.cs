@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_CustomerHome));
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             tableLayoutPanel1 = new TableLayoutPanel();
             labelAccountName = new Label();
             buttonNotification = new Button();
@@ -595,25 +595,25 @@
             dataGridViewServiceNotification.BorderStyle = BorderStyle.None;
             dataGridViewServiceNotification.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
             dataGridViewServiceNotification.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = Color.Black;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            dataGridViewServiceNotification.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle3.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = Color.Black;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dataGridViewServiceNotification.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewServiceNotification.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewServiceNotification.Columns.AddRange(new DataGridViewColumn[] { PayLoanID, ServiceID, ServiceTypeName, PrincipalDue, InterestDue, LateFee, TotalDue, RemainingDebt, PayNotification, DueDate, PaymentStatus });
             tableLayoutPanel5.SetColumnSpan(dataGridViewServiceNotification, 2);
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.HotTrack;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridViewServiceNotification.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = SystemColors.Window;
+            dataGridViewCellStyle4.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle4.ForeColor = SystemColors.HotTrack;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            dataGridViewServiceNotification.DefaultCellStyle = dataGridViewCellStyle4;
             dataGridViewServiceNotification.Dock = DockStyle.Fill;
             dataGridViewServiceNotification.EnableHeadersVisualStyles = false;
             dataGridViewServiceNotification.GridColor = Color.White;
@@ -767,7 +767,7 @@
             pictureBox7.Location = new Point(3, 303);
             pictureBox7.Name = "pictureBox7";
             pictureBox7.Size = new Size(100, 69);
-            pictureBox7.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox7.SizeMode = PictureBoxSizeMode.Zoom;
             pictureBox7.TabIndex = 11;
             pictureBox7.TabStop = false;
             // 
@@ -1149,12 +1149,12 @@
             tableLayoutPanel14.SetColumnSpan(label8, 3);
             label8.Dock = DockStyle.Fill;
             label8.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label8.ForeColor = Color.White;
+            label8.ForeColor = Color.Aquamarine;
             label8.Location = new Point(3, 130);
             label8.Name = "label8";
             label8.Size = new Size(140, 68);
             label8.TabIndex = 5;
-            label8.Text = "Quản lý dịch vụ";
+            label8.Text = "Dịch vụ của tôi";
             label8.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // UC_CustomerHome

@@ -77,16 +77,16 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 {
                     connection.Open();
                     string query = @"
-                SELECT 
-                    lp.PayLoanID, lp.PayLoanCode, lp.PrincipalDue, lp.InterestDue, lp.LateFee, 
-                    lp.TotalDue, lp.RemainingDebt, lp.PayNotification, lp.DueDate, lp.PaymentStatus,
-                    s.ServiceID, s.ServiceCode, s.ServiceTypeID,
-                    st.ServiceTypeName
-                FROM LOAN_PAYMENT lp
-                JOIN SERVICE s ON lp.ServiceID = s.ServiceID
-                JOIN SERVICE_TYPE st ON s.ServiceTypeID = st.ServiceTypeID
-                WHERE s.AccountID = @AccountID
-                ORDER BY lp.DueDate DESC";
+                        SELECT 
+                            lp.PayLoanID, lp.PayLoanCode, lp.PrincipalDue, lp.InterestDue, lp.LateFee, 
+                            lp.TotalDue, lp.RemainingDebt, lp.PayNotification, lp.DueDate, lp.PaymentStatus,
+                            s.ServiceID, s.ServiceCode, s.ServiceTypeID,
+                            st.ServiceTypeName
+                        FROM LOAN_PAYMENT lp
+                        JOIN SERVICE s ON lp.ServiceID = s.ServiceID
+                        JOIN SERVICE_TYPE st ON s.ServiceTypeID = st.ServiceTypeID
+                        WHERE s.AccountID = @AccountID
+                        ORDER BY lp.DueDate DESC";
 
                     using (var command = new SqlCommand(query, connection))
                     {

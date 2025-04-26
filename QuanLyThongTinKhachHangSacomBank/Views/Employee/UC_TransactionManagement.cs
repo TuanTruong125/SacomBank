@@ -60,7 +60,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
         public event EventHandler ExportToExcelRequested;
         public event EventHandler ExportToCSVRequested;
 
-        public UC_TransactionManagement(AccountModel currentAccount, EmployeeModel currentEmployee, DatabaseContext dbContext, IConfiguration configuration, ICustomerHomeView customerHomeView)
+        public UC_TransactionManagement(AccountModel currentAccount, EmployeeModel currentEmployee, DatabaseContext dbContext, IConfiguration configuration)
         {
             try
             {
@@ -69,8 +69,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
                 this.currentEmployee = currentEmployee;
                 depositController = new DepositController(currentEmployee, dbContext, configuration);
                 withdrawController = new WithdrawController(currentEmployee, dbContext, configuration);
-                transferController = new TransferController(currentAccount, currentEmployee, dbContext, configuration, customerHomeView);
-                payController = new PayController(currentAccount, currentEmployee, dbContext, configuration, customerHomeView);
+                transferController = new TransferController(currentAccount, currentEmployee, dbContext, configuration, null);
+                payController = new PayController(currentAccount, currentEmployee, dbContext, configuration, null);
 
                 // Đăng ký sự kiện TransactionCompleted từ các controller
                 depositController.TransactionCompleted += (s, e) => RefreshTransactions();

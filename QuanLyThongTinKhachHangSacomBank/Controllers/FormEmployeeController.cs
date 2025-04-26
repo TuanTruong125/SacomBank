@@ -60,8 +60,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
         public void LoadTransactionManagement()
         {
             // Khởi tạo UC_CustomerHome để truyền vào UC_TransactionManagement
-            ICustomerHomeView customerHomeView = new UC_CustomerHome(currentAccount, currentEmployee, dbContext, configuration);
-            view.LoadUserControl(new UC_TransactionManagement(currentAccount, currentEmployee, dbContext, configuration, customerHomeView));
+            view.LoadUserControl(new UC_TransactionManagement(currentAccount, currentEmployee, dbContext, configuration));
         }
 
         public void LoadCustomerCare()

@@ -60,7 +60,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
 
                 payController = new PayController(currentAccount, currentEmployee, dbContext, configuration, this);
                 showCustomerAccountInfoController = new ShowCustomerAccountInfoController(new FormShowCustomerAccountInfo(), dbContext);
-                customerServiceManagementController = new CustomerServiceManagementController();
+                customerServiceManagementController = new CustomerServiceManagementController(new FormCustomerServiceManagement(), currentAccount, dbContext);
                 chatController = new ChatController(dbContext);
 
                 // Cấu hình DataGridView

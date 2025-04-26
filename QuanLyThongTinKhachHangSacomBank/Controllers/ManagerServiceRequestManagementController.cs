@@ -537,6 +537,29 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 {
                     connection.Open();
 
+                    // Kiểm tra số dư tài khoản nếu là dịch vụ Gửi tiết kiệm (ServiceTypeID == 2)
+                    if (selectedService.ServiceTypeID == 2)
+                    {
+                        string balanceQuery = "SELECT Balance FROM ACCOUNT WHERE AccountID = @AccountID";
+                        using (var balanceCommand = new SqlCommand(balanceQuery, connection))
+                        {
+                            balanceCommand.Parameters.AddWithValue("@AccountID", selectedService.AccountID);
+                            var balanceResult = balanceCommand.ExecuteScalar();
+                            if (balanceResult == null)
+                            {
+                                view.ShowMessage("Không thể kiểm tra số dư tài khoản. Vui lòng thử lại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+
+                            decimal currentBalance = (decimal)balanceResult;
+                            if (currentBalance < selectedService.TotalPrincipalAmount)
+                            {
+                                view.ShowMessage("Không thể duyệt yêu cầu này vì số dư của tài khoản hiện tại không đủ để gửi tiết kiệm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+                    }
+
                     // Tính EndDate dựa trên ApplicableDate và Duration
                     DateTime applicableDate = DateTime.Now;
                     int durationMonths = int.Parse(selectedService.Duration.Replace(" tháng", ""));
