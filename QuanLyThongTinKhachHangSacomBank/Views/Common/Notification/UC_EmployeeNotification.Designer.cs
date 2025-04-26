@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             richTextBoxMessage = new RichTextBox();
             label2 = new Label();
             textBoxTitle = new TextBox();
@@ -39,7 +40,7 @@
             Title = new DataGridViewTextBoxColumn();
             Message = new DataGridViewTextBoxColumn();
             NotificationDate = new DataGridViewTextBoxColumn();
-            Status = new DataGridViewTextBoxColumn();
+            NotificationStatus = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridViewNotification).BeginInit();
             SuspendLayout();
             // 
@@ -113,13 +114,21 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             dataGridViewNotification.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewNotification.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewNotification.Columns.AddRange(new DataGridViewColumn[] { NotificationTypeName, Title, Message, NotificationDate, Status });
+            dataGridViewNotification.Columns.AddRange(new DataGridViewColumn[] { NotificationTypeName, Title, Message, NotificationDate, NotificationStatus });
             dataGridViewNotification.EnableHeadersVisualStyles = false;
             dataGridViewNotification.GridColor = Color.White;
             dataGridViewNotification.Location = new Point(4, 246);
             dataGridViewNotification.Name = "dataGridViewNotification";
             dataGridViewNotification.ReadOnly = true;
             dataGridViewNotification.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Control;
+            dataGridViewCellStyle2.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
+            dataGridViewNotification.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewNotification.RowHeadersVisible = false;
             dataGridViewNotification.RowHeadersWidth = 51;
             dataGridViewNotification.Size = new Size(1047, 234);
@@ -153,12 +162,12 @@
             NotificationDate.Name = "NotificationDate";
             NotificationDate.ReadOnly = true;
             // 
-            // Status
+            // NotificationStatus
             // 
-            Status.HeaderText = "Trạng thái";
-            Status.MinimumWidth = 6;
-            Status.Name = "Status";
-            Status.ReadOnly = true;
+            NotificationStatus.HeaderText = "Trạng thái";
+            NotificationStatus.MinimumWidth = 6;
+            NotificationStatus.Name = "NotificationStatus";
+            NotificationStatus.ReadOnly = true;
             // 
             // UC_EmployeeNotification
             // 
@@ -189,6 +198,6 @@
         private DataGridViewTextBoxColumn Title;
         private DataGridViewTextBoxColumn Message;
         private DataGridViewTextBoxColumn NotificationDate;
-        private DataGridViewTextBoxColumn Status;
+        private DataGridViewTextBoxColumn NotificationStatus;
     }
 }

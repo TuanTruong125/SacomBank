@@ -29,7 +29,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
         {
             try
             {
-                var ucManagerHome = new UC_ManagerHome(employee);
+                var ucManagerHome = new UC_ManagerHome(employee, configuration, dbContext);
                 view.LoadUserControl(ucManagerHome);
             }
             catch (Exception ex)
