@@ -224,7 +224,7 @@ CREATE TABLE [NOTIFICATION] (
   CustomerID INT NULL, -- Có thể NULL nếu thông báo dành cho nhân viên
   EmployeeID INT NULL, -- Có thể NULL nếu thông báo dành cho khách hàng
   NotificationTypeID INT NOT NULL,
-  
+ 
   FOREIGN KEY (CustomerID) REFERENCES CUSTOMER(CustomerID),
   FOREIGN KEY (EmployeeID) REFERENCES EMPLOYEE(EmployeeID),
   FOREIGN KEY (NotificationTypeID) REFERENCES NOTIFICATION_TYPE(NotificationTypeID)

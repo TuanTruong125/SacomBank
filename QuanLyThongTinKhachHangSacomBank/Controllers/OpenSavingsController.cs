@@ -289,9 +289,11 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         int durationInMonths = int.Parse(durationText.Split(' ')[0]); // Lấy "12" từ "12 tháng"
                         decimal totalInterestAmount = principalAmount * interestRate * (durationInMonths / 12m);
 
-                        // Thêm dữ liệu vào bảng SERVICE
+                        // Thêm dữ liệu vào bảng SERVICE và lấy ServiceID
+                        int serviceId;
                         using (var command = new SqlCommand(
                             "INSERT INTO [SERVICE] (TotalPrincipalAmount, Duration, InterestRate, TotalInterestAmount, ServiceDescription, CreatedDate, ApprovalStatus, ServiceStatus, CustomerID, AccountID, ServiceTypeID) " +
+                            "OUTPUT INSERTED.ServiceID " +
                             "VALUES (@TotalPrincipalAmount, @Duration, @InterestRate, @TotalInterestAmount, @ServiceDescription, @CreatedDate, @ApprovalStatus, @ServiceStatus, @CustomerID, @AccountID, @ServiceTypeID)", connection, transaction))
                         {
                             command.Parameters.AddWithValue("@TotalPrincipalAmount", principalAmount);
@@ -305,7 +307,59 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                             command.Parameters.AddWithValue("@CustomerID", currentAccount.CustomerID);
                             command.Parameters.AddWithValue("@AccountID", currentAccount.AccountID);
                             command.Parameters.AddWithValue("@ServiceTypeID", serviceTypeID);
-                            command.ExecuteNonQuery();
+                            serviceId = (int)command.ExecuteScalar();
+                        }
+
+                        // Lấy NotificationTypeID cho "Dịch vụ"
+                        int notificationTypeId;
+                        using (var command = new SqlCommand("SELECT NotificationTypeID FROM NOTIFICATION_TYPE WHERE NotificationTypeName = @NotificationTypeName", connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@NotificationTypeName", "Dịch vụ");
+                            var result = command.ExecuteScalar();
+                            if (result == null)
+                            {
+                                throw new Exception("Không tìm thấy NotificationTypeID cho 'Dịch vụ'.");
+                            }
+                            notificationTypeId = (int)result;
+                        }
+
+                        // Lấy danh sách EmployeeID của quản lý
+                        List<int> managerIds = new List<int>();
+                        using (var command = new SqlCommand("SELECT EmployeeID FROM EMPLOYEE WHERE EmployeeRole = @EmployeeRole", connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@EmployeeRole", "Quản lý");
+                            using (var reader = command.ExecuteReader())
+                            {
+                                while (reader.Read())
+                                {
+                                    managerIds.Add(reader.GetInt32(0));
+                                }
+                            }
+                        }
+
+                        if (managerIds.Count == 0)
+                        {
+                            throw new Exception("Không tìm thấy nhân viên quản lý để gửi thông báo!");
+                        }
+
+                        // Tạo thông báo cho từng quản lý
+                        string notificationMessage = $"Yêu cầu mở dịch vụ gửi tiết kiệm cho mã dịch vụ DV{serviceId}!";
+                        foreach (var managerId in managerIds)
+                        {
+                            using (var command = new SqlCommand(
+                                "INSERT INTO [NOTIFICATION] (Title, NotificationMessage, NotificationDate, NotificationStatus, ReferenceID, CustomerID, EmployeeID, NotificationTypeID) " +
+                                "VALUES (@Title, @NotificationMessage, @NotificationDate, @NotificationStatus, @ReferenceID, @CustomerID, @EmployeeID, @NotificationTypeID)", connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@Title", "Yêu cầu mở dịch vụ!");
+                                command.Parameters.AddWithValue("@NotificationMessage", notificationMessage);
+                                command.Parameters.AddWithValue("@NotificationDate", DateTime.Now);
+                                command.Parameters.AddWithValue("@NotificationStatus", "Chưa xem");
+                                command.Parameters.AddWithValue("@ReferenceID", serviceId);
+                                command.Parameters.AddWithValue("@CustomerID", DBNull.Value);
+                                command.Parameters.AddWithValue("@EmployeeID", managerId);
+                                command.Parameters.AddWithValue("@NotificationTypeID", notificationTypeId);
+                                command.ExecuteNonQuery();
+                            }
                         }
 
                         transaction.Commit();

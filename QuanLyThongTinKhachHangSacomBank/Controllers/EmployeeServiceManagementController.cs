@@ -743,12 +743,14 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     {
                         // Thêm dịch vụ mới
                         string insertQuery = @"
-                INSERT INTO SERVICE (TotalPrincipalAmount, Duration, InterestRate, 
-                    TotalInterestAmount, ServiceDescription, CreatedDate, ApprovalStatus, 
-                    ServiceStatus, HandledBy, CustomerID, AccountID, ServiceTypeID)
-                VALUES (@TotalPrincipalAmount, @Duration, @InterestRate, 
-                    @TotalInterestAmount, @ServiceDescription, @CreatedDate, @ApprovalStatus, 
-                    @ServiceStatus, @HandledBy, @CustomerID, @AccountID, @ServiceTypeID)";
+        INSERT INTO SERVICE (TotalPrincipalAmount, Duration, InterestRate, 
+            TotalInterestAmount, ServiceDescription, CreatedDate, ApprovalStatus, 
+            ServiceStatus, HandledBy, CustomerID, AccountID, ServiceTypeID)
+        OUTPUT INSERTED.ServiceID
+        VALUES (@TotalPrincipalAmount, @Duration, @InterestRate, 
+            @TotalInterestAmount, @ServiceDescription, @CreatedDate, @ApprovalStatus, 
+            @ServiceStatus, @HandledBy, @CustomerID, @AccountID, @ServiceTypeID)";
+                        int serviceId;
                         using (var command = new SqlCommand(insertQuery, connection))
                         {
                             command.Parameters.AddWithValue("@TotalPrincipalAmount", totalPrincipalAmount);
@@ -763,6 +765,69 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                             command.Parameters.AddWithValue("@CustomerID", customerID);
                             command.Parameters.AddWithValue("@AccountID", accountID);
                             command.Parameters.AddWithValue("@ServiceTypeID", serviceTypeID);
+                            serviceId = (int)command.ExecuteScalar(); // Lấy ServiceID vừa chèn
+                        }
+
+                        // Lấy NotificationTypeID cho "Dịch vụ"
+                        int notificationTypeId;
+                        using (var command = new SqlCommand("SELECT NotificationTypeID FROM NOTIFICATION_TYPE WHERE NotificationTypeName = @NotificationTypeName", connection))
+                        {
+                            command.Parameters.AddWithValue("@NotificationTypeName", "Dịch vụ");
+                            var result = command.ExecuteScalar();
+                            if (result == null)
+                            {
+                                view.ShowMessage("Không tìm thấy NotificationTypeID cho 'Dịch vụ'.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            notificationTypeId = (int)result;
+                        }
+
+                        // Lấy EmployeeID của quản lý
+                        int? managerId = null;
+                        using (var command = new SqlCommand("SELECT EmployeeID FROM EMPLOYEE WHERE EmployeeRole = @EmployeeRole", connection))
+                        {
+                            command.Parameters.AddWithValue("@EmployeeRole", "Quản lý");
+                            var result = command.ExecuteScalar();
+                            if (result != null)
+                            {
+                                managerId = (int)result;
+                            }
+                        }
+
+                        if (!managerId.HasValue)
+                        {
+                            view.ShowMessage("Không tìm thấy nhân viên quản lý để gửi thông báo!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // Tạo thông báo cho quản lý
+                        string notificationMessage;
+                        if (serviceTypeName == "Vay vốn")
+                        {
+                            notificationMessage = $"Yêu cầu mở dịch vụ vay vốn cho mã dịch vụ DV{serviceId}!";
+                        }
+                        else if (serviceTypeName == "Gửi tiết kiệm")
+                        {
+                            notificationMessage = $"Yêu cầu mở dịch vụ gửi tiết kiệm cho mã dịch vụ DV{serviceId}!";
+                        }
+                        else
+                        {
+                            view.ShowMessage("Loại dịch vụ không được hỗ trợ để gửi thông báo!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        using (var command = new SqlCommand(
+                            "INSERT INTO [NOTIFICATION] (Title, NotificationMessage, NotificationDate, NotificationStatus, ReferenceID, CustomerID, EmployeeID, NotificationTypeID) " +
+                            "VALUES (@Title, @NotificationMessage, @NotificationDate, @NotificationStatus, @ReferenceID, @CustomerID, @EmployeeID, @NotificationTypeID)", connection))
+                        {
+                            command.Parameters.AddWithValue("@Title", "Yêu cầu mở dịch vụ!");
+                            command.Parameters.AddWithValue("@NotificationMessage", notificationMessage);
+                            command.Parameters.AddWithValue("@NotificationDate", DateTime.Now);
+                            command.Parameters.AddWithValue("@NotificationStatus", "Chưa xem");
+                            command.Parameters.AddWithValue("@ReferenceID", serviceId);
+                            command.Parameters.AddWithValue("@CustomerID", DBNull.Value);
+                            command.Parameters.AddWithValue("@EmployeeID", managerId);
+                            command.Parameters.AddWithValue("@NotificationTypeID", notificationTypeId);
                             command.ExecuteNonQuery();
                         }
                     }

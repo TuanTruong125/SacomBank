@@ -489,11 +489,48 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         int rowsAffected = command.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
+                            // Tạo bản ghi thông báo cho khách hàng
+                            int notificationTypeId;
+                            using (var notificationCommand = new SqlCommand("SELECT NotificationTypeID FROM NOTIFICATION_TYPE WHERE NotificationTypeName = @NotificationTypeName", connection))
+                            {
+                                notificationCommand.Parameters.AddWithValue("@NotificationTypeName", "Dịch vụ");
+                                var resultNotification = notificationCommand.ExecuteScalar();
+                                if (resultNotification == null)
+                                {
+                                    view.ShowMessage("Không tìm thấy NotificationTypeID cho 'Dịch vụ'.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+                                notificationTypeId = (int)resultNotification;
+                            }
+
+                            string notificationMessage;
+                            if (selectedService.ServiceTypeID == 1) // Vay vốn
+                            {
+                                notificationMessage = $"Ngân hàng đã từ chối yêu cầu vay vốn với mã dịch vụ {selectedService.ServiceCode} từ bạn. Vui lòng liên hệ ngân hàng để biết thêm chi tiết!";
+                            }
+                            else // Gửi tiết kiệm (ServiceTypeID == 2)
+                            {
+                                notificationMessage = $"Ngân hàng đã từ chối yêu cầu gửi tiết kiệm với mã dịch vụ {selectedService.ServiceCode} từ bạn. Vui lòng liên hệ ngân hàng để biết thêm chi tiết!";
+                            }
+
+                            using (var notificationCommand = new SqlCommand(
+                                "INSERT INTO [NOTIFICATION] (Title, NotificationMessage, NotificationDate, NotificationStatus, ReferenceID, CustomerID, EmployeeID, NotificationTypeID) " +
+                                "VALUES (@Title, @NotificationMessage, @NotificationDate, @NotificationStatus, @ReferenceID, @CustomerID, @EmployeeID, @NotificationTypeID)", connection))
+                            {
+                                notificationCommand.Parameters.AddWithValue("@Title", "Yêu cầu dịch vụ đã bị từ chối!");
+                                notificationCommand.Parameters.AddWithValue("@NotificationMessage", notificationMessage);
+                                notificationCommand.Parameters.AddWithValue("@NotificationDate", DateTime.Now);
+                                notificationCommand.Parameters.AddWithValue("@NotificationStatus", "Chưa xem");
+                                notificationCommand.Parameters.AddWithValue("@ReferenceID", selectedService.ServiceID);
+                                notificationCommand.Parameters.AddWithValue("@CustomerID", selectedService.CustomerID);
+                                notificationCommand.Parameters.AddWithValue("@EmployeeID", DBNull.Value);
+                                notificationCommand.Parameters.AddWithValue("@NotificationTypeID", notificationTypeId);
+                                notificationCommand.ExecuteNonQuery();
+                            }
+
                             view.ShowMessage("Đã từ chối duyệt yêu cầu dịch vụ này.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            // Cập nhật trạng thái trong selectedService
                             selectedService.ApprovalStatus = "Từ chối";
                             selectedService.ServiceStatus = "Hủy";
-                            // Làm mới DGV
                             SearchServiceRequests();
                             view.ClearInputs();
                             view.EnableApproveButton(false);
@@ -665,6 +702,45 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                 }
                             }
                         } 
+                    }
+
+                    // Tạo bản ghi thông báo cho khách hàng
+                    int notificationTypeId;
+                    using (var command = new SqlCommand("SELECT NotificationTypeID FROM NOTIFICATION_TYPE WHERE NotificationTypeName = @NotificationTypeName", connection))
+                    {
+                        command.Parameters.AddWithValue("@NotificationTypeName", "Dịch vụ");
+                        var notificationTypeResult = command.ExecuteScalar(); // Đổi tên biến
+                        if (notificationTypeResult == null)
+                        {
+                            view.ShowMessage("Không tìm thấy NotificationTypeID cho 'Dịch vụ'.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        notificationTypeId = (int)notificationTypeResult;
+                    }
+
+                    string notificationMessage;
+                    if (selectedService.ServiceTypeID == 1) // Vay vốn
+                    {
+                        notificationMessage = $"Ngân hàng đã duyệt yêu cầu vay vốn với mã dịch vụ {selectedService.ServiceCode} từ bạn. Số tiền: {selectedService.TotalPrincipalAmount.ToString("#,##0")} đã được gửi về tài khoản!";
+                    }
+                    else // Gửi tiết kiệm (ServiceTypeID == 2)
+                    {
+                        notificationMessage = $"Ngân hàng đã duyệt yêu cầu gửi tiết kiệm với mã dịch vụ {selectedService.ServiceCode} từ bạn. Số tiền: {selectedService.TotalPrincipalAmount.ToString("#,##0")} của tài khoản đã được chuyển vào dịch vụ gửi tiết kiệm thành công!";
+                    }
+
+                    using (var command = new SqlCommand(
+                        "INSERT INTO [NOTIFICATION] (Title, NotificationMessage, NotificationDate, NotificationStatus, ReferenceID, CustomerID, EmployeeID, NotificationTypeID) " +
+                        "VALUES (@Title, @NotificationMessage, @NotificationDate, @NotificationStatus, @ReferenceID, @CustomerID, @EmployeeID, @NotificationTypeID)", connection))
+                    {
+                        command.Parameters.AddWithValue("@Title", "Duyệt yêu đã được duyệt!");
+                        command.Parameters.AddWithValue("@NotificationMessage", notificationMessage);
+                        command.Parameters.AddWithValue("@NotificationDate", DateTime.Now);
+                        command.Parameters.AddWithValue("@NotificationStatus", "Chưa xem");
+                        command.Parameters.AddWithValue("@ReferenceID", selectedService.ServiceID);
+                        command.Parameters.AddWithValue("@CustomerID", selectedService.CustomerID);
+                        command.Parameters.AddWithValue("@EmployeeID", DBNull.Value);
+                        command.Parameters.AddWithValue("@NotificationTypeID", notificationTypeId);
+                        command.ExecuteNonQuery();
                     }
 
                     // Cập nhật trạng thái trong selectedService

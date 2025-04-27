@@ -745,7 +745,34 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                             }
                         }
 
+                        // Thêm bản ghi vào bảng NOTIFICATION
+                        int notificationTypeId;
+                        using (var command = new SqlCommand("SELECT NotificationTypeID FROM NOTIFICATION_TYPE WHERE NotificationTypeName = @NotificationTypeName", connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@NotificationTypeName", "Giao dịch");
+                            var result = command.ExecuteScalar();
+                            if (result == null)
+                            {
+                                throw new Exception("Không tìm thấy NotificationTypeID cho 'Giao dịch'.");
+                            }
+                            notificationTypeId = (int)result;
+                        }
 
+                        string notificationMessage = $"{senderAccount.AccountName} thanh toán thành công cho mã thanh toán {payViewData.PayLoanID} của mã dịch vụ {payViewData.ServiceID}. Số tiền: {totalDue.ToString("#,##0")} VND";
+                        using (var command = new SqlCommand(
+                            "INSERT INTO [NOTIFICATION] (Title, NotificationMessage, NotificationDate, NotificationStatus, ReferenceID, CustomerID, EmployeeID, NotificationTypeID) " +
+                            "VALUES (@Title, @NotificationMessage, @NotificationDate, @NotificationStatus, @ReferenceID, @CustomerID, @EmployeeID, @NotificationTypeID)", connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@Title", "Thanh toán thành công!");
+                            command.Parameters.AddWithValue("@NotificationMessage", notificationMessage);
+                            command.Parameters.AddWithValue("@NotificationDate", DateTime.Now);
+                            command.Parameters.AddWithValue("@NotificationStatus", "Chưa xem");
+                            command.Parameters.AddWithValue("@ReferenceID", newTransactionId);
+                            command.Parameters.AddWithValue("@CustomerID", senderAccount.CustomerID);
+                            command.Parameters.AddWithValue("@EmployeeID", DBNull.Value);
+                            command.Parameters.AddWithValue("@NotificationTypeID", notificationTypeId);
+                            command.ExecuteNonQuery();
+                        }
 
                         // Cập nhật số dư trong đối tượng senderAccount
                         senderAccount.Balance -= amount;
