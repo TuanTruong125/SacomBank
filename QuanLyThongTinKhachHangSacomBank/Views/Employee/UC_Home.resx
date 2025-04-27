@@ -118,6 +118,18 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
+  <data name="buttonNotification.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+    <value>
+        iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAABGdBTUEAALGPC/xhBQAAAZVJREFUaEPt
+        me1NwzAQhjsCv3NBYgQ2gBEYgQkcM0G7AWzAKLBB2aD9b0cZoehQI5W3EWnO9l2R/EiPVLXq3euPfDRd
+        rSqVSjZaHx6pC6/UxY/GxV3j4oElF7b8Hn/WvgwP+D1zGtevTwPPSS4O/J07P9xgLVV4xpcER3kgtz4+
+        YV0VWtd3GEhuv8b6RaEuvp+HSJNrYp8ikO89Ns9n2GC/rJAf7s+b5rXoMZFywC5wh32zQD4+TzQrZIGt
+        pDT7P/LpFfsnobH3Ue6JOcSUPfNMSy6+YQ4x5MInNigt98QcYowGsMUcYrC4lphDDBbWEnOIwcJaYg4x
+        WFhLzCEGC2uJOcRgYS0xhxgsrCXmEIOFtcQcInTvQn/LvTHPYjTvQidM+21gOfujSatgPPujslW4htkf
+        Fa0C3w1iIStFd6ZYxFrMN0vj4h6LWEkufGG+Wfj5DBayUvys6DgIy5XYi8NX/ht8oE1sgUmzPnHIxZIL
+        n+jCpMElqyA6JWrB/3n9NQj+zPx/sUvgLXI6EH59tdumUqnY8g2kXjIWPhg5RwAAAABJRU5ErkJggg==
+</value>
+  </data>
   <data name="pictureBox2.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAfQAAAAUCAYAAAB75c+8AAAAIGNIUk0AAHomAACAhAAA+gAAAIDoAAB1
@@ -1437,7 +1449,7 @@
   <data name="pictureBox7.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
         iVBORw0KGgoAAAANSUhEUgAAAV0AAAHKCAYAAACg65hMAAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
-        wAAADsABataJCQAA3KpJREFUeF7s/Xl0ZNuX1wdShqKAgmIocAFV1UDbFLjb2MsYaBamDRgvjHEBa5k2
+        vwAADr8BOAVTJAAA3KpJREFUeF7s/Xl0ZNuX1wdShqKAgmIocAFV1UDbFLjb2MsYaBamDRgvjHEBa5k2
         NG7s9gKMV7u88DKmqQZc/F5mKifNUs75cp7ee7/fG1KKOSRlah4jQqEhNEs5p5Sah5in3eu7zz1xb5wb
         UirfS415/visSB1FShGKe7933332/u7fRES/SaPRaDT7g21Bo9FoNHuHbUGj0Wg0e4dtQaPRaDR7h21B
         o9FoNHuHbUGj0Wg0e4dtQaPRaDR7h21Bo9FoNHuHbUGj0Wg0e4dtQaPRaDR7h21Bo9FoNHuHbUGj0Wg0

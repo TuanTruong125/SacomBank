@@ -10,30 +10,36 @@ using System.Windows.Forms;
 using QuanLyThongTinKhachHangSacomBank.Views.Common.Notification;
 using QuanLyThongTinKhachHangSacomBank.Controllers;
 using QuanLyThongTinKhachHangSacomBank.Models;
+using QuanLyThongTinKhachHangSacomBank.Data;
 
 namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
 {
-    public partial class UC_Home : UserControl
+    public interface IEmployeeHomeView
+    {
+        void SetEmployeeName(string name);
+        void SetNotificationIcon(Image image);
+
+        int EmployeeID { get; }
+    }
+
+    public partial class UC_Home : UserControl, IEmployeeHomeView
     {
         private readonly NotificationController notificationController;
         private readonly EmployeeModel currentEmployee;
+        private readonly DatabaseContext dbContext;
+        private readonly EmployeeHomeController employeeHomeController;
 
-        public UC_Home(EmployeeModel employee)
+        public int EmployeeID => currentEmployee.EmployeeID;
+
+        public UC_Home(EmployeeModel employee, DatabaseContext dbContext)
         {
             try
             {
                 this.currentEmployee = employee;
+                this.dbContext = dbContext;
                 InitializeComponent();
                 notificationController = new NotificationController();
-
-                if (currentEmployee != null)
-                {
-                    labelEmployeeName.Text = currentEmployee.EmployeeName?.ToUpper() ?? "N/A";
-                }
-                else
-                {
-                    labelEmployeeName.Text = "N/A";
-                }
+                employeeHomeController = new EmployeeHomeController(this, employee, dbContext);
             }
             catch (Exception ex)
             {
@@ -42,11 +48,25 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
             }
         }
 
+        public void SetEmployeeName(string name)
+        {
+            labelEmployeeName.Text = name;
+        }
+
+        public void SetNotificationIcon(Image image)
+        {
+            buttonNotification.Image = image;
+        }
+
+
+
         private void buttonNotification_Click(object sender, EventArgs e)
         {
             try
             {
-                notificationController.OpenNotification(new UC_EmployeeNotification());
+                employeeHomeController.UpdateNotificationStatus();
+                employeeHomeController.UpdateNotificationIcon();
+                notificationController.OpenNotification(new UC_EmployeeNotification(currentEmployee.EmployeeID, dbContext));
             }
             catch (Exception ex)
             {

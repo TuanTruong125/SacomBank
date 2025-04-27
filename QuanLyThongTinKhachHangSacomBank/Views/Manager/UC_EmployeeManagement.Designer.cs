@@ -202,6 +202,7 @@
             tableLayoutPanel2.SetColumnSpan(dateTimePickerEmployeeDateOfBirth, 2);
             dateTimePickerEmployeeDateOfBirth.Dock = DockStyle.Fill;
             dateTimePickerEmployeeDateOfBirth.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dateTimePickerEmployeeDateOfBirth.Format = DateTimePickerFormat.Short;
             dateTimePickerEmployeeDateOfBirth.Location = new Point(3, 241);
             dateTimePickerEmployeeDateOfBirth.Name = "dateTimePickerEmployeeDateOfBirth";
             dateTimePickerEmployeeDateOfBirth.Size = new Size(357, 27);
@@ -235,7 +236,7 @@
             // 
             // dataEmployeeManagement
             // 
-            dataEmployeeManagement.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataEmployeeManagement.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
             dataEmployeeManagement.AutoSizeRowsMode = DataGridViewAutoSizeRowsMode.AllCells;
             dataEmployeeManagement.BackgroundColor = Color.White;
             dataEmployeeManagement.BorderStyle = BorderStyle.None;
@@ -269,66 +270,77 @@
             EmployeeID.HeaderText = "Mã nhân viên";
             EmployeeID.MinimumWidth = 6;
             EmployeeID.Name = "EmployeeID";
+            EmployeeID.Width = 147;
             // 
             // EmployeeName
             // 
             EmployeeName.HeaderText = "Họ tên";
             EmployeeName.MinimumWidth = 6;
             EmployeeName.Name = "EmployeeName";
+            EmployeeName.Width = 92;
             // 
             // EmployeeGender
             // 
             EmployeeGender.HeaderText = "Giới tính";
             EmployeeGender.MinimumWidth = 6;
             EmployeeGender.Name = "EmployeeGender";
+            EmployeeGender.Width = 107;
             // 
             // EmployeeDateOfBirth
             // 
             EmployeeDateOfBirth.HeaderText = "Ngày sinh";
             EmployeeDateOfBirth.MinimumWidth = 6;
             EmployeeDateOfBirth.Name = "EmployeeDateOfBirth";
+            EmployeeDateOfBirth.Width = 119;
             // 
             // EmployeeCitizenID
             // 
             EmployeeCitizenID.HeaderText = "CCCD";
             EmployeeCitizenID.MinimumWidth = 6;
             EmployeeCitizenID.Name = "EmployeeCitizenID";
+            EmployeeCitizenID.Width = 89;
             // 
             // EmployeeAddress
             // 
             EmployeeAddress.HeaderText = "Địa chỉ";
             EmployeeAddress.MinimumWidth = 6;
             EmployeeAddress.Name = "EmployeeAddress";
+            EmployeeAddress.Width = 95;
             // 
             // Role
             // 
             Role.HeaderText = "Chức vụ";
             Role.MinimumWidth = 6;
             Role.Name = "Role";
+            Role.Width = 104;
             // 
             // EmployeePhone
             // 
             EmployeePhone.HeaderText = "SĐT";
             EmployeePhone.MinimumWidth = 6;
             EmployeePhone.Name = "EmployeePhone";
+            EmployeePhone.Width = 72;
             // 
             // EmployeeEmail
             // 
             EmployeeEmail.HeaderText = "Email";
             EmployeeEmail.MinimumWidth = 6;
             EmployeeEmail.Name = "EmployeeEmail";
+            EmployeeEmail.Width = 83;
             // 
             // HireDate
             // 
             HireDate.HeaderText = "Ngày vào làm";
             HireDate.MinimumWidth = 6;
             HireDate.Name = "HireDate";
+            HireDate.Width = 149;
             // 
             // Salary
             // 
             Salary.HeaderText = "Lương";
             Salary.MinimumWidth = 6;
             Salary.Name = "Salary";
+            Salary.Width = 87;
             // 
             // comboBoxEmployeeGender
             // 
@@ -411,6 +423,7 @@
             dateTimePickerHireDate.CalendarMonthBackground = SystemColors.InactiveCaption;
             dateTimePickerHireDate.Dock = DockStyle.Fill;
             dateTimePickerHireDate.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dateTimePickerHireDate.Format = DateTimePickerFormat.Short;
             dateTimePickerHireDate.Location = new Point(373, 309);
             dateTimePickerHireDate.Name = "dateTimePickerHireDate";
             dateTimePickerHireDate.Size = new Size(315, 27);

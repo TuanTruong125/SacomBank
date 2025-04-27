@@ -47,7 +47,7 @@
             // richTextBoxMessage
             // 
             richTextBoxMessage.BorderStyle = BorderStyle.None;
-            richTextBoxMessage.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            richTextBoxMessage.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             richTextBoxMessage.Location = new Point(4, 133);
             richTextBoxMessage.Name = "richTextBoxMessage";
             richTextBoxMessage.ReadOnly = true;
@@ -68,11 +68,11 @@
             // 
             // textBoxTitle
             // 
-            textBoxTitle.Font = new Font("Roboto SemiCondensed Medium", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textBoxTitle.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             textBoxTitle.Location = new Point(108, 47);
             textBoxTitle.Name = "textBoxTitle";
             textBoxTitle.ReadOnly = true;
-            textBoxTitle.Size = new Size(943, 35);
+            textBoxTitle.Size = new Size(943, 32);
             textBoxTitle.TabIndex = 204;
             // 
             // label1

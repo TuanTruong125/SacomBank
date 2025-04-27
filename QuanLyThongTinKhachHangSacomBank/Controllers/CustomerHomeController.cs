@@ -36,6 +36,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 view.SetAccountID(account.AccountCode);
                 UpdateBalanceDisplay();
                 view.SetEyeImage(Properties.Resources.ViewBalance); // Mắt mở mặc định
+                UpdateNotificationIcon();
             }
         }
 
@@ -59,6 +60,58 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             isBalanceVisible = !isBalanceVisible;
             view.SetEyeImage(isBalanceVisible ? Properties.Resources.ViewBalance : Properties.Resources.HideBalance);
             UpdateBalanceDisplay();
+        }
+
+        public void UpdateNotificationIcon()
+        {
+            try
+            {
+                using (var connection = dbContext.GetConnection())
+                {
+                    connection.Open();
+                    using (var command = new SqlCommand("SELECT COUNT(*) FROM NOTIFICATION WHERE CustomerID = @CustomerID AND NotificationStatus = @Status", connection))
+                    {
+                        command.Parameters.AddWithValue("@CustomerID", view.CustomerID);
+                        command.Parameters.AddWithValue("@Status", "Chưa xem");
+                        int unreadCount = (int)command.ExecuteScalar();
+
+                        if (unreadCount > 0)
+                        {
+                            view.SetNotificationIcon(Properties.Resources.Alarm); // Chuông reng
+                        }
+                        else
+                        {
+                            view.SetNotificationIcon(Properties.Resources.Notification); // Chuông thường
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi kiểm tra trạng thái thông báo: {ex.Message}");
+            }
+        }
+
+        public void UpdateNotificationStatus()
+        {
+            try
+            {
+                using (var connection = dbContext.GetConnection())
+                {
+                    connection.Open();
+                    using (var command = new SqlCommand("UPDATE NOTIFICATION SET NotificationStatus = @Status WHERE CustomerID = @CustomerID AND NotificationStatus = @OldStatus", connection))
+                    {
+                        command.Parameters.AddWithValue("@Status", "Đã xem");
+                        command.Parameters.AddWithValue("@CustomerID", view.CustomerID);
+                        command.Parameters.AddWithValue("@OldStatus", "Chưa xem");
+                        command.ExecuteNonQuery();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                System.Diagnostics.Debug.WriteLine($"Lỗi khi cập nhật trạng thái thông báo: {ex.Message}");
+            }
         }
 
         // Phương thức load dữ liệu từ LOAN_PAYMENT

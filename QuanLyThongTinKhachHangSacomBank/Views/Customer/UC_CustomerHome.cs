@@ -25,8 +25,11 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
         void SetAccountID(string id);
         void SetBalance(string balance);
         void SetEyeImage(Image image);
+        void SetNotificationIcon(Image image);
         void UpdateServiceNotifications(List<ServiceNotificationDisplayModel> notifications);
         void UpdateServiceNotificationRow(string payLoanCode, string paymentStatus, string remainingDebt);
+
+        int CustomerID { get; }
 
         event EventHandler ViewBalanceRequested;
     }
@@ -41,14 +44,19 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
         private readonly CustomerServiceManagementController customerServiceManagementController;
         private readonly ChatController chatController;
         private readonly AccountModel currentAccount;
+        private readonly CustomerHomeController customerHomeController;
+        private readonly DatabaseContext dbContext;
 
         public event EventHandler ViewBalanceRequested;
+
+        public int CustomerID => currentAccount.CustomerID;
 
         public UC_CustomerHome(AccountModel currentAccount, EmployeeModel currentEmployee, DatabaseContext dbContext, IConfiguration configuration)
         {
             try
             {
                 this.currentAccount = currentAccount;
+                this.dbContext = dbContext;
                 InitializeComponent();
                 notificationController = new NotificationController();
                 transferController = new TransferController(currentAccount, currentEmployee, dbContext, configuration, this);
@@ -62,6 +70,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
                 showCustomerAccountInfoController = new ShowCustomerAccountInfoController(new FormShowCustomerAccountInfo(), dbContext);
                 customerServiceManagementController = new CustomerServiceManagementController(new FormCustomerServiceManagement(), currentAccount, dbContext);
                 chatController = new ChatController(dbContext);
+
+                customerHomeController = new CustomerHomeController(this, currentAccount, dbContext);
 
                 // Cấu hình DataGridView
                 dataGridViewServiceNotification.ReadOnly = true;
@@ -176,7 +186,9 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
         {
             try
             {
-                notificationController.OpenNotification(new UC_CustomerNotification());
+                customerHomeController.UpdateNotificationStatus();
+                customerHomeController.UpdateNotificationIcon();
+                notificationController.OpenNotification(new UC_CustomerNotification(currentAccount.CustomerID, dbContext));
             }
             catch (Exception ex)
             {
@@ -292,6 +304,11 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
         public void SetEyeImage(Image image)
         {
             buttonViewBalance.Image = image;
+        }
+
+        public void SetNotificationIcon(Image image)
+        {
+            buttonNotification.Image = image;
         }
     }
 

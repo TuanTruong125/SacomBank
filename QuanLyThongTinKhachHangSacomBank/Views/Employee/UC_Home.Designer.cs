@@ -30,6 +30,8 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_Home));
             tableLayoutPanel1 = new TableLayoutPanel();
+            labelEmployeeName = new Label();
+            label5 = new Label();
             panel1 = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
             panel2 = new Panel();
@@ -55,8 +57,7 @@
             pictureBox5 = new PictureBox();
             pictureBox6 = new PictureBox();
             pictureBox7 = new PictureBox();
-            label5 = new Label();
-            labelEmployeeName = new Label();
+            buttonNotification = new Button();
             tableLayoutPanel1.SuspendLayout();
             panel1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
@@ -89,6 +90,7 @@
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.1908131F));
             tableLayoutPanel1.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 7.95053F));
+            tableLayoutPanel1.Controls.Add(buttonNotification, 9, 0);
             tableLayoutPanel1.Controls.Add(labelEmployeeName, 3, 0);
             tableLayoutPanel1.Controls.Add(label5, 2, 0);
             tableLayoutPanel1.Controls.Add(panel1, 1, 2);
@@ -122,6 +124,33 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Absolute, 20F));
             tableLayoutPanel1.Size = new Size(1132, 753);
             tableLayoutPanel1.TabIndex = 0;
+            // 
+            // labelEmployeeName
+            // 
+            labelEmployeeName.AutoSize = true;
+            tableLayoutPanel1.SetColumnSpan(labelEmployeeName, 4);
+            labelEmployeeName.Dock = DockStyle.Fill;
+            labelEmployeeName.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelEmployeeName.ForeColor = SystemColors.HotTrack;
+            labelEmployeeName.Location = new Point(342, 0);
+            labelEmployeeName.Name = "labelEmployeeName";
+            labelEmployeeName.Size = new Size(446, 75);
+            labelEmployeeName.TabIndex = 10;
+            labelEmployeeName.Text = "TRUONG ANH TUAN";
+            labelEmployeeName.TextAlign = ContentAlignment.MiddleLeft;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Dock = DockStyle.Fill;
+            label5.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.ForeColor = SystemColors.HotTrack;
+            label5.Location = new Point(229, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(107, 75);
+            label5.TabIndex = 9;
+            label5.Text = "Xin chào!";
+            label5.TextAlign = ContentAlignment.MiddleRight;
             // 
             // panel1
             // 
@@ -564,32 +593,18 @@
             pictureBox7.TabIndex = 8;
             pictureBox7.TabStop = false;
             // 
-            // label5
+            // buttonNotification
             // 
-            label5.AutoSize = true;
-            label5.Dock = DockStyle.Fill;
-            label5.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label5.ForeColor = SystemColors.HotTrack;
-            label5.Location = new Point(229, 0);
-            label5.Name = "label5";
-            label5.Size = new Size(107, 75);
-            label5.TabIndex = 9;
-            label5.Text = "Xin chào!";
-            label5.TextAlign = ContentAlignment.MiddleRight;
-            // 
-            // labelEmployeeName
-            // 
-            labelEmployeeName.AutoSize = true;
-            tableLayoutPanel1.SetColumnSpan(labelEmployeeName, 4);
-            labelEmployeeName.Dock = DockStyle.Fill;
-            labelEmployeeName.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelEmployeeName.ForeColor = SystemColors.HotTrack;
-            labelEmployeeName.Location = new Point(342, 0);
-            labelEmployeeName.Name = "labelEmployeeName";
-            labelEmployeeName.Size = new Size(446, 75);
-            labelEmployeeName.TabIndex = 10;
-            labelEmployeeName.Text = "TRUONG ANH TUAN";
-            labelEmployeeName.TextAlign = ContentAlignment.MiddleLeft;
+            buttonNotification.BackColor = Color.Transparent;
+            buttonNotification.Dock = DockStyle.Fill;
+            buttonNotification.ForeColor = Color.Transparent;
+            buttonNotification.Image = (Image)resources.GetObject("buttonNotification.Image");
+            buttonNotification.Location = new Point(1044, 3);
+            buttonNotification.Name = "buttonNotification";
+            buttonNotification.Size = new Size(85, 69);
+            buttonNotification.TabIndex = 11;
+            buttonNotification.UseVisualStyleBackColor = false;
+            buttonNotification.Click += buttonNotification_Click;
             // 
             // UC_Home
             // 
@@ -652,5 +667,6 @@
         private PictureBox pictureBox7;
         private Label label5;
         private Label labelEmployeeName;
+        private Button buttonNotification;
     }
 }

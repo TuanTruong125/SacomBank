@@ -30,6 +30,7 @@
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
             richTextBoxMessage = new RichTextBox();
             label2 = new Label();
             textBoxTitle = new TextBox();
@@ -47,7 +48,7 @@
             // richTextBoxMessage
             // 
             richTextBoxMessage.BorderStyle = BorderStyle.None;
-            richTextBoxMessage.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            richTextBoxMessage.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             richTextBoxMessage.Location = new Point(4, 133);
             richTextBoxMessage.Name = "richTextBoxMessage";
             richTextBoxMessage.ReadOnly = true;
@@ -68,11 +69,11 @@
             // 
             // textBoxTitle
             // 
-            textBoxTitle.Font = new Font("Roboto SemiCondensed Medium", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textBoxTitle.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             textBoxTitle.Location = new Point(108, 47);
             textBoxTitle.Name = "textBoxTitle";
             textBoxTitle.ReadOnly = true;
-            textBoxTitle.Size = new Size(943, 35);
+            textBoxTitle.Size = new Size(943, 32);
             textBoxTitle.TabIndex = 198;
             // 
             // label1
@@ -115,20 +116,28 @@
             dataGridViewNotification.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewNotification.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewNotification.Columns.AddRange(new DataGridViewColumn[] { NotificationTypeName, Title, Message, NotificationDate, NotificationStatus });
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridViewNotification.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewNotification.EnableHeadersVisualStyles = false;
             dataGridViewNotification.GridColor = Color.White;
             dataGridViewNotification.Location = new Point(4, 246);
             dataGridViewNotification.Name = "dataGridViewNotification";
             dataGridViewNotification.ReadOnly = true;
             dataGridViewNotification.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.Control;
-            dataGridViewCellStyle2.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.True;
-            dataGridViewNotification.RowHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = SystemColors.Control;
+            dataGridViewCellStyle3.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.True;
+            dataGridViewNotification.RowHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewNotification.RowHeadersVisible = false;
             dataGridViewNotification.RowHeadersWidth = 51;
             dataGridViewNotification.Size = new Size(1047, 234);

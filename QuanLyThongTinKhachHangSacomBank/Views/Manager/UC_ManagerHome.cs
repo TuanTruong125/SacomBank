@@ -23,6 +23,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
         void ClearInputs();
         void PopulateNotificationTypes(List<string> notificationTypes);
         void ShowMessage(string message, string caption, MessageBoxButtons buttons, MessageBoxIcon icon);
+        void SetNotificationIcon(Image image);
+        int EmployeeID { get; }
     }
 
     public partial class UC_ManagerHome : UserControl, IManagerHomeView
@@ -32,6 +34,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
         private readonly EmployeeModel currentEmployee;
         private readonly DatabaseContext dbContext;
         private readonly IConfiguration configuration;
+
+        public int EmployeeID => currentEmployee.EmployeeID;
 
         public UC_ManagerHome(EmployeeModel employee, IConfiguration configuration, DatabaseContext dbContext)
         {
@@ -93,13 +97,20 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
             MessageBox.Show(message, caption, buttons, icon);
         }
 
+        public void SetNotificationIcon(Image image)
+        {
+            buttonNotification.Image = image;
+        }
+
 
 
         private void buttonNotification_Click(object sender, EventArgs e)
         {
             try
             {
-                notificationController.OpenNotification(new UC_ManagerNotification());
+                managerHomeController.UpdateNotificationStatus();
+                managerHomeController.UpdateNotificationIcon();
+                notificationController.OpenNotification(new UC_ManagerNotification(currentEmployee.EmployeeID, dbContext));
             }
             catch (Exception ex)
             {

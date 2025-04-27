@@ -63,6 +63,16 @@ namespace QuanLyThongTinKhachHangSacomBank.Properties {
         /// <summary>
         ///   Looks up a localized resource of type System.Drawing.Bitmap.
         /// </summary>
+        internal static System.Drawing.Bitmap Alarm {
+            get {
+                object obj = ResourceManager.GetObject("Alarm", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
         internal static System.Drawing.Bitmap HideBalance {
             get {
                 object obj = ResourceManager.GetObject("HideBalance", resourceCulture);
@@ -86,6 +96,16 @@ namespace QuanLyThongTinKhachHangSacomBank.Properties {
         internal static System.Drawing.Bitmap Left_Login {
             get {
                 object obj = ResourceManager.GetObject("Left_Login", resourceCulture);
+                return ((System.Drawing.Bitmap)(obj));
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized resource of type System.Drawing.Bitmap.
+        /// </summary>
+        internal static System.Drawing.Bitmap Notification {
+            get {
+                object obj = ResourceManager.GetObject("Notification", resourceCulture);
                 return ((System.Drawing.Bitmap)(obj));
             }
         }
