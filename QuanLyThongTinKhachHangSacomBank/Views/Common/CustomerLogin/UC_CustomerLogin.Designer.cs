@@ -110,7 +110,7 @@
             textBoxUsername.Location = new Point(46, 164);
             textBoxUsername.Name = "textBoxUsername";
             textBoxUsername.Size = new Size(312, 27);
-            textBoxUsername.TabIndex = 15;
+            textBoxUsername.TabIndex = 7;
             // 
             // label4
             // 
@@ -126,9 +126,9 @@
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label5.Location = new Point(42, 133);
             label5.Name = "label5";
-            label5.Size = new Size(106, 28);
+            label5.Size = new Size(152, 28);
             label5.TabIndex = 13;
-            label5.Text = "Username";
+            label5.Text = "Tên đăng nhập";
             // 
             // linkLabelForgotPasswordCustomer
             // 
@@ -207,7 +207,7 @@
             buttonShowPassword.Location = new Point(364, 260);
             buttonShowPassword.Name = "buttonShowPassword";
             buttonShowPassword.Size = new Size(40, 40);
-            buttonShowPassword.TabIndex = 60;
+            buttonShowPassword.TabIndex = 16;
             buttonShowPassword.UseVisualStyleBackColor = true;
             buttonShowPassword.Click += buttonShowPassword_Click;
             // 

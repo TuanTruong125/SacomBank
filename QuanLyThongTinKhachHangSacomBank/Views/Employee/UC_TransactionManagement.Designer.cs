@@ -35,11 +35,23 @@
             groupBox1 = new GroupBox();
             panel1 = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
-            buttonDeposit = new Button();
-            buttonWithdraw = new Button();
+            pictureBox1 = new PictureBox();
+            panel3 = new Panel();
+            tableLayoutPanel3 = new TableLayoutPanel();
+            pictureBox2 = new PictureBox();
+            pictureBox3 = new PictureBox();
+            panel4 = new Panel();
+            tableLayoutPanel5 = new TableLayoutPanel();
             buttonTransfer = new Button();
             buttonPay = new Button();
-            pictureBox1 = new PictureBox();
+            buttonDeposit = new Button();
+            buttonWithdraw = new Button();
+            panel5 = new Panel();
+            tableLayoutPanel6 = new TableLayoutPanel();
+            label3 = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            label6 = new Label();
             groupBox2 = new GroupBox();
             tableLayoutPanel4 = new TableLayoutPanel();
             buttonExportCSV = new Button();
@@ -76,6 +88,14 @@
             groupBox1.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
+            panel3.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            panel4.SuspendLayout();
+            tableLayoutPanel5.SuspendLayout();
+            panel5.SuspendLayout();
+            tableLayoutPanel6.SuspendLayout();
             groupBox2.SuspendLayout();
             tableLayoutPanel4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridViewTransactionManagement).BeginInit();
@@ -133,11 +153,8 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.9882231F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.506351F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5.17118645F));
-            tableLayoutPanel2.Controls.Add(buttonDeposit, 1, 1);
-            tableLayoutPanel2.Controls.Add(buttonWithdraw, 3, 1);
-            tableLayoutPanel2.Controls.Add(buttonTransfer, 5, 1);
-            tableLayoutPanel2.Controls.Add(buttonPay, 7, 1);
             tableLayoutPanel2.Controls.Add(pictureBox1, 9, 0);
+            tableLayoutPanel2.Controls.Add(panel3, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(3, 28);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -147,66 +164,6 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 22.6637F));
             tableLayoutPanel2.Size = new Size(1112, 310);
             tableLayoutPanel2.TabIndex = 0;
-            // 
-            // buttonDeposit
-            // 
-            buttonDeposit.BackColor = Color.LightGreen;
-            buttonDeposit.Dock = DockStyle.Fill;
-            buttonDeposit.ForeColor = Color.Black;
-            buttonDeposit.Image = (Image)resources.GetObject("buttonDeposit.Image");
-            buttonDeposit.ImageAlign = ContentAlignment.TopCenter;
-            buttonDeposit.Location = new Point(119, 73);
-            buttonDeposit.Name = "buttonDeposit";
-            buttonDeposit.Size = new Size(144, 163);
-            buttonDeposit.TabIndex = 5;
-            buttonDeposit.Text = "Nạp tiền";
-            buttonDeposit.UseVisualStyleBackColor = false;
-            buttonDeposit.Click += buttonDeposit_Click;
-            // 
-            // buttonWithdraw
-            // 
-            buttonWithdraw.BackColor = Color.Coral;
-            buttonWithdraw.Dock = DockStyle.Fill;
-            buttonWithdraw.ForeColor = Color.Black;
-            buttonWithdraw.Image = (Image)resources.GetObject("buttonWithdraw.Image");
-            buttonWithdraw.ImageAlign = ContentAlignment.TopCenter;
-            buttonWithdraw.Location = new Point(352, 73);
-            buttonWithdraw.Name = "buttonWithdraw";
-            buttonWithdraw.Size = new Size(144, 163);
-            buttonWithdraw.TabIndex = 6;
-            buttonWithdraw.Text = "Rút tiền";
-            buttonWithdraw.UseVisualStyleBackColor = false;
-            buttonWithdraw.Click += buttonWithdraw_Click;
-            // 
-            // buttonTransfer
-            // 
-            buttonTransfer.BackColor = Color.RoyalBlue;
-            buttonTransfer.Dock = DockStyle.Fill;
-            buttonTransfer.ForeColor = Color.Black;
-            buttonTransfer.Image = (Image)resources.GetObject("buttonTransfer.Image");
-            buttonTransfer.ImageAlign = ContentAlignment.TopCenter;
-            buttonTransfer.Location = new Point(572, 73);
-            buttonTransfer.Name = "buttonTransfer";
-            buttonTransfer.Size = new Size(142, 163);
-            buttonTransfer.TabIndex = 7;
-            buttonTransfer.Text = "Chuyển tiền";
-            buttonTransfer.UseVisualStyleBackColor = false;
-            buttonTransfer.Click += buttonTransfer_Click;
-            // 
-            // buttonPay
-            // 
-            buttonPay.BackColor = Color.Gold;
-            buttonPay.Dock = DockStyle.Fill;
-            buttonPay.ForeColor = Color.Black;
-            buttonPay.Image = (Image)resources.GetObject("buttonPay.Image");
-            buttonPay.ImageAlign = ContentAlignment.TopCenter;
-            buttonPay.Location = new Point(805, 73);
-            buttonPay.Name = "buttonPay";
-            buttonPay.Size = new Size(149, 163);
-            buttonPay.TabIndex = 8;
-            buttonPay.Text = "Thanh toán";
-            buttonPay.UseVisualStyleBackColor = false;
-            buttonPay.Click += buttonPay_Click;
             // 
             // pictureBox1
             // 
@@ -219,6 +176,234 @@
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 9;
             pictureBox1.TabStop = false;
+            // 
+            // panel3
+            // 
+            tableLayoutPanel2.SetColumnSpan(panel3, 9);
+            panel3.Controls.Add(tableLayoutPanel3);
+            panel3.Dock = DockStyle.Fill;
+            panel3.Location = new Point(3, 3);
+            panel3.Name = "panel3";
+            tableLayoutPanel2.SetRowSpan(panel3, 3);
+            panel3.Size = new Size(1045, 304);
+            panel3.TabIndex = 10;
+            // 
+            // tableLayoutPanel3
+            // 
+            tableLayoutPanel3.ColumnCount = 3;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5.683316F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 88.63336F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5.68331575F));
+            tableLayoutPanel3.Controls.Add(pictureBox2, 1, 1);
+            tableLayoutPanel3.Controls.Add(pictureBox3, 1, 3);
+            tableLayoutPanel3.Controls.Add(panel4, 1, 2);
+            tableLayoutPanel3.Dock = DockStyle.Fill;
+            tableLayoutPanel3.Location = new Point(0, 0);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 5;
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 6.3164897F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 10.1063833F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 67.15425F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 10.1063833F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 6.3164897F));
+            tableLayoutPanel3.Size = new Size(1045, 304);
+            tableLayoutPanel3.TabIndex = 0;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Dock = DockStyle.Fill;
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(62, 22);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(920, 24);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 0;
+            pictureBox2.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.Dock = DockStyle.Fill;
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(62, 256);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(920, 24);
+            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox3.TabIndex = 1;
+            pictureBox3.TabStop = false;
+            // 
+            // panel4
+            // 
+            panel4.BackColor = Color.White;
+            panel4.Controls.Add(tableLayoutPanel5);
+            panel4.Dock = DockStyle.Fill;
+            panel4.Location = new Point(62, 52);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(920, 198);
+            panel4.TabIndex = 2;
+            // 
+            // tableLayoutPanel5
+            // 
+            tableLayoutPanel5.ColumnCount = 9;
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel5.Controls.Add(buttonTransfer, 5, 1);
+            tableLayoutPanel5.Controls.Add(buttonPay, 7, 1);
+            tableLayoutPanel5.Controls.Add(buttonDeposit, 1, 1);
+            tableLayoutPanel5.Controls.Add(buttonWithdraw, 3, 1);
+            tableLayoutPanel5.Controls.Add(panel5, 0, 2);
+            tableLayoutPanel5.Dock = DockStyle.Fill;
+            tableLayoutPanel5.Location = new Point(0, 0);
+            tableLayoutPanel5.Name = "tableLayoutPanel5";
+            tableLayoutPanel5.RowCount = 4;
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 5.050505F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 44.4444427F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 25F));
+            tableLayoutPanel5.Size = new Size(920, 198);
+            tableLayoutPanel5.TabIndex = 0;
+            // 
+            // buttonTransfer
+            // 
+            buttonTransfer.BackColor = Color.RoyalBlue;
+            buttonTransfer.Dock = DockStyle.Fill;
+            buttonTransfer.ForeColor = Color.Black;
+            buttonTransfer.Image = (Image)resources.GetObject("buttonTransfer.Image");
+            buttonTransfer.Location = new Point(513, 13);
+            buttonTransfer.Name = "buttonTransfer";
+            buttonTransfer.Size = new Size(96, 82);
+            buttonTransfer.TabIndex = 7;
+            buttonTransfer.UseVisualStyleBackColor = false;
+            buttonTransfer.Click += buttonTransfer_Click;
+            // 
+            // buttonPay
+            // 
+            buttonPay.BackColor = Color.Gold;
+            buttonPay.Dock = DockStyle.Fill;
+            buttonPay.ForeColor = Color.Black;
+            buttonPay.Image = (Image)resources.GetObject("buttonPay.Image");
+            buttonPay.Location = new Point(717, 13);
+            buttonPay.Name = "buttonPay";
+            buttonPay.Size = new Size(96, 82);
+            buttonPay.TabIndex = 8;
+            buttonPay.UseVisualStyleBackColor = false;
+            buttonPay.Click += buttonPay_Click;
+            // 
+            // buttonDeposit
+            // 
+            buttonDeposit.BackColor = Color.LightGreen;
+            buttonDeposit.Dock = DockStyle.Fill;
+            buttonDeposit.ForeColor = Color.Black;
+            buttonDeposit.Image = (Image)resources.GetObject("buttonDeposit.Image");
+            buttonDeposit.Location = new Point(105, 13);
+            buttonDeposit.Name = "buttonDeposit";
+            buttonDeposit.Size = new Size(96, 82);
+            buttonDeposit.TabIndex = 5;
+            buttonDeposit.UseVisualStyleBackColor = false;
+            buttonDeposit.Click += buttonDeposit_Click;
+            // 
+            // buttonWithdraw
+            // 
+            buttonWithdraw.BackColor = Color.Coral;
+            buttonWithdraw.Dock = DockStyle.Fill;
+            buttonWithdraw.ForeColor = Color.Black;
+            buttonWithdraw.Image = (Image)resources.GetObject("buttonWithdraw.Image");
+            buttonWithdraw.Location = new Point(309, 13);
+            buttonWithdraw.Name = "buttonWithdraw";
+            buttonWithdraw.Size = new Size(96, 82);
+            buttonWithdraw.TabIndex = 6;
+            buttonWithdraw.UseVisualStyleBackColor = false;
+            buttonWithdraw.Click += buttonWithdraw_Click;
+            // 
+            // panel5
+            // 
+            tableLayoutPanel5.SetColumnSpan(panel5, 9);
+            panel5.Controls.Add(tableLayoutPanel6);
+            panel5.Dock = DockStyle.Fill;
+            panel5.Location = new Point(3, 101);
+            panel5.Name = "panel5";
+            tableLayoutPanel5.SetRowSpan(panel5, 2);
+            panel5.Size = new Size(914, 94);
+            panel5.TabIndex = 9;
+            // 
+            // tableLayoutPanel6
+            // 
+            tableLayoutPanel6.ColumnCount = 9;
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10.874341F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.203867F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.0940247F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.4235506F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.446397F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.9499121F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.862144F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.0196934F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 10.0395432F));
+            tableLayoutPanel6.Controls.Add(label3, 1, 0);
+            tableLayoutPanel6.Controls.Add(label4, 3, 0);
+            tableLayoutPanel6.Controls.Add(label5, 5, 0);
+            tableLayoutPanel6.Controls.Add(label6, 7, 0);
+            tableLayoutPanel6.Dock = DockStyle.Fill;
+            tableLayoutPanel6.Location = new Point(0, 0);
+            tableLayoutPanel6.Name = "tableLayoutPanel6";
+            tableLayoutPanel6.RowCount = 2;
+            tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
+            tableLayoutPanel6.Size = new Size(914, 94);
+            tableLayoutPanel6.TabIndex = 0;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Dock = DockStyle.Fill;
+            label3.ForeColor = Color.Black;
+            label3.Location = new Point(102, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(96, 47);
+            label3.TabIndex = 0;
+            label3.Text = "Nạp tiền";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Dock = DockStyle.Fill;
+            label4.ForeColor = Color.Black;
+            label4.Location = new Point(305, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(98, 47);
+            label4.TabIndex = 1;
+            label4.Text = "Rút tiền";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Dock = DockStyle.Fill;
+            label5.ForeColor = Color.Black;
+            label5.Location = new Point(495, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(121, 47);
+            label5.TabIndex = 2;
+            label5.Text = "Chuyển tiền";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Dock = DockStyle.Fill;
+            label6.ForeColor = Color.Black;
+            label6.Location = new Point(703, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(113, 47);
+            label6.TabIndex = 3;
+            label6.Text = "Thanh toán";
+            label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // groupBox2
             // 
@@ -700,6 +885,15 @@
             groupBox1.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
+            panel3.ResumeLayout(false);
+            tableLayoutPanel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            panel4.ResumeLayout(false);
+            tableLayoutPanel5.ResumeLayout(false);
+            panel5.ResumeLayout(false);
+            tableLayoutPanel6.ResumeLayout(false);
+            tableLayoutPanel6.PerformLayout();
             groupBox2.ResumeLayout(false);
             tableLayoutPanel4.ResumeLayout(false);
             tableLayoutPanel4.PerformLayout();
@@ -754,5 +948,17 @@
         private DataGridViewTextBoxColumn HandledBy;
         private DataGridViewTextBoxColumn TransactionStatus;
         private Button buttonExportCSV;
+        private Panel panel3;
+        private TableLayoutPanel tableLayoutPanel3;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox3;
+        private Panel panel4;
+        private TableLayoutPanel tableLayoutPanel5;
+        private Panel panel5;
+        private TableLayoutPanel tableLayoutPanel6;
+        private Label label3;
+        private Label label4;
+        private Label label5;
+        private Label label6;
     }
 }

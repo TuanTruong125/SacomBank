@@ -112,12 +112,11 @@
             tableLayoutPanel1.Controls.Add(groupBoxDataCustomerManagement, 0, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Margin = new Padding(5);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 50F));
-            tableLayoutPanel1.Size = new Size(1840, 1205);
+            tableLayoutPanel1.Size = new Size(1132, 753);
             tableLayoutPanel1.TabIndex = 0;
             // 
             // groupBoxCustomerInfo
@@ -128,11 +127,9 @@
             groupBoxCustomerInfo.Dock = DockStyle.Fill;
             groupBoxCustomerInfo.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBoxCustomerInfo.ForeColor = SystemColors.HotTrack;
-            groupBoxCustomerInfo.Location = new Point(5, 5);
-            groupBoxCustomerInfo.Margin = new Padding(5);
+            groupBoxCustomerInfo.Location = new Point(3, 3);
             groupBoxCustomerInfo.Name = "groupBoxCustomerInfo";
-            groupBoxCustomerInfo.Padding = new Padding(5);
-            groupBoxCustomerInfo.Size = new Size(1830, 592);
+            groupBoxCustomerInfo.Size = new Size(1126, 370);
             groupBoxCustomerInfo.TabIndex = 0;
             groupBoxCustomerInfo.TabStop = false;
             groupBoxCustomerInfo.Text = "Thông tin khách hàng";
@@ -140,10 +137,9 @@
             // panel1
             // 
             panel1.BackColor = SystemColors.HotTrack;
-            panel1.Location = new Point(354, 16);
-            panel1.Margin = new Padding(5);
+            panel1.Location = new Point(218, 10);
             panel1.Name = "panel1";
-            panel1.Size = new Size(384, 8);
+            panel1.Size = new Size(236, 5);
             panel1.TabIndex = 5;
             // 
             // tableLayoutPanel2
@@ -185,8 +181,7 @@
             tableLayoutPanel2.Controls.Add(labelCustomerType, 1, 0);
             tableLayoutPanel2.Controls.Add(comboBoxCustomerTypeName, 1, 1);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(5, 42);
-            tableLayoutPanel2.Margin = new Padding(5);
+            tableLayoutPanel2.Location = new Point(3, 26);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 10;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
@@ -199,7 +194,7 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel2.Size = new Size(1820, 545);
+            tableLayoutPanel2.Size = new Size(1120, 341);
             tableLayoutPanel2.TabIndex = 0;
             // 
             // labelCustomerID
@@ -209,10 +204,9 @@
             labelCustomerID.BackColor = Color.Transparent;
             labelCustomerID.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             labelCustomerID.ForeColor = Color.Black;
-            labelCustomerID.Location = new Point(5, 22);
-            labelCustomerID.Margin = new Padding(5, 0, 5, 0);
+            labelCustomerID.Location = new Point(3, 14);
             labelCustomerID.Name = "labelCustomerID";
-            labelCustomerID.Size = new Size(220, 32);
+            labelCustomerID.Size = new Size(135, 20);
             labelCustomerID.TabIndex = 9;
             labelCustomerID.Text = "Mã khách hàng";
             // 
@@ -223,10 +217,9 @@
             labelFullName.BackColor = Color.Transparent;
             labelFullName.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             labelFullName.ForeColor = Color.Black;
-            labelFullName.Location = new Point(5, 130);
-            labelFullName.Margin = new Padding(5, 0, 5, 0);
+            labelFullName.Location = new Point(3, 82);
             labelFullName.Name = "labelFullName";
-            labelFullName.Size = new Size(103, 32);
+            labelFullName.Size = new Size(65, 20);
             labelFullName.TabIndex = 10;
             labelFullName.Text = "Họ tên";
             // 
@@ -237,10 +230,9 @@
             labelGender.BackColor = Color.Transparent;
             labelGender.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             labelGender.ForeColor = Color.Black;
-            labelGender.Location = new Point(5, 238);
-            labelGender.Margin = new Padding(5, 0, 5, 0);
+            labelGender.Location = new Point(3, 150);
             labelGender.Name = "labelGender";
-            labelGender.Size = new Size(129, 32);
+            labelGender.Size = new Size(80, 20);
             labelGender.TabIndex = 12;
             labelGender.Text = "Giới tính";
             // 
@@ -251,10 +243,9 @@
             labelNationality.BackColor = Color.Transparent;
             labelNationality.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             labelNationality.ForeColor = Color.Black;
-            labelNationality.Location = new Point(5, 454);
-            labelNationality.Margin = new Padding(5, 0, 5, 0);
+            labelNationality.Location = new Point(3, 286);
             labelNationality.Name = "labelNationality";
-            labelNationality.Size = new Size(143, 32);
+            labelNationality.Size = new Size(90, 20);
             labelNationality.TabIndex = 13;
             labelNationality.Text = "Quốc tịch";
             // 
@@ -265,10 +256,9 @@
             labelDateOfBirth.BackColor = Color.Transparent;
             labelDateOfBirth.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             labelDateOfBirth.ForeColor = Color.Black;
-            labelDateOfBirth.Location = new Point(5, 346);
-            labelDateOfBirth.Margin = new Padding(5, 0, 5, 0);
+            labelDateOfBirth.Location = new Point(3, 218);
             labelDateOfBirth.Name = "labelDateOfBirth";
-            labelDateOfBirth.Size = new Size(149, 32);
+            labelDateOfBirth.Size = new Size(92, 20);
             labelDateOfBirth.TabIndex = 11;
             labelDateOfBirth.Text = "Ngày sinh";
             // 
@@ -277,10 +267,9 @@
             textBoxCustomerID.BackColor = SystemColors.InactiveCaption;
             textBoxCustomerID.Dock = DockStyle.Fill;
             textBoxCustomerID.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxCustomerID.Location = new Point(5, 59);
-            textBoxCustomerID.Margin = new Padding(5);
+            textBoxCustomerID.Location = new Point(3, 37);
             textBoxCustomerID.Name = "textBoxCustomerID";
-            textBoxCustomerID.Size = new Size(273, 38);
+            textBoxCustomerID.Size = new Size(168, 27);
             textBoxCustomerID.TabIndex = 23;
             // 
             // textBoxFullName
@@ -289,10 +278,9 @@
             tableLayoutPanel2.SetColumnSpan(textBoxFullName, 2);
             textBoxFullName.Dock = DockStyle.Fill;
             textBoxFullName.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxFullName.Location = new Point(5, 167);
-            textBoxFullName.Margin = new Padding(5);
+            textBoxFullName.Location = new Point(3, 105);
             textBoxFullName.Name = "textBoxFullName";
-            textBoxFullName.Size = new Size(505, 38);
+            textBoxFullName.Size = new Size(311, 27);
             textBoxFullName.TabIndex = 24;
             // 
             // comboBoxGender
@@ -304,10 +292,9 @@
             comboBoxGender.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBoxGender.FormattingEnabled = true;
             comboBoxGender.Items.AddRange(new object[] { "Nam", "Nữ" });
-            comboBoxGender.Location = new Point(5, 275);
-            comboBoxGender.Margin = new Padding(5);
+            comboBoxGender.Location = new Point(3, 173);
             comboBoxGender.Name = "comboBoxGender";
-            comboBoxGender.Size = new Size(505, 39);
+            comboBoxGender.Size = new Size(311, 28);
             comboBoxGender.TabIndex = 25;
             // 
             // textBoxNationality
@@ -316,10 +303,9 @@
             tableLayoutPanel2.SetColumnSpan(textBoxNationality, 2);
             textBoxNationality.Dock = DockStyle.Fill;
             textBoxNationality.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxNationality.Location = new Point(5, 491);
-            textBoxNationality.Margin = new Padding(5);
+            textBoxNationality.Location = new Point(3, 309);
             textBoxNationality.Name = "textBoxNationality";
-            textBoxNationality.Size = new Size(505, 38);
+            textBoxNationality.Size = new Size(311, 27);
             textBoxNationality.TabIndex = 27;
             // 
             // dateTimePickerDateOfBirth
@@ -330,10 +316,9 @@
             dateTimePickerDateOfBirth.Dock = DockStyle.Fill;
             dateTimePickerDateOfBirth.Font = new Font("Microsoft Sans Serif", 10.2F);
             dateTimePickerDateOfBirth.Format = DateTimePickerFormat.Short;
-            dateTimePickerDateOfBirth.Location = new Point(5, 383);
-            dateTimePickerDateOfBirth.Margin = new Padding(5);
+            dateTimePickerDateOfBirth.Location = new Point(3, 241);
             dateTimePickerDateOfBirth.Name = "dateTimePickerDateOfBirth";
-            dateTimePickerDateOfBirth.Size = new Size(505, 38);
+            dateTimePickerDateOfBirth.Size = new Size(311, 27);
             dateTimePickerDateOfBirth.TabIndex = 28;
             // 
             // labelCitizenID
@@ -343,12 +328,11 @@
             labelCitizenID.BackColor = Color.Transparent;
             labelCitizenID.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             labelCitizenID.ForeColor = Color.Black;
-            labelCitizenID.Location = new Point(533, 22);
-            labelCitizenID.Margin = new Padding(5, 0, 5, 0);
+            labelCitizenID.Location = new Point(328, 14);
             labelCitizenID.Name = "labelCitizenID";
-            labelCitizenID.Size = new Size(227, 32);
+            labelCitizenID.Size = new Size(62, 20);
             labelCitizenID.TabIndex = 29;
-            labelCitizenID.Text = "CCCD/Passport";
+            labelCitizenID.Text = "CCCD";
             // 
             // labelAddress
             // 
@@ -357,10 +341,9 @@
             labelAddress.BackColor = Color.Transparent;
             labelAddress.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             labelAddress.ForeColor = Color.Black;
-            labelAddress.Location = new Point(533, 130);
-            labelAddress.Margin = new Padding(5, 0, 5, 0);
+            labelAddress.Location = new Point(328, 82);
             labelAddress.Name = "labelAddress";
-            labelAddress.Size = new Size(108, 32);
+            labelAddress.Size = new Size(68, 20);
             labelAddress.TabIndex = 30;
             labelAddress.Text = "Địa chỉ";
             // 
@@ -371,10 +354,9 @@
             labelEmail.BackColor = Color.Transparent;
             labelEmail.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             labelEmail.ForeColor = Color.Black;
-            labelEmail.Location = new Point(533, 346);
-            labelEmail.Margin = new Padding(5, 0, 5, 0);
+            labelEmail.Location = new Point(328, 218);
             labelEmail.Name = "labelEmail";
-            labelEmail.Size = new Size(91, 32);
+            labelEmail.Size = new Size(56, 20);
             labelEmail.TabIndex = 32;
             labelEmail.Text = "Email";
             // 
@@ -385,10 +367,9 @@
             labelRegistrationDate.BackColor = Color.Transparent;
             labelRegistrationDate.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             labelRegistrationDate.ForeColor = Color.Black;
-            labelRegistrationDate.Location = new Point(533, 454);
-            labelRegistrationDate.Margin = new Padding(5, 0, 5, 0);
+            labelRegistrationDate.Location = new Point(328, 286);
             labelRegistrationDate.Name = "labelRegistrationDate";
-            labelRegistrationDate.Size = new Size(191, 32);
+            labelRegistrationDate.Size = new Size(117, 20);
             labelRegistrationDate.TabIndex = 33;
             labelRegistrationDate.Text = "Ngày đăng kí";
             // 
@@ -397,10 +378,9 @@
             textBoxCitizenID.BackColor = SystemColors.InactiveCaption;
             textBoxCitizenID.Dock = DockStyle.Fill;
             textBoxCitizenID.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxCitizenID.Location = new Point(533, 59);
-            textBoxCitizenID.Margin = new Padding(5);
+            textBoxCitizenID.Location = new Point(328, 37);
             textBoxCitizenID.Name = "textBoxCitizenID";
-            textBoxCitizenID.Size = new Size(994, 38);
+            textBoxCitizenID.Size = new Size(611, 27);
             textBoxCitizenID.TabIndex = 34;
             // 
             // textBoxAddress
@@ -408,10 +388,9 @@
             textBoxAddress.BackColor = SystemColors.InactiveCaption;
             textBoxAddress.Dock = DockStyle.Fill;
             textBoxAddress.Font = new Font("Microsoft Sans Serif", 10.2F);
-            textBoxAddress.Location = new Point(533, 167);
-            textBoxAddress.Margin = new Padding(5);
+            textBoxAddress.Location = new Point(328, 105);
             textBoxAddress.Name = "textBoxAddress";
-            textBoxAddress.Size = new Size(994, 38);
+            textBoxAddress.Size = new Size(611, 27);
             textBoxAddress.TabIndex = 35;
             // 
             // textBoxPhone
@@ -419,10 +398,9 @@
             textBoxPhone.BackColor = SystemColors.InactiveCaption;
             textBoxPhone.Dock = DockStyle.Fill;
             textBoxPhone.Font = new Font("Microsoft Sans Serif", 10.2F);
-            textBoxPhone.Location = new Point(533, 275);
-            textBoxPhone.Margin = new Padding(5);
+            textBoxPhone.Location = new Point(328, 173);
             textBoxPhone.Name = "textBoxPhone";
-            textBoxPhone.Size = new Size(994, 38);
+            textBoxPhone.Size = new Size(611, 27);
             textBoxPhone.TabIndex = 36;
             // 
             // labelPhone
@@ -432,10 +410,9 @@
             labelPhone.BackColor = Color.Transparent;
             labelPhone.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             labelPhone.ForeColor = Color.Black;
-            labelPhone.Location = new Point(533, 238);
-            labelPhone.Margin = new Padding(5, 0, 5, 0);
+            labelPhone.Location = new Point(328, 150);
             labelPhone.Name = "labelPhone";
-            labelPhone.Size = new Size(73, 32);
+            labelPhone.Size = new Size(45, 20);
             labelPhone.TabIndex = 31;
             labelPhone.Text = "SĐT";
             // 
@@ -444,10 +421,9 @@
             textBoxEmail.BackColor = SystemColors.InactiveCaption;
             textBoxEmail.Dock = DockStyle.Fill;
             textBoxEmail.Font = new Font("Microsoft Sans Serif", 10.2F);
-            textBoxEmail.Location = new Point(533, 383);
-            textBoxEmail.Margin = new Padding(5);
+            textBoxEmail.Location = new Point(328, 241);
             textBoxEmail.Name = "textBoxEmail";
-            textBoxEmail.Size = new Size(994, 38);
+            textBoxEmail.Size = new Size(611, 27);
             textBoxEmail.TabIndex = 37;
             // 
             // dateTimePickerRegistrationDate
@@ -457,21 +433,19 @@
             dateTimePickerRegistrationDate.Dock = DockStyle.Fill;
             dateTimePickerRegistrationDate.Font = new Font("Microsoft Sans Serif", 10.2F);
             dateTimePickerRegistrationDate.Format = DateTimePickerFormat.Short;
-            dateTimePickerRegistrationDate.Location = new Point(533, 491);
-            dateTimePickerRegistrationDate.Margin = new Padding(5);
+            dateTimePickerRegistrationDate.Location = new Point(328, 309);
             dateTimePickerRegistrationDate.Name = "dateTimePickerRegistrationDate";
-            dateTimePickerRegistrationDate.Size = new Size(994, 38);
+            dateTimePickerRegistrationDate.Size = new Size(611, 27);
             dateTimePickerRegistrationDate.TabIndex = 38;
             // 
             // panel2
             // 
             panel2.BackColor = SystemColors.HotTrack;
             panel2.Dock = DockStyle.Fill;
-            panel2.Location = new Point(1537, 5);
-            panel2.Margin = new Padding(5);
+            panel2.Location = new Point(945, 3);
             panel2.Name = "panel2";
             tableLayoutPanel2.SetRowSpan(panel2, 10);
-            panel2.Size = new Size(9, 535);
+            panel2.Size = new Size(6, 335);
             panel2.TabIndex = 39;
             // 
             // buttonAddCustomer
@@ -482,11 +456,10 @@
             buttonAddCustomer.ForeColor = Color.White;
             buttonAddCustomer.Image = (Image)resources.GetObject("buttonAddCustomer.Image");
             buttonAddCustomer.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonAddCustomer.Location = new Point(1556, 5);
-            buttonAddCustomer.Margin = new Padding(5);
+            buttonAddCustomer.Location = new Point(957, 3);
             buttonAddCustomer.Name = "buttonAddCustomer";
             tableLayoutPanel2.SetRowSpan(buttonAddCustomer, 2);
-            buttonAddCustomer.Size = new Size(156, 98);
+            buttonAddCustomer.Size = new Size(96, 62);
             buttonAddCustomer.TabIndex = 40;
             buttonAddCustomer.Text = "   Thêm";
             buttonAddCustomer.UseVisualStyleBackColor = false;
@@ -500,11 +473,10 @@
             buttonEditCustomer.ForeColor = Color.White;
             buttonEditCustomer.Image = (Image)resources.GetObject("buttonEditCustomer.Image");
             buttonEditCustomer.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonEditCustomer.Location = new Point(1556, 113);
-            buttonEditCustomer.Margin = new Padding(5);
+            buttonEditCustomer.Location = new Point(957, 71);
             buttonEditCustomer.Name = "buttonEditCustomer";
             tableLayoutPanel2.SetRowSpan(buttonEditCustomer, 2);
-            buttonEditCustomer.Size = new Size(156, 98);
+            buttonEditCustomer.Size = new Size(96, 62);
             buttonEditCustomer.TabIndex = 42;
             buttonEditCustomer.Text = "   Sửa";
             buttonEditCustomer.UseVisualStyleBackColor = false;
@@ -518,11 +490,10 @@
             buttonCancelCustomer.ForeColor = Color.White;
             buttonCancelCustomer.Image = (Image)resources.GetObject("buttonCancelCustomer.Image");
             buttonCancelCustomer.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonCancelCustomer.Location = new Point(1556, 329);
-            buttonCancelCustomer.Margin = new Padding(5);
+            buttonCancelCustomer.Location = new Point(957, 207);
             buttonCancelCustomer.Name = "buttonCancelCustomer";
             tableLayoutPanel2.SetRowSpan(buttonCancelCustomer, 2);
-            buttonCancelCustomer.Size = new Size(156, 98);
+            buttonCancelCustomer.Size = new Size(96, 62);
             buttonCancelCustomer.TabIndex = 43;
             buttonCancelCustomer.Text = "   Hủy";
             buttonCancelCustomer.UseVisualStyleBackColor = false;
@@ -536,11 +507,10 @@
             buttonSaveCustomer.ForeColor = Color.White;
             buttonSaveCustomer.Image = (Image)resources.GetObject("buttonSaveCustomer.Image");
             buttonSaveCustomer.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonSaveCustomer.Location = new Point(1556, 437);
-            buttonSaveCustomer.Margin = new Padding(5);
+            buttonSaveCustomer.Location = new Point(957, 275);
             buttonSaveCustomer.Name = "buttonSaveCustomer";
             tableLayoutPanel2.SetRowSpan(buttonSaveCustomer, 2);
-            buttonSaveCustomer.Size = new Size(156, 103);
+            buttonSaveCustomer.Size = new Size(96, 63);
             buttonSaveCustomer.TabIndex = 44;
             buttonSaveCustomer.Text = "   Lưu";
             buttonSaveCustomer.UseVisualStyleBackColor = false;
@@ -550,11 +520,10 @@
             // 
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(1722, 5);
-            pictureBox1.Margin = new Padding(5);
+            pictureBox1.Location = new Point(1059, 3);
             pictureBox1.Name = "pictureBox1";
             tableLayoutPanel2.SetRowSpan(pictureBox1, 10);
-            pictureBox1.Size = new Size(93, 535);
+            pictureBox1.Size = new Size(58, 335);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 45;
             pictureBox1.TabStop = false;
@@ -566,10 +535,9 @@
             labelCustomerType.BackColor = Color.Transparent;
             labelCustomerType.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             labelCustomerType.ForeColor = Color.Black;
-            labelCustomerType.Location = new Point(288, 0);
-            labelCustomerType.Margin = new Padding(5, 0, 5, 0);
+            labelCustomerType.Location = new Point(177, 0);
             labelCustomerType.Name = "labelCustomerType";
-            labelCustomerType.Size = new Size(170, 54);
+            labelCustomerType.Size = new Size(126, 34);
             labelCustomerType.TabIndex = 22;
             labelCustomerType.Text = "Loại khách hàng";
             // 
@@ -581,10 +549,9 @@
             comboBoxCustomerTypeName.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBoxCustomerTypeName.FormattingEnabled = true;
             comboBoxCustomerTypeName.Items.AddRange(new object[] { "Cá nhân", "Doanh nghiệp" });
-            comboBoxCustomerTypeName.Location = new Point(288, 59);
-            comboBoxCustomerTypeName.Margin = new Padding(5);
+            comboBoxCustomerTypeName.Location = new Point(177, 37);
             comboBoxCustomerTypeName.Name = "comboBoxCustomerTypeName";
-            comboBoxCustomerTypeName.Size = new Size(222, 39);
+            comboBoxCustomerTypeName.Size = new Size(137, 28);
             comboBoxCustomerTypeName.TabIndex = 26;
             // 
             // groupBoxDataCustomerManagement
@@ -595,11 +562,9 @@
             groupBoxDataCustomerManagement.Dock = DockStyle.Fill;
             groupBoxDataCustomerManagement.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBoxDataCustomerManagement.ForeColor = SystemColors.HotTrack;
-            groupBoxDataCustomerManagement.Location = new Point(5, 607);
-            groupBoxDataCustomerManagement.Margin = new Padding(5);
+            groupBoxDataCustomerManagement.Location = new Point(3, 379);
             groupBoxDataCustomerManagement.Name = "groupBoxDataCustomerManagement";
-            groupBoxDataCustomerManagement.Padding = new Padding(5);
-            groupBoxDataCustomerManagement.Size = new Size(1830, 593);
+            groupBoxDataCustomerManagement.Size = new Size(1126, 371);
             groupBoxDataCustomerManagement.TabIndex = 1;
             groupBoxDataCustomerManagement.TabStop = false;
             groupBoxDataCustomerManagement.Text = "Dữ liệu thông tin khách hàng";
@@ -629,8 +594,7 @@
             tableLayoutPanel3.Controls.Add(dateTimePickerTo, 0, 6);
             tableLayoutPanel3.Controls.Add(tableLayoutPanel4, 1, 0);
             tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(5, 42);
-            tableLayoutPanel3.Margin = new Padding(5);
+            tableLayoutPanel3.Location = new Point(3, 26);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 9;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 17.9860477F));
@@ -642,7 +606,7 @@
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1259232F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 16.847826F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 5.40402031F));
-            tableLayoutPanel3.Size = new Size(1820, 546);
+            tableLayoutPanel3.Size = new Size(1120, 342);
             tableLayoutPanel3.TabIndex = 7;
             // 
             // buttonExportCSV
@@ -651,10 +615,9 @@
             buttonExportCSV.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             buttonExportCSV.ForeColor = Color.FromArgb(25, 137, 14);
             buttonExportCSV.Image = (Image)resources.GetObject("buttonExportCSV.Image");
-            buttonExportCSV.Location = new Point(1474, 5);
-            buttonExportCSV.Margin = new Padding(5);
+            buttonExportCSV.Location = new Point(905, 3);
             buttonExportCSV.Name = "buttonExportCSV";
-            buttonExportCSV.Size = new Size(230, 88);
+            buttonExportCSV.Size = new Size(141, 55);
             buttonExportCSV.TabIndex = 35;
             buttonExportCSV.Text = "Xuất CSV";
             buttonExportCSV.TextAlign = ContentAlignment.MiddleLeft;
@@ -668,10 +631,9 @@
             buttonExportExcel.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             buttonExportExcel.ForeColor = Color.FromArgb(20, 169, 6);
             buttonExportExcel.Image = (Image)resources.GetObject("buttonExportExcel.Image");
-            buttonExportExcel.Location = new Point(1234, 5);
-            buttonExportExcel.Margin = new Padding(5);
+            buttonExportExcel.Location = new Point(758, 3);
             buttonExportExcel.Name = "buttonExportExcel";
-            buttonExportExcel.Size = new Size(230, 88);
+            buttonExportExcel.Size = new Size(141, 55);
             buttonExportExcel.TabIndex = 34;
             buttonExportExcel.Text = "Xuất Excel";
             buttonExportExcel.TextAlign = ContentAlignment.MiddleLeft;
@@ -685,10 +647,9 @@
             buttonExportPDF.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             buttonExportPDF.ForeColor = Color.FromArgb(207, 0, 0);
             buttonExportPDF.Image = (Image)resources.GetObject("buttonExportPDF.Image");
-            buttonExportPDF.Location = new Point(994, 5);
-            buttonExportPDF.Margin = new Padding(5);
+            buttonExportPDF.Location = new Point(611, 3);
             buttonExportPDF.Name = "buttonExportPDF";
-            buttonExportPDF.Size = new Size(230, 88);
+            buttonExportPDF.Size = new Size(141, 55);
             buttonExportPDF.TabIndex = 33;
             buttonExportPDF.Text = "Xuất PDF";
             buttonExportPDF.TextAlign = ContentAlignment.MiddleLeft;
@@ -702,10 +663,9 @@
             buttonCustomerSearch.Dock = DockStyle.Fill;
             buttonCustomerSearch.ForeColor = Color.White;
             buttonCustomerSearch.Image = (Image)resources.GetObject("buttonCustomerSearch.Image");
-            buttonCustomerSearch.Location = new Point(881, 5);
-            buttonCustomerSearch.Margin = new Padding(5);
+            buttonCustomerSearch.Location = new Point(542, 3);
             buttonCustomerSearch.Name = "buttonCustomerSearch";
-            buttonCustomerSearch.Size = new Size(93, 88);
+            buttonCustomerSearch.Size = new Size(57, 55);
             buttonCustomerSearch.TabIndex = 5;
             toolTip1.SetToolTip(buttonCustomerSearch, "Tìm kiếm");
             buttonCustomerSearch.UseVisualStyleBackColor = false;
@@ -741,14 +701,13 @@
             dataCustomerManagement.Dock = DockStyle.Fill;
             dataCustomerManagement.EnableHeadersVisualStyles = false;
             dataCustomerManagement.GridColor = Color.White;
-            dataCustomerManagement.Location = new Point(320, 103);
-            dataCustomerManagement.Margin = new Padding(5);
+            dataCustomerManagement.Location = new Point(197, 64);
             dataCustomerManagement.Name = "dataCustomerManagement";
             dataCustomerManagement.RowHeadersBorderStyle = DataGridViewHeaderBorderStyle.Single;
             dataCustomerManagement.RowHeadersVisible = false;
             dataCustomerManagement.RowHeadersWidth = 51;
             tableLayoutPanel3.SetRowSpan(dataCustomerManagement, 8);
-            dataCustomerManagement.Size = new Size(1495, 438);
+            dataCustomerManagement.Size = new Size(920, 275);
             dataCustomerManagement.TabIndex = 26;
             // 
             // CustomerID
@@ -756,77 +715,77 @@
             CustomerID.HeaderText = "Mã khách hàng";
             CustomerID.MinimumWidth = 6;
             CustomerID.Name = "CustomerID";
-            CustomerID.Width = 263;
+            CustomerID.Width = 162;
             // 
             // CustomerTypeName
             // 
             CustomerTypeName.HeaderText = "Loại khách hàng";
             CustomerTypeName.MinimumWidth = 6;
             CustomerTypeName.Name = "CustomerTypeName";
-            CustomerTypeName.Width = 281;
+            CustomerTypeName.Width = 173;
             // 
             // FullName
             // 
             FullName.HeaderText = "Họ tên";
             FullName.MinimumWidth = 6;
             FullName.Name = "FullName";
-            FullName.Width = 146;
+            FullName.Width = 92;
             // 
             // Gender
             // 
             Gender.HeaderText = "Giới tính";
             Gender.MinimumWidth = 6;
             Gender.Name = "Gender";
-            Gender.Width = 172;
+            Gender.Width = 107;
             // 
             // DateOfBirth
             // 
             DateOfBirth.HeaderText = "Ngày sinh";
             DateOfBirth.MinimumWidth = 6;
             DateOfBirth.Name = "DateOfBirth";
-            DateOfBirth.Width = 192;
+            DateOfBirth.Width = 119;
             // 
             // Nationality
             // 
             Nationality.HeaderText = "Quốc tịch";
             Nationality.MinimumWidth = 6;
             Nationality.Name = "Nationality";
-            Nationality.Width = 186;
+            Nationality.Width = 117;
             // 
             // CitizenID
             // 
             CitizenID.HeaderText = "CCCD/Passport";
             CitizenID.MinimumWidth = 6;
             CitizenID.Name = "CitizenID";
-            CitizenID.Width = 270;
+            CitizenID.Width = 170;
             // 
             // CustomerAddress
             // 
             CustomerAddress.HeaderText = "Địa chỉ";
             CustomerAddress.MinimumWidth = 6;
             CustomerAddress.Name = "CustomerAddress";
-            CustomerAddress.Width = 151;
+            CustomerAddress.Width = 95;
             // 
             // Phone
             // 
             Phone.HeaderText = "SĐT";
             Phone.MinimumWidth = 6;
             Phone.Name = "Phone";
-            Phone.Width = 116;
+            Phone.Width = 72;
             // 
             // Email
             // 
             Email.HeaderText = "Email";
             Email.MinimumWidth = 6;
             Email.Name = "Email";
-            Email.Width = 134;
+            Email.Width = 83;
             // 
             // RegistrationDate
             // 
             RegistrationDate.HeaderText = "Ngày đăng kí";
             RegistrationDate.MinimumWidth = 6;
             RegistrationDate.Name = "RegistrationDate";
-            RegistrationDate.Width = 234;
+            RegistrationDate.Width = 144;
             // 
             // labelCustomerFilter
             // 
@@ -835,10 +794,9 @@
             labelCustomerFilter.BackColor = Color.Transparent;
             labelCustomerFilter.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             labelCustomerFilter.ForeColor = Color.Black;
-            labelCustomerFilter.Location = new Point(39, 66);
-            labelCustomerFilter.Margin = new Padding(5, 0, 5, 0);
+            labelCustomerFilter.Location = new Point(23, 41);
             labelCustomerFilter.Name = "labelCustomerFilter";
-            labelCustomerFilter.Size = new Size(237, 32);
+            labelCustomerFilter.Size = new Size(147, 20);
             labelCustomerFilter.TabIndex = 24;
             labelCustomerFilter.Text = "Lọc khách hàng:";
             labelCustomerFilter.TextAlign = ContentAlignment.MiddleCenter;
@@ -850,10 +808,9 @@
             label1.BackColor = Color.Transparent;
             label1.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             label1.ForeColor = Color.Black;
-            label1.Location = new Point(5, 114);
-            label1.Margin = new Padding(5, 0, 5, 0);
+            label1.Location = new Point(3, 71);
             label1.Name = "label1";
-            label1.Size = new Size(238, 32);
+            label1.Size = new Size(146, 20);
             label1.TabIndex = 27;
             label1.Text = "Loại khách hàng";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -866,10 +823,9 @@
             comboBoxCustomerTypeFilter.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBoxCustomerTypeFilter.FormattingEnabled = true;
             comboBoxCustomerTypeFilter.Items.AddRange(new object[] { "Không áp dụng", "Cá nhân", "Doanh nghiệp", "VIP Cá nhân", "VIP Doanh nghiệp" });
-            comboBoxCustomerTypeFilter.Location = new Point(5, 151);
-            comboBoxCustomerTypeFilter.Margin = new Padding(5);
+            comboBoxCustomerTypeFilter.Location = new Point(3, 94);
             comboBoxCustomerTypeFilter.Name = "comboBoxCustomerTypeFilter";
-            comboBoxCustomerTypeFilter.Size = new Size(305, 45);
+            comboBoxCustomerTypeFilter.Size = new Size(188, 33);
             comboBoxCustomerTypeFilter.TabIndex = 25;
             comboBoxCustomerTypeFilter.SelectedIndexChanged += comboBoxCustomerTypeFilter_SelectedIndexChanged;
             // 
@@ -880,10 +836,9 @@
             label2.BackColor = Color.Transparent;
             label2.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             label2.ForeColor = Color.Black;
-            label2.Location = new Point(5, 226);
-            label2.Margin = new Padding(5, 0, 5, 0);
+            label2.Location = new Point(3, 141);
             label2.Name = "label2";
-            label2.Size = new Size(49, 32);
+            label2.Size = new Size(30, 20);
             label2.TabIndex = 28;
             label2.Text = "Từ";
             label2.TextAlign = ContentAlignment.MiddleCenter;
@@ -895,10 +850,9 @@
             label3.BackColor = Color.Transparent;
             label3.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
             label3.ForeColor = Color.Black;
-            label3.Location = new Point(5, 329);
-            label3.Margin = new Padding(5, 0, 5, 0);
+            label3.Location = new Point(3, 206);
             label3.Name = "label3";
-            label3.Size = new Size(69, 32);
+            label3.Size = new Size(42, 20);
             label3.TabIndex = 29;
             label3.Text = "Đến";
             label3.TextAlign = ContentAlignment.MiddleCenter;
@@ -909,10 +863,9 @@
             dateTimePickerFrom.Dock = DockStyle.Fill;
             dateTimePickerFrom.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dateTimePickerFrom.Format = DateTimePickerFormat.Short;
-            dateTimePickerFrom.Location = new Point(5, 263);
-            dateTimePickerFrom.Margin = new Padding(5);
+            dateTimePickerFrom.Location = new Point(3, 164);
             dateTimePickerFrom.Name = "dateTimePickerFrom";
-            dateTimePickerFrom.Size = new Size(305, 38);
+            dateTimePickerFrom.Size = new Size(188, 27);
             dateTimePickerFrom.TabIndex = 30;
             dateTimePickerFrom.ValueChanged += dateTimePickerFrom_ValueChanged;
             // 
@@ -922,10 +875,9 @@
             dateTimePickerTo.Dock = DockStyle.Fill;
             dateTimePickerTo.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dateTimePickerTo.Format = DateTimePickerFormat.Short;
-            dateTimePickerTo.Location = new Point(5, 366);
-            dateTimePickerTo.Margin = new Padding(5);
+            dateTimePickerTo.Location = new Point(3, 229);
             dateTimePickerTo.Name = "dateTimePickerTo";
-            dateTimePickerTo.Size = new Size(305, 38);
+            dateTimePickerTo.Size = new Size(188, 27);
             dateTimePickerTo.TabIndex = 31;
             dateTimePickerTo.ValueChanged += dateTimePickerTo_ValueChanged;
             // 
@@ -935,45 +887,41 @@
             tableLayoutPanel4.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 100F));
             tableLayoutPanel4.Controls.Add(textBoxCustomerSearch, 0, 1);
             tableLayoutPanel4.Dock = DockStyle.Fill;
-            tableLayoutPanel4.Location = new Point(320, 5);
-            tableLayoutPanel4.Margin = new Padding(5);
+            tableLayoutPanel4.Location = new Point(197, 3);
             tableLayoutPanel4.Name = "tableLayoutPanel4";
             tableLayoutPanel4.RowCount = 3;
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 14.54545F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 70.90909F));
             tableLayoutPanel4.RowStyles.Add(new RowStyle(SizeType.Percent, 14.545455F));
-            tableLayoutPanel4.Size = new Size(551, 88);
+            tableLayoutPanel4.Size = new Size(339, 55);
             tableLayoutPanel4.TabIndex = 36;
             // 
             // textBoxCustomerSearch
             // 
             textBoxCustomerSearch.Dock = DockStyle.Fill;
             textBoxCustomerSearch.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxCustomerSearch.Location = new Point(5, 17);
-            textBoxCustomerSearch.Margin = new Padding(5);
+            textBoxCustomerSearch.Location = new Point(3, 10);
             textBoxCustomerSearch.Name = "textBoxCustomerSearch";
             textBoxCustomerSearch.PlaceholderText = "Tìm kiếm . . .";
-            textBoxCustomerSearch.Size = new Size(541, 44);
+            textBoxCustomerSearch.Size = new Size(333, 30);
             textBoxCustomerSearch.TabIndex = 1;
             textBoxCustomerSearch.WordWrap = false;
             // 
             // panel3
             // 
             panel3.BackColor = SystemColors.HotTrack;
-            panel3.Location = new Point(457, 18);
-            panel3.Margin = new Padding(5);
+            panel3.Location = new Point(281, 11);
             panel3.Name = "panel3";
-            panel3.Size = new Size(731, 8);
+            panel3.Size = new Size(450, 5);
             panel3.TabIndex = 6;
             // 
             // UC_CustomerManagement
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(tableLayoutPanel1);
-            Margin = new Padding(5);
             Name = "UC_CustomerManagement";
-            Size = new Size(1840, 1205);
+            Size = new Size(1132, 753);
             tableLayoutPanel1.ResumeLayout(false);
             groupBoxCustomerInfo.ResumeLayout(false);
             tableLayoutPanel2.ResumeLayout(false);

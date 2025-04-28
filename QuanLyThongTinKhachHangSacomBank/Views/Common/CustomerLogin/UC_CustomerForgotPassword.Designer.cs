@@ -183,7 +183,7 @@
             textBoxEmail.Location = new Point(54, 267);
             textBoxEmail.Name = "textBoxEmail";
             textBoxEmail.Size = new Size(312, 27);
-            textBoxEmail.TabIndex = 25;
+            textBoxEmail.TabIndex = 2;
             // 
             // label2
             // 
@@ -211,7 +211,7 @@
             textBoxPhone.Location = new Point(54, 159);
             textBoxPhone.Name = "textBoxPhone";
             textBoxPhone.Size = new Size(312, 27);
-            textBoxPhone.TabIndex = 22;
+            textBoxPhone.TabIndex = 1;
             // 
             // label1
             // 

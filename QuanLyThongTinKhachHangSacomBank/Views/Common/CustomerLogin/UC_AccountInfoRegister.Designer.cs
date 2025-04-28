@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_AccountInfoRegister));
             panelUC_CustomerInfoRegister = new Panel();
+            labelError = new Label();
             panel10 = new Panel();
             panel9 = new Panel();
             panel7 = new Panel();
@@ -57,7 +58,6 @@
             textBoxPasswordRegister = new TextBox();
             cyberButtonConfirm = new ReaLTaiizor.Controls.CyberButton();
             label3 = new Label();
-            labelError = new Label();
             panelUC_CustomerInfoRegister.SuspendLayout();
             panel7.SuspendLayout();
             SuspendLayout();
@@ -97,6 +97,19 @@
             panelUC_CustomerInfoRegister.Name = "panelUC_CustomerInfoRegister";
             panelUC_CustomerInfoRegister.Size = new Size(1000, 580);
             panelUC_CustomerInfoRegister.TabIndex = 10;
+            // 
+            // labelError
+            // 
+            labelError.BackColor = Color.Transparent;
+            labelError.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelError.ForeColor = Color.Red;
+            labelError.Location = new Point(3, 482);
+            labelError.Name = "labelError";
+            labelError.Size = new Size(994, 30);
+            labelError.TabIndex = 80;
+            labelError.Text = "Vui lòng nhập đầy đủ thông tin!";
+            labelError.TextAlign = ContentAlignment.MiddleCenter;
+            labelError.Visible = false;
             // 
             // panel10
             // 
@@ -215,9 +228,9 @@
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label5.Location = new Point(172, 67);
             label5.Name = "label5";
-            label5.Size = new Size(106, 28);
+            label5.Size = new Size(152, 28);
             label5.TabIndex = 64;
-            label5.Text = "Username";
+            label5.Text = "Tên đăng nhập";
             // 
             // panel3
             // 
@@ -375,19 +388,6 @@
             label3.TabIndex = 7;
             label3.Text = "Đăng ký thông tin tài khoản";
             label3.TextAlign = ContentAlignment.MiddleCenter;
-            // 
-            // labelError
-            // 
-            labelError.BackColor = Color.Transparent;
-            labelError.Font = new Font("Segoe UI Semibold", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            labelError.ForeColor = Color.Red;
-            labelError.Location = new Point(3, 482);
-            labelError.Name = "labelError";
-            labelError.Size = new Size(994, 30);
-            labelError.TabIndex = 80;
-            labelError.Text = "Vui lòng nhập đầy đủ thông tin!";
-            labelError.TextAlign = ContentAlignment.MiddleCenter;
-            labelError.Visible = false;
             // 
             // UC_AccountInfoRegister
             // 

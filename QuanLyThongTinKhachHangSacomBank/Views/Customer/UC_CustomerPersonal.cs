@@ -11,6 +11,8 @@ using QuanLyThongTinKhachHangSacomBank.Models;
 using Microsoft.Extensions.Configuration;
 using QuanLyThongTinKhachHangSacomBank.Data;
 using QuanLyThongTinKhachHangSacomBank.Controllers;
+using System.Text.RegularExpressions;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
 {
@@ -32,6 +34,20 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
         {
             InitializeComponent();
             controller = new CustomerPersonalController(this, customer, account, dbContext, configuration);
+
+            // Chỉ cho phép nhập số vào textBoxPINCode
+            textBoxPINCode.KeyPress += (sender, e) =>
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+
+                if (textBoxPINCode.Text.Length >= 6 && !char.IsControl(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+            };
         }
 
         public void LoadCustomerData(CustomerModel customer, AccountModel account)
@@ -116,20 +132,6 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
         public void FocusPINTextBox()
         {
             textBoxPINCode.Focus();
-        }
-
-        private void textBoxPINCode_KeyPress(object sender, KeyPressEventArgs e)
-        {
-            // Chỉ cho phép nhập số và giới hạn 6 ký tự
-            if (!char.IsDigit(e.KeyChar) && !char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
-
-            if (textBoxPINCode.Text.Length >= 6 && !char.IsControl(e.KeyChar))
-            {
-                e.Handled = true;
-            }
         }
 
         private void cyberButtonCancel_Click(object sender, EventArgs e)

@@ -117,7 +117,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
                     if (userCount == 0)
                     {
-                        view.ShowError("Username không tồn tại hoặc nhập sai!");
+                        view.ShowError("Tên đăng nhập không tồn tại hoặc nhập sai!");
                     }
                     else
                     {
@@ -133,12 +133,12 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
                 if (accountStatus == "Khóa")
                 {
-                    view.ShowError("Tài khoản của bạn đang bị khóa!");
+                    view.ShowError("Tài khoản này đang bị khóa!");
                     return false;
                 }
                 if (accountStatus == "Đóng")
                 {
-                    view.ShowError("Tài khoản của bạn đã bị đóng!");
+                    view.ShowError("Tài khoản này đã bị đóng!");
                     return false;
                 }
 

@@ -189,7 +189,7 @@
             textBoxPINCode2.Location = new Point(242, 240);
             textBoxPINCode2.Name = "textBoxPINCode2";
             textBoxPINCode2.Size = new Size(68, 68);
-            textBoxPINCode2.TabIndex = 51;
+            textBoxPINCode2.TabIndex = 1;
             // 
             // textBoxPINCode3
             // 
@@ -197,7 +197,7 @@
             textBoxPINCode3.Location = new Point(316, 240);
             textBoxPINCode3.Name = "textBoxPINCode3";
             textBoxPINCode3.Size = new Size(68, 68);
-            textBoxPINCode3.TabIndex = 52;
+            textBoxPINCode3.TabIndex = 2;
             // 
             // textBoxPINCode5
             // 
@@ -205,7 +205,7 @@
             textBoxPINCode5.Location = new Point(464, 240);
             textBoxPINCode5.Name = "textBoxPINCode5";
             textBoxPINCode5.Size = new Size(68, 68);
-            textBoxPINCode5.TabIndex = 53;
+            textBoxPINCode5.TabIndex = 4;
             // 
             // textBoxPINCode4
             // 
@@ -213,7 +213,7 @@
             textBoxPINCode4.Location = new Point(390, 240);
             textBoxPINCode4.Name = "textBoxPINCode4";
             textBoxPINCode4.Size = new Size(68, 68);
-            textBoxPINCode4.TabIndex = 54;
+            textBoxPINCode4.TabIndex = 3;
             // 
             // textBoxPINCode6
             // 
@@ -221,7 +221,7 @@
             textBoxPINCode6.Location = new Point(538, 240);
             textBoxPINCode6.Name = "textBoxPINCode6";
             textBoxPINCode6.Size = new Size(68, 68);
-            textBoxPINCode6.TabIndex = 55;
+            textBoxPINCode6.TabIndex = 5;
             // 
             // FormPINCode
             // 

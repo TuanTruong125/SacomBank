@@ -463,17 +463,99 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     return;
                 }
 
-                // Hiển thị hộp thoại xác nhận
-                DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa nhân viên này không?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
+                // Kiểm tra xem nhân viên có dữ liệu liên quan trong các bảng TRANSACTION, REQUEST, SERVICE, NOTIFICATION hay không
+                bool hasRelatedData = false;
+                using (var connection = dbContext.GetConnection())
+                {
+                    connection.Open();
 
+                    // Kiểm tra bảng TRANSACTION
+                    string checkTransactionQuery = "SELECT COUNT(1) FROM [TRANSACTION] WHERE HandledBy = @EmployeeID";
+                    using (var command = new SqlCommand(checkTransactionQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@EmployeeID", employeeID);
+                        if ((int)command.ExecuteScalar() > 0)
+                        {
+                            hasRelatedData = true;
+                        }
+                    }
+
+                    // Kiểm tra bảng REQUEST
+                    if (!hasRelatedData)
+                    {
+                        string checkRequestQuery = "SELECT COUNT(1) FROM REQUEST WHERE HandledBy = @EmployeeID";
+                        using (var command = new SqlCommand(checkRequestQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@EmployeeID", employeeID);
+                            if ((int)command.ExecuteScalar() > 0)
+                            {
+                                hasRelatedData = true;
+                            }
+                        }
+                    }
+
+                    // Kiểm tra bảng SERVICE
+                    if (!hasRelatedData)
+                    {
+                        string checkServiceQuery = "SELECT COUNT(1) FROM [SERVICE] WHERE HandledBy = @EmployeeID";
+                        using (var command = new SqlCommand(checkServiceQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@EmployeeID", employeeID);
+                            if ((int)command.ExecuteScalar() > 0)
+                            {
+                                hasRelatedData = true;
+                            }
+                        }
+                    }
+
+                    // Kiểm tra bảng NOTIFICATION
+                    if (!hasRelatedData)
+                    {
+                        string checkNotificationQuery = "SELECT COUNT(1) FROM NOTIFICATION WHERE EmployeeID = @EmployeeID";
+                        using (var command = new SqlCommand(checkNotificationQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@EmployeeID", employeeID);
+                            if ((int)command.ExecuteScalar() > 0)
+                            {
+                                hasRelatedData = true;
+                            }
+                        }
+                    }
+
+                    // Kiểm tra bảng EMPLOYEE (trường hợp nhân viên là quản lý của nhân viên khác)
+                    if (!hasRelatedData)
+                    {
+                        string checkManagerQuery = "SELECT COUNT(1) FROM EMPLOYEE WHERE ManagerID = @EmployeeID";
+                        using (var command = new SqlCommand(checkManagerQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@EmployeeID", employeeID);
+                            if ((int)command.ExecuteScalar() > 0)
+                            {
+                                hasRelatedData = true;
+                            }
+                        }
+                    }
+                }
+
+                // Nếu nhân viên có dữ liệu liên quan, hiển thị thông báo yêu cầu cập nhật lương
+                if (hasRelatedData)
+                {
+                    view.ShowMessage(
+                        "Nhân viên này liên quan đến nhiều dữ liệu khác! Nếu muốn cắt giảm nhân sự vui lòng cập nhật lương về 0 VND để hệ thống không thanh toán lương cho nhân viên này!",
+                        "Thông báo",
+                        MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Nếu không có dữ liệu liên quan, tiến hành xóa nhân viên
+                DialogResult result = MessageBox.Show("Bạn có chắc chắn muốn xóa nhân viên này không?", "Xác nhận xóa", MessageBoxButtons.YesNo, MessageBoxIcon.Question);
                 if (result == DialogResult.Yes)
                 {
                     using (var connection = dbContext.GetConnection())
                     {
                         connection.Open();
-                        string query = "DELETE FROM EMPLOYEE WHERE EmployeeID = @EmployeeID";
-
-                        using (var command = new SqlCommand(query, connection))
+                        string deleteEmployeeQuery = "DELETE FROM EMPLOYEE WHERE EmployeeID = @EmployeeID";
+                        using (var command = new SqlCommand(deleteEmployeeQuery, connection))
                         {
                             command.Parameters.AddWithValue("@EmployeeID", employeeID);
                             command.ExecuteNonQuery();

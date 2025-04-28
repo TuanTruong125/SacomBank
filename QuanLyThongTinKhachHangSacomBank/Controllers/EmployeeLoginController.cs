@@ -119,7 +119,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
                 if (userCount == 0)
                 {
-                    view.ShowError("Username không tồn tại!");
+                    view.ShowError("Tên đăng nhập không tồn tại!");
                 }
                 else
                 {

@@ -89,6 +89,18 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
                 // Đăng ký sự kiện CellFormatting để tùy chỉnh giao diện
                 dataGridViewServiceNotification.CellFormatting += dataGridViewServiceNotification_CellFormatting;
 
+                // Đăng ký sự kiện TransactionCompleted để cập nhật icon chuông ngay sau khi giao dịch hoàn tất
+                transferController.TransactionCompleted += (s, e) =>
+                {
+                    customerHomeController.UpdateNotificationIcon();
+                };
+
+                // Đăng ký sự kiện PayCompleted để cập nhật icon chuông ngay sau khi giao dịch hoàn tất
+                payController.TransactionCompleted += (s, e) =>
+                {
+                    customerHomeController.UpdateNotificationIcon();
+                };
+
             }
             catch (Exception ex)
             {

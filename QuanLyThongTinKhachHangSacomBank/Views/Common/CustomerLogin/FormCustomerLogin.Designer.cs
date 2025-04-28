@@ -66,13 +66,13 @@
             // label2
             // 
             label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Segoe UI", 15F, FontStyle.Bold | FontStyle.Italic);
+            label2.Font = new Font("Segoe UI", 15F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label2.ForeColor = Color.White;
-            label2.Location = new Point(120, 51);
+            label2.Location = new Point(60, 57);
             label2.Name = "label2";
-            label2.Size = new Size(154, 34);
+            label2.Size = new Size(278, 34);
             label2.TabIndex = 3;
-            label2.Text = "Welcome to";
+            label2.Text = "Xin chào quý khách!";
             label2.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // label1

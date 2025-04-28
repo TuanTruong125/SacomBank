@@ -30,6 +30,7 @@
         {
             components = new System.ComponentModel.Container();
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_EmployeeManagement));
             labelCustomerID = new Label();
             labelFullName = new Label();
@@ -253,6 +254,14 @@
             dataEmployeeManagement.ColumnHeadersHeight = 29;
             dataEmployeeManagement.Columns.AddRange(new DataGridViewColumn[] { EmployeeID, EmployeeName, EmployeeGender, EmployeeDateOfBirth, EmployeeCitizenID, EmployeeAddress, Role, EmployeePhone, EmployeeEmail, HireDate, Salary });
             tableLayoutPanel3.SetColumnSpan(dataEmployeeManagement, 5);
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.HotTrack;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataEmployeeManagement.DefaultCellStyle = dataGridViewCellStyle2;
             dataEmployeeManagement.Dock = DockStyle.Fill;
             dataEmployeeManagement.EnableHeadersVisualStyles = false;
             dataEmployeeManagement.GridColor = Color.White;

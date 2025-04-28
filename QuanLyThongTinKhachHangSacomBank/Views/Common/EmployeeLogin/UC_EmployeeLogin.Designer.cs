@@ -55,7 +55,7 @@
             textBoxEmployeeUsername.Location = new Point(46, 164);
             textBoxEmployeeUsername.Name = "textBoxEmployeeUsername";
             textBoxEmployeeUsername.Size = new Size(312, 27);
-            textBoxEmployeeUsername.TabIndex = 15;
+            textBoxEmployeeUsername.TabIndex = 7;
             // 
             // label3
             // 
@@ -127,9 +127,9 @@
             label5.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label5.Location = new Point(42, 133);
             label5.Name = "label5";
-            label5.Size = new Size(106, 28);
+            label5.Size = new Size(152, 28);
             label5.TabIndex = 24;
-            label5.Text = "Username";
+            label5.Text = "Tên đăng nhập";
             // 
             // linkLabelForgotPasswordEmployee
             // 
@@ -140,7 +140,7 @@
             linkLabelForgotPasswordEmployee.Location = new Point(195, 341);
             linkLabelForgotPasswordEmployee.Name = "linkLabelForgotPasswordEmployee";
             linkLabelForgotPasswordEmployee.Size = new Size(163, 28);
-            linkLabelForgotPasswordEmployee.TabIndex = 17;
+            linkLabelForgotPasswordEmployee.TabIndex = 10;
             linkLabelForgotPasswordEmployee.TabStop = true;
             linkLabelForgotPasswordEmployee.Text = "Quên mật khẩu?";
             linkLabelForgotPasswordEmployee.LinkClicked += linkLabelForgotPasswordEmployee_LinkClicked;
@@ -182,7 +182,7 @@
             buttonShowPassword.Location = new Point(364, 260);
             buttonShowPassword.Name = "buttonShowPassword";
             buttonShowPassword.Size = new Size(40, 40);
-            buttonShowPassword.TabIndex = 60;
+            buttonShowPassword.TabIndex = 9;
             buttonShowPassword.UseVisualStyleBackColor = true;
             buttonShowPassword.Click += buttonShowPassword_Click;
             // 

@@ -7,6 +7,7 @@ using QuanLyThongTinKhachHangSacomBank.Controllers;
 using QuanLyThongTinKhachHangSacomBank.Views.Manager;
 using System;
 using System.Windows.Forms;
+using System.Text.RegularExpressions;
 
 namespace QuanLyThongTinKhachHangSacomBank.Controllers
 {
@@ -64,7 +65,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     return;
                 }
 
-                if (HasVietnameseCharacters(newPassword))
+                if (ContainsVietnameseDiacritics(newPassword))
                 {
                     MessageBox.Show("Mật khẩu không được chứa ký tự tiếng Việt có dấu!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     return;
@@ -103,17 +104,9 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             }
         }
 
-        private bool HasVietnameseCharacters(string input)
+        private bool ContainsVietnameseDiacritics(string text)
         {
-            // Ký tự tiếng Việt thường có dấu nằm trong khoảng Unicode từ 0x1EA0 đến 0x1EF9
-            foreach (char c in input)
-            {
-                if (c >= 0x1EA0 && c <= 0x1EF9)
-                {
-                    return true;
-                }
-            }
-            return false;
+            return Regex.IsMatch(text, @"[àáạảãâầấậẩẫăằắặẳẵèéẹẻẽêềếệểễìíịỉĩòóọỏõôồốộổỗơờớợởỡùúụủũưừứựửữỳýỵỷỹđ]");
         }
 
         private void UpdatePasswordInDatabase(string newPassword)

@@ -47,6 +47,24 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.CustomerLogin
         public UC_CustomerInfoRegister()
         {
             InitializeComponent();
+
+            // Chỉ cho phép nhập số vào textBoxPhone
+            textBoxPhone.KeyPress += (sender, e) =>
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+            };
+
+            // Chỉ cho phép nhập số vào textBoxCitizenID
+            textBoxCitizenID.KeyPress += (sender, e) =>
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+            };
         }
 
         public void ShowError(string message)

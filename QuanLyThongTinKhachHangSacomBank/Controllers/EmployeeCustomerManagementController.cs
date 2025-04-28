@@ -307,6 +307,20 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 return;
             }
 
+            // Kiểm tra định dạng Email
+            string email = view.GetEmail();
+            if (!System.Text.RegularExpressions.Regex.IsMatch(email, @"^[a-zA-Z0-9.@]+$"))
+            {
+                view.ShowMessage("Email chỉ được chứa các ký tự (a-z), (A-Z), (0-9), dấu chấm (.) và ký tự (@)!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (!email.Contains("@"))
+            {
+                view.ShowMessage("Email phải chứa ký tự (@)!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
             // Kiểm tra trùng lặp CitizenID, Phone, Email
             try
             {
@@ -489,35 +503,51 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
         {
             try
             {
-                using (var connection = dbContext.GetConnection())
+                // Hiển thị Form OTP để xác nhận
+                using (var formOTP = new FormOTP())
                 {
-                    connection.Open();
+                    var otpController = new OTPController(formOTP, formOTP, this, configuration);
 
-                    // Thêm khách hàng
-                    string insertQuery = @"
+                    // Cho phép cả hai phương thức gửi OTP (SMS và Email), sử dụng thông tin từ textbox
+                    if (formOTP.ShowDialog() == DialogResult.OK)
+                    {
+                        // Nếu OTP được xác nhận thành công, tiến hành thêm khách hàng
+                        using (var connection = dbContext.GetConnection())
+                        {
+                            connection.Open();
+
+                            // Thêm khách hàng
+                            string insertQuery = @"
                         INSERT INTO CUSTOMER (FullName, Gender, DateOfBirth, Nationality, CitizenID, CustomerAddress, 
                                              Phone, Email, RegistrationDate, CustomerTypeID)
                         VALUES (@FullName, @Gender, @DateOfBirth, @Nationality, @CitizenID, @CustomerAddress, 
                                 @Phone, @Email, @RegistrationDate, @CustomerTypeID)";
 
-                    using (var command = new SqlCommand(insertQuery, connection))
+                            using (var command = new SqlCommand(insertQuery, connection))
+                            {
+                                command.Parameters.AddWithValue("@FullName", customer.FullName);
+                                command.Parameters.AddWithValue("@Gender", customer.Gender);
+                                command.Parameters.AddWithValue("@DateOfBirth", customer.DateOfBirth);
+                                command.Parameters.AddWithValue("@Nationality", customer.Nationality);
+                                command.Parameters.AddWithValue("@CitizenID", customer.CitizenID);
+                                command.Parameters.AddWithValue("@CustomerAddress", customer.CustomerAddress);
+                                command.Parameters.AddWithValue("@Phone", customer.Phone);
+                                command.Parameters.AddWithValue("@Email", customer.Email);
+                                command.Parameters.AddWithValue("@RegistrationDate", customer.RegistrationDate);
+                                command.Parameters.AddWithValue("@CustomerTypeID", customer.CustomerTypeID);
+                                command.ExecuteNonQuery();
+                            }
+                        }
+                        view.ShowMessage("Đã thêm khách hàng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        LoadCustomers(view.GetFromDate(), view.GetToDate(), view.GetCustomerTypeFilter());
+                        InitializeControlState();
+                    }
+                    else
                     {
-                        command.Parameters.AddWithValue("@FullName", customer.FullName);
-                        command.Parameters.AddWithValue("@Gender", customer.Gender);
-                        command.Parameters.AddWithValue("@DateOfBirth", customer.DateOfBirth);
-                        command.Parameters.AddWithValue("@Nationality", customer.Nationality);
-                        command.Parameters.AddWithValue("@CitizenID", customer.CitizenID);
-                        command.Parameters.AddWithValue("@CustomerAddress", customer.CustomerAddress);
-                        command.Parameters.AddWithValue("@Phone", customer.Phone);
-                        command.Parameters.AddWithValue("@Email", customer.Email);
-                        command.Parameters.AddWithValue("@RegistrationDate", customer.RegistrationDate);
-                        command.Parameters.AddWithValue("@CustomerTypeID", customer.CustomerTypeID);
-                        command.ExecuteNonQuery();
+                        // Nếu xác nhận OTP thất bại, hiển thị thông báo và không lưu khách hàng
+                        view.ShowMessage("Xác nhận OTP thất bại. Khách hàng chưa được thêm.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                     }
                 }
-                view.ShowMessage("Đã thêm khách hàng thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                LoadCustomers(view.GetFromDate(), view.GetToDate(), view.GetCustomerTypeFilter());
-                InitializeControlState();
             }
             catch (Exception ex)
             {
@@ -570,7 +600,6 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                             using (var updateCommand = new SqlCommand(updateAccountQuery, connection))
                             {
                                 updateCommand.Parameters.AddWithValue("@CustomerID", customer.CustomerID);
-                                // Chuyển tên thành in hoa không dấu (ví dụ: "Đặng Kim Liên" thành "DANG KIM LIEN")
                                 string accountName = RemoveVietnameseDiacritics(customer.FullName).ToUpper();
                                 updateCommand.Parameters.AddWithValue("@AccountName", accountName);
                                 updateCommand.Parameters.AddWithValue("@Username", customer.Phone);

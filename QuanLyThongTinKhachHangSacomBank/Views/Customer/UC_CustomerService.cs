@@ -48,6 +48,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
         {
             cyberButtonSavingsDetail.Visible = false; // Vô hiệu hóa nút "Chi tiết tiết kiệm"
             cyberButtonSavings.Visible = false; // Vô hiệu hóa nút "Đăng ký tiết kiệm"
+            pictureBox2.Visible = false; // Vô hiệu hóa hình ảnh liên quan đến tiết kiệm
         }
 
         private void cyberButtonLoanDetail_Click(object sender, EventArgs e)

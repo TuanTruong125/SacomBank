@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_CustomerCare));
-            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
             panel2 = new Panel();
             labelRequestFilter = new Label();
             textBoxRequestSearch = new TextBox();
@@ -54,10 +54,22 @@
             pictureBox1 = new PictureBox();
             panel1 = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
+            panel3 = new Panel();
+            tableLayoutPanel3 = new TableLayoutPanel();
+            pictureBox2 = new PictureBox();
+            pictureBox3 = new PictureBox();
+            panel4 = new Panel();
+            tableLayoutPanel5 = new TableLayoutPanel();
             buttonViewRequest = new Button();
-            buttonDone = new Button();
             buttonDeny = new Button();
             buttonHandle = new Button();
+            buttonDone = new Button();
+            panel5 = new Panel();
+            tableLayoutPanel6 = new TableLayoutPanel();
+            label3 = new Label();
+            label4 = new Label();
+            label5 = new Label();
+            label6 = new Label();
             groupBox1 = new GroupBox();
             tableLayoutPanel1 = new TableLayoutPanel();
             groupBox2.SuspendLayout();
@@ -65,6 +77,14 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewChat).BeginInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).BeginInit();
             tableLayoutPanel2.SuspendLayout();
+            panel3.SuspendLayout();
+            tableLayoutPanel3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).BeginInit();
+            panel4.SuspendLayout();
+            tableLayoutPanel5.SuspendLayout();
+            panel5.SuspendLayout();
+            tableLayoutPanel6.SuspendLayout();
             groupBox1.SuspendLayout();
             tableLayoutPanel1.SuspendLayout();
             SuspendLayout();
@@ -245,25 +265,25 @@
             dataGridViewChat.BackgroundColor = Color.White;
             dataGridViewChat.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
             dataGridViewChat.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle1.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle1.ForeColor = SystemColors.WindowText;
-            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
-            dataGridViewChat.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle3.BackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle3.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle3.ForeColor = SystemColors.WindowText;
+            dataGridViewCellStyle3.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
+            dataGridViewChat.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
             dataGridViewChat.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridViewChat.Columns.AddRange(new DataGridViewColumn[] { CustomerID, RequestID, Title, Message, RequestDate, HandledBy, RequestStatus });
             tableLayoutPanel4.SetColumnSpan(dataGridViewChat, 3);
-            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle2.ForeColor = SystemColors.HotTrack;
-            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
-            dataGridViewChat.DefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle4.BackColor = SystemColors.Window;
+            dataGridViewCellStyle4.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle4.ForeColor = SystemColors.HotTrack;
+            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
+            dataGridViewChat.DefaultCellStyle = dataGridViewCellStyle4;
             dataGridViewChat.Dock = DockStyle.Fill;
             dataGridViewChat.EnableHeadersVisualStyles = false;
             dataGridViewChat.GridColor = Color.White;
@@ -360,10 +380,7 @@
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4.75587654F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5.948215F));
             tableLayoutPanel2.Controls.Add(pictureBox1, 10, 0);
-            tableLayoutPanel2.Controls.Add(buttonViewRequest, 1, 1);
-            tableLayoutPanel2.Controls.Add(buttonDone, 5, 1);
-            tableLayoutPanel2.Controls.Add(buttonDeny, 7, 1);
-            tableLayoutPanel2.Controls.Add(buttonHandle, 3, 1);
+            tableLayoutPanel2.Controls.Add(panel3, 0, 0);
             tableLayoutPanel2.Dock = DockStyle.Fill;
             tableLayoutPanel2.Location = new Point(3, 28);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
@@ -374,35 +391,110 @@
             tableLayoutPanel2.Size = new Size(1112, 310);
             tableLayoutPanel2.TabIndex = 0;
             // 
+            // panel3
+            // 
+            tableLayoutPanel2.SetColumnSpan(panel3, 10);
+            panel3.Controls.Add(tableLayoutPanel3);
+            panel3.Dock = DockStyle.Fill;
+            panel3.Location = new Point(3, 3);
+            panel3.Name = "panel3";
+            tableLayoutPanel2.SetRowSpan(panel3, 3);
+            panel3.Size = new Size(1036, 304);
+            panel3.TabIndex = 10;
+            // 
+            // tableLayoutPanel3
+            // 
+            tableLayoutPanel3.ColumnCount = 3;
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5.886307F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 88.22739F));
+            tableLayoutPanel3.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5.88630724F));
+            tableLayoutPanel3.Controls.Add(pictureBox2, 1, 1);
+            tableLayoutPanel3.Controls.Add(pictureBox3, 1, 3);
+            tableLayoutPanel3.Controls.Add(panel4, 1, 2);
+            tableLayoutPanel3.Dock = DockStyle.Fill;
+            tableLayoutPanel3.Location = new Point(0, 0);
+            tableLayoutPanel3.Name = "tableLayoutPanel3";
+            tableLayoutPanel3.RowCount = 5;
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 8.471502F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 10.5919533F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 61.8730927F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 10.5919533F));
+            tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 8.471501F));
+            tableLayoutPanel3.Size = new Size(1036, 304);
+            tableLayoutPanel3.TabIndex = 0;
+            // 
+            // pictureBox2
+            // 
+            pictureBox2.Dock = DockStyle.Fill;
+            pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
+            pictureBox2.Location = new Point(63, 28);
+            pictureBox2.Name = "pictureBox2";
+            pictureBox2.Size = new Size(908, 26);
+            pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox2.TabIndex = 0;
+            pictureBox2.TabStop = false;
+            // 
+            // pictureBox3
+            // 
+            pictureBox3.Dock = DockStyle.Fill;
+            pictureBox3.Image = (Image)resources.GetObject("pictureBox3.Image");
+            pictureBox3.Location = new Point(63, 248);
+            pictureBox3.Name = "pictureBox3";
+            pictureBox3.Size = new Size(908, 26);
+            pictureBox3.SizeMode = PictureBoxSizeMode.StretchImage;
+            pictureBox3.TabIndex = 1;
+            pictureBox3.TabStop = false;
+            // 
+            // panel4
+            // 
+            panel4.BackColor = Color.White;
+            panel4.Controls.Add(tableLayoutPanel5);
+            panel4.Dock = DockStyle.Fill;
+            panel4.Location = new Point(63, 60);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(908, 182);
+            panel4.TabIndex = 2;
+            // 
+            // tableLayoutPanel5
+            // 
+            tableLayoutPanel5.ColumnCount = 9;
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel5.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 11.1111107F));
+            tableLayoutPanel5.Controls.Add(buttonViewRequest, 1, 1);
+            tableLayoutPanel5.Controls.Add(buttonDeny, 7, 1);
+            tableLayoutPanel5.Controls.Add(buttonHandle, 3, 1);
+            tableLayoutPanel5.Controls.Add(buttonDone, 5, 1);
+            tableLayoutPanel5.Controls.Add(panel5, 0, 2);
+            tableLayoutPanel5.Dock = DockStyle.Fill;
+            tableLayoutPanel5.Location = new Point(0, 0);
+            tableLayoutPanel5.Name = "tableLayoutPanel5";
+            tableLayoutPanel5.RowCount = 4;
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 4.67836237F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 53.2163734F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 35.08772F));
+            tableLayoutPanel5.RowStyles.Add(new RowStyle(SizeType.Percent, 8.77193F));
+            tableLayoutPanel5.Size = new Size(908, 182);
+            tableLayoutPanel5.TabIndex = 0;
+            // 
             // buttonViewRequest
             // 
             buttonViewRequest.BackColor = Color.PaleTurquoise;
             buttonViewRequest.Dock = DockStyle.Fill;
             buttonViewRequest.ForeColor = Color.Black;
             buttonViewRequest.Image = (Image)resources.GetObject("buttonViewRequest.Image");
-            buttonViewRequest.ImageAlign = ContentAlignment.TopCenter;
-            buttonViewRequest.Location = new Point(114, 73);
+            buttonViewRequest.Location = new Point(103, 11);
             buttonViewRequest.Name = "buttonViewRequest";
-            buttonViewRequest.Size = new Size(145, 163);
+            buttonViewRequest.Size = new Size(94, 89);
             buttonViewRequest.TabIndex = 10;
-            buttonViewRequest.Text = "Xem yêu cầu";
             buttonViewRequest.UseVisualStyleBackColor = false;
             buttonViewRequest.Click += buttonViewRequest_Click;
-            // 
-            // buttonDone
-            // 
-            buttonDone.BackColor = Color.LightGreen;
-            buttonDone.Dock = DockStyle.Fill;
-            buttonDone.ForeColor = Color.Black;
-            buttonDone.Image = (Image)resources.GetObject("buttonDone.Image");
-            buttonDone.ImageAlign = ContentAlignment.TopCenter;
-            buttonDone.Location = new Point(555, 73);
-            buttonDone.Name = "buttonDone";
-            buttonDone.Size = new Size(145, 163);
-            buttonDone.TabIndex = 12;
-            buttonDone.Text = "Hoàn thành";
-            buttonDone.UseVisualStyleBackColor = false;
-            buttonDone.Click += buttonDone_Click;
             // 
             // buttonDeny
             // 
@@ -410,12 +502,10 @@
             buttonDeny.Dock = DockStyle.Fill;
             buttonDeny.ForeColor = Color.Black;
             buttonDeny.Image = (Image)resources.GetObject("buttonDeny.Image");
-            buttonDeny.ImageAlign = ContentAlignment.TopCenter;
-            buttonDeny.Location = new Point(788, 73);
+            buttonDeny.Location = new Point(703, 11);
             buttonDeny.Name = "buttonDeny";
-            buttonDeny.Size = new Size(145, 163);
+            buttonDeny.Size = new Size(94, 89);
             buttonDeny.TabIndex = 13;
-            buttonDeny.Text = "Hủy";
             buttonDeny.UseVisualStyleBackColor = false;
             buttonDeny.Click += buttonDeny_Click;
             // 
@@ -425,14 +515,109 @@
             buttonHandle.Dock = DockStyle.Fill;
             buttonHandle.ForeColor = Color.Black;
             buttonHandle.Image = (Image)resources.GetObject("buttonHandle.Image");
-            buttonHandle.ImageAlign = ContentAlignment.TopCenter;
-            buttonHandle.Location = new Point(344, 73);
+            buttonHandle.Location = new Point(303, 11);
             buttonHandle.Name = "buttonHandle";
-            buttonHandle.Size = new Size(145, 163);
+            buttonHandle.Size = new Size(94, 89);
             buttonHandle.TabIndex = 14;
-            buttonHandle.Text = "Xử lý yêu cầu";
             buttonHandle.UseVisualStyleBackColor = false;
             buttonHandle.Click += buttonHandle_Click;
+            // 
+            // buttonDone
+            // 
+            buttonDone.BackColor = Color.LightGreen;
+            buttonDone.Dock = DockStyle.Fill;
+            buttonDone.ForeColor = Color.Black;
+            buttonDone.Image = (Image)resources.GetObject("buttonDone.Image");
+            buttonDone.Location = new Point(503, 11);
+            buttonDone.Name = "buttonDone";
+            buttonDone.Size = new Size(94, 89);
+            buttonDone.TabIndex = 12;
+            buttonDone.UseVisualStyleBackColor = false;
+            buttonDone.Click += buttonDone_Click;
+            // 
+            // panel5
+            // 
+            tableLayoutPanel5.SetColumnSpan(panel5, 9);
+            panel5.Controls.Add(tableLayoutPanel6);
+            panel5.Dock = DockStyle.Fill;
+            panel5.Location = new Point(3, 106);
+            panel5.Name = "panel5";
+            tableLayoutPanel5.SetRowSpan(panel5, 2);
+            panel5.Size = new Size(902, 73);
+            panel5.TabIndex = 15;
+            // 
+            // tableLayoutPanel6
+            // 
+            tableLayoutPanel6.ColumnCount = 9;
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.685454F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.9076862F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 4.878049F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.2971172F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 6.31929064F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 14.9667406F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 6.76274967F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 16.075388F));
+            tableLayoutPanel6.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 8.860623F));
+            tableLayoutPanel6.Controls.Add(label3, 1, 0);
+            tableLayoutPanel6.Controls.Add(label4, 3, 0);
+            tableLayoutPanel6.Controls.Add(label5, 5, 0);
+            tableLayoutPanel6.Controls.Add(label6, 7, 0);
+            tableLayoutPanel6.Dock = DockStyle.Fill;
+            tableLayoutPanel6.Location = new Point(0, 0);
+            tableLayoutPanel6.Name = "tableLayoutPanel6";
+            tableLayoutPanel6.RowCount = 2;
+            tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 68.1159439F));
+            tableLayoutPanel6.RowStyles.Add(new RowStyle(SizeType.Percent, 31.884058F));
+            tableLayoutPanel6.Size = new Size(902, 73);
+            tableLayoutPanel6.TabIndex = 0;
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Dock = DockStyle.Fill;
+            label3.ForeColor = Color.Black;
+            label3.Location = new Point(81, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(146, 49);
+            label3.TabIndex = 0;
+            label3.Text = "Xem yêu cầu";
+            label3.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Dock = DockStyle.Fill;
+            label4.ForeColor = Color.Black;
+            label4.Location = new Point(277, 0);
+            label4.Name = "label4";
+            label4.Size = new Size(141, 49);
+            label4.TabIndex = 1;
+            label4.Text = "Xử lý yêu cầu";
+            label4.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Dock = DockStyle.Fill;
+            label5.ForeColor = Color.Black;
+            label5.Location = new Point(481, 0);
+            label5.Name = "label5";
+            label5.Size = new Size(129, 49);
+            label5.TabIndex = 2;
+            label5.Text = "Hoàn thành";
+            label5.TextAlign = ContentAlignment.MiddleCenter;
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Dock = DockStyle.Fill;
+            label6.ForeColor = Color.Black;
+            label6.Location = new Point(677, 0);
+            label6.Name = "label6";
+            label6.Size = new Size(139, 49);
+            label6.TabIndex = 3;
+            label6.Text = "Hủy";
+            label6.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // groupBox1
             // 
@@ -478,6 +663,15 @@
             ((System.ComponentModel.ISupportInitialize)dataGridViewChat).EndInit();
             ((System.ComponentModel.ISupportInitialize)pictureBox1).EndInit();
             tableLayoutPanel2.ResumeLayout(false);
+            panel3.ResumeLayout(false);
+            tableLayoutPanel3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)pictureBox2).EndInit();
+            ((System.ComponentModel.ISupportInitialize)pictureBox3).EndInit();
+            panel4.ResumeLayout(false);
+            tableLayoutPanel5.ResumeLayout(false);
+            panel5.ResumeLayout(false);
+            tableLayoutPanel6.ResumeLayout(false);
+            tableLayoutPanel6.PerformLayout();
             groupBox1.ResumeLayout(false);
             tableLayoutPanel1.ResumeLayout(false);
             ResumeLayout(false);
@@ -521,5 +715,17 @@
         private DataGridViewTextBoxColumn RequestDate;
         private DataGridViewTextBoxColumn HandledBy;
         private DataGridViewTextBoxColumn RequestStatus;
+        private Panel panel3;
+        private TableLayoutPanel tableLayoutPanel3;
+        private PictureBox pictureBox2;
+        private PictureBox pictureBox3;
+        private Panel panel4;
+        private TableLayoutPanel tableLayoutPanel5;
+        private Panel panel5;
+        private TableLayoutPanel tableLayoutPanel6;
+        private Label label3;
+        private Label label4;
+        private Label label5;
+        private Label label6;
     }
 }

@@ -411,9 +411,9 @@
             label2.Font = new Font("Segoe UI", 12F, FontStyle.Bold);
             label2.Location = new Point(418, 72);
             label2.Name = "label2";
-            label2.Size = new Size(152, 28);
+            label2.Size = new Size(61, 28);
             label2.TabIndex = 24;
-            label2.Text = "CCCD/Passport";
+            label2.Text = "CCCD";
             label2.TextAlign = ContentAlignment.MiddleLeft;
             // 
             // panel1
@@ -459,11 +459,12 @@
             // dateTimePickerDateOfBirth
             // 
             dateTimePickerDateOfBirth.CalendarFont = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dateTimePickerDateOfBirth.Font = new Font("Segoe UI", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dateTimePickerDateOfBirth.Format = DateTimePickerFormat.Custom;
             dateTimePickerDateOfBirth.ImeMode = ImeMode.NoControl;
-            dateTimePickerDateOfBirth.Location = new Point(54, 285);
+            dateTimePickerDateOfBirth.Location = new Point(54, 281);
             dateTimePickerDateOfBirth.Name = "dateTimePickerDateOfBirth";
-            dateTimePickerDateOfBirth.Size = new Size(312, 27);
+            dateTimePickerDateOfBirth.Size = new Size(312, 34);
             dateTimePickerDateOfBirth.TabIndex = 63;
             // 
             // UC_CustomerInfoRegister

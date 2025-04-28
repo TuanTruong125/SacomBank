@@ -32,6 +32,15 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.CustomerLogin
         public UC_CustomerForgotPassword()
         {
             InitializeComponent();
+
+            // Chỉ cho phép nhập số vào textBoxPhone
+            textBoxPhone.KeyPress += (sender, e) =>
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+            };
         }
 
         private void cyberButtonReturn_Click(object sender, EventArgs e)

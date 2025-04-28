@@ -36,6 +36,15 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.CustomerLogin
             InitializeComponent();
             this.configuration = configuration;
             this.dbContext = dbContext;
+
+            // Chỉ cho phép nhập số vào textBoxUsername
+            textBoxUsername.KeyPress += (sender, e) =>
+            {
+                if (!char.IsControl(e.KeyChar) && !char.IsDigit(e.KeyChar))
+                {
+                    e.Handled = true;
+                }
+            };
         }
 
         private bool ContainsVietnameseDiacritics(string text)

@@ -155,7 +155,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
                     interestRate = 0m;
                     break;
             }
-            textBoxInterestRate.Text = interestRate.ToString();
+            textBoxInterestRate.Text = interestRate.ToString("F2") + "%/năm";
         }
 
         private void TextBoxTotalPrincipalAmount_TextChanged(object sender, EventArgs e)

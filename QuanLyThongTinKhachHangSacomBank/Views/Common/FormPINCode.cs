@@ -54,12 +54,22 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common
         private void TextBox_TextChanged(object sender, EventArgs e)
         {
             TextBox currentBox = sender as TextBox;
+            int index = pinCodeTextBoxes.IndexOf(currentBox);
+
             if (!string.IsNullOrEmpty(currentBox.Text))
             {
-                int index = pinCodeTextBoxes.IndexOf(currentBox);
+                // Nếu nhập số, chuyển focus sang ô tiếp theo
                 if (index < pinCodeTextBoxes.Count - 1)
                 {
                     pinCodeTextBoxes[index + 1].Focus();
+                }
+            }
+            else
+            {
+                // Nếu xóa số (ô hiện tại rỗng), chuyển focus về ô phía trước
+                if (index > 0)
+                {
+                    pinCodeTextBoxes[index - 1].Focus();
                 }
             }
         }

@@ -7,6 +7,7 @@ using QuanLyThongTinKhachHangSacomBank.Views.Common.CustomerLogin;
 using System;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace QuanLyThongTinKhachHangSacomBank.Controllers
 {
@@ -87,6 +88,43 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 return;
             }
 
+            // Kiểm tra định dạng tên
+            string fullName = customerInfoRegisterView.FullName;
+            string[] words = fullName.Split(new[] { ' ' }, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var word in words)
+            {
+                if (word.Length > 0)
+                {
+                    if (!char.IsUpper(word[0]) || (word.Length > 1 && word.Substring(1).Any(char.IsUpper)))
+                    {
+                        customerInfoRegisterView.ShowError("Tên khách hàng phải viết hoa chữ cái đầu mỗi từ! (Ví dụ: Nguyễn Văn A)");
+                        return;
+                    }
+                }
+            }
+
+            // Kiểm tra CitizenID: Đủ 12 số
+            if (!Regex.IsMatch(customerInfoRegisterView.CitizenID, @"^\d{12}$"))
+            {
+                customerInfoRegisterView.ShowError("CCCD phải đủ 12 số!");
+                return;
+            }
+
+            // Kiểm tra CitizenID: Bắt đầu bằng số 0
+            if (!Regex.IsMatch(customerInfoRegisterView.CitizenID, @"^0"))
+            {
+                customerInfoRegisterView.ShowError("CCCD phải bắt đầu từ số 0!");
+                return;
+            }
+
+            // Kiểm tra ký tự hợp lệ trong email: Chỉ cho phép a-z, A-Z, 0-9, dấu chấm và @
+            if (!Regex.IsMatch(customerInfoRegisterView.Email, @"^[a-zA-Z0-9.@]+$"))
+            {
+                customerInfoRegisterView.ShowError("Email chỉ được chứa chữ cái (a-z, A-Z), số (0-9), dấu chấm (.) và ký tự @!");
+                return;
+            }
+
+            // Kiểm tra định dạng địa chỉ email
             string emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
             if (!Regex.IsMatch(customerInfoRegisterView.Email, emailPattern))
             {
@@ -94,10 +132,17 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 return;
             }
 
-            string phonePattern = @"^0\d{9}$";
-            if (!Regex.IsMatch(customerInfoRegisterView.Phone, phonePattern))
+            // Kiểm tra số điện thoại: Đủ 10 số
+            if (!Regex.IsMatch(customerInfoRegisterView.Phone, @"^\d{10}$"))
             {
-                customerInfoRegisterView.ShowError("Số điện thoại không đúng định dạng (10 số, bắt đầu bằng 0)!");
+                customerInfoRegisterView.ShowError("Số điện thoại phải đúng 10 số!");
+                return;
+            }
+
+            // Kiểm tra số điện thoại: Đầu số nhà mạng (03, 08, 07, 05, 09)
+            if (!Regex.IsMatch(customerInfoRegisterView.Phone, @"^(03|08|07|05|09)\d{8}$"))
+            {
+                customerInfoRegisterView.ShowError("Nhà mạng không phù hợp! Số điện thoại phải bắt đầu bằng 03, 08, 07, 05, hoặc 09!");
                 return;
             }
 
@@ -107,6 +152,20 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 {
                     connection.Open();
 
+                    // Kiểm tra CitizenID đã tồn tại
+                    string checkCitizenIdQuery = "SELECT COUNT(*) FROM CUSTOMER WHERE CitizenID = @CitizenID";
+                    using (SqlCommand command = new SqlCommand(checkCitizenIdQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@CitizenID", customerInfoRegisterView.CitizenID);
+                        int citizenIdCount = (int)command.ExecuteScalar();
+                        if (citizenIdCount > 0)
+                        {
+                            customerInfoRegisterView.ShowError("CCCD này đã tồn tại!");
+                            return;
+                        }
+                    }
+
+                    // Kiểm tra số điện thoại đã tồn tại
                     string checkPhoneQuery = "SELECT COUNT(*) FROM CUSTOMER WHERE Phone = @Phone";
                     using (SqlCommand command = new SqlCommand(checkPhoneQuery, connection))
                     {
@@ -119,6 +178,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         }
                     }
 
+                    // Kiểm tra email đã tồn tại
                     string checkEmailQuery = "SELECT COUNT(*) FROM CUSTOMER WHERE Email = @Email";
                     using (SqlCommand command = new SqlCommand(checkEmailQuery, connection))
                     {
@@ -131,6 +191,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         }
                     }
 
+                    // Kiểm tra loại khách hàng
                     string customerTypeQuery = "SELECT CustomerTypeID FROM CUSTOMER_TYPE WHERE CustomerTypeName = @CustomerTypeName";
                     int customerTypeId;
                     using (SqlCommand command = new SqlCommand(customerTypeQuery, connection))
