@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using QuanLyThongTinKhachHangSacomBank.Data;
 using QuanLyThongTinKhachHangSacomBank.Models;
 
+
 namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
 {
     public interface ICustomerHomeView
@@ -39,6 +40,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
         private readonly CustomerServiceManagementController customerServiceManagementController;
         private readonly ChatController chatController;
         private readonly AccountModel currentAccount;
+        private readonly DatabaseContext dbContext; // Thêm trường này
 
         public event EventHandler ViewBalanceRequested;
 
@@ -47,6 +49,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
             try
             {
                 this.currentAccount = currentAccount;
+                this.dbContext = dbContext; // Lưu dbContext
                 InitializeComponent();
                 notificationController = new NotificationController();
                 transferController = new TransferController(currentAccount, currentEmployee, dbContext, configuration, this);
@@ -55,12 +58,10 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
                 IFormTransactionHistoryView transactionView = new FormTransactionHistory(dbContext);
                 transactionHistoryController = new TransactionHistoryController(transactionView, currentAccount, dbContext);
 
-
                 payController = new PayController();
                 showCustomerAccountInfoController = new ShowCustomerAccountInfoController(new FormShowCustomerAccountInfo(), dbContext);
                 customerServiceManagementController = new CustomerServiceManagementController();
                 chatController = new ChatController(dbContext);
-
             }
             catch (Exception ex)
             {
@@ -161,7 +162,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
         {
             try
             {
-                chatController.OpenChat(new UC_ChatBot());
+                // Truyền currentAccount vào UC_ChatBot để có thể lưu lịch sử chat
+                chatController.OpenChat(new UC_ChatBot(dbContext, currentAccount), currentAccount);
             }
             catch (Exception ex)
             {

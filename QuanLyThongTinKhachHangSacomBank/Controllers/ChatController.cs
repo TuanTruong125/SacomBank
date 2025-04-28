@@ -37,7 +37,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 chatView = new FormChat();
                 activeUC = chatUC;
                 chatView.LoadUserControl(chatUC);
-                InitializeChat(chatUC);
+                InitializeChat(chatUC);  // Nếu có lỗi, sẽ throw exception và không gọi ShowForm()
                 chatView.ShowForm();
             }
             catch (Exception ex)
@@ -66,6 +66,10 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         InitializeEmployeeChat(employeeChat);
                         break;
 
+                    case UC_ChatBot _:
+                        // UC_ChatBot được cấu hình đầy đủ trong constructor của nó
+                        break;
+
                     default:
                         throw new NotSupportedException($"UserControl {chatUC.GetType().Name} không được hỗ trợ.");
                 }
@@ -75,7 +79,11 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 MessageBox.Show($"Lỗi khi khởi tạo chat: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
-
+        private void InitializeChatBot(UC_ChatBot chatBot)
+        {
+            // Cấu hình khởi tạo cho ChatBot
+            // Hiện tại không có cấu hình đặc biệt cần thiết
+        }
         private void InitializeCustomerChat(UC_CustomerChat customerChat)
         {
             customerChat.SetSendButtonEnable(true); // Cho phép gửi yêu cầu
