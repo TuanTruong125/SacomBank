@@ -15,12 +15,26 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Chat
         private readonly ChatBotService _chatBotService;
         private readonly int? _accountID;
 
+        // Thêm vào phương thức InitializeComponent hoặc constructor
+        private void ConfigureFlowLayoutPanel()
+        {
+            // Thiết lập cần thiết cho khả năng cuộn
+            flowLayoutPanelMessage.AutoScroll = true;
+            flowLayoutPanelMessage.WrapContents = false;
+            flowLayoutPanelMessage.FlowDirection = FlowDirection.TopDown;
+            flowLayoutPanelMessage.VerticalScroll.Visible = true;
+            flowLayoutPanelMessage.HorizontalScroll.Visible = false;
+            flowLayoutPanelMessage.AutoScrollMinSize = new Size(0, 0);
+        }
         public UC_ChatBot(DatabaseContext dbContext = null, AccountModel currentAccount = null)
         {
             InitializeComponent();
 
             try
             {
+                // Cấu hình FlowLayoutPanel cho cuộn
+                ConfigureFlowLayoutPanel();
+
                 _accountID = currentAccount?.AccountID;
 
                 // Lấy đường dẫn tới file training data
@@ -37,6 +51,9 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Chat
                 buttonSendMessage.Click += ButtonSendMessage_Click;
                 textBoxMessage.KeyDown += TextBoxMessage_KeyDown;
 
+                // Thêm sự kiện resize để đảm bảo cuộn hoạt động đúng
+                this.Resize += UC_ChatBot_Resize;
+
                 // Load lịch sử chat
                 LoadChatHistoryAsync();
             }
@@ -44,6 +61,47 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Chat
             {
                 MessageBox.Show($"Lỗi khởi tạo UC_ChatBot: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
+        }
+
+        // Sự kiện resize để cập nhật kích thước của các tin nhắn và cải thiện cuộn
+        private void UC_ChatBot_Resize(object sender, EventArgs e)
+        {
+            // Cập nhật kích thước tối đa cho các tin nhắn
+            foreach (Control control in flowLayoutPanelMessage.Controls)
+            {
+                if (control is Panel messagePanel)
+                {
+                    UpdateMessagePanelWidth(messagePanel);
+                }
+            }
+        }
+
+        // Cập nhật chiều rộng của panel tin nhắn để phù hợp với kích thước mới
+        private void UpdateMessagePanelWidth(Panel messagePanel)
+        {
+            // Xác định xem đây là tin nhắn của bot hay người dùng
+            bool isUserMessage = messagePanel.BackColor.Equals(Color.FromArgb(0, 74, 173));
+
+            if (isUserMessage)
+            {
+                // Cập nhật lại vị trí cho tin nhắn người dùng
+                messagePanel.Left = flowLayoutPanelMessage.Width - messagePanel.Width - 20;
+            }
+        }
+
+        // Đảm bảo cuộn đến tin nhắn mới nhất
+        private void EnsureMessageVisible(Panel messagePanel)
+        {
+            try
+            {
+                // Cuộn đến tin nhắn mới nhất
+                flowLayoutPanelMessage.ScrollControlIntoView(messagePanel);
+
+                // Đảm bảo cuộn đến vị trí cuối cùng
+                flowLayoutPanelMessage.VerticalScroll.Value = flowLayoutPanelMessage.VerticalScroll.Maximum;
+                flowLayoutPanelMessage.PerformLayout();
+            }
+            catch { /* Bỏ qua lỗi cuộn nếu có */ }
         }
 
         private async void LoadChatHistoryAsync()
@@ -130,23 +188,19 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Chat
         private void AddUserMessage(string message, bool scrollToBottom = true)
         {
             Panel messagePanel = CreateMessageBubble(message, Color.FromArgb(0, 74, 173), Color.White, ContentAlignment.MiddleRight);
-
-            // Thêm panel vào FlowLayoutPanel
             flowLayoutPanelMessage.Controls.Add(messagePanel);
 
             if (scrollToBottom)
-                flowLayoutPanelMessage.ScrollControlIntoView(messagePanel);
+                EnsureMessageVisible(messagePanel);
         }
 
         private void AddBotMessage(string message, bool scrollToBottom = true)
         {
             Panel messagePanel = CreateMessageBubble(message, Color.LightSeaGreen, Color.White, ContentAlignment.MiddleLeft);
-
-            // Thêm panel vào FlowLayoutPanel
             flowLayoutPanelMessage.Controls.Add(messagePanel);
 
             if (scrollToBottom)
-                flowLayoutPanelMessage.ScrollControlIntoView(messagePanel);
+                EnsureMessageVisible(messagePanel);
         }
 
         private Panel AddBotTypingIndicator()
@@ -159,49 +213,62 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Chat
 
         private Panel CreateMessageBubble(string message, Color backgroundColor, Color textColor, ContentAlignment alignment)
         {
-            Panel panel = new Panel
+            //Panel panel = new Panel
+            //{
+            //    BackColor = backgroundColor,
+            //    AutoSize = true,
+            //    MaximumSize = new Size(flowLayoutPanelMessage.Width - 100, 0),
+            //    Padding = new Padding(10),
+            //    Margin = new Padding(5),
+
+            //};
+            // Tạo panel chính đầy đủ chiều rộng
+            Panel containerPanel = new Panel
+            {
+                Width = flowLayoutPanelMessage.ClientSize.Width - 10,
+                AutoSize = true,
+                BackColor = Color.Transparent,
+                Margin = new Padding(5, 5, 5, 0)
+            };
+
+            // Tạo panel chứa tin nhắn (bong bóng chat)
+            Panel bubblePanel = new Panel
             {
                 BackColor = backgroundColor,
                 AutoSize = true,
-                MaximumSize = new Size(flowLayoutPanelMessage.Width - 100, 0),
-                Padding = new Padding(10),
-                Margin = new Padding(5),
-                
+                MaximumSize = new Size((int)(flowLayoutPanelMessage.ClientSize.Width * 0.7), 0),
+                Padding = new Padding(10)
             };
 
+            // Tạo và cấu hình label cho nội dung tin nhắn
             Label label = new Label
             {
                 Text = message,
                 ForeColor = textColor,
                 Font = new Font("Roboto", 10),
                 AutoSize = true,
-                MaximumSize = new Size(panel.MaximumSize.Width - 20, 0),
-                Dock = DockStyle.Fill
+                MaximumSize = new Size(bubblePanel.MaximumSize.Width - 20, 0)
             };
 
-            panel.Controls.Add(label);
-            panel.Height = label.Height + 20; // Thêm padding
-            panel.Width = label.Width + 20;
+            bubblePanel.Controls.Add(label);
+            containerPanel.Controls.Add(bubblePanel);
 
-            // Đặt vị trí căn lề dựa trên người gửi (khách hàng hay bot)
+            // Đặt vị trí tin nhắn dựa vào người gửi
             if (alignment == ContentAlignment.MiddleRight)
             {
-                // Tin nhắn của khách hàng - Căn bên phải
-                flowLayoutPanelMessage.FlowDirection = FlowDirection.LeftToRight;
-                panel.Margin = new Padding(flowLayoutPanelMessage.Width - panel.Width - 30, 5, 5, 5);
-                panel.Anchor = AnchorStyles.Right;
-                label.TextAlign = ContentAlignment.MiddleRight;
+                // Tin nhắn của khách hàng - bên phải
+                bubblePanel.Left = containerPanel.Width - bubblePanel.Width - 10;
+                label.TextAlign = ContentAlignment.MiddleLeft;
             }
             else
             {
-                // Tin nhắn của bot - Căn bên trái
-                flowLayoutPanelMessage.FlowDirection = FlowDirection.LeftToRight;
-                panel.Margin = new Padding(5, 5, 5, 5);
-                panel.Anchor = AnchorStyles.Left;
+                // Tin nhắn của bot - bên trái
+                bubblePanel.Left = 10;
                 label.TextAlign = ContentAlignment.MiddleLeft;
             }
 
-            return panel;
+            containerPanel.Height = bubblePanel.Height + 10;
+            return containerPanel;
         }
     }
 }

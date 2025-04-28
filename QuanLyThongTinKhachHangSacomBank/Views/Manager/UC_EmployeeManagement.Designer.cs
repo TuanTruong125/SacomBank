@@ -34,6 +34,7 @@
             labelCustomerID = new Label();
             labelFullName = new Label();
             labelGender = new Label();
+
             labelNationality = new Label();
             labelDateOfBirth = new Label();
             textBoxEmployeeID = new TextBox();
@@ -806,6 +807,7 @@
             textBoxSalary.Name = "textBoxSalary";
             textBoxSalary.Size = new Size(260, 27);
             textBoxSalary.TabIndex = 47;
+            textBoxSalary.Leave += textBoxSalary_Leave;
             // 
             // groupBoxCustomerInfo
             // 

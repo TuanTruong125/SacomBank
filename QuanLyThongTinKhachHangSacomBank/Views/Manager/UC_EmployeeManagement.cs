@@ -69,6 +69,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
 
             // Đăng ký sự kiện
             RegisterEvents();
+
         }
         public void SetAccessLevelOptions()
         {
@@ -142,6 +143,10 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
             dataEmployeeManagement.Columns["EmployeeEmail"].DataPropertyName = "EmployeeEmail";
             dataEmployeeManagement.Columns["HireDate"].DataPropertyName = "HireDate";
             dataEmployeeManagement.Columns["Salary"].DataPropertyName = "Salary";
+            // Định dạng cột Lương theo VND
+            DataGridViewCellStyle currencyStyle = new DataGridViewCellStyle();
+            currencyStyle.Format = "N0"; // Định dạng có dấu phẩy ngăn cách hàng nghìn, không có phần thập phân
+            dataEmployeeManagement.Columns["Salary"].DefaultCellStyle = currencyStyle;
         }
 
         private void DataEmployeeManagement_SelectionChanged(object sender, EventArgs e)
@@ -336,7 +341,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
             textBoxEmployeePhone.Text = employee.EmployeePhone;
             textBoxEmployeeEmail.Text = employee.EmployeeEmail;
             dateTimePickerHireDate.Value = employee.HireDate;
-            textBoxSalary.Text = employee.Salary.ToString();
+            textBoxSalary.Text = FormatCurrency(employee.Salary);
         }
 
         public void DisplayEmployeeInfo(EmployeeModel employee)
@@ -363,6 +368,19 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
                 }
             }
             return -1;
+        }
+        private string FormatCurrency(decimal value)
+        {
+            // Định dạng tiền tệ: 000,000,000 (không hiển thị đơn vị)
+            return string.Format("{0:#,##0}", value);
+        }
+        // Thêm vào lớp UC_EmployeeManagement
+        private void textBoxSalary_Leave(object sender, EventArgs e)
+        {
+            if (decimal.TryParse(textBoxSalary.Text.Replace(",", ""), out decimal value))
+            {
+                textBoxSalary.Text = FormatCurrency(value);
+            }
         }
     }
 }
