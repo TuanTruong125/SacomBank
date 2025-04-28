@@ -326,166 +326,6 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             {
                 MessageBox.Show($"Lỗi khi xác nhận chuyển tiền: {ex.Message}\nStackTrace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            try
-            {
-                if (activeUC is ITransferViewData transferViewData)
-                {
-                    // Kiểm tra thông tin đầu vào
-                    if (string.IsNullOrWhiteSpace(transferViewData.AccountID) ||
-                        string.IsNullOrWhiteSpace(transferViewData.ReceiverAccountID) ||
-                        string.IsNullOrWhiteSpace(transferViewData.Amount) ||
-                        transferViewData.BankSelectedIndex == -1)
-                    {
-                        transferViewData.ShowError("Vui lòng nhập đầy đủ thông tin!");
-                        return;
-                    }
-
-                    // Load tài khoản người gửi nếu chưa có (trường hợp nhân viên)
-                    if (senderAccount == null)
-                    {
-                        senderAccount = GetAccountByCode(transferViewData.AccountID);
-                        if (senderAccount == null)
-                        {
-                            transferViewData.ShowError("Tài khoản người gửi không tồn tại!");
-                            return;
-                        }
-                    }
-
-                    // Kiểm tra trạng thái tài khoản người gửi
-                    if (senderAccount.AccountStatus == "Khóa")
-                    {
-                        transferViewData.ShowError("Tài khoản người gửi đang bị khóa!");
-                        return;
-                    }
-
-                    if (senderAccount.AccountStatus == "Đóng")
-                    {
-                        transferViewData.ShowError("Tài khoản người gửi đã bị đóng!");
-                        return;
-                    }
-
-                    // Load tài khoản người nhận
-                    AccountModel receiverAccount = GetAccountByCode(transferViewData.ReceiverAccountID);
-                    if (receiverAccount == null)
-                    {
-                        transferViewData.ShowError("Tài khoản người nhận không tồn tại!");
-                        return;
-                    }
-
-                    // Kiểm tra nếu tài khoản người nhận trùng với tài khoản người gửi
-                    if (receiverAccount.AccountCode == senderAccount.AccountCode)
-                    {
-                        transferViewData.ShowError("Tài khoản người nhận không hợp lệ!");
-                        return;
-                    }
-
-                    // Kiểm tra trạng thái tài khoản người nhận
-                    if (receiverAccount.AccountStatus == "Khóa")
-                    {
-                        transferViewData.ShowError("Tài khoản người nhận đang bị khóa!");
-                        return;
-                    }
-
-                    if (receiverAccount.AccountStatus == "Đóng")
-                    {
-                        transferViewData.ShowError("Tài khoản người nhận đã bị đóng!");
-                        return;
-                    }
-
-                    // Kiểm tra số dư tài khoản người gửi
-                    decimal amount = decimal.Parse(transferViewData.Amount);
-                    if (amount > senderAccount.Balance)
-                    {
-                        transferViewData.ShowError("Số dư không đủ để thực hiện giao dịch!");
-                        return;
-                    }
-
-                    // Kiểm tra số tiền gửi tối thiểu
-                    if (amount < 5000)
-                    {
-                        transferViewData.ShowError("Số tiền chuyển tối thiểu là 5,000 VND!");
-                        return;
-                    }
-
-                    transferViewData.HideError();
-
-                    // Xác nhận giao dịch
-                    bool isVerified = false;
-
-                    if (isEmployee)
-                    {
-                        // Trường hợp nhân viên: Chỉ cần xác nhận bằng OTP
-                        FormOTP formOTP = new FormOTP();
-                        var otpController = new OTPController(formOTP, formOTP, new OTPControllerAdapter(senderAccount, dbContext), configuration);
-                        if (formOTP.ShowDialog() == DialogResult.OK)
-                        {
-                            isVerified = true;
-                        }
-                    }
-                    else
-                    {
-                        // Trường hợp khách hàng: Kiểm tra số tiền giao dịch
-                        if (amount < 10000000) // Dưới 10 triệu VND
-                        {
-                            // Chỉ cần xác nhận bằng mã PIN
-                            FormPINCode formPINCode = new FormPINCode(senderAccount);
-                            var pinController = new PINCodeController(formPINCode, formPINCode, senderAccount);
-                            if (formPINCode.ShowDialog() == DialogResult.OK)
-                            {
-                                isVerified = true;
-                            }
-                        }
-                        else // Từ 10 triệu VND trở lên
-                        {
-                            // Yêu cầu nhập mã PIN trước
-                            FormPINCode formPINCode = new FormPINCode(senderAccount);
-                            var pinController = new PINCodeController(formPINCode, formPINCode, senderAccount);
-                            bool pinVerified = formPINCode.ShowDialog() == DialogResult.OK;
-
-                            // Nếu mã PIN đúng, tiếp tục xác nhận bằng OTP
-                            if (pinVerified)
-                            {
-                                FormOTP formOTP = new FormOTP();
-                                var otpController = new OTPController(formOTP, formOTP, new OTPControllerAdapter(senderAccount, dbContext), configuration);
-                                if (formOTP.ShowDialog() == DialogResult.OK)
-                                {
-                                    isVerified = true;
-                                }
-                            }
-                        }
-                    }
-
-                    if (isVerified)
-                    {
-                        // Lưu thông tin giao dịch ngay khi xác nhận thành công
-                        lastTransferViewData = transferViewData;
-                        lastReceiverAccount = receiverAccount;
-                        lastIsEmployee = isEmployee;
-
-                        // Thực hiện giao dịch và lấy TransactionCode
-                        string transactionCode = SaveTransaction(transferViewData, receiverAccount, isEmployee);
-                        lastTransferViewData.TransactionCode = transactionCode; // Gán TransactionCode
-
-                        // Đánh dấu giao dịch thành công
-                        isTransactionSuccessful = true;
-
-                        // Cập nhật số dư ngay lập tức sau khi giao dịch thành công
-                        if (customerHomeView != null && !isEmployee)
-                        {
-                            customerHomeView.SetBalance(senderAccount.Balance.ToString("#,##0") + " VND");
-                        }
-
-                        // Chuyển sang giao diện thành công
-                        activeUC = new UC_SuccessfulTransfer();
-                        SetupSuccessfulTransfer(activeUC as ISuccessfulTransferView, transferViewData, receiverAccount, isEmployee);
-                        transferView.LoadUserControl(activeUC);
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                MessageBox.Show($"Lỗi khi xác nhận chuyển tiền: {ex.Message}\nStackTrace: {ex.StackTrace}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-            }
         }
 
         private string SaveTransaction(ITransferViewData transferViewData, AccountModel receiverAccount, bool isEmployee)
@@ -556,6 +396,53 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         {
                             command.Parameters.AddWithValue("@Amount", decimal.Parse(transferViewData.Amount));
                             command.Parameters.AddWithValue("@AccountID", receiverAccount.AccountID);
+                            command.ExecuteNonQuery();
+                        }
+
+                        // Thêm bản ghi vào bảng NOTIFICATION cho cả người gửi và người nhận
+                        int notificationTypeId;
+                        using (var command = new SqlCommand("SELECT NotificationTypeID FROM NOTIFICATION_TYPE WHERE NotificationTypeName = @NotificationTypeName", connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@NotificationTypeName", "Giao dịch");
+                            var result = command.ExecuteScalar();
+                            if (result == null)
+                            {
+                                throw new Exception("Không tìm thấy NotificationTypeID cho 'Giao dịch'.");
+                            }
+                            notificationTypeId = (int)result;
+                        }
+
+                        // Thông báo cho người gửi
+                        string senderNotificationMessage = $"{senderAccount.AccountName} chuyển tiền {decimal.Parse(transferViewData.Amount).ToString("#,##0")} VND thành công tới {receiverAccount.AccountName}!";
+                        using (var command = new SqlCommand(
+                            "INSERT INTO [NOTIFICATION] (Title, NotificationMessage, NotificationDate, NotificationStatus, ReferenceID, CustomerID, EmployeeID, NotificationTypeID) " +
+                            "VALUES (@Title, @NotificationMessage, @NotificationDate, @NotificationStatus, @ReferenceID, @CustomerID, @EmployeeID, @NotificationTypeID)", connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@Title", "Chuyển tiền thành công!");
+                            command.Parameters.AddWithValue("@NotificationMessage", senderNotificationMessage);
+                            command.Parameters.AddWithValue("@NotificationDate", DateTime.Now);
+                            command.Parameters.AddWithValue("@NotificationStatus", "Chưa xem");
+                            command.Parameters.AddWithValue("@ReferenceID", newTransactionId);
+                            command.Parameters.AddWithValue("@CustomerID", senderAccount.CustomerID);
+                            command.Parameters.AddWithValue("@EmployeeID", DBNull.Value);
+                            command.Parameters.AddWithValue("@NotificationTypeID", notificationTypeId);
+                            command.ExecuteNonQuery();
+                        }
+
+                        // Thông báo cho người nhận
+                        string receiverNotificationMessage = $"{receiverAccount.AccountName} nhận {decimal.Parse(transferViewData.Amount).ToString("#,##0")} VND thành công từ {senderAccount.AccountName}!";
+                        using (var command = new SqlCommand(
+                            "INSERT INTO [NOTIFICATION] (Title, NotificationMessage, NotificationDate, NotificationStatus, ReferenceID, CustomerID, EmployeeID, NotificationTypeID) " +
+                            "VALUES (@Title, @NotificationMessage, @NotificationDate, @NotificationStatus, @ReferenceID, @CustomerID, @EmployeeID, @NotificationTypeID)", connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@Title", "Nhận tiền thành công!");
+                            command.Parameters.AddWithValue("@NotificationMessage", receiverNotificationMessage);
+                            command.Parameters.AddWithValue("@NotificationDate", DateTime.Now);
+                            command.Parameters.AddWithValue("@NotificationStatus", "Chưa xem");
+                            command.Parameters.AddWithValue("@ReferenceID", newTransactionId);
+                            command.Parameters.AddWithValue("@CustomerID", receiverAccount.CustomerID);
+                            command.Parameters.AddWithValue("@EmployeeID", DBNull.Value);
+                            command.Parameters.AddWithValue("@NotificationTypeID", notificationTypeId);
                             command.ExecuteNonQuery();
                         }
 

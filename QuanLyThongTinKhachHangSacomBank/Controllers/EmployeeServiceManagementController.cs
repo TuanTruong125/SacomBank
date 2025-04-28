@@ -11,6 +11,7 @@ using iTextSharp.text.pdf;
 using iTextSharp.text;
 using System.Text;
 using Excel = Microsoft.Office.Interop.Excel;
+using System.Transactions;
 
 namespace QuanLyThongTinKhachHangSacomBank.Controllers
 {
@@ -412,12 +413,12 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 {
                     connection.Open();
                     string query = @"
-                SELECT a.AccountID, a.AccountCode, a.AccountName, c.CustomerID, c.CustomerCode, c.Phone, c.Email,
-                       ct.CustomerTypeName, a.Balance
-                FROM ACCOUNT a
-                JOIN CUSTOMER c ON a.CustomerID = c.CustomerID
-                JOIN CUSTOMER_TYPE ct ON c.CustomerTypeID = ct.CustomerTypeID
-                WHERE a.AccountID = @AccountID";
+                        SELECT a.AccountID, a.AccountCode, a.AccountName, c.CustomerID, c.CustomerCode, c.Phone, c.Email,
+                               ct.CustomerTypeName, a.Balance, a.AccountStatus
+                        FROM ACCOUNT a
+                        JOIN CUSTOMER c ON a.CustomerID = c.CustomerID
+                        JOIN CUSTOMER_TYPE ct ON c.CustomerTypeID = ct.CustomerTypeID
+                        WHERE a.AccountID = @AccountID";
                     using (var command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@AccountID", accountID);
@@ -425,10 +426,23 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         {
                             if (reader.Read())
                             {
+                                string accountStatus = reader.GetString(9); // Lấy AccountStatus
+                                if (accountStatus == "Khóa" || accountStatus == "Đóng")
+                                {
+                                    view.ShowMessage($"Tài khoản hiện đang ở trạng thái '{accountStatus}'. Không thể sử dụng tài khoản này!",
+                                        "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    view.ClearInputs();
+                                    view.EnableInputControls(true, false);
+                                    view.EnableButtons(false, false, false, true, true);
+                                    selectedCustomer = null;
+                                    selectedCustomerType = null;
+                                    return;
+                                }
+
                                 selectedCustomer = new CustomerModel
                                 {
                                     CustomerID = reader.GetInt32(3),
-                                    CustomerCode = reader.GetString(4), // Sửa từ GetDecimal sang GetString
+                                    CustomerCode = reader.GetString(4),
                                     Phone = reader.GetString(5),
                                     Email = reader.GetString(6)
                                 };
@@ -436,7 +450,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                 {
                                     CustomerTypeName = reader.GetString(7)
                                 };
-                                view.SetCustomerID(reader.GetString(4)); // Sửa từ GetDecimal sang GetString
+                                view.SetCustomerID(reader.GetString(4));
                                 view.SetAccountID(reader.GetString(1).StartsWith("TK") ? reader.GetString(1) : "TK" + reader.GetString(1));
                                 view.SetAccountName(reader.GetString(2));
                                 view.EnableInputControls(true, false);
@@ -589,13 +603,30 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 {
                     connection.Open();
 
+                    // Kiểm tra trạng thái tài khoản trước
+                    string accountStatusQuery = @"
+                        SELECT AccountStatus
+                        FROM ACCOUNT
+                        WHERE AccountID = @AccountID";
+                    using (var command = new SqlCommand(accountStatusQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@AccountID", accountID);
+                        var accountStatus = command.ExecuteScalar()?.ToString();
+                        if (accountStatus == "Khóa" || accountStatus == "Đóng")
+                        {
+                            view.ShowMessage($"Tài khoản hiện đang ở trạng thái '{accountStatus}'. Không thể đăng ký hoặc chỉnh sửa dịch vụ với tài khoản này!",
+                                "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+                    }
+
                     // Lấy thông tin khách hàng và số dư tài khoản
                     string query = @"
-            SELECT c.CustomerID, ct.CustomerTypeName, a.Balance, c.Phone, c.Email
-            FROM CUSTOMER c
-            JOIN CUSTOMER_TYPE ct ON c.CustomerTypeID = ct.CustomerTypeID
-            JOIN ACCOUNT a ON a.CustomerID = c.CustomerID
-            WHERE c.CustomerCode = @CustomerCode AND a.AccountID = @AccountID";
+                        SELECT c.CustomerID, ct.CustomerTypeName, a.Balance, c.Phone, c.Email
+                        FROM CUSTOMER c
+                        JOIN CUSTOMER_TYPE ct ON c.CustomerTypeID = ct.CustomerTypeID
+                        JOIN ACCOUNT a ON a.CustomerID = c.CustomerID
+                        WHERE c.CustomerCode = @CustomerCode AND a.AccountID = @AccountID";
                     using (var command = new SqlCommand(query, connection))
                     {
                         command.Parameters.AddWithValue("@CustomerCode", customerCode);
@@ -712,12 +743,14 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     {
                         // Thêm dịch vụ mới
                         string insertQuery = @"
-                INSERT INTO SERVICE (TotalPrincipalAmount, Duration, InterestRate, 
-                    TotalInterestAmount, ServiceDescription, CreatedDate, ApprovalStatus, 
-                    ServiceStatus, HandledBy, CustomerID, AccountID, ServiceTypeID)
-                VALUES (@TotalPrincipalAmount, @Duration, @InterestRate, 
-                    @TotalInterestAmount, @ServiceDescription, @CreatedDate, @ApprovalStatus, 
-                    @ServiceStatus, @HandledBy, @CustomerID, @AccountID, @ServiceTypeID)";
+        INSERT INTO SERVICE (TotalPrincipalAmount, Duration, InterestRate, 
+            TotalInterestAmount, ServiceDescription, CreatedDate, ApprovalStatus, 
+            ServiceStatus, HandledBy, CustomerID, AccountID, ServiceTypeID)
+        OUTPUT INSERTED.ServiceID
+        VALUES (@TotalPrincipalAmount, @Duration, @InterestRate, 
+            @TotalInterestAmount, @ServiceDescription, @CreatedDate, @ApprovalStatus, 
+            @ServiceStatus, @HandledBy, @CustomerID, @AccountID, @ServiceTypeID)";
+                        int serviceId;
                         using (var command = new SqlCommand(insertQuery, connection))
                         {
                             command.Parameters.AddWithValue("@TotalPrincipalAmount", totalPrincipalAmount);
@@ -732,6 +765,69 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                             command.Parameters.AddWithValue("@CustomerID", customerID);
                             command.Parameters.AddWithValue("@AccountID", accountID);
                             command.Parameters.AddWithValue("@ServiceTypeID", serviceTypeID);
+                            serviceId = (int)command.ExecuteScalar(); // Lấy ServiceID vừa chèn
+                        }
+
+                        // Lấy NotificationTypeID cho "Dịch vụ"
+                        int notificationTypeId;
+                        using (var command = new SqlCommand("SELECT NotificationTypeID FROM NOTIFICATION_TYPE WHERE NotificationTypeName = @NotificationTypeName", connection))
+                        {
+                            command.Parameters.AddWithValue("@NotificationTypeName", "Dịch vụ");
+                            var result = command.ExecuteScalar();
+                            if (result == null)
+                            {
+                                view.ShowMessage("Không tìm thấy NotificationTypeID cho 'Dịch vụ'.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                return;
+                            }
+                            notificationTypeId = (int)result;
+                        }
+
+                        // Lấy EmployeeID của quản lý
+                        int? managerId = null;
+                        using (var command = new SqlCommand("SELECT EmployeeID FROM EMPLOYEE WHERE EmployeeRole = @EmployeeRole", connection))
+                        {
+                            command.Parameters.AddWithValue("@EmployeeRole", "Quản lý");
+                            var result = command.ExecuteScalar();
+                            if (result != null)
+                            {
+                                managerId = (int)result;
+                            }
+                        }
+
+                        if (!managerId.HasValue)
+                        {
+                            view.ShowMessage("Không tìm thấy nhân viên quản lý để gửi thông báo!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        // Tạo thông báo cho quản lý
+                        string notificationMessage;
+                        if (serviceTypeName == "Vay vốn")
+                        {
+                            notificationMessage = $"Yêu cầu mở dịch vụ vay vốn cho mã dịch vụ DV{serviceId}!";
+                        }
+                        else if (serviceTypeName == "Gửi tiết kiệm")
+                        {
+                            notificationMessage = $"Yêu cầu mở dịch vụ gửi tiết kiệm cho mã dịch vụ DV{serviceId}!";
+                        }
+                        else
+                        {
+                            view.ShowMessage("Loại dịch vụ không được hỗ trợ để gửi thông báo!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            return;
+                        }
+
+                        using (var command = new SqlCommand(
+                            "INSERT INTO [NOTIFICATION] (Title, NotificationMessage, NotificationDate, NotificationStatus, ReferenceID, CustomerID, EmployeeID, NotificationTypeID) " +
+                            "VALUES (@Title, @NotificationMessage, @NotificationDate, @NotificationStatus, @ReferenceID, @CustomerID, @EmployeeID, @NotificationTypeID)", connection))
+                        {
+                            command.Parameters.AddWithValue("@Title", "Yêu cầu mở dịch vụ!");
+                            command.Parameters.AddWithValue("@NotificationMessage", notificationMessage);
+                            command.Parameters.AddWithValue("@NotificationDate", DateTime.Now);
+                            command.Parameters.AddWithValue("@NotificationStatus", "Chưa xem");
+                            command.Parameters.AddWithValue("@ReferenceID", serviceId);
+                            command.Parameters.AddWithValue("@CustomerID", DBNull.Value);
+                            command.Parameters.AddWithValue("@EmployeeID", managerId);
+                            command.Parameters.AddWithValue("@NotificationTypeID", notificationTypeId);
                             command.ExecuteNonQuery();
                         }
                     }
@@ -1494,12 +1590,622 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
         public void CancelSavings()
         {
-            // Chưa triển khai
+            if (selectedService == null)
+            {
+                view.ShowMessage("Vui lòng chọn một dịch vụ để tất toán trước hạn!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Kiểm tra loại dịch vụ và trạng thái
+            var serviceType = serviceTypes.FirstOrDefault(st => st.ServiceTypeID == selectedService.ServiceTypeID);
+            if (serviceType == null || serviceType.ServiceTypeName != "Gửi tiết kiệm")
+            {
+                view.ShowMessage("Chức năng tất toán trước hạn chỉ áp dụng cho dịch vụ 'Gửi tiết kiệm'!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            if (selectedService.ServiceStatus != "Đang hoạt động")
+            {
+                view.ShowMessage("Chỉ có thể tất toán trước hạn dịch vụ ở trạng thái 'Đang hoạt động'!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                decimal balance = 0;
+                string accountName = "";
+                DateTime currentDateTime = DateTime.Now;
+
+                using (var connection = dbContext.GetConnection())
+                {
+                    connection.Open();
+
+                    // 1. Lấy số dư tài khoản và tên tài khoản
+                    string accountQuery = @"
+                SELECT a.Balance, a.AccountName
+                FROM ACCOUNT a
+                WHERE a.AccountID = @AccountID";
+                    using (var command = new SqlCommand(accountQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@AccountID", selectedService.AccountID);
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                balance = reader.GetDecimal(0);
+                                accountName = reader.GetString(1);
+                            }
+                            else
+                            {
+                                view.ShowMessage("Không tìm thấy thông tin tài khoản!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+                    }
+
+                    // 2. Tính số tiền rút về
+                    decimal principalAmount = selectedService.TotalPrincipalAmount;
+                    decimal nonTermInterestRate = 0.001m; // 0.1%/năm
+                    decimal monthlyInterestRate = nonTermInterestRate / 12m; // Lãi suất không kỳ hạn theo tháng
+
+                    // Tính số tháng gửi
+                    DateTime applicableDate = selectedService.ApplicableDate.Value;
+                    int monthsDeposited = (currentDateTime.Year - applicableDate.Year) * 12 + currentDateTime.Month - applicableDate.Month;
+
+                    // Tính số tiền lãi và làm tròn xuống bằng Math.Floor
+                    decimal interest = principalAmount * monthlyInterestRate * monthsDeposited;
+                    interest = (decimal)Math.Floor((double)interest); // Làm tròn xuống, bỏ phần thập phân
+                    decimal totalWithdrawalAmount = principalAmount + interest;
+
+                    // 3. Hiển thị thông báo xác nhận
+                    string message = "Bạn có chắc chắn tất toán cho dịch vụ Gửi tiết kiệm này?\n\n" +
+                                    $"- Số dư tài khoản của khách hàng: {balance:N0} VND\n" +
+                                    $"- Số tiền rút về: {totalWithdrawalAmount:N0} VND\n" +
+                                    "Bao gồm:\n" +
+                                    $"  + Số tiền gốc: {principalAmount:N0} VND\n" +
+                                    $"  + Tiền lãi (lãi suất không kỳ hạn 0.1%/năm): {interest:N0} VND";
+                    if (view.ShowConfirmation(message, "Xác nhận tất toán trước hạn") != DialogResult.Yes)
+                        return;
+
+                    // 4. Cập nhật thông tin khách hàng trước khi gọi OTP
+                    string customerQuery = @"
+                SELECT c.Phone, c.Email
+                FROM CUSTOMER c
+                JOIN SERVICE s ON s.CustomerID = c.CustomerID
+                WHERE s.ServiceID = @ServiceID";
+                    using (var customerCommand = new SqlCommand(customerQuery, connection))
+                    {
+                        customerCommand.Parameters.AddWithValue("@ServiceID", selectedService.ServiceID);
+                        using (var customerReader = customerCommand.ExecuteReader())
+                        {
+                            if (customerReader.Read())
+                            {
+                                selectedCustomer = new CustomerModel
+                                {
+                                    CustomerID = selectedService.CustomerID,
+                                    Phone = customerReader.IsDBNull(0) ? null : customerReader.GetString(0),
+                                    Email = customerReader.IsDBNull(1) ? null : customerReader.GetString(1)
+                                };
+                            }
+                            else
+                            {
+                                view.ShowMessage("Không tìm thấy thông tin khách hàng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+                    }
+
+                    if (string.IsNullOrEmpty(selectedCustomer?.Phone) && string.IsNullOrEmpty(selectedCustomer?.Email))
+                    {
+                        view.ShowMessage("Không thể gửi OTP vì không có thông tin số điện thoại hoặc email của khách hàng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // 5. Xác nhận OTP
+                    if (!ShowOTPForm())
+                    {
+                        view.ShowMessage("Xác nhận OTP không thành công!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // 6. Xử lý tất toán trước hạn
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            // 6.1. Cập nhật số dư tài khoản
+                            string updateBalanceQuery = @"
+                        UPDATE ACCOUNT
+                        SET Balance = Balance + @TotalWithdrawalAmount
+                        WHERE AccountID = @AccountID";
+                            using (var command = new SqlCommand(updateBalanceQuery, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@TotalWithdrawalAmount", totalWithdrawalAmount);
+                                command.Parameters.AddWithValue("@AccountID", selectedService.AccountID);
+                                command.ExecuteNonQuery();
+                            }
+
+                            // 6.2. Cập nhật trạng thái dịch vụ
+                            string updateServiceQuery = @"
+                        UPDATE [SERVICE]
+                        SET ServiceStatus = @ServiceStatus, EndDate = @EndDate
+                        WHERE ServiceID = @ServiceID";
+                            using (var command = new SqlCommand(updateServiceQuery, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@ServiceStatus", "Đã tất toán");
+                                command.Parameters.AddWithValue("@EndDate", currentDateTime);
+                                command.Parameters.AddWithValue("@ServiceID", selectedService.ServiceID);
+                                command.ExecuteNonQuery();
+                            }
+
+                            // 6.3. Truy vấn các bản ghi SAVINGS_PAYMENT và cập nhật EXPENSE
+                            List<int> paySavingsIds = new List<int>();
+                            string savingsPaymentQuery = @"
+                        SELECT PaySavingsID
+                        FROM SAVINGS_PAYMENT
+                        WHERE ServiceID = @ServiceID";
+                            using (var command = new SqlCommand(savingsPaymentQuery, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@ServiceID", selectedService.ServiceID);
+                                using (var reader = command.ExecuteReader())
+                                {
+                                    while (reader.Read())
+                                    {
+                                        paySavingsIds.Add(reader.GetInt32(0));
+                                    }
+                                }
+                            }
+
+                            // Kiểm tra và ghi log
+                            System.Diagnostics.Debug.WriteLine($"Số bản ghi SAVINGS_PAYMENT tìm thấy: {paySavingsIds.Count}, PaySavingsIDs: {string.Join(", ", paySavingsIds)}");
+
+                            if (paySavingsIds.Count == 0)
+                            {
+                                System.Diagnostics.Debug.WriteLine($"Không tìm thấy bản ghi SAVINGS_PAYMENT cho ServiceID = {selectedService.ServiceID}.");
+                            }
+                            else
+                            {
+                                // Cập nhật ProfitID thành NULL cho các bản ghi EXPENSE liên quan
+                                foreach (var paySavingsId in paySavingsIds)
+                                {
+                                    string updateExpenseQuery = @"
+                                        UPDATE EXPENSE
+                                        SET ProfitID = NULL
+                                        WHERE PaySavingsID = @PaySavingsID";
+                                    using (var command = new SqlCommand(updateExpenseQuery, connection, transaction))
+                                    {
+                                        command.Parameters.AddWithValue("@PaySavingsID", paySavingsId);
+                                        int rowsAffected = command.ExecuteNonQuery();
+                                        System.Diagnostics.Debug.WriteLine($"Cập nhật EXPENSE cho PaySavingsID = {paySavingsId}. Số bản ghi được cập nhật: {rowsAffected}.");
+                                    }
+                                }
+                            }
+
+                            // 6.4. Tạo bản ghi EXPENSE mới
+                            int profitId = 0;
+                            DateTime currentDate = currentDateTime.Date;
+
+                            string checkProfitQuery = @"
+                        SELECT ProfitID
+                        FROM PROFIT
+                        WHERE CAST(ProfitDate AS DATE) = @ProfitDate";
+                            using (var command = new SqlCommand(checkProfitQuery, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@ProfitDate", currentDate);
+                                var result = command.ExecuteScalar();
+                                if (result != null)
+                                {
+                                    profitId = Convert.ToInt32(result);
+                                }
+                            }
+
+                            if (profitId == 0)
+                            {
+                                string insertProfitQuery = @"
+                            INSERT INTO PROFIT (TotalRevenue, TotalExpense, NetProfit, ProfitDate)
+                            VALUES (0, 0, 0, @ProfitDate);
+                            SELECT SCOPE_IDENTITY();";
+                                using (var command = new SqlCommand(insertProfitQuery, connection, transaction))
+                                {
+                                    command.Parameters.AddWithValue("@ProfitDate", currentDate);
+                                    profitId = Convert.ToInt32(command.ExecuteScalar());
+                                }
+                            }
+
+                            string insertExpenseQuery = @"
+                        INSERT INTO EXPENSE (
+                            InterestPaid, EmployeeSalary, SystemMaintenanceFee, ExpenseDate, PaySavingsID, ProfitID
+                        )
+                        VALUES (
+                            @InterestPaid, NULL, NULL, @ExpenseDate, NULL, @ProfitID
+                        )";
+                            using (var command = new SqlCommand(insertExpenseQuery, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@InterestPaid", totalWithdrawalAmount);
+                                command.Parameters.AddWithValue("@ExpenseDate", currentDateTime);
+                                command.Parameters.AddWithValue("@ProfitID", profitId);
+                                command.ExecuteNonQuery();
+                            }
+
+                            // 6.5. Cập nhật bảng PROFIT
+                            string updateProfitQuery = @"
+                        UPDATE PROFIT
+                        SET TotalExpense = (
+                            SELECT COALESCE(SUM(COALESCE(InterestPaid, 0) + COALESCE(EmployeeSalary, 0) + COALESCE(SystemMaintenanceFee, 0)), 0)
+                            FROM EXPENSE
+                            WHERE ProfitID = @ProfitID
+                        ),
+                        NetProfit = (
+                            SELECT COALESCE(SUM(TotalAmount), 0)
+                            FROM REVENUE
+                            WHERE ProfitID = @ProfitID
+                        ) - (
+                            SELECT COALESCE(SUM(COALESCE(InterestPaid, 0) + COALESCE(EmployeeSalary, 0) + COALESCE(SystemMaintenanceFee, 0)), 0)
+                            FROM EXPENSE
+                            WHERE ProfitID = @ProfitID
+                        )
+                        WHERE ProfitID = @ProfitID";
+                            using (var command = new SqlCommand(updateProfitQuery, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@ProfitID", profitId);
+                                command.ExecuteNonQuery();
+                            }
+
+                            // 6.6. Tạo bản ghi TRANSACTION
+                            string insertTransactionQuery = @"
+                        INSERT INTO [TRANSACTION] (Amount, TransactionDate, TransactionStatus, HandledBy, TransactionDescription, TransactionMethod, AccountID, TransactionTypeID)
+                        VALUES (@Amount, @TransactionDate, @TransactionStatus, @HandledBy, @TransactionDescription, @TransactionMethod, @AccountID, @TransactionTypeID)";
+                            using (var command = new SqlCommand(insertTransactionQuery, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@Amount", totalWithdrawalAmount);
+                                command.Parameters.AddWithValue("@TransactionDate", currentDateTime);
+                                command.Parameters.AddWithValue("@TransactionStatus", "Hoàn tất");
+                                command.Parameters.AddWithValue("@HandledBy", currentEmployee.EmployeeID);
+                                command.Parameters.AddWithValue("@TransactionDescription", $"Tat toan truoc han gui tiet kiem cho {accountName} voi ma dich vu {selectedService.ServiceCode}");
+                                command.Parameters.AddWithValue("@TransactionMethod", "Tại quầy");
+                                command.Parameters.AddWithValue("@AccountID", selectedService.AccountID);
+                                command.Parameters.AddWithValue("@TransactionTypeID", 1); // TransactionTypeID = 1 (Nạp tiền)
+                                command.ExecuteNonQuery();
+                            }
+
+                            // Commit transaction
+                            transaction.Commit();
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            view.ShowMessage($"Lỗi khi tất toán trước hạn: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+
+                    // 7. Hiển thị thông báo thành công
+                    view.ShowMessage($"Đã tất toán trước hạn thành công cho Mã dịch vụ {selectedService.ServiceCode}!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    selectedService = null;
+                    view.ClearInputs();
+                    view.EnableInputControls(false);
+                    view.EnableButtons(true, false, false, false, false);
+                    LoadServices(view.GetDateFrom(), view.GetDateTo(), view.GetServiceTypeFilter(), view.GetDurationFilter(), view.GetStatusFilter(), view.GetApprovalStatusFilter());
+                }
+            }
+            catch (Exception ex)
+            {
+                view.ShowMessage($"Lỗi khi tất toán trước hạn: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         public void LoanPrepayment()
         {
-            // Chưa triển khai
+            if (selectedService == null)
+            {
+                view.ShowMessage("Vui lòng chọn một dịch vụ để tất toán khoản vay!", "Cảnh báo", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Kiểm tra trạng thái dịch vụ
+            if (selectedService.ServiceStatus != "Đang hoạt động" && selectedService.ServiceStatus != "Trễ hạn thanh toán")
+            {
+                view.ShowMessage("Chỉ có thể tất toán khoản vay ở trạng thái 'Đang hoạt động' hoặc 'Trễ hạn thanh toán'!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            // Kiểm tra loại dịch vụ (chỉ áp dụng cho "Vay vốn")
+            var serviceType = serviceTypes.FirstOrDefault(st => st.ServiceTypeID == selectedService.ServiceTypeID);
+            if (serviceType == null || serviceType.ServiceTypeName != "Vay vốn")
+            {
+                view.ShowMessage("Chức năng tất toán chỉ áp dụng cho dịch vụ 'Vay vốn'!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                return;
+            }
+
+            try
+            {
+                decimal remainingDebt = 0;
+                decimal lateFee = 0;
+                decimal balance = 0;
+                string accountName = "";
+                DateTime currentDateTime = DateTime.Now;
+
+                using (var connection = dbContext.GetConnection())
+                {
+                    connection.Open();
+
+                    // 1. Truy vấn bản ghi LOAN_PAYMENT gần nhất dựa trên ServiceID
+                    string loanPaymentQuery = @"
+                        SELECT TOP 1 RemainingDebt, LateFee
+                        FROM LOAN_PAYMENT
+                        WHERE ServiceID = @ServiceID
+                        ORDER BY DueDate DESC";
+                    using (var command = new SqlCommand(loanPaymentQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@ServiceID", selectedService.ServiceID);
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                remainingDebt = reader.GetDecimal(0);
+                                lateFee = reader.GetDecimal(1);
+                            }
+                            else
+                            {
+                                view.ShowMessage("Không tìm thấy thông tin thanh toán khoản vay cho dịch vụ này!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+                    }
+
+                    // 2. Lấy số dư tài khoản và tên tài khoản
+                    string accountQuery = @"
+                        SELECT a.Balance, a.AccountName
+                        FROM ACCOUNT a
+                        WHERE a.AccountID = @AccountID";
+                    using (var command = new SqlCommand(accountQuery, connection))
+                    {
+                        command.Parameters.AddWithValue("@AccountID", selectedService.AccountID);
+                        using (var reader = command.ExecuteReader())
+                        {
+                            if (reader.Read())
+                            {
+                                balance = reader.GetDecimal(0);
+                                accountName = reader.GetString(1);
+                            }
+                            else
+                            {
+                                view.ShowMessage("Không tìm thấy thông tin tài khoản!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+                    }
+
+                    // 3. Tính phí tất toán trước hạn và tổng số tiền để tất toán
+                    decimal prepaymentFee = remainingDebt * 0.02m; // Phí tất toán trước hạn = 2% số nợ còn lại
+                    decimal totalPrepaymentAmount = remainingDebt + lateFee + prepaymentFee; // Tổng số tiền để tất toán
+
+                    // 4. Hiển thị thông báo xác nhận
+                    string message = "Bạn có chắc chắn tất toán cho khoản vay này?\n\n" +
+                                    $"- Số dư tài khoản của khách hàng: {balance:N0} VND\n" +
+                                    $"- Tổng số tiền để tất toán: {totalPrepaymentAmount:N0} VND\n" +
+                                    "Bao gồm:\n" +
+                                    $"  + Số nợ còn lại: {remainingDebt:N0} VND\n" +
+                                    $"  + Phí trễ hạn: {lateFee:N0} VND\n" +
+                                    $"  + Phí tất toán trước hạn: {prepaymentFee:N0} VND";
+                    if (view.ShowConfirmation(message, "Xác nhận tất toán") != DialogResult.Yes)
+                        return;
+
+                    // 5. Kiểm tra số dư tài khoản
+                    if (balance < totalPrepaymentAmount)
+                    {
+                        view.ShowMessage("Số dư tài khoản không đủ để tất toán khoản vay!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    // 6. Xác nhận OTP
+                    // Cập nhật thông tin khách hàng trước khi gọi OTP
+                    string customerQuery = @"
+                        SELECT c.Phone, c.Email
+                        FROM CUSTOMER c
+                        JOIN SERVICE s ON s.CustomerID = c.CustomerID
+                        WHERE s.ServiceID = @ServiceID";
+                    using (var customerCommand = new SqlCommand(customerQuery, connection))
+                    {
+                        customerCommand.Parameters.AddWithValue("@ServiceID", selectedService.ServiceID);
+                        using (var customerReader = customerCommand.ExecuteReader())
+                        {
+                            if (customerReader.Read())
+                            {
+                                selectedCustomer = new CustomerModel
+                                {
+                                    CustomerID = selectedService.CustomerID,
+                                    Phone = customerReader.IsDBNull(0) ? null : customerReader.GetString(0),
+                                    Email = customerReader.IsDBNull(1) ? null : customerReader.GetString(1)
+                                };
+                            }
+                            else
+                            {
+                                view.ShowMessage("Không tìm thấy thông tin khách hàng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+                    }
+
+                    if (string.IsNullOrEmpty(selectedCustomer?.Phone) && string.IsNullOrEmpty(selectedCustomer?.Email))
+                    {
+                        view.ShowMessage("Không thể gửi OTP vì không có thông tin số điện thoại hoặc email của khách hàng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+                    if (!ShowOTPForm())
+                    {
+                        view.ShowMessage("Xác nhận OTP không thành công!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                        return;
+                    }
+
+
+                    // 6.1. Sử dụng transaction để đảm bảo tính toàn vẹn dữ liệu
+                    using (var transaction = connection.BeginTransaction())
+                    {
+                        try
+                        {
+                            // 6.2. Cập nhật trạng thái PaymentStatus của bản ghi LOAN_PAYMENT gần nhất
+                            string updateLoanPaymentQuery = @"
+                                UPDATE LOAN_PAYMENT
+                                SET PaymentStatus = @PaymentStatus
+                                WHERE ServiceID = @ServiceID
+                                AND DueDate = (SELECT MAX(DueDate) FROM LOAN_PAYMENT WHERE ServiceID = @ServiceID)";
+                            using (var command = new SqlCommand(updateLoanPaymentQuery, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@PaymentStatus", "Đã thanh toán");
+                                command.Parameters.AddWithValue("@ServiceID", selectedService.ServiceID);
+                                int rowsAffected = command.ExecuteNonQuery();
+                                if (rowsAffected == 0)
+                                {
+                                    view.ShowMessage("Không tìm thấy bản ghi LOAN_PAYMENT gần nhất để cập nhật trạng thái!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                    return;
+                                }
+                            }
+
+                            // 6.3. Thêm bản ghi vào bảng REVENUE và gán ProfitID ngay lập tức
+                            DateTime currentDate = currentDateTime.Date;
+                            int profitId = 0;
+
+                            // Kiểm tra xem có bản ghi PROFIT cho ngày hiện tại chưa
+                            string checkProfitQuery = @"
+                                SELECT ProfitID
+                                FROM PROFIT
+                                WHERE CAST(ProfitDate AS DATE) = @ProfitDate";
+                            using (var command = new SqlCommand(checkProfitQuery, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@ProfitDate", currentDate);
+                                var result = command.ExecuteScalar();
+                                if (result != null)
+                                {
+                                    profitId = Convert.ToInt32(result);
+                                }
+                            }
+
+                            // Nếu không có bản ghi PROFIT, tạo mới
+                            if (profitId == 0)
+                            {
+                                string insertProfitQuery = @"
+                                    INSERT INTO PROFIT (TotalRevenue, TotalExpense, NetProfit, ProfitDate)
+                                    VALUES (0, 0, 0, @ProfitDate);
+                                    SELECT SCOPE_IDENTITY();";
+                                using (var command = new SqlCommand(insertProfitQuery, connection, transaction))
+                                {
+                                    command.Parameters.AddWithValue("@ProfitDate", currentDate);
+                                    profitId = Convert.ToInt32(command.ExecuteScalar());
+                                }
+                            }
+
+                            // Thêm bản ghi REVENUE với ProfitID vừa lấy hoặc tạo
+                            string insertRevenueQuery = @"
+                                INSERT INTO REVENUE (PrincipalAmount, InterestAmount, LateFee, TotalAmount, RevenueDate, PayLoanID, ProfitID)
+                                VALUES (@PrincipalAmount, @InterestAmount, @LateFee, @TotalAmount, @RevenueDate, NULL, @ProfitID)";
+                            using (var command = new SqlCommand(insertRevenueQuery, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@PrincipalAmount", remainingDebt);
+                                command.Parameters.AddWithValue("@InterestAmount", 0m); // Lãi = 0 (hoặc tính nếu có)
+                                command.Parameters.AddWithValue("@LateFee", lateFee + prepaymentFee);
+                                command.Parameters.AddWithValue("@TotalAmount", totalPrepaymentAmount);
+                                command.Parameters.AddWithValue("@RevenueDate", currentDateTime);
+                                command.Parameters.AddWithValue("@ProfitID", profitId);
+                                command.ExecuteNonQuery();
+                            }
+
+                            // 6.4. Cập nhật bảng PROFIT
+                            string updateProfitQuery = @"
+                                UPDATE PROFIT
+                                SET TotalRevenue = (
+                                    SELECT COALESCE(SUM(TotalAmount), 0)
+                                    FROM REVENUE
+                                    WHERE ProfitID = @ProfitID
+                                ),
+                                TotalExpense = (
+                                    SELECT COALESCE(SUM(COALESCE(InterestPaid, 0) + COALESCE(EmployeeSalary, 0) + COALESCE(SystemMaintenanceFee, 0)), 0)
+                                    FROM EXPENSE
+                                    WHERE ProfitID = @ProfitID
+                                ),
+                                NetProfit = (
+                                    SELECT COALESCE(SUM(TotalAmount), 0)
+                                    FROM REVENUE
+                                    WHERE ProfitID = @ProfitID
+                                ) - (
+                                    SELECT COALESCE(SUM(COALESCE(InterestPaid, 0) + COALESCE(EmployeeSalary, 0) + COALESCE(SystemMaintenanceFee, 0)), 0)
+                                    FROM EXPENSE
+                                    WHERE ProfitID = @ProfitID
+                                )
+                                WHERE ProfitID = @ProfitID";
+                            using (var command = new SqlCommand(updateProfitQuery, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@ProfitID", profitId);
+                                command.ExecuteNonQuery();
+                            }
+
+                            // 6.5. Cập nhật số dư tài khoản
+                            string updateBalanceQuery = @"
+                                UPDATE ACCOUNT
+                                SET Balance = Balance - @TotalPrepaymentAmount
+                                WHERE AccountID = @AccountID";
+                            using (var command = new SqlCommand(updateBalanceQuery, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@TotalPrepaymentAmount", totalPrepaymentAmount);
+                                command.Parameters.AddWithValue("@AccountID", selectedService.AccountID);
+                                command.ExecuteNonQuery();
+                            }
+
+                            // 6.6. Tạo bản ghi giao dịch trong TRANSACTION
+                            string insertTransactionQuery = @"
+                                INSERT INTO [TRANSACTION] (Amount, TransactionDate, TransactionStatus, HandledBy, TransactionDescription, TransactionMethod, AccountID, TransactionTypeID)
+                                VALUES (@Amount, @TransactionDate, @TransactionStatus, @HandledBy, @TransactionDescription, @TransactionMethod, @AccountID, @TransactionTypeID)";
+                            using (var command = new SqlCommand(insertTransactionQuery, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@Amount", totalPrepaymentAmount);
+                                command.Parameters.AddWithValue("@TransactionDate", currentDateTime);
+                                command.Parameters.AddWithValue("@TransactionStatus", "Hoàn tất");
+                                command.Parameters.AddWithValue("@HandledBy", currentEmployee.EmployeeID);
+                                command.Parameters.AddWithValue("@TransactionDescription", $"Tat toan khoan vay truoc han cho {accountName} voi ma dich vu {selectedService.ServiceCode}");
+                                command.Parameters.AddWithValue("@TransactionMethod", "Tại quầy");
+                                command.Parameters.AddWithValue("@AccountID", selectedService.AccountID);
+                                command.Parameters.AddWithValue("@TransactionTypeID", 4); // TransactionTypeID = 4 (Thanh toán khoản vay)
+                                command.ExecuteNonQuery();
+                            }
+
+                            // 6.7. Cập nhật trạng thái dịch vụ và ngày kết thúc (EndDate) thành ngày hiện tại
+                            string updateServiceQuery = @"
+                                UPDATE [SERVICE]
+                                SET ServiceStatus = @ServiceStatus, EndDate = @EndDate
+                                WHERE ServiceID = @ServiceID";
+                            using (var command = new SqlCommand(updateServiceQuery, connection, transaction))
+                            {
+                                command.Parameters.AddWithValue("@ServiceStatus", "Đã tất toán");
+                                command.Parameters.AddWithValue("@EndDate", currentDateTime); // Cập nhật EndDate thành ngày hiện tại
+                                command.Parameters.AddWithValue("@ServiceID", selectedService.ServiceID);
+                                command.ExecuteNonQuery();
+                            }
+
+                            // Commit transaction
+                            transaction.Commit();
+
+                            // 7. Hiển thị thông báo tất toán thành công với mã dịch vụ
+                            view.ShowMessage($"Đã tất toán thành công cho Mã dịch vụ {selectedService.ServiceCode}!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            selectedService = null;
+                            view.ClearInputs();
+                            view.EnableInputControls(false);
+                            view.EnableButtons(true, false, false, false, false);
+                            LoadServices(view.GetDateFrom(), view.GetDateTo(), view.GetServiceTypeFilter(), view.GetDurationFilter(), view.GetStatusFilter(), view.GetApprovalStatusFilter());
+                        }
+                        catch (Exception ex)
+                        {
+                            transaction.Rollback();
+                            view.ShowMessage($"Lỗi khi tất toán khoản vay: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                view.ShowMessage($"Lỗi khi tất toán khoản vay: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
     }
 }

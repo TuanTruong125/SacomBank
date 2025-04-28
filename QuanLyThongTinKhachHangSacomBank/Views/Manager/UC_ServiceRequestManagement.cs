@@ -298,7 +298,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
                             CustomerID = row.Cells[0].Value != null ? int.Parse(row.Cells[0].Value.ToString().Replace("KH", "")) : 0,
                             AccountID = row.Cells[2].Value != null ? int.Parse(row.Cells[2].Value.ToString().Replace("TK", "")) : 0,
                             ServiceCode = row.Cells[4].Value?.ToString() ?? "",
-                            ServiceTypeID = row.Cells[3].Value?.ToString() == "Gửi tiết kiệm" ? 1 : (row.Cells[3].Value?.ToString() == "Vay vốn" ? 2 : 0),
+                            ServiceTypeID = row.Cells[3].Value?.ToString() == "Vay vốn" ? 1 : (row.Cells[3].Value?.ToString() == "Gửi tiết kiệm" ? 2 : 0),
                             TotalPrincipalAmount = row.Cells[5].Value != null ? decimal.Parse(row.Cells[5].Value.ToString(), System.Globalization.NumberStyles.AllowThousands) : 0,
                             InterestRate = row.Cells[8].Value != null ? decimal.Parse(row.Cells[8].Value.ToString().Replace("%/năm", "").Trim()) : 0,
                             TotalInterestAmount = string.IsNullOrEmpty(row.Cells[9].Value?.ToString()) ? null : decimal.Parse(row.Cells[9].Value.ToString(), System.Globalization.NumberStyles.AllowThousands),

@@ -65,24 +65,33 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 {
                     connection.Open();
 
-                    // Truy vấn SQL để lấy dữ liệu giao dịch
+                    // Truy vấn SQL để lấy dữ liệu giao dịch, bao gồm ServiceID từ LOAN_PAYMENT thông qua SERVICE và ACCOUNT
                     string query = @"
-                        SELECT 
-                            t.TransactionID,
-                            t.Amount,
-                            t.TransactionDate,
-                            t.TransactionDescription,
-                            t.AccountID,
-                            t.ReceiverAccountID,
-                            tt.TransactionTypeName,
-                            a.AccountName AS SenderAccountName,
-                            r.AccountName AS ReceiverAccountName
-                        FROM [TRANSACTION] t
-                        JOIN TRANSACTION_TYPE tt ON t.TransactionTypeID = tt.TransactionTypeID
-                        JOIN ACCOUNT a ON t.AccountID = a.AccountID
-                        LEFT JOIN ACCOUNT r ON t.ReceiverAccountID = r.AccountID
-                        WHERE (t.AccountID = @AccountID OR t.ReceiverAccountID = @AccountID)
-                        AND t.TransactionDate BETWEEN @FromDate AND @ToDate";
+                        SELECT DISTINCT
+                    t.TransactionID,
+                    t.Amount,
+                    t.TransactionDate,
+                    t.TransactionDescription,
+                    t.AccountID,
+                    t.ReceiverAccountID,
+                    tt.TransactionTypeName,
+                    a.AccountName AS SenderAccountName,
+                    r.AccountName AS ReceiverAccountName,
+                    -- Lấy ServiceID thông qua bảng SERVICE dựa trên AccountID
+                    (SELECT TOP 1 s.ServiceID 
+                        FROM [SERVICE] s 
+                        WHERE s.AccountID = t.AccountID 
+                        AND EXISTS (
+                            SELECT 1 
+                            FROM LOAN_PAYMENT lp 
+                            WHERE lp.ServiceID = s.ServiceID
+                        )) AS ServiceID
+                FROM [TRANSACTION] t
+                JOIN TRANSACTION_TYPE tt ON t.TransactionTypeID = tt.TransactionTypeID
+                JOIN ACCOUNT a ON t.AccountID = a.AccountID
+                LEFT JOIN ACCOUNT r ON t.ReceiverAccountID = r.AccountID
+                WHERE (t.AccountID = @AccountID OR t.ReceiverAccountID = @AccountID)
+                AND t.TransactionDate BETWEEN @FromDate AND @ToDate";
 
                     // Lọc theo loại giao dịch nếu không chọn "Không áp dụng"
                     if (view.TransactionTypeNameFilter != "Không áp dụng")
@@ -96,7 +105,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     {
                         command.Parameters.AddWithValue("@AccountID", currentAccount.AccountID);
                         command.Parameters.AddWithValue("@FromDate", view.DateFrom.Date);
-                        command.Parameters.AddWithValue("@ToDate", view.DateTo.Date.AddDays(1).AddSeconds(-1)); // Đến cuối ngày
+                        command.Parameters.AddWithValue("@ToDate", view.DateTo.Date.AddDays(1).AddSeconds(-1));
 
                         if (view.TransactionTypeNameFilter != "Không áp dụng")
                         {
@@ -112,21 +121,20 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                 string transactionType = reader["TransactionTypeName"].ToString();
                                 decimal amount = Convert.ToDecimal(reader["Amount"]);
                                 string formattedAmount;
-                                string accountNameToShow = currentAccount.AccountName; // Mặc định là tên tài khoản người đăng nhập
-                                string serviceId = "NULL"; // Mặc định là NULL cho Nạp tiền, Rút tiền, Chuyển tiền
+                                string accountNameToShow = currentAccount.AccountName;
+                                string serviceId = "NULL"; // Mặc định là NULL cho các giao dịch không có mã dịch vụ
                                 string fromAccount = "";
                                 string toAccount = "";
 
-                                // Định dạng số tiền và xác định AccountName, FromAccount, ToAccount theo loại giao dịch
                                 if (transactionType == "Nạp tiền")
                                 {
-                                    formattedAmount = $"+ {amount:N0} VND"; // + 200,000 VND
+                                    formattedAmount = $"+ {amount:N0} VND";
                                     fromAccount = "NGAN HANG TMCP SAI GON THUONG TIN";
                                     toAccount = reader["SenderAccountName"].ToString();
                                 }
                                 else if (transactionType == "Rút tiền")
                                 {
-                                    formattedAmount = $"- {amount:N0} VND"; // - 200,000 VND
+                                    formattedAmount = $"- {amount:N0} VND";
                                     fromAccount = reader["SenderAccountName"].ToString();
                                     toAccount = "NGAN HANG TMCP SAI GON THUONG TIN";
                                 }
@@ -135,32 +143,45 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                     int accountId = Convert.ToInt32(reader["AccountID"]);
                                     if (accountId == currentAccount.AccountID)
                                     {
-                                        // Tài khoản hiện tại là người chuyển
-                                        formattedAmount = $"- {amount:N0} VND"; // - 200,000 VND
+                                        formattedAmount = $"- {amount:N0} VND";
                                         accountNameToShow = currentAccount.AccountName;
                                         fromAccount = reader["SenderAccountName"].ToString();
                                         toAccount = reader["ReceiverAccountName"].ToString();
                                     }
                                     else
                                     {
-                                        // Tài khoản hiện tại là người nhận
-                                        formattedAmount = $"+ {amount:N0} VND"; // + 200,000 VND
+                                        formattedAmount = $"+ {amount:N0} VND";
                                         accountNameToShow = reader["SenderAccountName"].ToString();
                                         fromAccount = reader["SenderAccountName"].ToString();
                                         toAccount = reader["ReceiverAccountName"].ToString();
                                     }
                                 }
-                                else if (transactionType == "Thanh toán")
+                                else if (transactionType == "Thanh toán khoản vay")
                                 {
-                                    formattedAmount = $"{amount:N0} VND"; // 200,000 VND
-                                    serviceId = "DV" + reader["TransactionID"].ToString(); // Giả lập ServiceID cho Thanh toán
+                                    formattedAmount = $"- {amount:N0} VND";
                                     accountNameToShow = currentAccount.AccountName;
                                     fromAccount = reader["SenderAccountName"].ToString();
                                     toAccount = "NGAN HANG TMCP SAI GON THUONG TIN";
+
+                                    // Lấy ServiceID từ bảng LOAN_PAYMENT thông qua SERVICE
+                                    if (!reader.IsDBNull(reader.GetOrdinal("ServiceID")))
+                                    {
+                                        int serviceIdInt = reader.GetInt32(reader.GetOrdinal("ServiceID"));
+                                        // Lấy ServiceCode từ bảng SERVICE
+                                        using (SqlConnection innerConnection = dbContext.GetConnection())
+                                        {
+                                            innerConnection.Open();
+                                            using (SqlCommand innerCommand = new SqlCommand("SELECT ServiceCode FROM SERVICE WHERE ServiceID = @ServiceID", innerConnection))
+                                            {
+                                                innerCommand.Parameters.AddWithValue("@ServiceID", serviceIdInt);
+                                                serviceId = innerCommand.ExecuteScalar()?.ToString() ?? "NULL";
+                                            }
+                                        }
+                                    }
                                 }
                                 else
                                 {
-                                    formattedAmount = $"{amount:N0} VND"; // Các loại giao dịch khác
+                                    formattedAmount = $"{amount:N0} VND";
                                     accountNameToShow = currentAccount.AccountName;
                                     fromAccount = reader["SenderAccountName"].ToString();
                                     toAccount = "NULL";
@@ -179,10 +200,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                 });
                             }
 
-                            // Lưu danh sách giao dịch hiện tại
                             currentTransactions = transactions;
-
-                            // Truyền dữ liệu đã xử lý vào view
                             view.DisplayTransactions(transactions);
                         }
                     }

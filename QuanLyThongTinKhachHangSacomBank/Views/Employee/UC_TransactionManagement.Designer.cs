@@ -579,10 +579,11 @@
             // comboBoxTransactionTypeFilter
             // 
             comboBoxTransactionTypeFilter.BackColor = SystemColors.Window;
+            comboBoxTransactionTypeFilter.Dock = DockStyle.Fill;
             comboBoxTransactionTypeFilter.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxTransactionTypeFilter.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBoxTransactionTypeFilter.FormattingEnabled = true;
-            comboBoxTransactionTypeFilter.Items.AddRange(new object[] { "Không áp dụng", "Nạp tiền", "Rút tiền", "Chuyển tiền", "Thanh toán" });
+            comboBoxTransactionTypeFilter.Items.AddRange(new object[] { "Không áp dụng", "Nạp tiền", "Rút tiền", "Chuyển tiền", "Thanh toán khoản vay" });
             comboBoxTransactionTypeFilter.Location = new Point(3, 81);
             comboBoxTransactionTypeFilter.Name = "comboBoxTransactionTypeFilter";
             comboBoxTransactionTypeFilter.Size = new Size(127, 28);
@@ -591,6 +592,7 @@
             // 
             // comboBoxStatusFilter
             // 
+            comboBoxStatusFilter.Dock = DockStyle.Fill;
             comboBoxStatusFilter.DropDownStyle = ComboBoxStyle.DropDownList;
             comboBoxStatusFilter.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             comboBoxStatusFilter.FormattingEnabled = true;

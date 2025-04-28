@@ -37,8 +37,7 @@ CREATE TABLE CUSTOMER (
 );
 
 -- BẢNG LOẠI TÀI KHOẢN
-CREATE TABLE ACCOUNT_TYPE
-(
+CREATE TABLE ACCOUNT_TYPE (
   AccountTypeID INT IDENTITY(1,1) PRIMARY KEY,
   AccountTypeCode AS ('LTK' + CAST(AccountTypeID AS NVARCHAR(10))) PERSISTED,
   AccountTypeName NVARCHAR(50) NOT NULL,
@@ -46,8 +45,7 @@ CREATE TABLE ACCOUNT_TYPE
 );
 
 -- BẢNG TÀI KHOẢN
-CREATE TABLE ACCOUNT
-(
+CREATE TABLE ACCOUNT (
   AccountID INT IDENTITY(1,1) PRIMARY KEY,
   AccountCode AS ('TK' + CAST(AccountID AS NVARCHAR(10))) PERSISTED,
   AccountName NVARCHAR(50) NOT NULL, 
@@ -64,8 +62,7 @@ CREATE TABLE ACCOUNT
 );
 
 -- BẢNG LOẠI GIAO DỊCH
-CREATE TABLE TRANSACTION_TYPE
-(
+CREATE TABLE TRANSACTION_TYPE (
   TransactionTypeID INT IDENTITY(1,1) PRIMARY KEY,
   TransactionTypeCode AS ('LGD' + CAST(TransactionTypeID AS NVARCHAR(10))) PERSISTED,
   TransactionTypeName NVARCHAR(100) NOT NULL,
@@ -73,8 +70,7 @@ CREATE TABLE TRANSACTION_TYPE
 );
 
 -- BẢNG GIAO DỊCH
-CREATE TABLE [TRANSACTION]
-(
+CREATE TABLE [TRANSACTION] (
   TransactionID INT IDENTITY(1,1) PRIMARY KEY,
   TransactionCode AS ('GD' + CAST(TransactionID AS NVARCHAR(10))) PERSISTED,
   Amount DECIMAL(18,0) NOT NULL CHECK (Amount >= 0),
@@ -94,8 +90,7 @@ CREATE TABLE [TRANSACTION]
 );
 
 -- BẢNG YÊU CẦU (REQUEST)
-CREATE TABLE REQUEST 
-(
+CREATE TABLE REQUEST (
   RequestID INT IDENTITY(1,1) PRIMARY KEY,
   RequestCode AS ('YC' + CAST(RequestID AS NVARCHAR(10))) PERSISTED,
   Title NVARCHAR(100) NOT NULL,
@@ -108,16 +103,16 @@ CREATE TABLE REQUEST
   FOREIGN KEY (HandledBy) REFERENCES EMPLOYEE(EmployeeID)
 );
 
-CREATE TABLE SERVICE_TYPE 
-(
+-- BẢNG LOẠI DỊCH VỤ
+CREATE TABLE SERVICE_TYPE (
   ServiceTypeID INT IDENTITY(1,1) PRIMARY KEY,
   ServiceTypeCode AS ('LDV' + CAST(ServiceTypeID AS NVARCHAR(10))) PERSISTED,
   ServiceTypeName NVARCHAR(100) NOT NULL,
   ServiceTypeDescription NVARCHAR(255) NOT NULL
 );
 
-CREATE TABLE [SERVICE] 
-(
+-- BẢNG DỊCH VỤ
+CREATE TABLE [SERVICE] (
   ServiceID INT IDENTITY(1,1) PRIMARY KEY,
   ServiceCode AS ('DV' + CAST(ServiceID AS NVARCHAR(10))) PERSISTED,
 
@@ -143,6 +138,102 @@ CREATE TABLE [SERVICE]
   FOREIGN KEY (ServiceTypeID) REFERENCES SERVICE_TYPE(ServiceTypeID)
 );
 
+-- BẢNG THAHH TOÁN KHOẢN VAY
+CREATE TABLE LOAN_PAYMENT (
+    PayLoanID INT IDENTITY(1,1) PRIMARY KEY,
+    PayLoanCode AS ('TTV' + CAST(PayLoanID AS NVARCHAR(10))) PERSISTED, -- Mã tự động phát sinh
+    PrincipalDue DECIMAL(18,0) NOT NULL CHECK (PrincipalDue >= 0), -- Số tiền gốc phải trả
+    InterestDue DECIMAL(18,0) NOT NULL CHECK (InterestDue >= 0), -- Số tiền lãi phải trả
+	LateFee DECIMAL(18,0) NOT NULL DEFAULT 0 CHECK (LateFee >= 0), -- Phí trễ hạn
+    TotalDue DECIMAL(18,0) NOT NULL CHECK (TotalDue >= 0), -- Tổng số tiền phải trả (gốc + lãi + phí trễ hạn nếu có)
+    RemainingDebt DECIMAL(18,0) NOT NULL CHECK (RemainingDebt >= 0), -- Số nợ còn lại
+    PayNotification NVARCHAR(100) NOT NULL, -- Thông báo thanh toán
+	DueDate DATETIME NOT NULL, -- Ngày đến hạn thanh toán
+	PaymentStatus NVARCHAR(20) NOT NULL CHECK (PaymentStatus IN (N'Chưa thanh toán', N'Đã thanh toán', N'Trễ hạn')), -- Trạng thái thanh toán
+    ServiceID INT NOT NULL,
+    FOREIGN KEY (ServiceID) REFERENCES SERVICE(ServiceID)
+);
+
+-- BẢNG DOANH THU
+CREATE TABLE REVENUE (
+    RevenueID INT IDENTITY(1,1) PRIMARY KEY,
+    RevenueCode AS ('DT' + CAST(RevenueID AS NVARCHAR(10))) PERSISTED, -- Mã tự động phát sinh
+    PrincipalAmount DECIMAL(18,0) NOT NULL CHECK (PrincipalAmount >= 0), -- Số tiền gốc thu được
+    InterestAmount DECIMAL(18,0) NOT NULL CHECK (InterestAmount >= 0), -- Số tiền lãi thu được
+    LateFee DECIMAL(18,0) NOT NULL CHECK (LateFee >= 0), -- Phí trễ hạn thu được
+    TotalAmount DECIMAL(18,0) NOT NULL CHECK (TotalAmount >= 0), -- Tổng số tiền thu được
+	RevenueDate DATETIME NOT NULL, -- Ngày ghi nhận doanh thu
+    PayLoanID INT NULL, -- Liên kết với khoản thanh toán vay
+    ProfitID INT NULL, -- Liên kết với bảng PROFIT
+    FOREIGN KEY (PayLoanID) REFERENCES LOAN_PAYMENT(PayLoanID),
+    FOREIGN KEY (ProfitID) REFERENCES PROFIT(ProfitID)
+);
+
+-- BẢNG LỢI NHUẬN
+CREATE TABLE PROFIT (
+    ProfitID INT IDENTITY(1,1) PRIMARY KEY,
+    ProfitCode AS ('LN' + CAST(ProfitID AS NVARCHAR(10))) PERSISTED, -- Mã tự động phát sinh    
+    TotalRevenue DECIMAL(18,0) NOT NULL CHECK (TotalRevenue >= 0), -- Tổng doanh thu
+    TotalExpense DECIMAL(18,0) NOT NULL CHECK (TotalExpense >= 0), -- Tổng chi phí
+	NetProfit DECIMAL(18,0) NOT NULL, -- Lợi nhuận ròng
+    ProfitDate DATE NOT NULL -- Ngày ghi nhận lợi nhuận
+);
+
+-- BẢNG TRẢ LÃI TIẾT KIỆM
+CREATE TABLE SAVINGS_PAYMENT (
+    PaySavingsID INT IDENTITY(1,1) PRIMARY KEY,
+    PaySavingsCode AS ('TTTK' + CAST(PaySavingsID AS NVARCHAR(10))) PERSISTED, -- Mã tự sinh    
+    MonthlyInterestAmount DECIMAL(18,0) NOT NULL CHECK (MonthlyInterestAmount >= 0), -- Lãi hàng tháng
+	TotalInterestPaid DECIMAL(18,0) NOT NULL CHECK (TotalInterestPaid >= 0), -- Tổng lãi đã trả
+    LastInterestPaidDate DATETIME NOT NULL, -- Ngày trả lãi gần nhất	
+    ServiceID INT NOT NULL,
+    FOREIGN KEY (ServiceID) REFERENCES SERVICE(ServiceID)
+);
+
+-- BẢNG CHI PHÍ
+CREATE TABLE EXPENSE (
+    ExpenseID INT IDENTITY(1,1) PRIMARY KEY,
+    ExpenseCode AS ('CP' + CAST(ExpenseID AS NVARCHAR(10))) PERSISTED, -- Mã tự sinh    
+    InterestPaid DECIMAL(18,0) NULL CHECK (InterestPaid >= 0),
+    EmployeeSalary DECIMAL(18,0) NULL CHECK (EmployeeSalary >= 0),
+    SystemMaintenanceFee DECIMAL(18,0) NULL CHECK (SystemMaintenanceFee >= 0),
+	ExpenseDate DATETIME NOT NULL, -- Ngày chi
+    PaySavingsID INT NULL, -- Liên kết với bảng trả lãi tiết kiệm
+    ProfitID INT NULL, -- Liên kết với bảng PROFIT
+    FOREIGN KEY (PaySavingsID) REFERENCES SAVINGS_PAYMENT(PaySavingsID),
+    FOREIGN KEY (ProfitID) REFERENCES PROFIT(ProfitID)
+);
+
+-- BẢNG LOẠI THÔNG BÁO
+CREATE TABLE NOTIFICATION_TYPE (
+  NotificationTypeID INT IDENTITY(1,1) PRIMARY KEY,
+  NotificationTypeCode AS ('LTB' + CAST(NotificationTypeID AS NVARCHAR(10))) PERSISTED,
+  NotificationTypeName NVARCHAR(100) NOT NULL,
+  NotificationTypeDescription NVARCHAR(255) NOT NULL
+);
+
+-- BẢNG THÔNG BÁO
+CREATE TABLE [NOTIFICATION] (
+  NotificationID INT IDENTITY(1,1) PRIMARY KEY,
+  NotificationCode AS ('TB' + CAST(NotificationID AS NVARCHAR(10))) PERSISTED,
+  Title NVARCHAR(100) NOT NULL,
+  NotificationMessage NVARCHAR(1000) NOT NULL,
+  NotificationDate DATETIME NOT NULL,
+  NotificationStatus NVARCHAR(20) NOT NULL CHECK (NotificationStatus IN (N'Chưa xem', N'Đã xem')),
+  ReferenceID INT NULL, -- Tham chiếu đến giao dịch, dịch vụ, v.v. (nếu cần)
+  CustomerID INT NULL, -- Có thể NULL nếu thông báo dành cho nhân viên
+  EmployeeID INT NULL, -- Có thể NULL nếu thông báo dành cho khách hàng
+  NotificationTypeID INT NOT NULL,
+ 
+  FOREIGN KEY (CustomerID) REFERENCES CUSTOMER(CustomerID),
+  FOREIGN KEY (EmployeeID) REFERENCES EMPLOYEE(EmployeeID),
+  FOREIGN KEY (NotificationTypeID) REFERENCES NOTIFICATION_TYPE(NotificationTypeID)
+);
+
+
+
+
+
 -- BẢNG NHÂN VIÊN
 CREATE TABLE EMPLOYEE (
   EmployeeID INT IDENTITY(1,1) PRIMARY KEY,
@@ -156,15 +247,13 @@ CREATE TABLE EMPLOYEE (
   EmployeePhone VARCHAR(15) NOT NULL UNIQUE,
   EmployeeEmail VARCHAR(100) NOT NULL UNIQUE CHECK (EmployeeEmail LIKE '%_@__%.__%'),
   HireDate DATE NOT NULL,
-  Salary DECIMAL(18,2) NOT NULL CHECK (Salary >= 0),
+  Salary DECIMAL(18,0) NOT NULL CHECK (Salary >= 0),
   EmployeeUsername NVARCHAR(50) NOT NULL UNIQUE,
   EmployeePassword NVARCHAR(256) NOT NULL,
   AccessLevel INT NOT NULL CHECK (AccessLevel BETWEEN 1 AND 2), -- 1: Nhân viên, 2: Quản lý
   ManagerID INT NULL,
   FOREIGN KEY (ManagerID) REFERENCES EMPLOYEE(EmployeeID)
 );
-
-
 
 
 -- XÓA BẢNG
@@ -178,8 +267,13 @@ DROP TABLE [TRANSACTION]
 DROP TABLE REQUEST
 DROP TABLE SERVICE_TYPE
 DROP TABLE [SERVICE]
-
-
+DROP TABLE LOAN_PAYMENT
+DROP TABLE REVENUE
+DROP TABLE PROFIT
+DROP TABLE EXPENSE
+DROP TABLE SAVINGS_PAYMENT
+DROP TABLE NOTIFICATION_TYPE
+DROP TABLE [NOTIFICATION]
 
 
 
@@ -229,12 +323,20 @@ VALUES
   (N'Nạp tiền', N'Nạp tiền vào tài khoản từ nguồn như quầy giao dịch, ATM'),
   (N'Rút tiền', N'Rút tiền mặt từ tài khoản qua ATM, quầy giao dịch hoặc các kênh khác'),
   (N'Chuyển tiền', N'Chuyển tiền từ tài khoản này sang tài khoản khác trong nội bộ'),
-  (N'Thanh toán', N'Thanh toán dịch vụ vay vốn của tài khoản');
+  (N'Thanh toán khoản vay', N'Thanh toán dịch vụ vay vốn của tài khoản');
 
 INSERT INTO SERVICE_TYPE (ServiceTypeName, ServiceTypeDescription)
 VALUES 
 (N'Vay vốn', N'Dịch vụ cho khách hàng vay tiền với lãi suất nhất định'),
 (N'Gửi tiết kiệm', N'Dịch vụ gửi tiền tiết kiệm và nhận lãi theo kỳ hạn');
+
+INSERT INTO NOTIFICATION_TYPE (NotificationTypeName, NotificationTypeDescription)
+VALUES
+    (N'Hệ thống', N'Thông báo liên quan đến hệ thống và vận hành'),
+    (N'Nội bộ', N'Thông báo nội bộ dành cho nhân viên'),
+    (N'Giao dịch', N'Thông báo liên quan đến giao dịch tài chính'),
+    (N'Dịch vụ', N'Thông báo về các dịch vụ ngân hàng');
+
 
 
 

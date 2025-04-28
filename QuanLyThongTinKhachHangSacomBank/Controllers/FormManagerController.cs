@@ -29,7 +29,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
         {
             try
             {
-                var ucManagerHome = new UC_ManagerHome(employee);
+                var ucManagerHome = new UC_ManagerHome(employee, configuration, dbContext);
                 view.LoadUserControl(ucManagerHome);
             }
             catch (Exception ex)
@@ -50,7 +50,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
         public void LoadReportStatistic()
         {
-            view.LoadUserControl(new UC_ReportStatistic());
+            view.LoadUserControl(new UC_ReportStatistic(dbContext, configuration));
         }
 
         public void LoadManagerSetting()

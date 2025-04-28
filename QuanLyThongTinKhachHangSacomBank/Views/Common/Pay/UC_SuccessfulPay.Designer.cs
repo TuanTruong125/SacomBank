@@ -30,8 +30,6 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_SuccessfulPay));
             panel2 = new Panel();
-            labelTransactionMethod = new Label();
-            labelMethod = new Label();
             panel1 = new Panel();
             labelServiceID = new Label();
             labelCustomerRemainingDebt = new Label();
@@ -43,7 +41,7 @@
             labelCustomerTransactionDate = new Label();
             labelAccountBalance = new Label();
             labelCustomerName = new Label();
-            label7 = new Label();
+            labelAmount = new Label();
             labelCustomerAccountID = new Label();
             labelDescription = new Label();
             labelHandledBy = new Label();
@@ -55,6 +53,8 @@
             labelAccountID = new Label();
             buttonInvoice = new Button();
             labelWithdrawInform = new Label();
+            labelPayLoanID = new Label();
+            label2 = new Label();
             ((System.ComponentModel.ISupportInitialize)pictureBoxSuccessfulWithdraw).BeginInit();
             SuspendLayout();
             // 
@@ -65,28 +65,6 @@
             panel2.Name = "panel2";
             panel2.Size = new Size(500, 3);
             panel2.TabIndex = 135;
-            // 
-            // labelTransactionMethod
-            // 
-            labelTransactionMethod.AutoSize = true;
-            labelTransactionMethod.FlatStyle = FlatStyle.Flat;
-            labelTransactionMethod.Font = new Font("Roboto", 10.2F);
-            labelTransactionMethod.Location = new Point(579, 336);
-            labelTransactionMethod.Name = "labelTransactionMethod";
-            labelTransactionMethod.Size = new Size(75, 20);
-            labelTransactionMethod.TabIndex = 154;
-            labelTransactionMethod.Text = "Tiền mặt";
-            // 
-            // labelMethod
-            // 
-            labelMethod.AutoSize = true;
-            labelMethod.FlatStyle = FlatStyle.Flat;
-            labelMethod.Font = new Font("Roboto SemiCondensed", 10.2F, FontStyle.Bold);
-            labelMethod.Location = new Point(142, 336);
-            labelMethod.Name = "labelMethod";
-            labelMethod.Size = new Size(101, 20);
-            labelMethod.TabIndex = 153;
-            labelMethod.Text = "Phương thức";
             // 
             // panel1
             // 
@@ -112,7 +90,7 @@
             labelCustomerRemainingDebt.AutoSize = true;
             labelCustomerRemainingDebt.FlatStyle = FlatStyle.Flat;
             labelCustomerRemainingDebt.Font = new Font("Roboto", 10.2F);
-            labelCustomerRemainingDebt.Location = new Point(579, 302);
+            labelCustomerRemainingDebt.Location = new Point(579, 334);
             labelCustomerRemainingDebt.Name = "labelCustomerRemainingDebt";
             labelCustomerRemainingDebt.Size = new Size(33, 20);
             labelCustomerRemainingDebt.TabIndex = 151;
@@ -134,7 +112,7 @@
             labelRemainLoanBalance.AutoSize = true;
             labelRemainLoanBalance.FlatStyle = FlatStyle.Flat;
             labelRemainLoanBalance.Font = new Font("Roboto SemiCondensed", 10.2F, FontStyle.Bold);
-            labelRemainLoanBalance.Location = new Point(142, 302);
+            labelRemainLoanBalance.Location = new Point(142, 334);
             labelRemainLoanBalance.Name = "labelRemainLoanBalance";
             labelRemainLoanBalance.Size = new Size(101, 20);
             labelRemainLoanBalance.TabIndex = 149;
@@ -156,14 +134,14 @@
             // 
             // labelTransactionDescription
             // 
-            labelTransactionDescription.AutoSize = true;
             labelTransactionDescription.FlatStyle = FlatStyle.Flat;
             labelTransactionDescription.Font = new Font("Roboto", 10.2F);
-            labelTransactionDescription.Location = new Point(577, 448);
+            labelTransactionDescription.Location = new Point(3, 463);
             labelTransactionDescription.Name = "labelTransactionDescription";
-            labelTransactionDescription.Size = new Size(305, 20);
+            labelTransactionDescription.Size = new Size(929, 20);
             labelTransactionDescription.TabIndex = 147;
             labelTransactionDescription.Text = "NGUYEN VAN A thanh toan khan vay T3";
+            labelTransactionDescription.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // labelEmployeeName
             // 
@@ -209,17 +187,17 @@
             labelCustomerName.TabIndex = 143;
             labelCustomerName.Text = "Nguyễn Văn A";
             // 
-            // label7
+            // labelAmount
             // 
-            label7.AutoSize = true;
-            label7.FlatStyle = FlatStyle.Flat;
-            label7.Font = new Font("Roboto SemiCondensed", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            label7.ForeColor = SystemColors.HotTrack;
-            label7.Location = new Point(425, 106);
-            label7.Name = "label7";
-            label7.Size = new Size(44, 28);
-            label7.TabIndex = 142;
-            label7.Text = "0 đ";
+            labelAmount.FlatStyle = FlatStyle.Flat;
+            labelAmount.Font = new Font("Roboto SemiCondensed", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            labelAmount.ForeColor = SystemColors.HotTrack;
+            labelAmount.Location = new Point(3, 106);
+            labelAmount.Name = "labelAmount";
+            labelAmount.Size = new Size(929, 28);
+            labelAmount.TabIndex = 142;
+            labelAmount.Text = "0 đ";
+            labelAmount.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // labelCustomerAccountID
             // 
@@ -237,7 +215,7 @@
             labelDescription.AutoSize = true;
             labelDescription.FlatStyle = FlatStyle.Flat;
             labelDescription.Font = new Font("Roboto SemiCondensed", 10.2F, FontStyle.Bold);
-            labelDescription.Location = new Point(140, 448);
+            labelDescription.Location = new Point(412, 438);
             labelDescription.Name = "labelDescription";
             labelDescription.Size = new Size(73, 20);
             labelDescription.TabIndex = 140;
@@ -332,22 +310,44 @@
             // 
             // labelWithdrawInform
             // 
-            labelWithdrawInform.AutoSize = true;
             labelWithdrawInform.Font = new Font("Roboto SemiCondensed Medium", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelWithdrawInform.ForeColor = Color.LimeGreen;
-            labelWithdrawInform.Location = new Point(318, 78);
+            labelWithdrawInform.Location = new Point(3, 78);
             labelWithdrawInform.Name = "labelWithdrawInform";
-            labelWithdrawInform.Size = new Size(264, 28);
+            labelWithdrawInform.Size = new Size(929, 28);
             labelWithdrawInform.TabIndex = 129;
             labelWithdrawInform.Text = "Thanh toán thành công!";
+            labelWithdrawInform.TextAlign = ContentAlignment.MiddleCenter;
             // 
-            // UC_SucessfulPay
+            // labelPayLoanID
+            // 
+            labelPayLoanID.AutoSize = true;
+            labelPayLoanID.FlatStyle = FlatStyle.Flat;
+            labelPayLoanID.Font = new Font("Roboto", 10.2F);
+            labelPayLoanID.Location = new Point(579, 300);
+            labelPayLoanID.Name = "labelPayLoanID";
+            labelPayLoanID.Size = new Size(33, 20);
+            labelPayLoanID.TabIndex = 154;
+            labelPayLoanID.Text = "0 đ";
+            // 
+            // label2
+            // 
+            label2.AutoSize = true;
+            label2.FlatStyle = FlatStyle.Flat;
+            label2.Font = new Font("Roboto SemiCondensed", 10.2F, FontStyle.Bold);
+            label2.Location = new Point(142, 300);
+            label2.Name = "label2";
+            label2.Size = new Size(113, 20);
+            label2.TabIndex = 153;
+            label2.Text = "Mã thanh toán";
+            // 
+            // UC_SuccessfulPay
             // 
             AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
+            Controls.Add(labelPayLoanID);
+            Controls.Add(label2);
             Controls.Add(panel2);
-            Controls.Add(labelTransactionMethod);
-            Controls.Add(labelMethod);
             Controls.Add(panel1);
             Controls.Add(labelServiceID);
             Controls.Add(labelCustomerRemainingDebt);
@@ -359,7 +359,7 @@
             Controls.Add(labelCustomerTransactionDate);
             Controls.Add(labelAccountBalance);
             Controls.Add(labelCustomerName);
-            Controls.Add(label7);
+            Controls.Add(labelAmount);
             Controls.Add(labelCustomerAccountID);
             Controls.Add(labelDescription);
             Controls.Add(labelHandledBy);
@@ -371,7 +371,7 @@
             Controls.Add(labelAccountID);
             Controls.Add(buttonInvoice);
             Controls.Add(labelWithdrawInform);
-            Name = "UC_SucessfulPay";
+            Name = "UC_SuccessfulPay";
             Size = new Size(935, 560);
             ((System.ComponentModel.ISupportInitialize)pictureBoxSuccessfulWithdraw).EndInit();
             ResumeLayout(false);
@@ -381,8 +381,6 @@
         #endregion
 
         private Panel panel2;
-        private Label labelTransactionMethod;
-        private Label labelMethod;
         private Panel panel1;
         private Label labelServiceID;
         private Label labelCustomerRemainingDebt;
@@ -394,7 +392,7 @@
         private Label labelCustomerTransactionDate;
         private Label labelAccountBalance;
         private Label labelCustomerName;
-        private Label label7;
+        private Label labelAmount;
         private Label labelCustomerAccountID;
         private Label labelDescription;
         private Label labelHandledBy;
@@ -406,5 +404,7 @@
         private Label labelAccountID;
         private Button buttonInvoice;
         private Label labelWithdrawInform;
+        private Label labelPayLoanID;
+        private Label label2;
     }
 }

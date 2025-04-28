@@ -137,6 +137,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
 
             EnableInputControls(false);
             EnableButtons(true, false, false, false, false);
+            buttonLoanPrepayment.Enabled = false;
         }
 
         public string GetCustomerID() => textBoxCustomerID.Text.Trim();
@@ -408,7 +409,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
                             CustomerID = row.Cells[0].Value != null ? int.Parse(row.Cells[0].Value.ToString().Replace("KH", "")) : 0,
                             AccountID = row.Cells[2].Value != null ? int.Parse(row.Cells[2].Value.ToString().Replace("TK", "")) : 0,
                             ServiceCode = row.Cells[4].Value?.ToString() ?? "",
-                            ServiceTypeID = row.Cells[3].Value?.ToString() == "Gửi tiết kiệm" ? 1 : (row.Cells[3].Value?.ToString() == "Vay vốn" ? 2 : 0),
+                            ServiceTypeID = row.Cells[3].Value?.ToString() == "Vay vốn" ? 1 : (row.Cells[3].Value?.ToString() == "Gửi tiết kiệm" ? 2 : 0),
                             TotalPrincipalAmount = row.Cells[5].Value != null ? decimal.Parse(row.Cells[5].Value.ToString(), System.Globalization.NumberStyles.AllowThousands) : 0,
                             InterestRate = row.Cells[8].Value != null ? decimal.Parse(row.Cells[8].Value.ToString().Replace("%/năm", "").Trim()) : 0,
                             TotalInterestAmount = string.IsNullOrEmpty(row.Cells[9].Value?.ToString()) ? null : decimal.Parse(row.Cells[9].Value.ToString(), System.Globalization.NumberStyles.AllowThousands),
@@ -428,6 +429,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
                             ClearInputs();
                             EnableInputControls(false);
                             EnableButtons(false, false, false, true, false);
+                            buttonLoanPrepayment.Enabled = false;
+                            buttonCancelSavings.Enabled = false;
                             return;
                         }
 
@@ -452,6 +455,14 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
 
                         bool isPendingApproval = service.ApprovalStatus == "Chờ duyệt";
                         EnableButtons(true, isPendingApproval, isPendingApproval, true, false);
+
+                        // Kích hoạt nút LoanPrepayment
+                        bool canPrepay = (service.ServiceStatus == "Đang hoạt động" || service.ServiceStatus == "Trễ hạn thanh toán") && service.ServiceTypeID == 1; // Chỉ áp dụng cho "Vay vốn"
+                        buttonLoanPrepayment.Enabled = canPrepay;
+
+                        // Kích hoạt nút CancelSavings
+                        bool canCancelSavings = service.ServiceStatus == "Đang hoạt động" && service.ServiceTypeID == 2; // Chỉ áp dụng cho "Gửi tiết kiệm" và trạng thái "Đang hoạt động"
+                        buttonCancelSavings.Enabled = canCancelSavings;
                     }
                     catch (Exception ex)
                     {
@@ -467,6 +478,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
                 ClearInputs();
                 EnableInputControls(false, false, false); // Bật các textbox, không chỉ định accountIDOnly hay editModeLimited
                 EnableButtons(false, false, false, false, false);
+                buttonLoanPrepayment.Enabled = false;
+                buttonCancelSavings.Enabled = false;
                 if (!isAdding && !isEditing)
                 {
                     controller.OnServiceDeselected();

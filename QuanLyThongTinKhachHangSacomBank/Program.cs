@@ -1,4 +1,5 @@
 using Microsoft.Extensions.Configuration;
+using QuanLyThongTinKhachHangSacomBank.AutoTasks;
 using QuanLyThongTinKhachHangSacomBank.Controllers;
 using QuanLyThongTinKhachHangSacomBank.Data;
 using QuanLyThongTinKhachHangSacomBank.Models;
@@ -12,6 +13,11 @@ namespace QuanLyThongTinKhachHangSacomBank
 {
     internal static class Program
     {
+        private static LoanPaymentAutoTask loanPaymentAutoTask;
+        private static ProfitAutoTask profitAutoTask;
+        private static SavingsPaymentAutoTask savingsPaymentAutoTask;
+        private static GeneralExpenseAutoTask generalExpenseAutoTask;
+
         [STAThread]
         static void Main()
         {
@@ -23,6 +29,12 @@ namespace QuanLyThongTinKhachHangSacomBank
                     .Build();
 
                 DatabaseContext dbContext = new DatabaseContext(configuration);
+
+                // Khởi tạo các AutoTask
+                loanPaymentAutoTask = new LoanPaymentAutoTask(dbContext);
+                profitAutoTask = new ProfitAutoTask(dbContext);
+                savingsPaymentAutoTask = new SavingsPaymentAutoTask(dbContext);
+                generalExpenseAutoTask = new GeneralExpenseAutoTask(dbContext);
 
                 ApplicationConfiguration.Initialize();
                 Application.EnableVisualStyles();
@@ -119,6 +131,14 @@ namespace QuanLyThongTinKhachHangSacomBank
                 //        }
                 //    }
                 //}
+
+
+                // Dừng các AutoTask khi ứng dụng thoát
+                loanPaymentAutoTask?.Stop();
+                profitAutoTask?.Stop();
+                savingsPaymentAutoTask?.Stop();
+                generalExpenseAutoTask?.Stop();
+
 
             }
             catch (Exception ex)

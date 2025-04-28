@@ -250,14 +250,14 @@
             // 
             // labelWithdrawInform
             // 
-            labelWithdrawInform.AutoSize = true;
             labelWithdrawInform.Font = new Font("Roboto SemiCondensed Medium", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelWithdrawInform.ForeColor = Color.LimeGreen;
-            labelWithdrawInform.Location = new Point(342, 76);
+            labelWithdrawInform.Location = new Point(3, 76);
             labelWithdrawInform.Name = "labelWithdrawInform";
-            labelWithdrawInform.Size = new Size(271, 28);
+            labelWithdrawInform.Size = new Size(929, 28);
             labelWithdrawInform.TabIndex = 104;
             labelWithdrawInform.Text = "Chuyển tiền thành công!";
+            labelWithdrawInform.TextAlign = ContentAlignment.MiddleCenter;
             // 
             // labelReceiverName
             // 

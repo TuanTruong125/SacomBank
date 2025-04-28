@@ -240,6 +240,35 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                             command.ExecuteNonQuery();
                         }
 
+                        // Thêm bản ghi vào bảng NOTIFICATION
+                        int notificationTypeId;
+                        using (var command = new SqlCommand("SELECT NotificationTypeID FROM NOTIFICATION_TYPE WHERE NotificationTypeName = @NotificationTypeName", connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@NotificationTypeName", "Giao dịch");
+                            var result = command.ExecuteScalar();
+                            if (result == null)
+                            {
+                                throw new Exception("Không tìm thấy NotificationTypeID cho 'Giao dịch'.");
+                            }
+                            notificationTypeId = (int)result;
+                        }
+
+                        string notificationMessage = $"{receiverAccount.AccountName} nạp tiền {decimal.Parse(depositViewData.Amount).ToString("#,##0")} VND thành công vào tài khoản!";
+                        using (var command = new SqlCommand(
+                            "INSERT INTO [NOTIFICATION] (Title, NotificationMessage, NotificationDate, NotificationStatus, ReferenceID, CustomerID, EmployeeID, NotificationTypeID) " +
+                            "VALUES (@Title, @NotificationMessage, @NotificationDate, @NotificationStatus, @ReferenceID, @CustomerID, @EmployeeID, @NotificationTypeID)", connection, transaction))
+                        {
+                            command.Parameters.AddWithValue("@Title", "Nạp tiền thành công!");
+                            command.Parameters.AddWithValue("@NotificationMessage", notificationMessage);
+                            command.Parameters.AddWithValue("@NotificationDate", DateTime.Now);
+                            command.Parameters.AddWithValue("@NotificationStatus", "Chưa xem");
+                            command.Parameters.AddWithValue("@ReferenceID", newTransactionId); // TransactionID là ReferenceID
+                            command.Parameters.AddWithValue("@CustomerID", receiverAccount.CustomerID);
+                            command.Parameters.AddWithValue("@EmployeeID", DBNull.Value); // EmployeeID là NULL
+                            command.Parameters.AddWithValue("@NotificationTypeID", notificationTypeId);
+                            command.ExecuteNonQuery();
+                        }
+
                         receiverAccount.Balance += decimal.Parse(depositViewData.Amount);
                         transaction.Commit();
 

@@ -14,6 +14,8 @@ using QuanLyThongTinKhachHangSacomBank.Models;
 using QuanLyThongTinKhachHangSacomBank.Views.Common.Deposit;
 using QuanLyThongTinKhachHangSacomBank.Views.Common.Withdraw;
 using QuanLyThongTinKhachHangSacomBank.Views.Common.Transfer;
+using QuanLyThongTinKhachHangSacomBank.Views.Common.Pay;
+using System.Windows.Forms;
 
 namespace QuanLyThongTinKhachHangSacomBank.Controllers
 {
@@ -26,6 +28,11 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
         private List<TransactionManagementDisplayModel> transactions;
         private TransactionManagementDisplayModel selectedTransaction;
 
+        // Biến để lưu trữ thông tin ServiceID, PayLoanID và RemainingDebt
+        private string serviceId;
+        private string payLoanId;
+        private decimal remainingDebt;
+
         public EmployeeTransactionManagementController(ITransactionManagementView view, EmployeeModel currentEmployee, DatabaseContext dbContext, IConfiguration configuration)
         {
             this.view = view;
@@ -34,6 +41,10 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             this.configuration = configuration;
             transactions = new List<TransactionManagementDisplayModel>();
             selectedTransaction = null;
+
+            serviceId = "N/A";
+            payLoanId = "N/A";
+            remainingDebt = 0;
 
             // Đăng ký các sự kiện từ view
             view.SearchRequested += SearchTransactions;
@@ -312,6 +323,9 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     case "Chuyển tiền":
                         ShowTransferDetail();
                         break;
+                    case "Thanh toán khoản vay":
+                        ShowPayDetail();
+                        break;
                     default:
                         view.ShowError("Loại giao dịch không được hỗ trợ xem chi tiết!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
                         break;
@@ -399,6 +413,81 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             uc.InvoiceClicked += (s, e) => ExportDetailToPDF();
 
             form.ShowDialog();
+        }
+
+        private void ShowPayDetail()
+        {
+            // Tạo form mới để hiển thị chi tiết giao dịch Thanh toán khoản vay
+            FormPay payForm = new FormPay();
+            UC_SuccessfulPay uc = new UC_SuccessfulPay();
+            payForm.LoadUserControl(uc);
+
+            // Gán thông tin giao dịch cho UC_SuccessfulPay
+            uc.Amount = $"- {selectedTransaction.Amount.ToString("#,##0")} VND"; // Số tiền giảm
+            uc.CustomerName = selectedTransaction.AccountName;
+            uc.CustomerAccountID = selectedTransaction.AccountID;
+            uc.AccountBalance = GetAccountBalance(selectedTransaction.AccountID).ToString("#,##0") + " VND";
+
+            // Lấy thông tin ServiceID, PayLoanID và RemainingDebt
+            serviceId = "N/A";
+            payLoanId = "N/A";
+            remainingDebt = 0;
+            using (var connection = dbContext.GetConnection())
+            {
+                connection.Open();
+                using (var command = new SqlCommand(
+                    @"
+            SELECT 
+                s.ServiceID,
+                lp.PayLoanID,
+                lp.RemainingDebt
+            FROM [TRANSACTION] t
+            JOIN ACCOUNT a ON t.AccountID = a.AccountID
+            JOIN SERVICE s ON s.AccountID = a.AccountID
+            LEFT JOIN LOAN_PAYMENT lp ON lp.ServiceID = s.ServiceID
+            WHERE t.TransactionID = @TransactionID", connection))
+                {
+                    command.Parameters.AddWithValue("@TransactionID", selectedTransaction.TransactionID);
+                    using (var reader = command.ExecuteReader())
+                    {
+                        if (reader.Read())
+                        {
+                            serviceId = reader.IsDBNull(0) ? "N/A" : reader.GetInt32(0).ToString();
+                            payLoanId = reader.IsDBNull(1) ? "N/A" : reader.GetInt32(1).ToString();
+                            remainingDebt = reader.IsDBNull(2) ? 0 : reader.GetDecimal(2);
+                        }
+                        else
+                        {
+                            Console.WriteLine($"Không tìm thấy thông tin thanh toán khoản vay cho TransactionID: {selectedTransaction.TransactionID}");
+                        }
+                    }
+                }
+            }
+
+            // Log giá trị để kiểm tra
+            Console.WriteLine($"ServiceID: {serviceId}, PayLoanID: {payLoanId}, RemainingDebt: {remainingDebt}");
+
+            // Thêm tiền tố cho ServiceID và PayLoanID
+            string formattedServiceId = serviceId == "N/A" ? "N/A" : $"DV{serviceId}";
+            string formattedPayLoanId = payLoanId == "N/A" ? "N/A" : $"TTV{payLoanId}";
+
+            // Sử dụng giá trị đã được định dạng
+            uc.ServiceID = formattedServiceId; // Sửa từ serviceId thành formattedServiceId
+            uc.PayLoanID = formattedPayLoanId; // Sửa từ payLoanId thành formattedPayLoanId
+            uc.CustomerRemainingDebt = remainingDebt.ToString("#,##0") + " VND";
+            uc.TransactionDate = selectedTransaction.TransactionDate;
+            uc.EmployeeName = selectedTransaction.HandledBy == "" ? currentEmployee?.EmployeeName : selectedTransaction.HandledBy;
+            uc.TransactionDescription = selectedTransaction.TransactionDescription;
+
+            // Đăng ký sự kiện
+            uc.DoneClicked += (s, e) =>
+            {
+                payForm.DialogResult = DialogResult.OK;
+                payForm.Close();
+            };
+            uc.InvoiceClicked += (s, e) => ExportDetailToPDF();
+
+            payForm.ShowDialog();
         }
 
         private void ExportDetailToPDF()
@@ -502,6 +591,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                             "Nạp tiền" => "HÓA ĐƠN GIAO DỊCH NẠP TIỀN",
                             "Rút tiền" => "HÓA ĐƠN GIAO DỊCH RÚT TIỀN",
                             "Chuyển tiền" => "HÓA ĐƠN GIAO DỊCH CHUYỂN TIỀN",
+                            "Thanh toán khoản vay" => "HÓA ĐƠN GIAO DỊCH THANH TOÁN KHOẢN VAY",
                             _ => "HÓA ĐƠN GIAO DỊCH"
                         };
                         document.Add(new Paragraph(transactionTitle, subHeaderFont)
@@ -565,14 +655,30 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                             "Nạp tiền" => "+ " + selectedTransaction.Amount.ToString("#,##0") + " VND",
                             "Rút tiền" => "- " + selectedTransaction.Amount.ToString("#,##0") + " VND",
                             "Chuyển tiền" => selectedTransaction.Amount.ToString("#,##0") + " VND",
+                            "Thanh toán khoản vay" => "- " + selectedTransaction.Amount.ToString("#,##0") + " VND",
                             _ => selectedTransaction.Amount.ToString("#,##0") + " VND"
                         };
 
-                        // Nếu là giao dịch chuyển tiền, thêm thông tin tài khoản nhận
+                        // Nếu là giao dịch chuyển tiền, thêm thông tin  thông tin tài khoản nhận
                         if (selectedTransaction.TransactionTypeName == "Chuyển tiền")
                         {
                             subTableTransaction.AddCell(new PdfPCell(new Phrase("Tài khoản nhận", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
                             subTableTransaction.AddCell(new PdfPCell(new Phrase($"{selectedTransaction.ReceiverAccountID} - {selectedTransaction.ReceiverAccountName}", boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                        }
+
+                        // Nếu là giao dịch thanh toán khoản vay, thêm thông tin mã dịch vụ, mã thanh toán và số nợ còn lại
+                        if (selectedTransaction.TransactionTypeName == "Thanh toán khoản vay")
+                        {
+                            // Thêm tiền tố cho ServiceID và PayLoanID
+                            string formattedServiceId = serviceId == "N/A" ? "N/A" : $"DV{serviceId}";
+                            string formattedPayLoanId = payLoanId == "N/A" ? "N/A" : $"TTV{payLoanId}";
+
+                            subTableTransaction.AddCell(new PdfPCell(new Phrase("Mã dịch vụ", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                            subTableTransaction.AddCell(new PdfPCell(new Phrase(formattedServiceId, boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f }); // Sửa từ serviceId thành formattedServiceId
+                            subTableTransaction.AddCell(new PdfPCell(new Phrase("Mã thanh toán", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                            subTableTransaction.AddCell(new PdfPCell(new Phrase(formattedPayLoanId, boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f }); // Sửa từ payLoanId thành formattedPayLoanId
+                            subTableTransaction.AddCell(new PdfPCell(new Phrase("Số nợ còn lại", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
+                            subTableTransaction.AddCell(new PdfPCell(new Phrase(remainingDebt.ToString("#,##0") + " VND", boldFont)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });
                         }
 
                         subTableTransaction.AddCell(new PdfPCell(new Phrase("Số tiền", font)) { HorizontalAlignment = Element.ALIGN_LEFT, Padding = 2f });

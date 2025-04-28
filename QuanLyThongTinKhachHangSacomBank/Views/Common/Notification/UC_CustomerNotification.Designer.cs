@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             richTextBoxMessage = new RichTextBox();
             label2 = new Label();
             textBoxTitle = new TextBox();
@@ -39,14 +40,14 @@
             Title = new DataGridViewTextBoxColumn();
             Message = new DataGridViewTextBoxColumn();
             NotificationDate = new DataGridViewTextBoxColumn();
-            Status = new DataGridViewTextBoxColumn();
+            NotificationStatus = new DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)dataGridViewNotification).BeginInit();
             SuspendLayout();
             // 
             // richTextBoxMessage
             // 
             richTextBoxMessage.BorderStyle = BorderStyle.None;
-            richTextBoxMessage.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            richTextBoxMessage.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             richTextBoxMessage.Location = new Point(3, 133);
             richTextBoxMessage.Name = "richTextBoxMessage";
             richTextBoxMessage.ReadOnly = true;
@@ -67,11 +68,11 @@
             // 
             // textBoxTitle
             // 
-            textBoxTitle.Font = new Font("Roboto SemiCondensed Medium", 13.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            textBoxTitle.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             textBoxTitle.Location = new Point(107, 47);
             textBoxTitle.Name = "textBoxTitle";
             textBoxTitle.ReadOnly = true;
-            textBoxTitle.Size = new Size(943, 35);
+            textBoxTitle.Size = new Size(943, 32);
             textBoxTitle.TabIndex = 192;
             // 
             // label1
@@ -113,7 +114,15 @@
             dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
             dataGridViewNotification.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewNotification.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridViewNotification.Columns.AddRange(new DataGridViewColumn[] { NotificationTypeName, Title, Message, NotificationDate, Status });
+            dataGridViewNotification.Columns.AddRange(new DataGridViewColumn[] { NotificationTypeName, Title, Message, NotificationDate, NotificationStatus });
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridViewNotification.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewNotification.EnableHeadersVisualStyles = false;
             dataGridViewNotification.GridColor = Color.White;
             dataGridViewNotification.Location = new Point(3, 246);
@@ -153,12 +162,12 @@
             NotificationDate.Name = "NotificationDate";
             NotificationDate.ReadOnly = true;
             // 
-            // Status
+            // NotificationStatus
             // 
-            Status.HeaderText = "Trạng thái";
-            Status.MinimumWidth = 6;
-            Status.Name = "Status";
-            Status.ReadOnly = true;
+            NotificationStatus.HeaderText = "Trạng thái";
+            NotificationStatus.MinimumWidth = 6;
+            NotificationStatus.Name = "NotificationStatus";
+            NotificationStatus.ReadOnly = true;
             // 
             // UC_CustomerNotification
             // 
@@ -189,6 +198,6 @@
         private DataGridViewTextBoxColumn Title;
         private DataGridViewTextBoxColumn Message;
         private DataGridViewTextBoxColumn NotificationDate;
-        private DataGridViewTextBoxColumn Status;
+        private DataGridViewTextBoxColumn NotificationStatus;
     }
 }

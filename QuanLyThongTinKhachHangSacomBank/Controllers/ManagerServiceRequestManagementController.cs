@@ -214,7 +214,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             {
                 view.SetCustomerID($"KH{serviceRequest.CustomerID}");
                 view.SetAccountID($"TK{serviceRequest.AccountID}");
-                view.SetServiceTypeName(serviceRequest.ServiceTypeID == 1 ? "Gửi tiết kiệm" : "Vay vốn");
+                view.SetServiceTypeName(serviceRequest.ServiceTypeID == 1 ? "Vay vốn" : "Gửi tiết kiệm");
                 view.SetServiceID(serviceRequest.ServiceCode);
                 view.SetTotalPrincipalAmount(serviceRequest.TotalPrincipalAmount);
                 view.SetInterestRate(serviceRequest.InterestRate);
@@ -489,11 +489,48 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         int rowsAffected = command.ExecuteNonQuery();
                         if (rowsAffected > 0)
                         {
+                            // Tạo bản ghi thông báo cho khách hàng
+                            int notificationTypeId;
+                            using (var notificationCommand = new SqlCommand("SELECT NotificationTypeID FROM NOTIFICATION_TYPE WHERE NotificationTypeName = @NotificationTypeName", connection))
+                            {
+                                notificationCommand.Parameters.AddWithValue("@NotificationTypeName", "Dịch vụ");
+                                var resultNotification = notificationCommand.ExecuteScalar();
+                                if (resultNotification == null)
+                                {
+                                    view.ShowMessage("Không tìm thấy NotificationTypeID cho 'Dịch vụ'.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+                                notificationTypeId = (int)resultNotification;
+                            }
+
+                            string notificationMessage;
+                            if (selectedService.ServiceTypeID == 1) // Vay vốn
+                            {
+                                notificationMessage = $"Ngân hàng đã từ chối yêu cầu vay vốn với mã dịch vụ {selectedService.ServiceCode} từ bạn. Vui lòng liên hệ ngân hàng để biết thêm chi tiết!";
+                            }
+                            else // Gửi tiết kiệm (ServiceTypeID == 2)
+                            {
+                                notificationMessage = $"Ngân hàng đã từ chối yêu cầu gửi tiết kiệm với mã dịch vụ {selectedService.ServiceCode} từ bạn. Vui lòng liên hệ ngân hàng để biết thêm chi tiết!";
+                            }
+
+                            using (var notificationCommand = new SqlCommand(
+                                "INSERT INTO [NOTIFICATION] (Title, NotificationMessage, NotificationDate, NotificationStatus, ReferenceID, CustomerID, EmployeeID, NotificationTypeID) " +
+                                "VALUES (@Title, @NotificationMessage, @NotificationDate, @NotificationStatus, @ReferenceID, @CustomerID, @EmployeeID, @NotificationTypeID)", connection))
+                            {
+                                notificationCommand.Parameters.AddWithValue("@Title", "Yêu cầu dịch vụ đã bị từ chối!");
+                                notificationCommand.Parameters.AddWithValue("@NotificationMessage", notificationMessage);
+                                notificationCommand.Parameters.AddWithValue("@NotificationDate", DateTime.Now);
+                                notificationCommand.Parameters.AddWithValue("@NotificationStatus", "Chưa xem");
+                                notificationCommand.Parameters.AddWithValue("@ReferenceID", selectedService.ServiceID);
+                                notificationCommand.Parameters.AddWithValue("@CustomerID", selectedService.CustomerID);
+                                notificationCommand.Parameters.AddWithValue("@EmployeeID", DBNull.Value);
+                                notificationCommand.Parameters.AddWithValue("@NotificationTypeID", notificationTypeId);
+                                notificationCommand.ExecuteNonQuery();
+                            }
+
                             view.ShowMessage("Đã từ chối duyệt yêu cầu dịch vụ này.", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                            // Cập nhật trạng thái trong selectedService
                             selectedService.ApprovalStatus = "Từ chối";
                             selectedService.ServiceStatus = "Hủy";
-                            // Làm mới DGV
                             SearchServiceRequests();
                             view.ClearInputs();
                             view.EnableApproveButton(false);
@@ -537,6 +574,29 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 {
                     connection.Open();
 
+                    // Kiểm tra số dư tài khoản nếu là dịch vụ Gửi tiết kiệm (ServiceTypeID == 2)
+                    if (selectedService.ServiceTypeID == 2)
+                    {
+                        string balanceQuery = "SELECT Balance FROM ACCOUNT WHERE AccountID = @AccountID";
+                        using (var balanceCommand = new SqlCommand(balanceQuery, connection))
+                        {
+                            balanceCommand.Parameters.AddWithValue("@AccountID", selectedService.AccountID);
+                            var balanceResult = balanceCommand.ExecuteScalar();
+                            if (balanceResult == null)
+                            {
+                                view.ShowMessage("Không thể kiểm tra số dư tài khoản. Vui lòng thử lại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+
+                            decimal currentBalance = (decimal)balanceResult;
+                            if (currentBalance < selectedService.TotalPrincipalAmount)
+                            {
+                                view.ShowMessage("Không thể duyệt yêu cầu này vì số dư của tài khoản hiện tại không đủ để gửi tiết kiệm!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                return;
+                            }
+                        }
+                    }
+
                     // Tính EndDate dựa trên ApplicableDate và Duration
                     DateTime applicableDate = DateTime.Now;
                     int durationMonths = int.Parse(selectedService.Duration.Replace(" tháng", ""));
@@ -574,10 +634,11 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         SET Balance = Balance + @BalanceChange
                         WHERE AccountID = @AccountID";
 
-                    if (selectedService.ServiceTypeID == 1) // Gửi tiết kiệm
+                    if (selectedService.ServiceTypeID == 2) // Gửi tiết kiệm
                     {
                         balanceChange = -balanceChange; // Giảm số dư
                     }
+
                     // ServiceTypeID == 2 (Vay vốn) thì tăng số dư (balanceChange đã là dương)
 
                     using (var command = new SqlCommand(accountUpdateQuery, connection))
@@ -591,6 +652,95 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                             view.ShowMessage("Không thể cập nhật số dư tài khoản. Vui lòng thử lại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
                             return;
                         }
+                    }
+
+                    // Tạo bản ghi LOAN_PAYMENT nếu là dịch vụ vay vốn (ServiceTypeID == 1)
+                    if (selectedService.ServiceTypeID == 1)
+                    {
+                        // Tính toán các giá trị cho LOAN_PAYMENT
+                        decimal principalDue = Math.Floor(selectedService.TotalPrincipalAmount / durationMonths); // Lấy nguyên phần nguyên
+                        decimal interestDue = Math.Floor((selectedService.TotalInterestAmount ?? 0) / durationMonths); // Lấy nguyên phần nguyên
+                        decimal lateFee = 0;
+                        decimal totalDue = principalDue + interestDue + lateFee;
+                        decimal remainingDebt = selectedService.TotalPrincipalAmount;
+                        string payNotification = $"Thanh toán khoản vay của mã dịch vụ '{selectedService.ServiceCode}' tháng thứ 1";
+                        DateTime dueDate = applicableDate.AddMonths(1);
+                        string paymentStatus = "Chưa thanh toán";
+
+                        // Chèn bản ghi vào LOAN_PAYMENT và lấy PayLoanID, PayLoanCode vừa tạo
+                        string loanPaymentInsertQuery = @"
+                    INSERT INTO LOAN_PAYMENT (ServiceID, PrincipalDue, InterestDue, LateFee, TotalDue, RemainingDebt, PayNotification, DueDate, PaymentStatus)
+                    OUTPUT INSERTED.PayLoanID, INSERTED.PayLoanCode
+                    VALUES (@ServiceID, @PrincipalDue, @InterestDue, @LateFee, @TotalDue, @RemainingDebt, @PayNotification, @DueDate, @PaymentStatus)";
+
+                        string newPayLoanId = "";
+                        string newPayLoanCode = "";
+
+                        using (var command = new SqlCommand(loanPaymentInsertQuery, connection))
+                        {
+                            command.Parameters.AddWithValue("@ServiceID", selectedService.ServiceID);
+                            command.Parameters.AddWithValue("@PrincipalDue", principalDue);
+                            command.Parameters.AddWithValue("@InterestDue", interestDue);
+                            command.Parameters.AddWithValue("@LateFee", lateFee);
+                            command.Parameters.AddWithValue("@TotalDue", totalDue);
+                            command.Parameters.AddWithValue("@RemainingDebt", remainingDebt);
+                            command.Parameters.AddWithValue("@PayNotification", payNotification);
+                            command.Parameters.AddWithValue("@DueDate", dueDate);
+                            command.Parameters.AddWithValue("@PaymentStatus", paymentStatus);
+
+                            using (var reader = command.ExecuteReader())
+                            {
+                                if (reader.Read())
+                                {
+                                    newPayLoanId = reader.GetInt32(0).ToString(); // Lấy PayLoanID
+                                    newPayLoanCode = reader.GetString(1); // Lấy PayLoanCode
+                                }
+                                else
+                                {
+                                    view.ShowMessage("Không thể tạo bản ghi LOAN_PAYMENT. Vui lòng thử lại!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                    return;
+                                }
+                            }
+                        } 
+                    }
+
+                    // Tạo bản ghi thông báo cho khách hàng
+                    int notificationTypeId;
+                    using (var command = new SqlCommand("SELECT NotificationTypeID FROM NOTIFICATION_TYPE WHERE NotificationTypeName = @NotificationTypeName", connection))
+                    {
+                        command.Parameters.AddWithValue("@NotificationTypeName", "Dịch vụ");
+                        var notificationTypeResult = command.ExecuteScalar(); // Đổi tên biến
+                        if (notificationTypeResult == null)
+                        {
+                            view.ShowMessage("Không tìm thấy NotificationTypeID cho 'Dịch vụ'.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                            return;
+                        }
+                        notificationTypeId = (int)notificationTypeResult;
+                    }
+
+                    string notificationMessage;
+                    if (selectedService.ServiceTypeID == 1) // Vay vốn
+                    {
+                        notificationMessage = $"Ngân hàng đã duyệt yêu cầu vay vốn với mã dịch vụ {selectedService.ServiceCode} từ bạn. Số tiền: {selectedService.TotalPrincipalAmount.ToString("#,##0")} đã được gửi về tài khoản!";
+                    }
+                    else // Gửi tiết kiệm (ServiceTypeID == 2)
+                    {
+                        notificationMessage = $"Ngân hàng đã duyệt yêu cầu gửi tiết kiệm với mã dịch vụ {selectedService.ServiceCode} từ bạn. Số tiền: {selectedService.TotalPrincipalAmount.ToString("#,##0")} của tài khoản đã được chuyển vào dịch vụ gửi tiết kiệm thành công!";
+                    }
+
+                    using (var command = new SqlCommand(
+                        "INSERT INTO [NOTIFICATION] (Title, NotificationMessage, NotificationDate, NotificationStatus, ReferenceID, CustomerID, EmployeeID, NotificationTypeID) " +
+                        "VALUES (@Title, @NotificationMessage, @NotificationDate, @NotificationStatus, @ReferenceID, @CustomerID, @EmployeeID, @NotificationTypeID)", connection))
+                    {
+                        command.Parameters.AddWithValue("@Title", "Duyệt yêu đã được duyệt!");
+                        command.Parameters.AddWithValue("@NotificationMessage", notificationMessage);
+                        command.Parameters.AddWithValue("@NotificationDate", DateTime.Now);
+                        command.Parameters.AddWithValue("@NotificationStatus", "Chưa xem");
+                        command.Parameters.AddWithValue("@ReferenceID", selectedService.ServiceID);
+                        command.Parameters.AddWithValue("@CustomerID", selectedService.CustomerID);
+                        command.Parameters.AddWithValue("@EmployeeID", DBNull.Value);
+                        command.Parameters.AddWithValue("@NotificationTypeID", notificationTypeId);
+                        command.ExecuteNonQuery();
                     }
 
                     // Cập nhật trạng thái trong selectedService

@@ -111,7 +111,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             }
 
             UC_CustomerHome customerHome = new UC_CustomerHome(loggedInAccount, currentEmployee, dbContext, configuration);
-            CustomerHomeController homeController = new CustomerHomeController(customerHome, loggedInAccount);
+            CustomerHomeController homeController = new CustomerHomeController(customerHome, loggedInAccount, dbContext);
             view.LoadUserControl(customerHome);
         }
 
