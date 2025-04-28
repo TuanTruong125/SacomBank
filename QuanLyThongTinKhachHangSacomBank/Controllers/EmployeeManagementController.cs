@@ -985,6 +985,10 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         }
                     }
 
+                    // Định dạng cột lương (cột thứ 11)
+                    Microsoft.Office.Interop.Excel.Range salaryColumn = worksheet.Columns[11];
+                    salaryColumn.NumberFormat = "#,##0";
+
                     // Tự động điều chỉnh độ rộng cột
                     worksheet.Columns.AutoFit();
 
@@ -1019,13 +1023,13 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 EmployeeCode AS [Mã NV], 
                 EmployeeName AS [Họ tên], 
                 EmployeeGender AS [Giới tính], 
-                EmployeeDateOfBirth AS [Ngày sinh], 
+                CONVERT(VARCHAR, EmployeeDateOfBirth, 103) AS [Ngày sinh], 
                 EmployeeCitizenID AS [CCCD], 
                 EmployeeAddress AS [Địa chỉ], 
                 EmployeeRole AS [Chức vụ], 
                 EmployeePhone AS [SĐT], 
                 EmployeeEmail AS [Email], 
-                HireDate AS [Ngày vào làm], 
+                CONVERT(VARCHAR, HireDate, 103) AS [Ngày vào làm], 
                 Salary AS [Lương] 
             FROM EMPLOYEE 
             ORDER BY EmployeeID";
@@ -1132,9 +1136,21 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     // Thêm dữ liệu vào bảng
                     foreach (DataRow row in employeeData.Rows)
                     {
-                        foreach (object item in row.ItemArray)
+                        for (int i = 0; i < row.ItemArray.Length; i++)
                         {
-                            string text = item?.ToString() ?? string.Empty;
+                            object item = row.ItemArray[i];
+                            string text;
+
+                            // Định dạng cột lương (cột thứ 10)
+                            if (i == 10 && item != null && decimal.TryParse(item.ToString(), out decimal salary))
+                            {
+                                text = string.Format("{0:#,##0}", salary);
+                            }
+                            else
+                            {
+                                text = item?.ToString() ?? string.Empty;
+                            }
+
                             iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell(
                                 new iTextSharp.text.Phrase(text, normalFont));
                             cell.HorizontalAlignment = iTextSharp.text.Element.ALIGN_LEFT;
@@ -1406,6 +1422,11 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             }
 
             return parameters;
+        }
+        public string FormatCurrency(decimal value)
+        {
+            // Định dạng tiền tệ: 000,000,000 (không hiển thị đơn vị)
+            return string.Format("{0:#,##0}", value);
         }
     }
 }

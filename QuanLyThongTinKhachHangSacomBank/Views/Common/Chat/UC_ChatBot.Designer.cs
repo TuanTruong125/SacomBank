@@ -28,6 +28,17 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.flowLayoutPanelMessage = new System.Windows.Forms.FlowLayoutPanel();
+            this.flowLayoutPanelMessage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.flowLayoutPanelMessage.Location = new System.Drawing.Point(3, 43);
+            this.flowLayoutPanelMessage.Name = "flowLayoutPanelMessage";
+            this.flowLayoutPanelMessage.Size = new System.Drawing.Size(766, 497);
+            this.flowLayoutPanelMessage.TabIndex = 21;
+            this.flowLayoutPanelMessage.AutoScroll = true;
+            this.flowLayoutPanelMessage.WrapContents = false;
+            this.flowLayoutPanelMessage.FlowDirection = System.Windows.Forms.FlowDirection.TopDown;
+            this.flowLayoutPanelMessage.AutoScrollMinSize = new System.Drawing.Size(0, 0);
+
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_ChatBot));
             buttonSendMessage = new Button();
             textBoxMessage = new TextBox();

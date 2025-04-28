@@ -17,6 +17,7 @@ using Microsoft.Extensions.Configuration;
 using QuanLyThongTinKhachHangSacomBank.Data;
 using QuanLyThongTinKhachHangSacomBank.Models;
 
+
 namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
 {
     public interface ICustomerHomeView
@@ -56,7 +57,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
             try
             {
                 this.currentAccount = currentAccount;
-                this.dbContext = dbContext;
+                this.dbContext = dbContext; // Lưu dbContext
                 InitializeComponent();
                 notificationController = new NotificationController();
                 transferController = new TransferController(currentAccount, currentEmployee, dbContext, configuration, this);
@@ -285,7 +286,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
         {
             try
             {
-                chatController.OpenChat(new UC_ChatBot());
+                // Truyền currentAccount vào UC_ChatBot để có thể lưu lịch sử chat
+                chatController.OpenChat(new UC_ChatBot(dbContext, currentAccount), currentAccount);
             }
             catch (Exception ex)
             {

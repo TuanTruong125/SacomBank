@@ -255,6 +255,16 @@ CREATE TABLE EMPLOYEE (
   FOREIGN KEY (ManagerID) REFERENCES EMPLOYEE(EmployeeID)
 );
 
+--BẢNG LỊCH SỬ TRÒ CHUYỆN CHATBOT
+CREATE TABLE CHATMESSAGE (
+    MessageID INT PRIMARY KEY IDENTITY(1,1),
+    AccountID INT NULL,  -- NULL nếu là khách vãng lai
+    MessageContent NVARCHAR(MAX) NOT NULL,
+    IsFromBot BIT NOT NULL,  -- 1 nếu là tin nhắn từ bot, 0 nếu từ người dùng
+    MessageTime DATETIME NOT NULL DEFAULT GETDATE(),
+    FOREIGN KEY (AccountID) REFERENCES ACCOUNT(AccountID)
+);
+
 
 -- XÓA BẢNG
 DROP TABLE CUSTOMER_TYPE
