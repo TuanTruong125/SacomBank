@@ -38,6 +38,7 @@
             DataGridViewCellStyle dataGridViewCellStyle7 = new DataGridViewCellStyle();
             tableLayoutPanel1 = new TableLayoutPanel();
             groupBox3 = new GroupBox();
+            panel8 = new Panel();
             tableLayoutPanel9 = new TableLayoutPanel();
             dataGridViewProfit = new DataGridView();
             ProfitID = new DataGridViewTextBoxColumn();
@@ -75,6 +76,7 @@
             labelNetProfit = new Label();
             labelMaxNetProfit = new Label();
             groupBox1 = new GroupBox();
+            panel6 = new Panel();
             tableLayoutPanel6 = new TableLayoutPanel();
             dataGridViewRevenue = new DataGridView();
             PayLoanID = new DataGridViewTextBoxColumn();
@@ -85,6 +87,7 @@
             TotalAmount = new DataGridViewTextBoxColumn();
             RevenueDate = new DataGridViewTextBoxColumn();
             groupBox2 = new GroupBox();
+            panel7 = new Panel();
             tableLayoutPanel7 = new TableLayoutPanel();
             dataGridViewExpense = new DataGridView();
             PaySavingsID = new DataGridViewTextBoxColumn();
@@ -170,6 +173,7 @@
             // groupBox3
             // 
             tableLayoutPanel1.SetColumnSpan(groupBox3, 5);
+            groupBox3.Controls.Add(panel8);
             groupBox3.Controls.Add(tableLayoutPanel9);
             groupBox3.Dock = DockStyle.Fill;
             groupBox3.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -181,6 +185,14 @@
             groupBox3.TabIndex = 22;
             groupBox3.TabStop = false;
             groupBox3.Text = "Dữ liệu lợi nhuận";
+            // 
+            // panel8
+            // 
+            panel8.BackColor = Color.ForestGreen;
+            panel8.Location = new Point(178, 10);
+            panel8.Name = "panel8";
+            panel8.Size = new Size(150, 5);
+            panel8.TabIndex = 13;
             // 
             // tableLayoutPanel9
             // 
@@ -703,6 +715,7 @@
             // groupBox1
             // 
             tableLayoutPanel1.SetColumnSpan(groupBox1, 10);
+            groupBox1.Controls.Add(panel6);
             groupBox1.Controls.Add(tableLayoutPanel6);
             groupBox1.Dock = DockStyle.Fill;
             groupBox1.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -714,6 +727,14 @@
             groupBox1.TabIndex = 1;
             groupBox1.TabStop = false;
             groupBox1.Text = "Dữ liệu doanh thu";
+            // 
+            // panel6
+            // 
+            panel6.BackColor = SystemColors.HotTrack;
+            panel6.Location = new Point(185, 9);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(250, 5);
+            panel6.TabIndex = 11;
             // 
             // tableLayoutPanel6
             // 
@@ -831,6 +852,7 @@
             // groupBox2
             // 
             tableLayoutPanel1.SetColumnSpan(groupBox2, 5);
+            groupBox2.Controls.Add(panel7);
             groupBox2.Controls.Add(tableLayoutPanel7);
             groupBox2.Dock = DockStyle.Fill;
             groupBox2.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -842,6 +864,14 @@
             groupBox2.TabIndex = 2;
             groupBox2.TabStop = false;
             groupBox2.Text = "Dữ liệu chi phí";
+            // 
+            // panel7
+            // 
+            panel7.BackColor = Color.Red;
+            panel7.Location = new Point(154, 10);
+            panel7.Name = "panel7";
+            panel7.Size = new Size(150, 5);
+            panel7.TabIndex = 12;
             // 
             // tableLayoutPanel7
             // 
@@ -1186,5 +1216,8 @@
         private DataGridViewTextBoxColumn TotalExpense;
         private DataGridViewTextBoxColumn NetProfit;
         private DataGridViewTextBoxColumn ProfitDate;
+        private Panel panel8;
+        private Panel panel6;
+        private Panel panel7;
     }
 }

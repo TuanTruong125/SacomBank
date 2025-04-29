@@ -28,7 +28,6 @@
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_ManagerSetting));
             label1 = new Label();
             textBoxEmployeeID = new TextBox();
@@ -46,7 +45,6 @@
             label10 = new Label();
             textBoxEmployeeAddress = new TextBox();
             label8 = new Label();
-            toolTip1 = new ToolTip(components);
             textBoxRole = new TextBox();
             groupBoxAccountSetting = new GroupBox();
             tableLayoutPanel3 = new TableLayoutPanel();
@@ -65,6 +63,8 @@
             tableLayoutPanel2 = new TableLayoutPanel();
             groupBoxCustomerInfo = new GroupBox();
             tableLayoutPanel1 = new TableLayoutPanel();
+            panel1 = new Panel();
+            panel2 = new Panel();
             groupBoxAccountSetting.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -78,12 +78,11 @@
             // 
             label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label1.AutoSize = true;
-            label1.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label1.Font = new Font("Roboto SemiCondensed Medium", 10.8F, FontStyle.Bold);
             label1.ForeColor = Color.Black;
-            label1.Location = new Point(5, 35);
-            label1.Margin = new Padding(5, 0, 5, 0);
+            label1.Location = new Point(3, 20);
             label1.Name = "label1";
-            label1.Size = new Size(201, 33);
+            label1.Size = new Size(120, 22);
             label1.TabIndex = 0;
             label1.Text = "Mã nhân viên";
             // 
@@ -91,24 +90,22 @@
             // 
             textBoxEmployeeID.BackColor = SystemColors.ActiveCaption;
             textBoxEmployeeID.Dock = DockStyle.Fill;
-            textBoxEmployeeID.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxEmployeeID.Location = new Point(5, 73);
-            textBoxEmployeeID.Margin = new Padding(5, 5, 5, 5);
+            textBoxEmployeeID.Font = new Font("Roboto", 12F);
+            textBoxEmployeeID.Location = new Point(3, 45);
             textBoxEmployeeID.Name = "textBoxEmployeeID";
             textBoxEmployeeID.ReadOnly = true;
-            textBoxEmployeeID.Size = new Size(662, 44);
+            textBoxEmployeeID.Size = new Size(408, 32);
             textBoxEmployeeID.TabIndex = 1;
             // 
             // label2
             // 
             label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label2.AutoSize = true;
-            label2.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label2.Font = new Font("Roboto SemiCondensed Medium", 10.8F, FontStyle.Bold);
             label2.ForeColor = Color.Black;
-            label2.Location = new Point(5, 171);
-            label2.Margin = new Padding(5, 0, 5, 0);
+            label2.Location = new Point(3, 104);
             label2.Name = "label2";
-            label2.Size = new Size(106, 33);
+            label2.Size = new Size(66, 22);
             label2.TabIndex = 2;
             label2.Text = "Họ tên";
             // 
@@ -116,24 +113,22 @@
             // 
             textBoxEmployeeName.BackColor = SystemColors.ActiveCaption;
             textBoxEmployeeName.Dock = DockStyle.Fill;
-            textBoxEmployeeName.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxEmployeeName.Location = new Point(5, 209);
-            textBoxEmployeeName.Margin = new Padding(5, 5, 5, 5);
+            textBoxEmployeeName.Font = new Font("Roboto", 12F);
+            textBoxEmployeeName.Location = new Point(3, 129);
             textBoxEmployeeName.Name = "textBoxEmployeeName";
             textBoxEmployeeName.ReadOnly = true;
-            textBoxEmployeeName.Size = new Size(662, 44);
+            textBoxEmployeeName.Size = new Size(408, 32);
             textBoxEmployeeName.TabIndex = 3;
             // 
             // label3
             // 
             label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label3.AutoSize = true;
-            label3.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label3.Font = new Font("Roboto SemiCondensed Medium", 10.8F, FontStyle.Bold);
             label3.ForeColor = Color.Black;
-            label3.Location = new Point(5, 307);
-            label3.Margin = new Padding(5, 0, 5, 0);
+            label3.Location = new Point(3, 188);
             label3.Name = "label3";
-            label3.Size = new Size(132, 33);
+            label3.Size = new Size(81, 22);
             label3.TabIndex = 4;
             label3.Text = "Giới tính";
             // 
@@ -141,24 +136,22 @@
             // 
             textBoxEmployeeGender.BackColor = SystemColors.ActiveCaption;
             textBoxEmployeeGender.Dock = DockStyle.Fill;
-            textBoxEmployeeGender.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxEmployeeGender.Location = new Point(5, 345);
-            textBoxEmployeeGender.Margin = new Padding(5, 5, 5, 5);
+            textBoxEmployeeGender.Font = new Font("Roboto", 12F);
+            textBoxEmployeeGender.Location = new Point(3, 213);
             textBoxEmployeeGender.Name = "textBoxEmployeeGender";
             textBoxEmployeeGender.ReadOnly = true;
-            textBoxEmployeeGender.Size = new Size(662, 44);
+            textBoxEmployeeGender.Size = new Size(408, 32);
             textBoxEmployeeGender.TabIndex = 5;
             // 
             // label4
             // 
             label4.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label4.AutoSize = true;
-            label4.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label4.Font = new Font("Roboto SemiCondensed Medium", 10.8F, FontStyle.Bold);
             label4.ForeColor = Color.Black;
-            label4.Location = new Point(5, 443);
-            label4.Margin = new Padding(5, 0, 5, 0);
+            label4.Location = new Point(3, 272);
             label4.Name = "label4";
-            label4.Size = new Size(154, 33);
+            label4.Size = new Size(93, 22);
             label4.TabIndex = 6;
             label4.Text = "Ngày sinh";
             // 
@@ -166,24 +159,22 @@
             // 
             textBoxEmployeeDateOfBirth.BackColor = SystemColors.ActiveCaption;
             textBoxEmployeeDateOfBirth.Dock = DockStyle.Fill;
-            textBoxEmployeeDateOfBirth.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxEmployeeDateOfBirth.Location = new Point(5, 481);
-            textBoxEmployeeDateOfBirth.Margin = new Padding(5, 5, 5, 5);
+            textBoxEmployeeDateOfBirth.Font = new Font("Roboto", 12F);
+            textBoxEmployeeDateOfBirth.Location = new Point(3, 297);
             textBoxEmployeeDateOfBirth.Name = "textBoxEmployeeDateOfBirth";
             textBoxEmployeeDateOfBirth.ReadOnly = true;
-            textBoxEmployeeDateOfBirth.Size = new Size(662, 44);
+            textBoxEmployeeDateOfBirth.Size = new Size(408, 32);
             textBoxEmployeeDateOfBirth.TabIndex = 7;
             // 
             // label5
             // 
             label5.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label5.AutoSize = true;
-            label5.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label5.Font = new Font("Roboto SemiCondensed Medium", 10.8F, FontStyle.Bold);
             label5.ForeColor = Color.Black;
-            label5.Location = new Point(5, 579);
-            label5.Margin = new Padding(5, 0, 5, 0);
+            label5.Location = new Point(3, 356);
             label5.Name = "label5";
-            label5.Size = new Size(103, 33);
+            label5.Size = new Size(58, 22);
             label5.TabIndex = 8;
             label5.Text = "CCCD";
             // 
@@ -191,24 +182,22 @@
             // 
             textBoxEmployeeCitizenID.BackColor = SystemColors.ActiveCaption;
             textBoxEmployeeCitizenID.Dock = DockStyle.Fill;
-            textBoxEmployeeCitizenID.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxEmployeeCitizenID.Location = new Point(5, 617);
-            textBoxEmployeeCitizenID.Margin = new Padding(5, 5, 5, 5);
+            textBoxEmployeeCitizenID.Font = new Font("Roboto", 12F);
+            textBoxEmployeeCitizenID.Location = new Point(3, 381);
             textBoxEmployeeCitizenID.Name = "textBoxEmployeeCitizenID";
             textBoxEmployeeCitizenID.ReadOnly = true;
-            textBoxEmployeeCitizenID.Size = new Size(662, 44);
+            textBoxEmployeeCitizenID.Size = new Size(408, 32);
             textBoxEmployeeCitizenID.TabIndex = 9;
             // 
             // label6
             // 
             label6.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label6.AutoSize = true;
-            label6.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label6.Font = new Font("Roboto SemiCondensed Medium", 10.8F, FontStyle.Bold);
             label6.ForeColor = Color.Black;
-            label6.Location = new Point(732, 35);
-            label6.Margin = new Padding(5, 0, 5, 0);
+            label6.Location = new Point(450, 20);
             label6.Name = "label6";
-            label6.Size = new Size(112, 33);
+            label6.Size = new Size(68, 22);
             label6.TabIndex = 10;
             label6.Text = "Địa chỉ";
             // 
@@ -216,12 +205,11 @@
             // 
             label7.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label7.AutoSize = true;
-            label7.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label7.Font = new Font("Roboto SemiCondensed Medium", 10.8F, FontStyle.Bold);
             label7.ForeColor = Color.Black;
-            label7.Location = new Point(732, 171);
-            label7.Margin = new Padding(5, 0, 5, 0);
+            label7.Location = new Point(450, 104);
             label7.Name = "label7";
-            label7.Size = new Size(129, 33);
+            label7.Size = new Size(77, 22);
             label7.TabIndex = 11;
             label7.Text = "Chức vụ";
             // 
@@ -229,12 +217,11 @@
             // 
             label9.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label9.AutoSize = true;
-            label9.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label9.Font = new Font("Roboto SemiCondensed Medium", 10.8F, FontStyle.Bold);
             label9.ForeColor = Color.Black;
-            label9.Location = new Point(732, 443);
-            label9.Margin = new Padding(5, 0, 5, 0);
+            label9.Location = new Point(450, 272);
             label9.Name = "label9";
-            label9.Size = new Size(76, 33);
+            label9.Size = new Size(44, 22);
             label9.TabIndex = 13;
             label9.Text = "SĐT";
             // 
@@ -242,12 +229,11 @@
             // 
             label10.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label10.AutoSize = true;
-            label10.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label10.Font = new Font("Roboto SemiCondensed Medium", 10.8F, FontStyle.Bold);
             label10.ForeColor = Color.Black;
-            label10.Location = new Point(732, 307);
-            label10.Margin = new Padding(5, 0, 5, 0);
+            label10.Location = new Point(450, 188);
             label10.Name = "label10";
-            label10.Size = new Size(94, 33);
+            label10.Size = new Size(57, 22);
             label10.TabIndex = 14;
             label10.Text = "Email";
             // 
@@ -255,24 +241,22 @@
             // 
             textBoxEmployeeAddress.BackColor = SystemColors.ActiveCaption;
             textBoxEmployeeAddress.Dock = DockStyle.Fill;
-            textBoxEmployeeAddress.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxEmployeeAddress.Location = new Point(732, 73);
-            textBoxEmployeeAddress.Margin = new Padding(5, 5, 5, 5);
+            textBoxEmployeeAddress.Font = new Font("Roboto", 12F);
+            textBoxEmployeeAddress.Location = new Point(450, 45);
             textBoxEmployeeAddress.Name = "textBoxEmployeeAddress";
             textBoxEmployeeAddress.ReadOnly = true;
-            textBoxEmployeeAddress.Size = new Size(939, 44);
+            textBoxEmployeeAddress.Size = new Size(578, 32);
             textBoxEmployeeAddress.TabIndex = 15;
             // 
             // label8
             // 
             label8.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label8.AutoSize = true;
-            label8.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label8.Font = new Font("Roboto SemiCondensed Medium", 10.8F, FontStyle.Bold);
             label8.ForeColor = Color.Black;
-            label8.Location = new Point(732, 579);
-            label8.Margin = new Padding(5, 0, 5, 0);
+            label8.Location = new Point(450, 356);
             label8.Name = "label8";
-            label8.Size = new Size(206, 33);
+            label8.Size = new Size(124, 22);
             label8.TabIndex = 12;
             label8.Text = "Ngày vào làm";
             // 
@@ -280,26 +264,24 @@
             // 
             textBoxRole.BackColor = SystemColors.ActiveCaption;
             textBoxRole.Dock = DockStyle.Fill;
-            textBoxRole.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxRole.Location = new Point(732, 209);
-            textBoxRole.Margin = new Padding(5, 5, 5, 5);
+            textBoxRole.Font = new Font("Roboto", 12F);
+            textBoxRole.Location = new Point(450, 129);
             textBoxRole.Name = "textBoxRole";
             textBoxRole.ReadOnly = true;
-            textBoxRole.Size = new Size(939, 44);
+            textBoxRole.Size = new Size(578, 32);
             textBoxRole.TabIndex = 16;
             // 
             // groupBoxAccountSetting
             // 
             tableLayoutPanel1.SetColumnSpan(groupBoxAccountSetting, 2);
+            groupBoxAccountSetting.Controls.Add(panel2);
             groupBoxAccountSetting.Controls.Add(tableLayoutPanel3);
             groupBoxAccountSetting.Dock = DockStyle.Fill;
-            groupBoxAccountSetting.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBoxAccountSetting.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBoxAccountSetting.ForeColor = Color.SteelBlue;
-            groupBoxAccountSetting.Location = new Point(5, 750);
-            groupBoxAccountSetting.Margin = new Padding(5, 5, 5, 5);
+            groupBoxAccountSetting.Location = new Point(3, 469);
             groupBoxAccountSetting.Name = "groupBoxAccountSetting";
-            groupBoxAccountSetting.Padding = new Padding(5, 5, 5, 5);
-            groupBoxAccountSetting.Size = new Size(1830, 450);
+            groupBoxAccountSetting.Size = new Size(1126, 281);
             groupBoxAccountSetting.TabIndex = 2;
             groupBoxAccountSetting.TabStop = false;
             groupBoxAccountSetting.Text = "Cài đặt tài khoản";
@@ -324,8 +306,7 @@
             tableLayoutPanel3.Controls.Add(cyberButtonCancel, 1, 4);
             tableLayoutPanel3.Controls.Add(cyberButtonEdit, 3, 4);
             tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(5, 42);
-            tableLayoutPanel3.Margin = new Padding(5, 5, 5, 5);
+            tableLayoutPanel3.Location = new Point(3, 28);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 6;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 16.4907646F));
@@ -334,18 +315,17 @@
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 16.4907646F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 23.7467F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 10.2902365F));
-            tableLayoutPanel3.Size = new Size(1820, 403);
+            tableLayoutPanel3.Size = new Size(1120, 250);
             tableLayoutPanel3.TabIndex = 1;
             // 
             // pictureBox2
             // 
             pictureBox2.Dock = DockStyle.Fill;
             pictureBox2.Image = (Image)resources.GetObject("pictureBox2.Image");
-            pictureBox2.Location = new Point(1732, 5);
-            pictureBox2.Margin = new Padding(5, 5, 5, 5);
+            pictureBox2.Location = new Point(1066, 3);
             pictureBox2.Name = "pictureBox2";
             tableLayoutPanel3.SetRowSpan(pictureBox2, 6);
-            pictureBox2.Size = new Size(83, 393);
+            pictureBox2.Size = new Size(51, 244);
             pictureBox2.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox2.TabIndex = 21;
             pictureBox2.TabStop = false;
@@ -354,12 +334,11 @@
             // 
             label11.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label11.AutoSize = true;
-            label11.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label11.Font = new Font("Roboto SemiCondensed Medium", 10.8F, FontStyle.Bold);
             label11.ForeColor = Color.Black;
-            label11.Location = new Point(5, 33);
-            label11.Margin = new Padding(5, 0, 5, 0);
+            label11.Location = new Point(3, 19);
             label11.Name = "label11";
-            label11.Size = new Size(204, 33);
+            label11.Size = new Size(123, 22);
             label11.TabIndex = 15;
             label11.Text = "Tên tài khoản";
             // 
@@ -368,24 +347,22 @@
             textBoxEmployeeUsername.BackColor = SystemColors.ActiveCaption;
             tableLayoutPanel3.SetColumnSpan(textBoxEmployeeUsername, 7);
             textBoxEmployeeUsername.Dock = DockStyle.Fill;
-            textBoxEmployeeUsername.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxEmployeeUsername.Location = new Point(5, 71);
-            textBoxEmployeeUsername.Margin = new Padding(5, 5, 5, 5);
+            textBoxEmployeeUsername.Font = new Font("Roboto", 12F);
+            textBoxEmployeeUsername.Location = new Point(3, 44);
             textBoxEmployeeUsername.Name = "textBoxEmployeeUsername";
             textBoxEmployeeUsername.ReadOnly = true;
-            textBoxEmployeeUsername.Size = new Size(1717, 44);
+            textBoxEmployeeUsername.Size = new Size(1057, 32);
             textBoxEmployeeUsername.TabIndex = 17;
             // 
             // label12
             // 
             label12.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label12.AutoSize = true;
-            label12.Font = new Font("Microsoft Sans Serif", 10.8F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            label12.Font = new Font("Roboto SemiCondensed Medium", 10.8F, FontStyle.Bold);
             label12.ForeColor = Color.Black;
-            label12.Location = new Point(5, 165);
-            label12.Margin = new Padding(5, 0, 5, 0);
+            label12.Location = new Point(3, 101);
             label12.Name = "label12";
-            label12.Size = new Size(142, 33);
+            label12.Size = new Size(88, 22);
             label12.TabIndex = 16;
             label12.Text = "Mật khẩu";
             // 
@@ -394,12 +371,11 @@
             textBoxEmployeePassword.BackColor = SystemColors.ActiveCaption;
             tableLayoutPanel3.SetColumnSpan(textBoxEmployeePassword, 7);
             textBoxEmployeePassword.Dock = DockStyle.Fill;
-            textBoxEmployeePassword.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxEmployeePassword.Location = new Point(5, 203);
-            textBoxEmployeePassword.Margin = new Padding(5, 5, 5, 5);
+            textBoxEmployeePassword.Font = new Font("Roboto", 12F);
+            textBoxEmployeePassword.Location = new Point(3, 126);
             textBoxEmployeePassword.Name = "textBoxEmployeePassword";
             textBoxEmployeePassword.ReadOnly = true;
-            textBoxEmployeePassword.Size = new Size(1717, 44);
+            textBoxEmployeePassword.Size = new Size(1057, 32);
             textBoxEmployeePassword.TabIndex = 18;
             // 
             // cyberButtonConfirm
@@ -424,18 +400,18 @@
             cyberButtonConfirm.Effect_2 = true;
             cyberButtonConfirm.Effect_2_ColorBackground = Color.White;
             cyberButtonConfirm.Effect_2_Transparency = 20;
-            cyberButtonConfirm.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            cyberButtonConfirm.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold);
             cyberButtonConfirm.ForeColor = Color.FromArgb(245, 245, 245);
             cyberButtonConfirm.Lighting = false;
             cyberButtonConfirm.LinearGradient_Background = true;
             cyberButtonConfirm.LinearGradientPen = true;
-            cyberButtonConfirm.Location = new Point(1065, 269);
-            cyberButtonConfirm.Margin = new Padding(5, 5, 5, 5);
+            cyberButtonConfirm.Location = new Point(655, 166);
+            cyberButtonConfirm.Margin = new Padding(2, 2, 2, 2);
             cyberButtonConfirm.Name = "cyberButtonConfirm";
             cyberButtonConfirm.PenWidth = 15;
             cyberButtonConfirm.Rounding = true;
             cyberButtonConfirm.RoundingInt = 70;
-            cyberButtonConfirm.Size = new Size(256, 85);
+            cyberButtonConfirm.Size = new Size(160, 55);
             cyberButtonConfirm.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             cyberButtonConfirm.TabIndex = 22;
             cyberButtonConfirm.Tag = "Cyber";
@@ -467,18 +443,18 @@
             cyberButtonCancel.Effect_2 = true;
             cyberButtonCancel.Effect_2_ColorBackground = Color.White;
             cyberButtonCancel.Effect_2_Transparency = 20;
-            cyberButtonCancel.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            cyberButtonCancel.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold);
             cyberButtonCancel.ForeColor = Color.FromArgb(245, 245, 245);
             cyberButtonCancel.Lighting = false;
             cyberButtonCancel.LinearGradient_Background = true;
             cyberButtonCancel.LinearGradientPen = true;
-            cyberButtonCancel.Location = new Point(512, 269);
-            cyberButtonCancel.Margin = new Padding(5, 5, 5, 5);
+            cyberButtonCancel.Location = new Point(314, 166);
+            cyberButtonCancel.Margin = new Padding(2, 2, 2, 2);
             cyberButtonCancel.Name = "cyberButtonCancel";
             cyberButtonCancel.PenWidth = 15;
             cyberButtonCancel.Rounding = true;
             cyberButtonCancel.RoundingInt = 70;
-            cyberButtonCancel.Size = new Size(256, 85);
+            cyberButtonCancel.Size = new Size(160, 55);
             cyberButtonCancel.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             cyberButtonCancel.TabIndex = 208;
             cyberButtonCancel.Tag = "Cyber";
@@ -510,18 +486,18 @@
             cyberButtonEdit.Effect_2 = true;
             cyberButtonEdit.Effect_2_ColorBackground = Color.White;
             cyberButtonEdit.Effect_2_Transparency = 20;
-            cyberButtonEdit.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold);
+            cyberButtonEdit.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold);
             cyberButtonEdit.ForeColor = Color.FromArgb(245, 245, 245);
             cyberButtonEdit.Lighting = false;
             cyberButtonEdit.LinearGradient_Background = true;
             cyberButtonEdit.LinearGradientPen = true;
-            cyberButtonEdit.Location = new Point(789, 269);
-            cyberButtonEdit.Margin = new Padding(5, 5, 5, 5);
+            cyberButtonEdit.Location = new Point(485, 166);
+            cyberButtonEdit.Margin = new Padding(2, 2, 2, 2);
             cyberButtonEdit.Name = "cyberButtonEdit";
             cyberButtonEdit.PenWidth = 15;
             cyberButtonEdit.Rounding = true;
             cyberButtonEdit.RoundingInt = 70;
-            cyberButtonEdit.Size = new Size(256, 85);
+            cyberButtonEdit.Size = new Size(160, 55);
             cyberButtonEdit.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
             cyberButtonEdit.TabIndex = 209;
             cyberButtonEdit.Tag = "Cyber";
@@ -535,47 +511,43 @@
             // 
             textBoxHireDate.BackColor = SystemColors.ActiveCaption;
             textBoxHireDate.Dock = DockStyle.Fill;
-            textBoxHireDate.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxHireDate.Location = new Point(732, 617);
-            textBoxHireDate.Margin = new Padding(5, 5, 5, 5);
+            textBoxHireDate.Font = new Font("Roboto", 12F);
+            textBoxHireDate.Location = new Point(450, 381);
             textBoxHireDate.Name = "textBoxHireDate";
             textBoxHireDate.ReadOnly = true;
-            textBoxHireDate.Size = new Size(939, 44);
+            textBoxHireDate.Size = new Size(578, 32);
             textBoxHireDate.TabIndex = 17;
             // 
             // textBoxEmployeePhone
             // 
             textBoxEmployeePhone.BackColor = SystemColors.ActiveCaption;
             textBoxEmployeePhone.Dock = DockStyle.Fill;
-            textBoxEmployeePhone.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxEmployeePhone.Location = new Point(732, 481);
-            textBoxEmployeePhone.Margin = new Padding(5, 5, 5, 5);
+            textBoxEmployeePhone.Font = new Font("Roboto", 12F);
+            textBoxEmployeePhone.Location = new Point(450, 297);
             textBoxEmployeePhone.Name = "textBoxEmployeePhone";
             textBoxEmployeePhone.ReadOnly = true;
-            textBoxEmployeePhone.Size = new Size(939, 44);
+            textBoxEmployeePhone.Size = new Size(578, 32);
             textBoxEmployeePhone.TabIndex = 18;
             // 
             // textBoxEmployeeEmail
             // 
             textBoxEmployeeEmail.BackColor = SystemColors.ActiveCaption;
             textBoxEmployeeEmail.Dock = DockStyle.Fill;
-            textBoxEmployeeEmail.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxEmployeeEmail.Location = new Point(732, 345);
-            textBoxEmployeeEmail.Margin = new Padding(5, 5, 5, 5);
+            textBoxEmployeeEmail.Font = new Font("Roboto", 12F);
+            textBoxEmployeeEmail.Location = new Point(450, 213);
             textBoxEmployeeEmail.Name = "textBoxEmployeeEmail";
             textBoxEmployeeEmail.ReadOnly = true;
-            textBoxEmployeeEmail.Size = new Size(939, 44);
+            textBoxEmployeeEmail.Size = new Size(578, 32);
             textBoxEmployeeEmail.TabIndex = 19;
             // 
             // pictureBox1
             // 
             pictureBox1.Dock = DockStyle.Fill;
             pictureBox1.Image = (Image)resources.GetObject("pictureBox1.Image");
-            pictureBox1.Location = new Point(1681, 5);
-            pictureBox1.Margin = new Padding(5, 5, 5, 5);
+            pictureBox1.Location = new Point(1034, 3);
             pictureBox1.Name = "pictureBox1";
             tableLayoutPanel2.SetRowSpan(pictureBox1, 10);
-            pictureBox1.Size = new Size(134, 678);
+            pictureBox1.Size = new Size(83, 423);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 20;
             pictureBox1.TabStop = false;
@@ -609,8 +581,7 @@
             tableLayoutPanel2.Controls.Add(textBoxEmployeePhone, 2, 7);
             tableLayoutPanel2.Controls.Add(textBoxHireDate, 2, 9);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(5, 42);
-            tableLayoutPanel2.Margin = new Padding(5, 5, 5, 5);
+            tableLayoutPanel2.Location = new Point(3, 28);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 10;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
@@ -623,21 +594,20 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel2.Size = new Size(1820, 688);
+            tableLayoutPanel2.Size = new Size(1120, 429);
             tableLayoutPanel2.TabIndex = 0;
             // 
             // groupBoxCustomerInfo
             // 
             tableLayoutPanel1.SetColumnSpan(groupBoxCustomerInfo, 2);
+            groupBoxCustomerInfo.Controls.Add(panel1);
             groupBoxCustomerInfo.Controls.Add(tableLayoutPanel2);
             groupBoxCustomerInfo.Dock = DockStyle.Fill;
-            groupBoxCustomerInfo.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBoxCustomerInfo.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             groupBoxCustomerInfo.ForeColor = SystemColors.HotTrack;
-            groupBoxCustomerInfo.Location = new Point(5, 5);
-            groupBoxCustomerInfo.Margin = new Padding(5, 5, 5, 5);
+            groupBoxCustomerInfo.Location = new Point(3, 3);
             groupBoxCustomerInfo.Name = "groupBoxCustomerInfo";
-            groupBoxCustomerInfo.Padding = new Padding(5, 5, 5, 5);
-            groupBoxCustomerInfo.Size = new Size(1830, 735);
+            groupBoxCustomerInfo.Size = new Size(1126, 460);
             groupBoxCustomerInfo.TabIndex = 1;
             groupBoxCustomerInfo.TabStop = false;
             groupBoxCustomerInfo.Text = "Thông tin quản lý";
@@ -651,22 +621,36 @@
             tableLayoutPanel1.Controls.Add(groupBoxAccountSetting, 0, 1);
             tableLayoutPanel1.Dock = DockStyle.Fill;
             tableLayoutPanel1.Location = new Point(0, 0);
-            tableLayoutPanel1.Margin = new Padding(5, 5, 5, 5);
             tableLayoutPanel1.Name = "tableLayoutPanel1";
             tableLayoutPanel1.RowCount = 2;
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 61.88579F));
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 38.11421F));
-            tableLayoutPanel1.Size = new Size(1840, 1205);
+            tableLayoutPanel1.Size = new Size(1132, 753);
             tableLayoutPanel1.TabIndex = 2;
+            // 
+            // panel1
+            // 
+            panel1.BackColor = SystemColors.HotTrack;
+            panel1.Location = new Point(190, 9);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(250, 5);
+            panel1.TabIndex = 21;
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.SteelBlue;
+            panel2.Location = new Point(179, 9);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(450, 5);
+            panel2.TabIndex = 22;
             // 
             // UC_ManagerSetting
             // 
-            AutoScaleDimensions = new SizeF(13F, 32F);
+            AutoScaleDimensions = new SizeF(8F, 20F);
             AutoScaleMode = AutoScaleMode.Font;
             Controls.Add(tableLayoutPanel1);
-            Margin = new Padding(5, 5, 5, 5);
             Name = "UC_ManagerSetting";
-            Size = new Size(1840, 1205);
+            Size = new Size(1132, 753);
             groupBoxAccountSetting.ResumeLayout(false);
             tableLayoutPanel3.ResumeLayout(false);
             tableLayoutPanel3.PerformLayout();
@@ -680,7 +664,6 @@
         }
 
         #endregion
-        private ToolTip toolTip1;
         private Label label1;
         private TextBox textBoxEmployeeID;
         private Label label2;
@@ -715,5 +698,7 @@
         private ReaLTaiizor.Controls.CyberButton cyberButtonConfirm;
         private ReaLTaiizor.Controls.CyberButton cyberButtonCancel;
         private ReaLTaiizor.Controls.CyberButton cyberButtonEdit;
+        private Panel panel1;
+        private Panel panel2;
     }
 }

@@ -44,93 +44,93 @@ namespace QuanLyThongTinKhachHangSacomBank
 
                 //// Chạy Form Customer
 
-                while (!exitApp)
-                {
-                    using (FormCustomerLogin loginForm = new FormCustomerLogin(configuration, dbContext))
-                    {
-                        CustomerLoginController loginController = new CustomerLoginController(loginForm, new UC_CustomerLogin(configuration, dbContext), configuration, dbContext);
-                        Application.Run(loginForm);
+                //while (!exitApp)
+                //{
+                //    using (FormCustomerLogin loginForm = new FormCustomerLogin(configuration, dbContext))
+                //    {
+                //        CustomerLoginController loginController = new CustomerLoginController(loginForm, new UC_CustomerLogin(configuration, dbContext), configuration, dbContext);
+                //        Application.Run(loginForm);
 
-                        if (loginForm.DialogResult == DialogResult.OK)
-                        {
-                            AccountModel account = loginForm.Tag as AccountModel;
-                            if (account != null)
-                            {
-                                using (FormCustomer formCustomer = new FormCustomer(account, dbContext, configuration))
-                                {
-                                    Application.Run(formCustomer);
-                                    // Nếu FormCustomer đóng bằng nút X hoặc logout, quay lại FormCustomerLogin
-                                    if (formCustomer.DialogResult != DialogResult.Cancel && formCustomer.IsDisposed)
-                                    {
-                                        continue; // Quay lại vòng lặp để mở lại FormCustomerLogin
-                                    }
-                                    else if (formCustomer.DialogResult == DialogResult.Cancel)
-                                    {
-                                        continue; // Logout, quay lại FormCustomerLogin
-                                    }
-                                    else
-                                    {
-                                        exitApp = true; // Thoát ứng dụng nếu không phải trường hợp trên
-                                    }
-                                }
-                            }
-                        }
-                        else if (loginForm.DialogResult == DialogResult.Cancel)
-                        {
-                            continue; // Đăng ký hoặc quên mật khẩu, tiếp tục vòng lặp
-                        }
-                        else
-                        {
-                            exitApp = true; // Đóng FormCustomerLogin bằng X, thoát ứng dụng
-                        }
-                    }
-                }
+                //        if (loginForm.DialogResult == DialogResult.OK)
+                //        {
+                //            AccountModel account = loginForm.Tag as AccountModel;
+                //            if (account != null)
+                //            {
+                //                using (FormCustomer formCustomer = new FormCustomer(account, dbContext, configuration))
+                //                {
+                //                    Application.Run(formCustomer);
+                //                    // Nếu FormCustomer đóng bằng nút X hoặc logout, quay lại FormCustomerLogin
+                //                    if (formCustomer.DialogResult != DialogResult.Cancel && formCustomer.IsDisposed)
+                //                    {
+                //                        continue; // Quay lại vòng lặp để mở lại FormCustomerLogin
+                //                    }
+                //                    else if (formCustomer.DialogResult == DialogResult.Cancel)
+                //                    {
+                //                        continue; // Logout, quay lại FormCustomerLogin
+                //                    }
+                //                    else
+                //                    {
+                //                        exitApp = true; // Thoát ứng dụng nếu không phải trường hợp trên
+                //                    }
+                //                }
+                //            }
+                //        }
+                //        else if (loginForm.DialogResult == DialogResult.Cancel)
+                //        {
+                //            continue; // Đăng ký hoặc quên mật khẩu, tiếp tục vòng lặp
+                //        }
+                //        else
+                //        {
+                //            exitApp = true; // Đóng FormCustomerLogin bằng X, thoát ứng dụng
+                //        }
+                //    }
+                //}
 
 
 
 
                 // Chạy Form Employee
-                //while (!exitApp)
-                //{
-                //    using (FormEmployeeLogin loginForm = new FormEmployeeLogin(configuration, dbContext))
-                //    {
-                //        Application.Run(loginForm);
+                while (!exitApp)
+                {
+                    using (FormEmployeeLogin loginForm = new FormEmployeeLogin(configuration, dbContext))
+                    {
+                        Application.Run(loginForm);
 
-                //        if (loginForm.DialogResult == DialogResult.OK)
-                //        {
-                //            EmployeeModel employee = loginForm.Tag as EmployeeModel;
-                //            if (employee != null)
-                //            {
-                //                if (employee.AccessLevel == 2) // Quản lý
-                //                {
-                //                    using (FormManager formManager = new FormManager(employee, dbContext, configuration))
-                //                    {
-                //                        Application.Run(formManager);
-                //                        if (formManager.DialogResult != DialogResult.Cancel)
-                //                        {
-                //                            exitApp = true;
-                //                        }
-                //                    }
-                //                }
-                //                else // Nhân viên (AccessLevel = 1)
-                //                {
-                //                    using (FormEmployee formEmployee = new FormEmployee(null, employee, dbContext, configuration))
-                //                    {
-                //                        Application.Run(formEmployee);
-                //                        if (formEmployee.DialogResult != DialogResult.Cancel)
-                //                        {
-                //                            exitApp = true;
-                //                        }
-                //                    }
-                //                }
-                //            }
-                //        }
-                //        else
-                //        {
-                //            exitApp = true;
-                //        }
-                //    }
-                //}
+                        if (loginForm.DialogResult == DialogResult.OK)
+                        {
+                            EmployeeModel employee = loginForm.Tag as EmployeeModel;
+                            if (employee != null)
+                            {
+                                if (employee.AccessLevel == 2) // Quản lý
+                                {
+                                    using (FormManager formManager = new FormManager(employee, dbContext, configuration))
+                                    {
+                                        Application.Run(formManager);
+                                        if (formManager.DialogResult != DialogResult.Cancel)
+                                        {
+                                            exitApp = true;
+                                        }
+                                    }
+                                }
+                                else // Nhân viên (AccessLevel = 1)
+                                {
+                                    using (FormEmployee formEmployee = new FormEmployee(null, employee, dbContext, configuration))
+                                    {
+                                        Application.Run(formEmployee);
+                                        if (formEmployee.DialogResult != DialogResult.Cancel)
+                                        {
+                                            exitApp = true;
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        else
+                        {
+                            exitApp = true;
+                        }
+                    }
+                }
 
 
                 // Dừng các AutoTask khi ứng dụng thoát

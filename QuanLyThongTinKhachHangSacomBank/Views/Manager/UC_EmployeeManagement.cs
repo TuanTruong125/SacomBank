@@ -27,6 +27,9 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
         void DisplayEmployeeForEdit(EmployeeModel employee);
         void DisplayEmployeeInfo(EmployeeModel employee);  // Thêm phương thức mới
 
+        // Thêm phương thức mới để lấy DataSource của DataGridView
+        System.Data.DataTable GetDataGridViewDataSource();
+
         // Sự kiện
         event EventHandler AddButtonClicked;
         event EventHandler EditButtonClicked;
@@ -290,6 +293,12 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
 
             return password.ToString();
         }
+
+        public System.Data.DataTable GetDataGridViewDataSource()
+        {
+            return (System.Data.DataTable)dataEmployeeManagement.DataSource;
+        }
+
         private string GenerateDefaultUsername(string fullName)
         {
             // Tạo username mặc định từ tên nhân viên, ví dụ: nguyen.van.a

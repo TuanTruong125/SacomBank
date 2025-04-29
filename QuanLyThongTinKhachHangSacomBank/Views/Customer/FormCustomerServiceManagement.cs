@@ -84,14 +84,14 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Customer
         // Cập nhật các label cho Vay vốn
         public void UpdateLoanLabels(string totalLoanPrincipalAmount, string remainingDebt)
         {
-            labelTotalLoanPrincipalAmount.Text = totalLoanPrincipalAmount + " VND";
+            labelTotalLoanPrincipalAmount.Text = totalLoanPrincipalAmount;
             labelRemainingDebt.Text = remainingDebt + " VND";
         }
 
         // Cập nhật các label cho Gửi tiết kiệm
         public void UpdateSavingsLabels(string totalSavingsPrincipalAmount, string totalInterestPaid)
         {
-            labelTotalSavingsPrincipalAmount.Text = totalSavingsPrincipalAmount + " VND";
+            labelTotalSavingsPrincipalAmount.Text = totalSavingsPrincipalAmount;
             labelTotalInterestPaid.Text = totalInterestPaid + " VND";
         }
 

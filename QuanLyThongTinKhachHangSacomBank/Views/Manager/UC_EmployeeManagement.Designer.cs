@@ -35,7 +35,6 @@
             labelCustomerID = new Label();
             labelFullName = new Label();
             labelGender = new Label();
-
             labelNationality = new Label();
             labelDateOfBirth = new Label();
             textBoxEmployeeID = new TextBox();
@@ -74,7 +73,6 @@
             comboBoxGenderFilter = new ComboBox();
             buttonExportPDF = new Button();
             buttonExportExcel = new Button();
-            comboBoxTransactionTypeFilter = new ComboBox();
             groupBoxDataEmployeeManagement = new GroupBox();
             panel3 = new Panel();
             buttonAddEmployee = new Button();
@@ -104,11 +102,11 @@
             labelCustomerID.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelCustomerID.AutoSize = true;
             labelCustomerID.BackColor = Color.Transparent;
-            labelCustomerID.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelCustomerID.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelCustomerID.ForeColor = Color.Black;
-            labelCustomerID.Location = new Point(3, 14);
+            labelCustomerID.Location = new Point(3, 13);
             labelCustomerID.Name = "labelCustomerID";
-            labelCustomerID.Size = new Size(120, 20);
+            labelCustomerID.Size = new Size(118, 20);
             labelCustomerID.TabIndex = 9;
             labelCustomerID.Text = "Mã nhân viên";
             // 
@@ -117,11 +115,11 @@
             labelFullName.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelFullName.AutoSize = true;
             labelFullName.BackColor = Color.Transparent;
-            labelFullName.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelFullName.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelFullName.ForeColor = Color.Black;
-            labelFullName.Location = new Point(3, 82);
+            labelFullName.Location = new Point(3, 79);
             labelFullName.Name = "labelFullName";
-            labelFullName.Size = new Size(65, 20);
+            labelFullName.Size = new Size(62, 20);
             labelFullName.TabIndex = 10;
             labelFullName.Text = "Họ tên";
             // 
@@ -130,11 +128,11 @@
             labelGender.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelGender.AutoSize = true;
             labelGender.BackColor = Color.Transparent;
-            labelGender.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelGender.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelGender.ForeColor = Color.Black;
-            labelGender.Location = new Point(3, 150);
+            labelGender.Location = new Point(3, 145);
             labelGender.Name = "labelGender";
-            labelGender.Size = new Size(80, 20);
+            labelGender.Size = new Size(77, 20);
             labelGender.TabIndex = 12;
             labelGender.Text = "Giới tính";
             // 
@@ -143,11 +141,11 @@
             labelNationality.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelNationality.AutoSize = true;
             labelNationality.BackColor = Color.Transparent;
-            labelNationality.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelNationality.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelNationality.ForeColor = Color.Black;
-            labelNationality.Location = new Point(3, 286);
+            labelNationality.Location = new Point(3, 277);
             labelNationality.Name = "labelNationality";
-            labelNationality.Size = new Size(62, 20);
+            labelNationality.Size = new Size(53, 20);
             labelNationality.TabIndex = 13;
             labelNationality.Text = "CCCD";
             // 
@@ -156,11 +154,11 @@
             labelDateOfBirth.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelDateOfBirth.AutoSize = true;
             labelDateOfBirth.BackColor = Color.Transparent;
-            labelDateOfBirth.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelDateOfBirth.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelDateOfBirth.ForeColor = Color.Black;
-            labelDateOfBirth.Location = new Point(3, 218);
+            labelDateOfBirth.Location = new Point(3, 211);
             labelDateOfBirth.Name = "labelDateOfBirth";
-            labelDateOfBirth.Size = new Size(92, 20);
+            labelDateOfBirth.Size = new Size(89, 20);
             labelDateOfBirth.TabIndex = 11;
             labelDateOfBirth.Text = "Ngày sinh";
             // 
@@ -169,10 +167,10 @@
             textBoxEmployeeID.BackColor = SystemColors.InactiveCaption;
             tableLayoutPanel2.SetColumnSpan(textBoxEmployeeID, 2);
             textBoxEmployeeID.Dock = DockStyle.Fill;
-            textBoxEmployeeID.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxEmployeeID.Location = new Point(3, 37);
+            textBoxEmployeeID.Font = new Font("Roboto", 10.2F);
+            textBoxEmployeeID.Location = new Point(3, 36);
             textBoxEmployeeID.Name = "textBoxEmployeeID";
-            textBoxEmployeeID.Size = new Size(357, 27);
+            textBoxEmployeeID.Size = new Size(357, 28);
             textBoxEmployeeID.TabIndex = 23;
             // 
             // textBoxEmployeeName
@@ -180,10 +178,10 @@
             textBoxEmployeeName.BackColor = SystemColors.InactiveCaption;
             tableLayoutPanel2.SetColumnSpan(textBoxEmployeeName, 2);
             textBoxEmployeeName.Dock = DockStyle.Fill;
-            textBoxEmployeeName.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxEmployeeName.Location = new Point(3, 105);
+            textBoxEmployeeName.Font = new Font("Roboto", 10.2F);
+            textBoxEmployeeName.Location = new Point(3, 102);
             textBoxEmployeeName.Name = "textBoxEmployeeName";
-            textBoxEmployeeName.Size = new Size(357, 27);
+            textBoxEmployeeName.Size = new Size(357, 28);
             textBoxEmployeeName.TabIndex = 24;
             // 
             // textBoxEmployeeCitizenID
@@ -191,10 +189,10 @@
             textBoxEmployeeCitizenID.BackColor = SystemColors.InactiveCaption;
             tableLayoutPanel2.SetColumnSpan(textBoxEmployeeCitizenID, 2);
             textBoxEmployeeCitizenID.Dock = DockStyle.Fill;
-            textBoxEmployeeCitizenID.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxEmployeeCitizenID.Location = new Point(3, 309);
+            textBoxEmployeeCitizenID.Font = new Font("Roboto", 10.2F);
+            textBoxEmployeeCitizenID.Location = new Point(3, 300);
             textBoxEmployeeCitizenID.Name = "textBoxEmployeeCitizenID";
-            textBoxEmployeeCitizenID.Size = new Size(357, 27);
+            textBoxEmployeeCitizenID.Size = new Size(357, 28);
             textBoxEmployeeCitizenID.TabIndex = 27;
             // 
             // dateTimePickerEmployeeDateOfBirth
@@ -203,11 +201,11 @@
             dateTimePickerEmployeeDateOfBirth.CalendarMonthBackground = SystemColors.InactiveCaption;
             tableLayoutPanel2.SetColumnSpan(dateTimePickerEmployeeDateOfBirth, 2);
             dateTimePickerEmployeeDateOfBirth.Dock = DockStyle.Fill;
-            dateTimePickerEmployeeDateOfBirth.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dateTimePickerEmployeeDateOfBirth.Font = new Font("Roboto", 10.2F);
             dateTimePickerEmployeeDateOfBirth.Format = DateTimePickerFormat.Short;
-            dateTimePickerEmployeeDateOfBirth.Location = new Point(3, 241);
+            dateTimePickerEmployeeDateOfBirth.Location = new Point(3, 234);
             dateTimePickerEmployeeDateOfBirth.Name = "dateTimePickerEmployeeDateOfBirth";
-            dateTimePickerEmployeeDateOfBirth.Size = new Size(357, 27);
+            dateTimePickerEmployeeDateOfBirth.Size = new Size(357, 28);
             dateTimePickerEmployeeDateOfBirth.TabIndex = 28;
             // 
             // labelCitizenID
@@ -215,11 +213,11 @@
             labelCitizenID.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelCitizenID.AutoSize = true;
             labelCitizenID.BackColor = Color.Transparent;
-            labelCitizenID.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelCitizenID.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelCitizenID.ForeColor = Color.Black;
-            labelCitizenID.Location = new Point(373, 14);
+            labelCitizenID.Location = new Point(373, 13);
             labelCitizenID.Name = "labelCitizenID";
-            labelCitizenID.Size = new Size(68, 20);
+            labelCitizenID.Size = new Size(65, 20);
             labelCitizenID.TabIndex = 29;
             labelCitizenID.Text = "Địa chỉ";
             // 
@@ -228,11 +226,11 @@
             labelAddress.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelAddress.AutoSize = true;
             labelAddress.BackColor = Color.Transparent;
-            labelAddress.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelAddress.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelAddress.ForeColor = Color.Black;
-            labelAddress.Location = new Point(373, 82);
+            labelAddress.Location = new Point(373, 79);
             labelAddress.Name = "labelAddress";
-            labelAddress.Size = new Size(77, 20);
+            labelAddress.Size = new Size(74, 20);
             labelAddress.TabIndex = 30;
             labelAddress.Text = "Chức vụ";
             // 
@@ -246,7 +244,7 @@
             dataEmployeeManagement.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dataGridViewCellStyle1.ForeColor = Color.Black;
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.GradientActiveCaption;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
@@ -257,7 +255,7 @@
             tableLayoutPanel3.SetColumnSpan(dataEmployeeManagement, 5);
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dataGridViewCellStyle2.ForeColor = SystemColors.HotTrack;
             dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
@@ -272,7 +270,7 @@
             dataEmployeeManagement.RowHeadersVisible = false;
             dataEmployeeManagement.RowHeadersWidth = 51;
             tableLayoutPanel3.SetRowSpan(dataEmployeeManagement, 6);
-            dataEmployeeManagement.Size = new Size(966, 295);
+            dataEmployeeManagement.Size = new Size(966, 293);
             dataEmployeeManagement.TabIndex = 26;
             // 
             // EmployeeID
@@ -280,70 +278,70 @@
             EmployeeID.HeaderText = "Mã nhân viên";
             EmployeeID.MinimumWidth = 6;
             EmployeeID.Name = "EmployeeID";
-            EmployeeID.Width = 147;
+            EmployeeID.Width = 145;
             // 
             // EmployeeName
             // 
             EmployeeName.HeaderText = "Họ tên";
             EmployeeName.MinimumWidth = 6;
             EmployeeName.Name = "EmployeeName";
-            EmployeeName.Width = 92;
+            EmployeeName.Width = 89;
             // 
             // EmployeeGender
             // 
             EmployeeGender.HeaderText = "Giới tính";
             EmployeeGender.MinimumWidth = 6;
             EmployeeGender.Name = "EmployeeGender";
-            EmployeeGender.Width = 107;
+            EmployeeGender.Width = 104;
             // 
             // EmployeeDateOfBirth
             // 
             EmployeeDateOfBirth.HeaderText = "Ngày sinh";
             EmployeeDateOfBirth.MinimumWidth = 6;
             EmployeeDateOfBirth.Name = "EmployeeDateOfBirth";
-            EmployeeDateOfBirth.Width = 119;
+            EmployeeDateOfBirth.Width = 116;
             // 
             // EmployeeCitizenID
             // 
             EmployeeCitizenID.HeaderText = "CCCD";
             EmployeeCitizenID.MinimumWidth = 6;
             EmployeeCitizenID.Name = "EmployeeCitizenID";
-            EmployeeCitizenID.Width = 89;
+            EmployeeCitizenID.Width = 80;
             // 
             // EmployeeAddress
             // 
             EmployeeAddress.HeaderText = "Địa chỉ";
             EmployeeAddress.MinimumWidth = 6;
             EmployeeAddress.Name = "EmployeeAddress";
-            EmployeeAddress.Width = 95;
+            EmployeeAddress.Width = 92;
             // 
             // Role
             // 
             Role.HeaderText = "Chức vụ";
             Role.MinimumWidth = 6;
             Role.Name = "Role";
-            Role.Width = 104;
+            Role.Width = 101;
             // 
             // EmployeePhone
             // 
             EmployeePhone.HeaderText = "SĐT";
             EmployeePhone.MinimumWidth = 6;
             EmployeePhone.Name = "EmployeePhone";
-            EmployeePhone.Width = 72;
+            EmployeePhone.Width = 70;
             // 
             // EmployeeEmail
             // 
             EmployeeEmail.HeaderText = "Email";
             EmployeeEmail.MinimumWidth = 6;
             EmployeeEmail.Name = "EmployeeEmail";
-            EmployeeEmail.Width = 83;
+            EmployeeEmail.Width = 81;
             // 
             // HireDate
             // 
             HireDate.HeaderText = "Ngày vào làm";
             HireDate.MinimumWidth = 6;
             HireDate.Name = "HireDate";
-            HireDate.Width = 149;
+            HireDate.Width = 146;
             // 
             // Salary
             // 
@@ -358,10 +356,10 @@
             tableLayoutPanel2.SetColumnSpan(comboBoxEmployeeGender, 2);
             comboBoxEmployeeGender.Dock = DockStyle.Fill;
             comboBoxEmployeeGender.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxEmployeeGender.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBoxEmployeeGender.Font = new Font("Roboto", 10.2F);
             comboBoxEmployeeGender.FormattingEnabled = true;
             comboBoxEmployeeGender.Items.AddRange(new object[] { "Nam", "Nữ" });
-            comboBoxEmployeeGender.Location = new Point(3, 173);
+            comboBoxEmployeeGender.Location = new Point(3, 168);
             comboBoxEmployeeGender.Name = "comboBoxEmployeeGender";
             comboBoxEmployeeGender.Size = new Size(357, 28);
             comboBoxEmployeeGender.TabIndex = 25;
@@ -371,11 +369,11 @@
             labelEmployeeEmail.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelEmployeeEmail.AutoSize = true;
             labelEmployeeEmail.BackColor = Color.Transparent;
-            labelEmployeeEmail.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelEmployeeEmail.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelEmployeeEmail.ForeColor = Color.Black;
-            labelEmployeeEmail.Location = new Point(373, 218);
+            labelEmployeeEmail.Location = new Point(373, 211);
             labelEmployeeEmail.Name = "labelEmployeeEmail";
-            labelEmployeeEmail.Size = new Size(56, 20);
+            labelEmployeeEmail.Size = new Size(54, 20);
             labelEmployeeEmail.TabIndex = 32;
             labelEmployeeEmail.Text = "Email";
             // 
@@ -384,11 +382,11 @@
             labelRegistrationDate.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelRegistrationDate.AutoSize = true;
             labelRegistrationDate.BackColor = Color.Transparent;
-            labelRegistrationDate.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelRegistrationDate.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelRegistrationDate.ForeColor = Color.Black;
-            labelRegistrationDate.Location = new Point(373, 286);
+            labelRegistrationDate.Location = new Point(373, 277);
             labelRegistrationDate.Name = "labelRegistrationDate";
-            labelRegistrationDate.Size = new Size(122, 20);
+            labelRegistrationDate.Size = new Size(119, 20);
             labelRegistrationDate.TabIndex = 33;
             labelRegistrationDate.Text = "Ngày vào làm";
             // 
@@ -397,10 +395,10 @@
             textBoxEmployeeAddress.BackColor = SystemColors.InactiveCaption;
             tableLayoutPanel2.SetColumnSpan(textBoxEmployeeAddress, 2);
             textBoxEmployeeAddress.Dock = DockStyle.Fill;
-            textBoxEmployeeAddress.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxEmployeeAddress.Location = new Point(373, 37);
+            textBoxEmployeeAddress.Font = new Font("Roboto", 10.2F);
+            textBoxEmployeeAddress.Location = new Point(373, 36);
             textBoxEmployeeAddress.Name = "textBoxEmployeeAddress";
-            textBoxEmployeeAddress.Size = new Size(581, 27);
+            textBoxEmployeeAddress.Size = new Size(581, 28);
             textBoxEmployeeAddress.TabIndex = 34;
             // 
             // textBoxEmployeePhone
@@ -408,10 +406,10 @@
             textBoxEmployeePhone.BackColor = SystemColors.InactiveCaption;
             tableLayoutPanel2.SetColumnSpan(textBoxEmployeePhone, 2);
             textBoxEmployeePhone.Dock = DockStyle.Fill;
-            textBoxEmployeePhone.Font = new Font("Microsoft Sans Serif", 10.2F);
-            textBoxEmployeePhone.Location = new Point(373, 173);
+            textBoxEmployeePhone.Font = new Font("Roboto", 10.2F);
+            textBoxEmployeePhone.Location = new Point(373, 168);
             textBoxEmployeePhone.Name = "textBoxEmployeePhone";
-            textBoxEmployeePhone.Size = new Size(581, 27);
+            textBoxEmployeePhone.Size = new Size(581, 28);
             textBoxEmployeePhone.TabIndex = 36;
             // 
             // labelEmployeePhone
@@ -419,11 +417,11 @@
             labelEmployeePhone.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelEmployeePhone.AutoSize = true;
             labelEmployeePhone.BackColor = Color.Transparent;
-            labelEmployeePhone.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelEmployeePhone.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelEmployeePhone.ForeColor = Color.Black;
-            labelEmployeePhone.Location = new Point(373, 150);
+            labelEmployeePhone.Location = new Point(373, 145);
             labelEmployeePhone.Name = "labelEmployeePhone";
-            labelEmployeePhone.Size = new Size(45, 20);
+            labelEmployeePhone.Size = new Size(43, 20);
             labelEmployeePhone.TabIndex = 31;
             labelEmployeePhone.Text = "SĐT";
             // 
@@ -432,11 +430,11 @@
             dateTimePickerHireDate.CalendarFont = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dateTimePickerHireDate.CalendarMonthBackground = SystemColors.InactiveCaption;
             dateTimePickerHireDate.Dock = DockStyle.Fill;
-            dateTimePickerHireDate.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dateTimePickerHireDate.Font = new Font("Roboto", 10.2F);
             dateTimePickerHireDate.Format = DateTimePickerFormat.Short;
-            dateTimePickerHireDate.Location = new Point(373, 309);
+            dateTimePickerHireDate.Location = new Point(373, 300);
             dateTimePickerHireDate.Name = "dateTimePickerHireDate";
-            dateTimePickerHireDate.Size = new Size(315, 27);
+            dateTimePickerHireDate.Size = new Size(315, 28);
             dateTimePickerHireDate.TabIndex = 38;
             // 
             // textBoxEmployeeEmail
@@ -444,10 +442,10 @@
             textBoxEmployeeEmail.BackColor = SystemColors.InactiveCaption;
             tableLayoutPanel2.SetColumnSpan(textBoxEmployeeEmail, 2);
             textBoxEmployeeEmail.Dock = DockStyle.Fill;
-            textBoxEmployeeEmail.Font = new Font("Microsoft Sans Serif", 10.2F);
-            textBoxEmployeeEmail.Location = new Point(373, 241);
+            textBoxEmployeeEmail.Font = new Font("Roboto", 10.2F);
+            textBoxEmployeeEmail.Location = new Point(373, 234);
             textBoxEmployeeEmail.Name = "textBoxEmployeeEmail";
-            textBoxEmployeeEmail.Size = new Size(581, 27);
+            textBoxEmployeeEmail.Size = new Size(581, 28);
             textBoxEmployeeEmail.TabIndex = 37;
             // 
             // buttonEmployeeSearch
@@ -470,7 +468,7 @@
             panel2.Location = new Point(960, 3);
             panel2.Name = "panel2";
             tableLayoutPanel2.SetRowSpan(panel2, 10);
-            panel2.Size = new Size(4, 335);
+            panel2.Size = new Size(4, 333);
             panel2.TabIndex = 39;
             // 
             // tableLayoutPanel3
@@ -489,10 +487,9 @@
             tableLayoutPanel3.Controls.Add(comboBoxGenderFilter, 0, 2);
             tableLayoutPanel3.Controls.Add(buttonExportPDF, 0, 4);
             tableLayoutPanel3.Controls.Add(buttonExportExcel, 0, 5);
-            tableLayoutPanel3.Controls.Add(comboBoxTransactionTypeFilter, 4, 0);
             tableLayoutPanel3.Controls.Add(buttonEmployeeSearch, 3, 0);
             tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(3, 26);
+            tableLayoutPanel3.Location = new Point(3, 28);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 7;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 12.0918064F));
@@ -502,18 +499,18 @@
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 17.1054821F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 18.8750172F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 21.2343922F));
-            tableLayoutPanel3.Size = new Size(1120, 342);
+            tableLayoutPanel3.Size = new Size(1120, 340);
             tableLayoutPanel3.TabIndex = 7;
             // 
             // textBoxEmployeeSearch
             // 
             tableLayoutPanel3.SetColumnSpan(textBoxEmployeeSearch, 2);
             textBoxEmployeeSearch.Dock = DockStyle.Fill;
-            textBoxEmployeeSearch.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBoxEmployeeSearch.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBoxEmployeeSearch.Location = new Point(151, 3);
             textBoxEmployeeSearch.Name = "textBoxEmployeeSearch";
             textBoxEmployeeSearch.PlaceholderText = "Tìm kiếm . . .";
-            textBoxEmployeeSearch.Size = new Size(776, 30);
+            textBoxEmployeeSearch.Size = new Size(776, 32);
             textBoxEmployeeSearch.TabIndex = 1;
             textBoxEmployeeSearch.WordWrap = false;
             // 
@@ -522,11 +519,11 @@
             label1.Anchor = AnchorStyles.Bottom;
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            label1.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             label1.ForeColor = Color.Black;
-            label1.Location = new Point(8, 21);
+            label1.Location = new Point(10, 21);
             label1.Name = "label1";
-            label1.Size = new Size(132, 20);
+            label1.Size = new Size(127, 20);
             label1.TabIndex = 27;
             label1.Text = "Lọc nhân viên:";
             label1.TextAlign = ContentAlignment.BottomCenter;
@@ -536,11 +533,11 @@
             label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            label2.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             label2.ForeColor = Color.Black;
             label2.Location = new Point(3, 86);
             label2.Name = "label2";
-            label2.Size = new Size(80, 20);
+            label2.Size = new Size(77, 20);
             label2.TabIndex = 28;
             label2.Text = "Giới tính";
             label2.TextAlign = ContentAlignment.BottomCenter;
@@ -550,9 +547,9 @@
             comboBoxGenderFilter.BackColor = SystemColors.Window;
             comboBoxGenderFilter.Dock = DockStyle.Fill;
             comboBoxGenderFilter.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxGenderFilter.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBoxGenderFilter.Font = new Font("Roboto", 10.2F);
             comboBoxGenderFilter.FormattingEnabled = true;
-            comboBoxGenderFilter.Items.AddRange(new object[] { "Nam", "Nữ" });
+            comboBoxGenderFilter.Items.AddRange(new object[] { "Không áp dụng", "Nam", "Nữ" });
             comboBoxGenderFilter.Location = new Point(3, 109);
             comboBoxGenderFilter.Name = "comboBoxGenderFilter";
             comboBoxGenderFilter.Size = new Size(142, 28);
@@ -561,7 +558,7 @@
             // buttonExportPDF
             // 
             buttonExportPDF.Dock = DockStyle.Fill;
-            buttonExportPDF.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonExportPDF.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             buttonExportPDF.ForeColor = Color.FromArgb(207, 0, 0);
             buttonExportPDF.Image = (Image)resources.GetObject("buttonExportPDF.Image");
             buttonExportPDF.Location = new Point(3, 148);
@@ -576,7 +573,7 @@
             // buttonExportExcel
             // 
             buttonExportExcel.Dock = DockStyle.Fill;
-            buttonExportExcel.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonExportExcel.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             buttonExportExcel.ForeColor = Color.FromArgb(20, 169, 6);
             buttonExportExcel.Image = (Image)resources.GetObject("buttonExportExcel.Image");
             buttonExportExcel.Location = new Point(3, 206);
@@ -588,25 +585,13 @@
             buttonExportExcel.TextImageRelation = TextImageRelation.TextBeforeImage;
             buttonExportExcel.UseVisualStyleBackColor = true;
             // 
-            // comboBoxTransactionTypeFilter
-            // 
-            comboBoxTransactionTypeFilter.BackColor = SystemColors.Window;
-            comboBoxTransactionTypeFilter.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxTransactionTypeFilter.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            comboBoxTransactionTypeFilter.FormattingEnabled = true;
-            comboBoxTransactionTypeFilter.Items.AddRange(new object[] { "Không áp dụng", "Nạp tiền", "Rút tiền", "Chuyển tiền", "Thanh toán dịch vụ" });
-            comboBoxTransactionTypeFilter.Location = new Point(982, 3);
-            comboBoxTransactionTypeFilter.Name = "comboBoxTransactionTypeFilter";
-            comboBoxTransactionTypeFilter.Size = new Size(2, 28);
-            comboBoxTransactionTypeFilter.TabIndex = 29;
-            // 
             // groupBoxDataEmployeeManagement
             // 
             tableLayoutPanel1.SetColumnSpan(groupBoxDataEmployeeManagement, 2);
             groupBoxDataEmployeeManagement.Controls.Add(tableLayoutPanel3);
             groupBoxDataEmployeeManagement.Controls.Add(panel3);
             groupBoxDataEmployeeManagement.Dock = DockStyle.Fill;
-            groupBoxDataEmployeeManagement.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBoxDataEmployeeManagement.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold);
             groupBoxDataEmployeeManagement.ForeColor = SystemColors.HotTrack;
             groupBoxDataEmployeeManagement.Location = new Point(3, 379);
             groupBoxDataEmployeeManagement.Name = "groupBoxDataEmployeeManagement";
@@ -627,14 +612,14 @@
             // 
             buttonAddEmployee.BackColor = Color.DeepSkyBlue;
             buttonAddEmployee.Dock = DockStyle.Fill;
-            buttonAddEmployee.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonAddEmployee.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             buttonAddEmployee.ForeColor = Color.White;
             buttonAddEmployee.Image = (Image)resources.GetObject("buttonAddEmployee.Image");
             buttonAddEmployee.ImageAlign = ContentAlignment.MiddleLeft;
             buttonAddEmployee.Location = new Point(970, 3);
             buttonAddEmployee.Name = "buttonAddEmployee";
             tableLayoutPanel2.SetRowSpan(buttonAddEmployee, 2);
-            buttonAddEmployee.Size = new Size(87, 62);
+            buttonAddEmployee.Size = new Size(87, 60);
             buttonAddEmployee.TabIndex = 40;
             buttonAddEmployee.Text = "   Thêm";
             buttonAddEmployee.UseVisualStyleBackColor = false;
@@ -643,14 +628,14 @@
             // 
             buttonDeleteEmployee.BackColor = Color.DeepSkyBlue;
             buttonDeleteEmployee.Dock = DockStyle.Fill;
-            buttonDeleteEmployee.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonDeleteEmployee.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             buttonDeleteEmployee.ForeColor = Color.White;
             buttonDeleteEmployee.Image = (Image)resources.GetObject("buttonDeleteEmployee.Image");
             buttonDeleteEmployee.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonDeleteEmployee.Location = new Point(970, 71);
+            buttonDeleteEmployee.Location = new Point(970, 69);
             buttonDeleteEmployee.Name = "buttonDeleteEmployee";
             tableLayoutPanel2.SetRowSpan(buttonDeleteEmployee, 2);
-            buttonDeleteEmployee.Size = new Size(87, 62);
+            buttonDeleteEmployee.Size = new Size(87, 60);
             buttonDeleteEmployee.TabIndex = 41;
             buttonDeleteEmployee.Text = "   Xóa";
             buttonDeleteEmployee.UseVisualStyleBackColor = false;
@@ -659,14 +644,14 @@
             // 
             buttonEditEmployee.BackColor = Color.DeepSkyBlue;
             buttonEditEmployee.Dock = DockStyle.Fill;
-            buttonEditEmployee.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonEditEmployee.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             buttonEditEmployee.ForeColor = Color.White;
             buttonEditEmployee.Image = (Image)resources.GetObject("buttonEditEmployee.Image");
             buttonEditEmployee.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonEditEmployee.Location = new Point(970, 139);
+            buttonEditEmployee.Location = new Point(970, 135);
             buttonEditEmployee.Name = "buttonEditEmployee";
             tableLayoutPanel2.SetRowSpan(buttonEditEmployee, 2);
-            buttonEditEmployee.Size = new Size(87, 62);
+            buttonEditEmployee.Size = new Size(87, 60);
             buttonEditEmployee.TabIndex = 42;
             buttonEditEmployee.Text = "   Sửa";
             buttonEditEmployee.UseVisualStyleBackColor = false;
@@ -675,14 +660,14 @@
             // 
             buttonCancelEmployee.BackColor = Color.DeepSkyBlue;
             buttonCancelEmployee.Dock = DockStyle.Fill;
-            buttonCancelEmployee.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonCancelEmployee.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             buttonCancelEmployee.ForeColor = Color.White;
             buttonCancelEmployee.Image = (Image)resources.GetObject("buttonCancelEmployee.Image");
             buttonCancelEmployee.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonCancelEmployee.Location = new Point(970, 207);
+            buttonCancelEmployee.Location = new Point(970, 201);
             buttonCancelEmployee.Name = "buttonCancelEmployee";
             tableLayoutPanel2.SetRowSpan(buttonCancelEmployee, 2);
-            buttonCancelEmployee.Size = new Size(87, 62);
+            buttonCancelEmployee.Size = new Size(87, 60);
             buttonCancelEmployee.TabIndex = 43;
             buttonCancelEmployee.Text = "   Hủy";
             buttonCancelEmployee.UseVisualStyleBackColor = false;
@@ -691,14 +676,14 @@
             // 
             buttonSaveEmployee.BackColor = Color.DeepSkyBlue;
             buttonSaveEmployee.Dock = DockStyle.Fill;
-            buttonSaveEmployee.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonSaveEmployee.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             buttonSaveEmployee.ForeColor = Color.White;
             buttonSaveEmployee.Image = (Image)resources.GetObject("buttonSaveEmployee.Image");
             buttonSaveEmployee.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonSaveEmployee.Location = new Point(970, 275);
+            buttonSaveEmployee.Location = new Point(970, 267);
             buttonSaveEmployee.Name = "buttonSaveEmployee";
             tableLayoutPanel2.SetRowSpan(buttonSaveEmployee, 2);
-            buttonSaveEmployee.Size = new Size(87, 63);
+            buttonSaveEmployee.Size = new Size(87, 69);
             buttonSaveEmployee.TabIndex = 44;
             buttonSaveEmployee.Text = "   Lưu";
             buttonSaveEmployee.UseVisualStyleBackColor = false;
@@ -710,7 +695,7 @@
             pictureBox1.Location = new Point(1063, 3);
             pictureBox1.Name = "pictureBox1";
             tableLayoutPanel2.SetRowSpan(pictureBox1, 10);
-            pictureBox1.Size = new Size(54, 335);
+            pictureBox1.Size = new Size(54, 333);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 45;
             pictureBox1.TabStop = false;
@@ -764,7 +749,7 @@
             tableLayoutPanel2.Controls.Add(label3, 4, 8);
             tableLayoutPanel2.Controls.Add(textBoxSalary, 4, 9);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(3, 26);
+            tableLayoutPanel2.Location = new Point(3, 28);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 10;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
@@ -777,7 +762,7 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel2.Size = new Size(1120, 341);
+            tableLayoutPanel2.Size = new Size(1120, 339);
             tableLayoutPanel2.TabIndex = 0;
             // 
             // comboBoxAccessLevel
@@ -786,10 +771,10 @@
             tableLayoutPanel2.SetColumnSpan(comboBoxAccessLevel, 2);
             comboBoxAccessLevel.Dock = DockStyle.Fill;
             comboBoxAccessLevel.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxAccessLevel.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBoxAccessLevel.Font = new Font("Roboto", 10.2F);
             comboBoxAccessLevel.FormattingEnabled = true;
             comboBoxAccessLevel.Items.AddRange(new object[] { "Quản lý", "Nhân viên" });
-            comboBoxAccessLevel.Location = new Point(373, 105);
+            comboBoxAccessLevel.Location = new Point(373, 102);
             comboBoxAccessLevel.Name = "comboBoxAccessLevel";
             comboBoxAccessLevel.Size = new Size(581, 28);
             comboBoxAccessLevel.TabIndex = 48;
@@ -799,9 +784,9 @@
             label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label3.AutoSize = true;
             label3.BackColor = Color.Transparent;
-            label3.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            label3.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             label3.ForeColor = Color.Black;
-            label3.Location = new Point(694, 286);
+            label3.Location = new Point(694, 277);
             label3.Name = "label3";
             label3.Size = new Size(60, 20);
             label3.TabIndex = 46;
@@ -811,10 +796,10 @@
             // 
             textBoxSalary.BackColor = SystemColors.InactiveCaption;
             textBoxSalary.Dock = DockStyle.Fill;
-            textBoxSalary.Font = new Font("Microsoft Sans Serif", 10.2F);
-            textBoxSalary.Location = new Point(694, 309);
+            textBoxSalary.Font = new Font("Roboto", 10.2F);
+            textBoxSalary.Location = new Point(694, 300);
             textBoxSalary.Name = "textBoxSalary";
-            textBoxSalary.Size = new Size(260, 27);
+            textBoxSalary.Size = new Size(260, 28);
             textBoxSalary.TabIndex = 47;
             textBoxSalary.Leave += textBoxSalary_Leave;
             // 
@@ -824,7 +809,7 @@
             groupBoxCustomerInfo.Controls.Add(panel1);
             groupBoxCustomerInfo.Controls.Add(tableLayoutPanel2);
             groupBoxCustomerInfo.Dock = DockStyle.Fill;
-            groupBoxCustomerInfo.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBoxCustomerInfo.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold);
             groupBoxCustomerInfo.ForeColor = SystemColors.HotTrack;
             groupBoxCustomerInfo.Location = new Point(3, 3);
             groupBoxCustomerInfo.Name = "groupBoxCustomerInfo";
@@ -910,7 +895,6 @@
         private Panel panel3;
         private Label label1;
         private Label label2;
-        private ComboBox comboBoxTransactionTypeFilter;
         private ComboBox comboBoxGenderFilter;
         private Button buttonExportPDF;
         private Button buttonExportExcel;

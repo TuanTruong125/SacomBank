@@ -67,11 +67,23 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     // Áp dụng bộ lọc tìm kiếm
                     if (!string.IsNullOrWhiteSpace(searchKeyword))
                     {
-                        query += " AND (EmployeeCode LIKE @Keyword OR EmployeeName LIKE @Keyword OR EmployeePhone LIKE @Keyword OR EmployeeEmail LIKE @Keyword)";
+                        query += " AND (" +
+                                 "EmployeeCode LIKE @Keyword OR " +
+                                 "EmployeeName LIKE @Keyword OR " +
+                                 "EmployeeGender LIKE @Keyword OR " +
+                                 "CONVERT(VARCHAR, EmployeeDateOfBirth, 103) LIKE @Keyword OR " + // Chuyển đổi ngày sinh thành chuỗi (dd/MM/yyyy)
+                                 "EmployeeCitizenID LIKE @Keyword OR " +
+                                 "EmployeeAddress LIKE @Keyword OR " +
+                                 "EmployeeRole LIKE @Keyword OR " +
+                                 "EmployeePhone LIKE @Keyword OR " +
+                                 "EmployeeEmail LIKE @Keyword OR " +
+                                 "CONVERT(VARCHAR, HireDate, 103) LIKE @Keyword OR " + // Chuyển đổi ngày vào làm thành chuỗi (dd/MM/yyyy)
+                                 "CONVERT(VARCHAR, Salary) LIKE @Keyword" + // Chuyển đổi lương thành chuỗi
+                                 ")";
                     }
 
                     // Áp dụng bộ lọc giới tính
-                    if (!string.IsNullOrWhiteSpace(genderFilter))
+                    if (!string.IsNullOrWhiteSpace(genderFilter) && genderFilter != "Không áp dụng")
                     {
                         query += " AND EmployeeGender = @Gender";
                     }
@@ -86,7 +98,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                             command.Parameters.AddWithValue("@Keyword", "%" + searchKeyword + "%");
                         }
 
-                        if (!string.IsNullOrWhiteSpace(genderFilter))
+                        if (!string.IsNullOrWhiteSpace(genderFilter) && genderFilter != "Không áp dụng")
                         {
                             command.Parameters.AddWithValue("@Gender", genderFilter);
                         }
@@ -939,13 +951,20 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 SaveFileDialog saveDialog = new SaveFileDialog
                 {
                     Filter = "Excel Files|*.xlsx",
-                    Title = "Lưu báo cáo Excel"
+                    Title = "Lưu báo cáo Excel",
+                    FileName = "EmployeeList.xlsx"
                 };
 
                 if (saveDialog.ShowDialog() == DialogResult.OK)
                 {
-                    // Lấy dữ liệu trực tiếp từ CSDL thay vì từ UI
-                    System.Data.DataTable employeeData = GetEmployeeDataForExport();
+                    // Lấy dữ liệu từ DataGridView (đã được lọc)
+                    System.Data.DataTable employeeData = view.GetDataGridViewDataSource();
+
+                    if (employeeData == null || employeeData.Rows.Count == 0)
+                    {
+                        view.ShowMessage("Không có dữ liệu để xuất!", "Thông báo", MessageBoxIcon.Warning);
+                        return;
+                    }
 
                     // Khởi tạo ứng dụng Excel
                     Microsoft.Office.Interop.Excel.Application excelApp = new Microsoft.Office.Interop.Excel.Application();
@@ -976,12 +995,47 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         worksheet.Cells[3, i + 1].Interior.Color = System.Drawing.ColorTranslator.ToOle(System.Drawing.Color.LightGray);
                     }
 
-                    // Thêm dữ liệu
+                    // Ánh xạ tên cột từ DataTable
+                    string[] columnNames = {
+                "EmployeeCode", "EmployeeName", "EmployeeGender", "EmployeeDateOfBirth",
+                "EmployeeCitizenID", "EmployeeAddress", "EmployeeRole", "EmployeePhone",
+                "EmployeeEmail", "HireDate", "Salary"
+            };
+
+                    // Thêm dữ liệu từ DataTable
                     for (int i = 0; i < employeeData.Rows.Count; i++)
                     {
-                        for (int j = 0; j < employeeData.Columns.Count; j++)
+                        for (int j = 0; j < columnHeaders.Length; j++)
                         {
-                            worksheet.Cells[i + 4, j + 1] = employeeData.Rows[i][j]?.ToString() ?? string.Empty;
+                            string columnName = columnNames[j];
+                            object value = employeeData.Rows[i][columnName];
+
+                            if (columnName == "EmployeeDateOfBirth" || columnName == "HireDate")
+                            {
+                                if (value != DBNull.Value)
+                                {
+                                    worksheet.Cells[i + 4, j + 1] = Convert.ToDateTime(value).ToString("dd/MM/yyyy");
+                                }
+                                else
+                                {
+                                    worksheet.Cells[i + 4, j + 1] = string.Empty;
+                                }
+                            }
+                            else if (columnName == "Salary")
+                            {
+                                if (value != DBNull.Value)
+                                {
+                                    worksheet.Cells[i + 4, j + 1] = Convert.ToDecimal(value);
+                                }
+                                else
+                                {
+                                    worksheet.Cells[i + 4, j + 1] = string.Empty;
+                                }
+                            }
+                            else
+                            {
+                                worksheet.Cells[i + 4, j + 1] = value?.ToString() ?? string.Empty;
+                            }
                         }
                     }
 
@@ -1053,13 +1107,20 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 SaveFileDialog saveDialog = new SaveFileDialog
                 {
                     Filter = "PDF Files|*.pdf",
-                    Title = "Lưu báo cáo PDF"
+                    Title = "Lưu báo cáo PDF",
+                    FileName = "EmployeeList.pdf"
                 };
 
                 if (saveDialog.ShowDialog() == DialogResult.OK)
                 {
-                    // Lấy dữ liệu từ CSDL
-                    System.Data.DataTable employeeData = GetEmployeeDataForExport();
+                    // Lấy dữ liệu từ DataGridView (đã được lọc)
+                    System.Data.DataTable employeeData = view.GetDataGridViewDataSource();
+
+                    if (employeeData == null || employeeData.Rows.Count == 0)
+                    {
+                        view.ShowMessage("Không có dữ liệu để xuất!", "Thông báo", MessageBoxIcon.Warning);
+                        return;
+                    }
 
                     // Tạo document PDF
                     iTextSharp.text.Document document = new iTextSharp.text.Document(iTextSharp.text.PageSize.A4.Rotate());
@@ -1094,15 +1155,14 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     title.SpacingAfter = 20f;
                     document.Add(title);
 
-                    // Tạo bảng dữ liệu
-                    iTextSharp.text.pdf.PdfPTable table = new iTextSharp.text.pdf.PdfPTable(employeeData.Columns.Count);
+                    // Tạo bảng dữ liệu với 11 cột (bỏ cột "NV1")
+                    iTextSharp.text.pdf.PdfPTable table = new iTextSharp.text.pdf.PdfPTable(11); // Chỉ có 11 cột
                     table.WidthPercentage = 100;
 
                     // Thiết lập độ rộng tương đối của các cột
-                    float[] widths = new float[employeeData.Columns.Count];
-                    for (int i = 0; i < employeeData.Columns.Count; i++)
+                    float[] widths = new float[11]; // 11 cột
+                    for (int i = 0; i < 11; i++)
                     {
-                        // Điều chỉnh độ rộng dựa trên tên cột
                         switch (i)
                         {
                             case 0: widths[i] = 2f; break; // Mã NV
@@ -1116,16 +1176,19 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                             case 8: widths[i] = 5f; break; // Email
                             case 9: widths[i] = 3f; break; // Ngày vào làm
                             case 10: widths[i] = 2f; break; // Lương
-                            default: widths[i] = 3f; break;
                         }
                     }
                     table.SetWidths(widths);
 
-                    // Tạo header cho bảng
-                    foreach (DataColumn column in employeeData.Columns)
+                    // Tạo header cho bảng (chỉ 11 cột, bỏ "NV1")
+                    string[] columnHeaders = {
+                "Mã NV", "Họ tên", "Giới tính", "Ngày sinh", "CCCD",
+                "Địa chỉ", "Chức vụ", "SĐT", "Email", "Ngày vào làm", "Lương"
+            };
+                    for (int i = 0; i < columnHeaders.Length; i++)
                     {
                         iTextSharp.text.pdf.PdfPCell cell = new iTextSharp.text.pdf.PdfPCell(
-                            new iTextSharp.text.Phrase(column.ColumnName, headerFont));
+                            new iTextSharp.text.Phrase(columnHeaders[i], headerFont));
                         cell.BackgroundColor = new iTextSharp.text.BaseColor(220, 220, 220);
                         cell.HorizontalAlignment = iTextSharp.text.Element.ALIGN_CENTER;
                         cell.VerticalAlignment = iTextSharp.text.Element.ALIGN_MIDDLE;
@@ -1133,16 +1196,34 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         table.AddCell(cell);
                     }
 
+                    // Ánh xạ tên cột từ DataTable (bỏ qua cột EmployeeID)
+                    string[] columnNames = {
+                "EmployeeCode", "EmployeeName", "EmployeeGender", "EmployeeDateOfBirth",
+                "EmployeeCitizenID", "EmployeeAddress", "EmployeeRole", "EmployeePhone",
+                "EmployeeEmail", "HireDate", "Salary"
+            };
+
                     // Thêm dữ liệu vào bảng
                     foreach (DataRow row in employeeData.Rows)
                     {
-                        for (int i = 0; i < row.ItemArray.Length; i++)
+                        for (int i = 0; i < columnHeaders.Length; i++)
                         {
-                            object item = row.ItemArray[i];
+                            string columnName = columnNames[i];
+                            object item = row[columnName];
                             string text;
 
-                            // Định dạng cột lương (cột thứ 10)
-                            if (i == 10 && item != null && decimal.TryParse(item.ToString(), out decimal salary))
+                            if (columnName == "EmployeeDateOfBirth" || columnName == "HireDate")
+                            {
+                                if (item != DBNull.Value)
+                                {
+                                    text = Convert.ToDateTime(item).ToString("dd/MM/yyyy");
+                                }
+                                else
+                                {
+                                    text = string.Empty;
+                                }
+                            }
+                            else if (columnName == "Salary" && item != null && decimal.TryParse(item.ToString(), out decimal salary))
                             {
                                 text = string.Format("{0:#,##0}", salary);
                             }

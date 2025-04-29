@@ -30,6 +30,7 @@
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_Setting));
             groupBoxEmployeeInfo = new GroupBox();
+            panel1 = new Panel();
             tableLayoutPanel2 = new TableLayoutPanel();
             label1 = new Label();
             textBoxEmployeeID = new TextBox();
@@ -62,6 +63,7 @@
             cyberButtonCancel = new ReaLTaiizor.Controls.CyberButton();
             cyberButtonEdit = new ReaLTaiizor.Controls.CyberButton();
             groupBoxAccountSetting = new GroupBox();
+            panel2 = new Panel();
             tableLayoutPanel1 = new TableLayoutPanel();
             groupBoxEmployeeInfo.SuspendLayout();
             tableLayoutPanel2.SuspendLayout();
@@ -75,6 +77,7 @@
             // groupBoxEmployeeInfo
             // 
             tableLayoutPanel1.SetColumnSpan(groupBoxEmployeeInfo, 2);
+            groupBoxEmployeeInfo.Controls.Add(panel1);
             groupBoxEmployeeInfo.Controls.Add(tableLayoutPanel2);
             groupBoxEmployeeInfo.Dock = DockStyle.Fill;
             groupBoxEmployeeInfo.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -85,6 +88,14 @@
             groupBoxEmployeeInfo.TabIndex = 1;
             groupBoxEmployeeInfo.TabStop = false;
             groupBoxEmployeeInfo.Text = "Thông tin nhân viên";
+            // 
+            // panel1
+            // 
+            panel1.BackColor = SystemColors.HotTrack;
+            panel1.Location = new Point(202, 10);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(236, 5);
+            panel1.TabIndex = 6;
             // 
             // tableLayoutPanel2
             // 
@@ -594,6 +605,7 @@
             // groupBoxAccountSetting
             // 
             tableLayoutPanel1.SetColumnSpan(groupBoxAccountSetting, 2);
+            groupBoxAccountSetting.Controls.Add(panel2);
             groupBoxAccountSetting.Controls.Add(tableLayoutPanel3);
             groupBoxAccountSetting.Dock = DockStyle.Fill;
             groupBoxAccountSetting.Font = new Font("Roboto SemiCondensed SemiBold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -604,6 +616,14 @@
             groupBoxAccountSetting.TabIndex = 2;
             groupBoxAccountSetting.TabStop = false;
             groupBoxAccountSetting.Text = "Cài đặt tài khoản";
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.SteelBlue;
+            panel2.Location = new Point(163, 9);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(450, 5);
+            panel2.TabIndex = 6;
             // 
             // tableLayoutPanel1
             // 
@@ -678,5 +698,7 @@
         private ReaLTaiizor.Controls.CyberButton cyberButtonConfirm;
         private ReaLTaiizor.Controls.CyberButton cyberButtonCancel;
         private ReaLTaiizor.Controls.CyberButton cyberButtonEdit;
+        private Panel panel2;
+        private Panel panel1;
     }
 }

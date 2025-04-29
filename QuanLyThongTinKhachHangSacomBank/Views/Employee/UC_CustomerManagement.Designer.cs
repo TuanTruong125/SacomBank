@@ -125,7 +125,7 @@
             groupBoxCustomerInfo.Controls.Add(panel1);
             groupBoxCustomerInfo.Controls.Add(tableLayoutPanel2);
             groupBoxCustomerInfo.Dock = DockStyle.Fill;
-            groupBoxCustomerInfo.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBoxCustomerInfo.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold);
             groupBoxCustomerInfo.ForeColor = SystemColors.HotTrack;
             groupBoxCustomerInfo.Location = new Point(3, 3);
             groupBoxCustomerInfo.Name = "groupBoxCustomerInfo";
@@ -146,9 +146,9 @@
             // 
             tableLayoutPanel2.ColumnCount = 7;
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 15.5575542F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 12.769784F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 0.732000947F));
-            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 55.0943336F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 13.5714283F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 0.714285731F));
+            tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 54.2857132F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 1.0767622F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 9.152478F));
             tableLayoutPanel2.ColumnStyles.Add(new ColumnStyle(SizeType.Percent, 5.487898F));
@@ -181,7 +181,7 @@
             tableLayoutPanel2.Controls.Add(labelCustomerType, 1, 0);
             tableLayoutPanel2.Controls.Add(comboBoxCustomerTypeName, 1, 1);
             tableLayoutPanel2.Dock = DockStyle.Fill;
-            tableLayoutPanel2.Location = new Point(3, 26);
+            tableLayoutPanel2.Location = new Point(3, 28);
             tableLayoutPanel2.Name = "tableLayoutPanel2";
             tableLayoutPanel2.RowCount = 10;
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
@@ -194,7 +194,7 @@
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
             tableLayoutPanel2.RowStyles.Add(new RowStyle(SizeType.Percent, 10F));
-            tableLayoutPanel2.Size = new Size(1120, 341);
+            tableLayoutPanel2.Size = new Size(1120, 339);
             tableLayoutPanel2.TabIndex = 0;
             // 
             // labelCustomerID
@@ -202,11 +202,11 @@
             labelCustomerID.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelCustomerID.AutoSize = true;
             labelCustomerID.BackColor = Color.Transparent;
-            labelCustomerID.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelCustomerID.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelCustomerID.ForeColor = Color.Black;
-            labelCustomerID.Location = new Point(3, 14);
+            labelCustomerID.Location = new Point(3, 13);
             labelCustomerID.Name = "labelCustomerID";
-            labelCustomerID.Size = new Size(135, 20);
+            labelCustomerID.Size = new Size(132, 20);
             labelCustomerID.TabIndex = 9;
             labelCustomerID.Text = "Mã khách hàng";
             // 
@@ -215,11 +215,11 @@
             labelFullName.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelFullName.AutoSize = true;
             labelFullName.BackColor = Color.Transparent;
-            labelFullName.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelFullName.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelFullName.ForeColor = Color.Black;
-            labelFullName.Location = new Point(3, 82);
+            labelFullName.Location = new Point(3, 79);
             labelFullName.Name = "labelFullName";
-            labelFullName.Size = new Size(65, 20);
+            labelFullName.Size = new Size(62, 20);
             labelFullName.TabIndex = 10;
             labelFullName.Text = "Họ tên";
             // 
@@ -228,11 +228,11 @@
             labelGender.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelGender.AutoSize = true;
             labelGender.BackColor = Color.Transparent;
-            labelGender.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelGender.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelGender.ForeColor = Color.Black;
-            labelGender.Location = new Point(3, 150);
+            labelGender.Location = new Point(3, 145);
             labelGender.Name = "labelGender";
-            labelGender.Size = new Size(80, 20);
+            labelGender.Size = new Size(77, 20);
             labelGender.TabIndex = 12;
             labelGender.Text = "Giới tính";
             // 
@@ -241,11 +241,11 @@
             labelNationality.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelNationality.AutoSize = true;
             labelNationality.BackColor = Color.Transparent;
-            labelNationality.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelNationality.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelNationality.ForeColor = Color.Black;
-            labelNationality.Location = new Point(3, 286);
+            labelNationality.Location = new Point(3, 277);
             labelNationality.Name = "labelNationality";
-            labelNationality.Size = new Size(90, 20);
+            labelNationality.Size = new Size(85, 20);
             labelNationality.TabIndex = 13;
             labelNationality.Text = "Quốc tịch";
             // 
@@ -254,11 +254,11 @@
             labelDateOfBirth.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelDateOfBirth.AutoSize = true;
             labelDateOfBirth.BackColor = Color.Transparent;
-            labelDateOfBirth.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelDateOfBirth.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelDateOfBirth.ForeColor = Color.Black;
-            labelDateOfBirth.Location = new Point(3, 218);
+            labelDateOfBirth.Location = new Point(3, 211);
             labelDateOfBirth.Name = "labelDateOfBirth";
-            labelDateOfBirth.Size = new Size(92, 20);
+            labelDateOfBirth.Size = new Size(89, 20);
             labelDateOfBirth.TabIndex = 11;
             labelDateOfBirth.Text = "Ngày sinh";
             // 
@@ -266,10 +266,10 @@
             // 
             textBoxCustomerID.BackColor = SystemColors.InactiveCaption;
             textBoxCustomerID.Dock = DockStyle.Fill;
-            textBoxCustomerID.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxCustomerID.Location = new Point(3, 37);
+            textBoxCustomerID.Font = new Font("Roboto", 10.2F);
+            textBoxCustomerID.Location = new Point(3, 36);
             textBoxCustomerID.Name = "textBoxCustomerID";
-            textBoxCustomerID.Size = new Size(168, 27);
+            textBoxCustomerID.Size = new Size(168, 28);
             textBoxCustomerID.TabIndex = 23;
             // 
             // textBoxFullName
@@ -277,10 +277,10 @@
             textBoxFullName.BackColor = SystemColors.InactiveCaption;
             tableLayoutPanel2.SetColumnSpan(textBoxFullName, 2);
             textBoxFullName.Dock = DockStyle.Fill;
-            textBoxFullName.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxFullName.Location = new Point(3, 105);
+            textBoxFullName.Font = new Font("Roboto", 10.2F);
+            textBoxFullName.Location = new Point(3, 102);
             textBoxFullName.Name = "textBoxFullName";
-            textBoxFullName.Size = new Size(311, 27);
+            textBoxFullName.Size = new Size(320, 28);
             textBoxFullName.TabIndex = 24;
             // 
             // comboBoxGender
@@ -289,12 +289,12 @@
             tableLayoutPanel2.SetColumnSpan(comboBoxGender, 2);
             comboBoxGender.Dock = DockStyle.Fill;
             comboBoxGender.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxGender.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBoxGender.Font = new Font("Roboto", 10.2F);
             comboBoxGender.FormattingEnabled = true;
             comboBoxGender.Items.AddRange(new object[] { "Nam", "Nữ" });
-            comboBoxGender.Location = new Point(3, 173);
+            comboBoxGender.Location = new Point(3, 168);
             comboBoxGender.Name = "comboBoxGender";
-            comboBoxGender.Size = new Size(311, 28);
+            comboBoxGender.Size = new Size(320, 28);
             comboBoxGender.TabIndex = 25;
             // 
             // textBoxNationality
@@ -302,10 +302,10 @@
             textBoxNationality.BackColor = SystemColors.InactiveCaption;
             tableLayoutPanel2.SetColumnSpan(textBoxNationality, 2);
             textBoxNationality.Dock = DockStyle.Fill;
-            textBoxNationality.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxNationality.Location = new Point(3, 309);
+            textBoxNationality.Font = new Font("Roboto", 10.2F);
+            textBoxNationality.Location = new Point(3, 300);
             textBoxNationality.Name = "textBoxNationality";
-            textBoxNationality.Size = new Size(311, 27);
+            textBoxNationality.Size = new Size(320, 28);
             textBoxNationality.TabIndex = 27;
             // 
             // dateTimePickerDateOfBirth
@@ -314,11 +314,11 @@
             dateTimePickerDateOfBirth.CalendarMonthBackground = SystemColors.InactiveCaption;
             tableLayoutPanel2.SetColumnSpan(dateTimePickerDateOfBirth, 2);
             dateTimePickerDateOfBirth.Dock = DockStyle.Fill;
-            dateTimePickerDateOfBirth.Font = new Font("Microsoft Sans Serif", 10.2F);
+            dateTimePickerDateOfBirth.Font = new Font("Roboto", 10.2F);
             dateTimePickerDateOfBirth.Format = DateTimePickerFormat.Short;
-            dateTimePickerDateOfBirth.Location = new Point(3, 241);
+            dateTimePickerDateOfBirth.Location = new Point(3, 234);
             dateTimePickerDateOfBirth.Name = "dateTimePickerDateOfBirth";
-            dateTimePickerDateOfBirth.Size = new Size(311, 27);
+            dateTimePickerDateOfBirth.Size = new Size(320, 28);
             dateTimePickerDateOfBirth.TabIndex = 28;
             // 
             // labelCitizenID
@@ -326,11 +326,11 @@
             labelCitizenID.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelCitizenID.AutoSize = true;
             labelCitizenID.BackColor = Color.Transparent;
-            labelCitizenID.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelCitizenID.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelCitizenID.ForeColor = Color.Black;
-            labelCitizenID.Location = new Point(328, 14);
+            labelCitizenID.Location = new Point(337, 13);
             labelCitizenID.Name = "labelCitizenID";
-            labelCitizenID.Size = new Size(62, 20);
+            labelCitizenID.Size = new Size(53, 20);
             labelCitizenID.TabIndex = 29;
             labelCitizenID.Text = "CCCD";
             // 
@@ -339,11 +339,11 @@
             labelAddress.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelAddress.AutoSize = true;
             labelAddress.BackColor = Color.Transparent;
-            labelAddress.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelAddress.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelAddress.ForeColor = Color.Black;
-            labelAddress.Location = new Point(328, 82);
+            labelAddress.Location = new Point(337, 79);
             labelAddress.Name = "labelAddress";
-            labelAddress.Size = new Size(68, 20);
+            labelAddress.Size = new Size(65, 20);
             labelAddress.TabIndex = 30;
             labelAddress.Text = "Địa chỉ";
             // 
@@ -352,11 +352,11 @@
             labelEmail.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelEmail.AutoSize = true;
             labelEmail.BackColor = Color.Transparent;
-            labelEmail.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelEmail.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelEmail.ForeColor = Color.Black;
-            labelEmail.Location = new Point(328, 218);
+            labelEmail.Location = new Point(337, 211);
             labelEmail.Name = "labelEmail";
-            labelEmail.Size = new Size(56, 20);
+            labelEmail.Size = new Size(54, 20);
             labelEmail.TabIndex = 32;
             labelEmail.Text = "Email";
             // 
@@ -365,11 +365,11 @@
             labelRegistrationDate.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelRegistrationDate.AutoSize = true;
             labelRegistrationDate.BackColor = Color.Transparent;
-            labelRegistrationDate.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelRegistrationDate.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelRegistrationDate.ForeColor = Color.Black;
-            labelRegistrationDate.Location = new Point(328, 286);
+            labelRegistrationDate.Location = new Point(337, 277);
             labelRegistrationDate.Name = "labelRegistrationDate";
-            labelRegistrationDate.Size = new Size(117, 20);
+            labelRegistrationDate.Size = new Size(115, 20);
             labelRegistrationDate.TabIndex = 33;
             labelRegistrationDate.Text = "Ngày đăng kí";
             // 
@@ -377,30 +377,30 @@
             // 
             textBoxCitizenID.BackColor = SystemColors.InactiveCaption;
             textBoxCitizenID.Dock = DockStyle.Fill;
-            textBoxCitizenID.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            textBoxCitizenID.Location = new Point(328, 37);
+            textBoxCitizenID.Font = new Font("Roboto", 10.2F);
+            textBoxCitizenID.Location = new Point(337, 36);
             textBoxCitizenID.Name = "textBoxCitizenID";
-            textBoxCitizenID.Size = new Size(611, 27);
+            textBoxCitizenID.Size = new Size(602, 28);
             textBoxCitizenID.TabIndex = 34;
             // 
             // textBoxAddress
             // 
             textBoxAddress.BackColor = SystemColors.InactiveCaption;
             textBoxAddress.Dock = DockStyle.Fill;
-            textBoxAddress.Font = new Font("Microsoft Sans Serif", 10.2F);
-            textBoxAddress.Location = new Point(328, 105);
+            textBoxAddress.Font = new Font("Roboto", 10.2F);
+            textBoxAddress.Location = new Point(337, 102);
             textBoxAddress.Name = "textBoxAddress";
-            textBoxAddress.Size = new Size(611, 27);
+            textBoxAddress.Size = new Size(602, 28);
             textBoxAddress.TabIndex = 35;
             // 
             // textBoxPhone
             // 
             textBoxPhone.BackColor = SystemColors.InactiveCaption;
             textBoxPhone.Dock = DockStyle.Fill;
-            textBoxPhone.Font = new Font("Microsoft Sans Serif", 10.2F);
-            textBoxPhone.Location = new Point(328, 173);
+            textBoxPhone.Font = new Font("Roboto", 10.2F);
+            textBoxPhone.Location = new Point(337, 168);
             textBoxPhone.Name = "textBoxPhone";
-            textBoxPhone.Size = new Size(611, 27);
+            textBoxPhone.Size = new Size(602, 28);
             textBoxPhone.TabIndex = 36;
             // 
             // labelPhone
@@ -408,11 +408,11 @@
             labelPhone.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelPhone.AutoSize = true;
             labelPhone.BackColor = Color.Transparent;
-            labelPhone.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelPhone.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelPhone.ForeColor = Color.Black;
-            labelPhone.Location = new Point(328, 150);
+            labelPhone.Location = new Point(337, 145);
             labelPhone.Name = "labelPhone";
-            labelPhone.Size = new Size(45, 20);
+            labelPhone.Size = new Size(43, 20);
             labelPhone.TabIndex = 31;
             labelPhone.Text = "SĐT";
             // 
@@ -420,10 +420,10 @@
             // 
             textBoxEmail.BackColor = SystemColors.InactiveCaption;
             textBoxEmail.Dock = DockStyle.Fill;
-            textBoxEmail.Font = new Font("Microsoft Sans Serif", 10.2F);
-            textBoxEmail.Location = new Point(328, 241);
+            textBoxEmail.Font = new Font("Roboto", 10.2F);
+            textBoxEmail.Location = new Point(337, 234);
             textBoxEmail.Name = "textBoxEmail";
-            textBoxEmail.Size = new Size(611, 27);
+            textBoxEmail.Size = new Size(602, 28);
             textBoxEmail.TabIndex = 37;
             // 
             // dateTimePickerRegistrationDate
@@ -431,11 +431,11 @@
             dateTimePickerRegistrationDate.CalendarFont = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dateTimePickerRegistrationDate.CalendarMonthBackground = SystemColors.InactiveCaption;
             dateTimePickerRegistrationDate.Dock = DockStyle.Fill;
-            dateTimePickerRegistrationDate.Font = new Font("Microsoft Sans Serif", 10.2F);
+            dateTimePickerRegistrationDate.Font = new Font("Roboto", 10.2F);
             dateTimePickerRegistrationDate.Format = DateTimePickerFormat.Short;
-            dateTimePickerRegistrationDate.Location = new Point(328, 309);
+            dateTimePickerRegistrationDate.Location = new Point(337, 300);
             dateTimePickerRegistrationDate.Name = "dateTimePickerRegistrationDate";
-            dateTimePickerRegistrationDate.Size = new Size(611, 27);
+            dateTimePickerRegistrationDate.Size = new Size(602, 28);
             dateTimePickerRegistrationDate.TabIndex = 38;
             // 
             // panel2
@@ -445,21 +445,21 @@
             panel2.Location = new Point(945, 3);
             panel2.Name = "panel2";
             tableLayoutPanel2.SetRowSpan(panel2, 10);
-            panel2.Size = new Size(6, 335);
+            panel2.Size = new Size(6, 333);
             panel2.TabIndex = 39;
             // 
             // buttonAddCustomer
             // 
             buttonAddCustomer.BackColor = Color.DeepSkyBlue;
             buttonAddCustomer.Dock = DockStyle.Fill;
-            buttonAddCustomer.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonAddCustomer.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             buttonAddCustomer.ForeColor = Color.White;
             buttonAddCustomer.Image = (Image)resources.GetObject("buttonAddCustomer.Image");
             buttonAddCustomer.ImageAlign = ContentAlignment.MiddleLeft;
             buttonAddCustomer.Location = new Point(957, 3);
             buttonAddCustomer.Name = "buttonAddCustomer";
             tableLayoutPanel2.SetRowSpan(buttonAddCustomer, 2);
-            buttonAddCustomer.Size = new Size(96, 62);
+            buttonAddCustomer.Size = new Size(96, 60);
             buttonAddCustomer.TabIndex = 40;
             buttonAddCustomer.Text = "   Thêm";
             buttonAddCustomer.UseVisualStyleBackColor = false;
@@ -469,14 +469,14 @@
             // 
             buttonEditCustomer.BackColor = Color.DeepSkyBlue;
             buttonEditCustomer.Dock = DockStyle.Fill;
-            buttonEditCustomer.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonEditCustomer.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             buttonEditCustomer.ForeColor = Color.White;
             buttonEditCustomer.Image = (Image)resources.GetObject("buttonEditCustomer.Image");
             buttonEditCustomer.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonEditCustomer.Location = new Point(957, 71);
+            buttonEditCustomer.Location = new Point(957, 69);
             buttonEditCustomer.Name = "buttonEditCustomer";
             tableLayoutPanel2.SetRowSpan(buttonEditCustomer, 2);
-            buttonEditCustomer.Size = new Size(96, 62);
+            buttonEditCustomer.Size = new Size(96, 60);
             buttonEditCustomer.TabIndex = 42;
             buttonEditCustomer.Text = "   Sửa";
             buttonEditCustomer.UseVisualStyleBackColor = false;
@@ -486,14 +486,14 @@
             // 
             buttonCancelCustomer.BackColor = Color.DeepSkyBlue;
             buttonCancelCustomer.Dock = DockStyle.Fill;
-            buttonCancelCustomer.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonCancelCustomer.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             buttonCancelCustomer.ForeColor = Color.White;
             buttonCancelCustomer.Image = (Image)resources.GetObject("buttonCancelCustomer.Image");
             buttonCancelCustomer.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonCancelCustomer.Location = new Point(957, 207);
+            buttonCancelCustomer.Location = new Point(957, 201);
             buttonCancelCustomer.Name = "buttonCancelCustomer";
             tableLayoutPanel2.SetRowSpan(buttonCancelCustomer, 2);
-            buttonCancelCustomer.Size = new Size(96, 62);
+            buttonCancelCustomer.Size = new Size(96, 60);
             buttonCancelCustomer.TabIndex = 43;
             buttonCancelCustomer.Text = "   Hủy";
             buttonCancelCustomer.UseVisualStyleBackColor = false;
@@ -503,14 +503,14 @@
             // 
             buttonSaveCustomer.BackColor = Color.DeepSkyBlue;
             buttonSaveCustomer.Dock = DockStyle.Fill;
-            buttonSaveCustomer.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonSaveCustomer.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             buttonSaveCustomer.ForeColor = Color.White;
             buttonSaveCustomer.Image = (Image)resources.GetObject("buttonSaveCustomer.Image");
             buttonSaveCustomer.ImageAlign = ContentAlignment.MiddleLeft;
-            buttonSaveCustomer.Location = new Point(957, 275);
+            buttonSaveCustomer.Location = new Point(957, 267);
             buttonSaveCustomer.Name = "buttonSaveCustomer";
             tableLayoutPanel2.SetRowSpan(buttonSaveCustomer, 2);
-            buttonSaveCustomer.Size = new Size(96, 63);
+            buttonSaveCustomer.Size = new Size(96, 69);
             buttonSaveCustomer.TabIndex = 44;
             buttonSaveCustomer.Text = "   Lưu";
             buttonSaveCustomer.UseVisualStyleBackColor = false;
@@ -523,7 +523,7 @@
             pictureBox1.Location = new Point(1059, 3);
             pictureBox1.Name = "pictureBox1";
             tableLayoutPanel2.SetRowSpan(pictureBox1, 10);
-            pictureBox1.Size = new Size(58, 335);
+            pictureBox1.Size = new Size(58, 333);
             pictureBox1.SizeMode = PictureBoxSizeMode.StretchImage;
             pictureBox1.TabIndex = 45;
             pictureBox1.TabStop = false;
@@ -533,25 +533,26 @@
             labelCustomerType.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             labelCustomerType.AutoSize = true;
             labelCustomerType.BackColor = Color.Transparent;
-            labelCustomerType.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelCustomerType.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelCustomerType.ForeColor = Color.Black;
-            labelCustomerType.Location = new Point(177, 0);
+            labelCustomerType.Location = new Point(177, 13);
             labelCustomerType.Name = "labelCustomerType";
-            labelCustomerType.Size = new Size(126, 34);
+            labelCustomerType.Size = new Size(142, 20);
             labelCustomerType.TabIndex = 22;
             labelCustomerType.Text = "Loại khách hàng";
+            labelCustomerType.TextAlign = ContentAlignment.BottomLeft;
             // 
             // comboBoxCustomerTypeName
             // 
             comboBoxCustomerTypeName.BackColor = SystemColors.Window;
             comboBoxCustomerTypeName.Dock = DockStyle.Fill;
             comboBoxCustomerTypeName.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxCustomerTypeName.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBoxCustomerTypeName.Font = new Font("Roboto", 10.2F);
             comboBoxCustomerTypeName.FormattingEnabled = true;
             comboBoxCustomerTypeName.Items.AddRange(new object[] { "Cá nhân", "Doanh nghiệp" });
-            comboBoxCustomerTypeName.Location = new Point(177, 37);
+            comboBoxCustomerTypeName.Location = new Point(177, 36);
             comboBoxCustomerTypeName.Name = "comboBoxCustomerTypeName";
-            comboBoxCustomerTypeName.Size = new Size(137, 28);
+            comboBoxCustomerTypeName.Size = new Size(146, 28);
             comboBoxCustomerTypeName.TabIndex = 26;
             // 
             // groupBoxDataCustomerManagement
@@ -560,7 +561,7 @@
             groupBoxDataCustomerManagement.Controls.Add(tableLayoutPanel3);
             groupBoxDataCustomerManagement.Controls.Add(panel3);
             groupBoxDataCustomerManagement.Dock = DockStyle.Fill;
-            groupBoxDataCustomerManagement.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            groupBoxDataCustomerManagement.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold);
             groupBoxDataCustomerManagement.ForeColor = SystemColors.HotTrack;
             groupBoxDataCustomerManagement.Location = new Point(3, 379);
             groupBoxDataCustomerManagement.Name = "groupBoxDataCustomerManagement";
@@ -594,7 +595,7 @@
             tableLayoutPanel3.Controls.Add(dateTimePickerTo, 0, 6);
             tableLayoutPanel3.Controls.Add(tableLayoutPanel4, 1, 0);
             tableLayoutPanel3.Dock = DockStyle.Fill;
-            tableLayoutPanel3.Location = new Point(3, 26);
+            tableLayoutPanel3.Location = new Point(3, 28);
             tableLayoutPanel3.Name = "tableLayoutPanel3";
             tableLayoutPanel3.RowCount = 9;
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 17.9860477F));
@@ -606,13 +607,13 @@
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 11.1259232F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 16.847826F));
             tableLayoutPanel3.RowStyles.Add(new RowStyle(SizeType.Percent, 5.40402031F));
-            tableLayoutPanel3.Size = new Size(1120, 342);
+            tableLayoutPanel3.Size = new Size(1120, 340);
             tableLayoutPanel3.TabIndex = 7;
             // 
             // buttonExportCSV
             // 
             buttonExportCSV.Dock = DockStyle.Fill;
-            buttonExportCSV.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonExportCSV.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             buttonExportCSV.ForeColor = Color.FromArgb(25, 137, 14);
             buttonExportCSV.Image = (Image)resources.GetObject("buttonExportCSV.Image");
             buttonExportCSV.Location = new Point(905, 3);
@@ -628,7 +629,7 @@
             // buttonExportExcel
             // 
             buttonExportExcel.Dock = DockStyle.Fill;
-            buttonExportExcel.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonExportExcel.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             buttonExportExcel.ForeColor = Color.FromArgb(20, 169, 6);
             buttonExportExcel.Image = (Image)resources.GetObject("buttonExportExcel.Image");
             buttonExportExcel.Location = new Point(758, 3);
@@ -644,7 +645,7 @@
             // buttonExportPDF
             // 
             buttonExportPDF.Dock = DockStyle.Fill;
-            buttonExportPDF.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            buttonExportPDF.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             buttonExportPDF.ForeColor = Color.FromArgb(207, 0, 0);
             buttonExportPDF.Image = (Image)resources.GetObject("buttonExportPDF.Image");
             buttonExportPDF.Location = new Point(611, 3);
@@ -681,7 +682,7 @@
             dataCustomerManagement.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
             dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle1.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle1.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dataGridViewCellStyle1.ForeColor = Color.Black;
             dataGridViewCellStyle1.SelectionBackColor = SystemColors.GradientActiveCaption;
             dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
@@ -692,7 +693,7 @@
             tableLayoutPanel3.SetColumnSpan(dataCustomerManagement, 7);
             dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
             dataGridViewCellStyle2.BackColor = SystemColors.Window;
-            dataGridViewCellStyle2.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dataGridViewCellStyle2.ForeColor = SystemColors.HotTrack;
             dataGridViewCellStyle2.SelectionBackColor = SystemColors.HotTrack;
             dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
@@ -707,7 +708,7 @@
             dataCustomerManagement.RowHeadersVisible = false;
             dataCustomerManagement.RowHeadersWidth = 51;
             tableLayoutPanel3.SetRowSpan(dataCustomerManagement, 8);
-            dataCustomerManagement.Size = new Size(920, 275);
+            dataCustomerManagement.Size = new Size(920, 273);
             dataCustomerManagement.TabIndex = 26;
             // 
             // CustomerID
@@ -715,88 +716,88 @@
             CustomerID.HeaderText = "Mã khách hàng";
             CustomerID.MinimumWidth = 6;
             CustomerID.Name = "CustomerID";
-            CustomerID.Width = 162;
+            CustomerID.Width = 159;
             // 
             // CustomerTypeName
             // 
             CustomerTypeName.HeaderText = "Loại khách hàng";
             CustomerTypeName.MinimumWidth = 6;
             CustomerTypeName.Name = "CustomerTypeName";
-            CustomerTypeName.Width = 173;
+            CustomerTypeName.Width = 169;
             // 
             // FullName
             // 
             FullName.HeaderText = "Họ tên";
             FullName.MinimumWidth = 6;
             FullName.Name = "FullName";
-            FullName.Width = 92;
+            FullName.Width = 89;
             // 
             // Gender
             // 
             Gender.HeaderText = "Giới tính";
             Gender.MinimumWidth = 6;
             Gender.Name = "Gender";
-            Gender.Width = 107;
+            Gender.Width = 104;
             // 
             // DateOfBirth
             // 
             DateOfBirth.HeaderText = "Ngày sinh";
             DateOfBirth.MinimumWidth = 6;
             DateOfBirth.Name = "DateOfBirth";
-            DateOfBirth.Width = 119;
+            DateOfBirth.Width = 116;
             // 
             // Nationality
             // 
             Nationality.HeaderText = "Quốc tịch";
             Nationality.MinimumWidth = 6;
             Nationality.Name = "Nationality";
-            Nationality.Width = 117;
+            Nationality.Width = 112;
             // 
             // CitizenID
             // 
             CitizenID.HeaderText = "CCCD/Passport";
             CitizenID.MinimumWidth = 6;
             CitizenID.Name = "CitizenID";
-            CitizenID.Width = 170;
+            CitizenID.Width = 159;
             // 
             // CustomerAddress
             // 
             CustomerAddress.HeaderText = "Địa chỉ";
             CustomerAddress.MinimumWidth = 6;
             CustomerAddress.Name = "CustomerAddress";
-            CustomerAddress.Width = 95;
+            CustomerAddress.Width = 92;
             // 
             // Phone
             // 
             Phone.HeaderText = "SĐT";
             Phone.MinimumWidth = 6;
             Phone.Name = "Phone";
-            Phone.Width = 72;
+            Phone.Width = 70;
             // 
             // Email
             // 
             Email.HeaderText = "Email";
             Email.MinimumWidth = 6;
             Email.Name = "Email";
-            Email.Width = 83;
+            Email.Width = 81;
             // 
             // RegistrationDate
             // 
             RegistrationDate.HeaderText = "Ngày đăng kí";
             RegistrationDate.MinimumWidth = 6;
             RegistrationDate.Name = "RegistrationDate";
-            RegistrationDate.Width = 144;
+            RegistrationDate.Width = 142;
             // 
             // labelCustomerFilter
             // 
             labelCustomerFilter.Anchor = AnchorStyles.Bottom;
             labelCustomerFilter.AutoSize = true;
             labelCustomerFilter.BackColor = Color.Transparent;
-            labelCustomerFilter.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            labelCustomerFilter.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             labelCustomerFilter.ForeColor = Color.Black;
-            labelCustomerFilter.Location = new Point(23, 41);
+            labelCustomerFilter.Location = new Point(26, 41);
             labelCustomerFilter.Name = "labelCustomerFilter";
-            labelCustomerFilter.Size = new Size(147, 20);
+            labelCustomerFilter.Size = new Size(141, 20);
             labelCustomerFilter.TabIndex = 24;
             labelCustomerFilter.Text = "Lọc khách hàng:";
             labelCustomerFilter.TextAlign = ContentAlignment.MiddleCenter;
@@ -806,11 +807,11 @@
             label1.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label1.AutoSize = true;
             label1.BackColor = Color.Transparent;
-            label1.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            label1.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             label1.ForeColor = Color.Black;
             label1.Location = new Point(3, 71);
             label1.Name = "label1";
-            label1.Size = new Size(146, 20);
+            label1.Size = new Size(142, 20);
             label1.TabIndex = 27;
             label1.Text = "Loại khách hàng";
             label1.TextAlign = ContentAlignment.MiddleCenter;
@@ -820,12 +821,12 @@
             comboBoxCustomerTypeFilter.BackColor = SystemColors.Window;
             comboBoxCustomerTypeFilter.Dock = DockStyle.Fill;
             comboBoxCustomerTypeFilter.DropDownStyle = ComboBoxStyle.DropDownList;
-            comboBoxCustomerTypeFilter.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            comboBoxCustomerTypeFilter.Font = new Font("Roboto", 10.2F);
             comboBoxCustomerTypeFilter.FormattingEnabled = true;
             comboBoxCustomerTypeFilter.Items.AddRange(new object[] { "Không áp dụng", "Cá nhân", "Doanh nghiệp", "VIP Cá nhân", "VIP Doanh nghiệp" });
             comboBoxCustomerTypeFilter.Location = new Point(3, 94);
             comboBoxCustomerTypeFilter.Name = "comboBoxCustomerTypeFilter";
-            comboBoxCustomerTypeFilter.Size = new Size(188, 33);
+            comboBoxCustomerTypeFilter.Size = new Size(188, 28);
             comboBoxCustomerTypeFilter.TabIndex = 25;
             comboBoxCustomerTypeFilter.SelectedIndexChanged += comboBoxCustomerTypeFilter_SelectedIndexChanged;
             // 
@@ -834,7 +835,7 @@
             label2.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label2.AutoSize = true;
             label2.BackColor = Color.Transparent;
-            label2.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            label2.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             label2.ForeColor = Color.Black;
             label2.Location = new Point(3, 141);
             label2.Name = "label2";
@@ -848,11 +849,11 @@
             label3.Anchor = AnchorStyles.Bottom | AnchorStyles.Left;
             label3.AutoSize = true;
             label3.BackColor = Color.Transparent;
-            label3.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold);
+            label3.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold);
             label3.ForeColor = Color.Black;
-            label3.Location = new Point(3, 206);
+            label3.Location = new Point(3, 205);
             label3.Name = "label3";
-            label3.Size = new Size(42, 20);
+            label3.Size = new Size(41, 20);
             label3.TabIndex = 29;
             label3.Text = "Đến";
             label3.TextAlign = ContentAlignment.MiddleCenter;
@@ -861,11 +862,11 @@
             // 
             dateTimePickerFrom.CalendarFont = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dateTimePickerFrom.Dock = DockStyle.Fill;
-            dateTimePickerFrom.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dateTimePickerFrom.Font = new Font("Roboto", 10.2F);
             dateTimePickerFrom.Format = DateTimePickerFormat.Short;
             dateTimePickerFrom.Location = new Point(3, 164);
             dateTimePickerFrom.Name = "dateTimePickerFrom";
-            dateTimePickerFrom.Size = new Size(188, 27);
+            dateTimePickerFrom.Size = new Size(188, 28);
             dateTimePickerFrom.TabIndex = 30;
             dateTimePickerFrom.ValueChanged += dateTimePickerFrom_ValueChanged;
             // 
@@ -873,11 +874,11 @@
             // 
             dateTimePickerTo.CalendarFont = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             dateTimePickerTo.Dock = DockStyle.Fill;
-            dateTimePickerTo.Font = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dateTimePickerTo.Font = new Font("Roboto", 10.2F);
             dateTimePickerTo.Format = DateTimePickerFormat.Short;
-            dateTimePickerTo.Location = new Point(3, 229);
+            dateTimePickerTo.Location = new Point(3, 228);
             dateTimePickerTo.Name = "dateTimePickerTo";
-            dateTimePickerTo.Size = new Size(188, 27);
+            dateTimePickerTo.Size = new Size(188, 28);
             dateTimePickerTo.TabIndex = 31;
             dateTimePickerTo.ValueChanged += dateTimePickerTo_ValueChanged;
             // 
@@ -899,11 +900,11 @@
             // textBoxCustomerSearch
             // 
             textBoxCustomerSearch.Dock = DockStyle.Fill;
-            textBoxCustomerSearch.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            textBoxCustomerSearch.Font = new Font("Roboto", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
             textBoxCustomerSearch.Location = new Point(3, 10);
             textBoxCustomerSearch.Name = "textBoxCustomerSearch";
             textBoxCustomerSearch.PlaceholderText = "Tìm kiếm . . .";
-            textBoxCustomerSearch.Size = new Size(333, 30);
+            textBoxCustomerSearch.Size = new Size(333, 32);
             textBoxCustomerSearch.TabIndex = 1;
             textBoxCustomerSearch.WordWrap = false;
             // 

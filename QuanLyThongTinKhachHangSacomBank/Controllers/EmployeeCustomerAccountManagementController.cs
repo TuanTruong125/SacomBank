@@ -595,46 +595,46 @@ public class EmployeeCustomerAccountManagementController : IOTPController
     }
 
     private string RemoveVietnameseDiacritics(string text)
-{
-    if (string.IsNullOrEmpty(text))
-        return text;
-
-    // Bảng ánh xạ các ký tự có dấu sang không dấu
-    string[][] vietnameseSigns = new string[][]
     {
-        new string[] {"á", "à", "ả", "ã", "ạ", "â", "ấ", "ầ", "ẩ", "ẫ", "ậ", "ă", "ắ", "ằ", "ẳ", "ẵ", "ặ"},
-        new string[] {"đ"},
-        new string[] {"é", "è", "ẻ", "ẽ", "ẹ", "ê", "ế", "ề", "ể", "ễ", "ệ"},
-        new string[] {"í", "ì", "ỉ", "ĩ", "ị"},
-        new string[] {"ó", "ò", "ỏ", "õ", "ọ", "ô", "ố", "ồ", "ổ", "ỗ", "ộ", "ơ", "ớ", "ờ", "ở", "ỡ", "ợ"},
-        new string[] {"ú", "ù", "ủ", "ũ", "ụ", "ư", "ứ", "ừ", "ử", "ữ", "ự"},
-        new string[] {"ý", "ỳ", "ỷ", "ỹ", "ỵ"}
-    };
+        if (string.IsNullOrEmpty(text))
+            return text;
 
-    // Thay thế các ký tự có dấu bằng không dấu
-    for (int i = 0; i < vietnameseSigns.Length; i++)
-    {
-        string replacement = i switch
+        // Bảng ánh xạ các ký tự có dấu sang không dấu
+        string[][] vietnameseSigns = new string[][]
         {
-            0 => "a",
-            1 => "d",
-            2 => "e",
-            3 => "i",
-            4 => "o",
-            5 => "u",
-            6 => "y",
-            _ => ""
+            new string[] {"á", "à", "ả", "ã", "ạ", "â", "ấ", "ầ", "ẩ", "ẫ", "ậ", "ă", "ắ", "ằ", "ẳ", "ẵ", "ặ"},
+            new string[] {"đ"},
+            new string[] {"é", "è", "ẻ", "ẽ", "ẹ", "ê", "ế", "ề", "ể", "ễ", "ệ"},
+            new string[] {"í", "ì", "ỉ", "ĩ", "ị"},
+            new string[] {"ó", "ò", "ỏ", "õ", "ọ", "ô", "ố", "ồ", "ổ", "ỗ", "ộ", "ơ", "ớ", "ờ", "ở", "ỡ", "ợ"},
+            new string[] {"ú", "ù", "ủ", "ũ", "ụ", "ư", "ứ", "ừ", "ử", "ữ", "ự"},
+            new string[] {"ý", "ỳ", "ỷ", "ỹ", "ỵ"}
         };
 
-        foreach (string sign in vietnameseSigns[i])
+        // Thay thế các ký tự có dấu bằng không dấu
+        for (int i = 0; i < vietnameseSigns.Length; i++)
         {
-            text = text.Replace(sign, replacement);
-            text = text.Replace(sign.ToUpper(), replacement.ToUpper());
-        }
-    }
+            string replacement = i switch
+            {
+                0 => "a",
+                1 => "d",
+                2 => "e",
+                3 => "i",
+                4 => "o",
+                5 => "u",
+                6 => "y",
+                _ => ""
+            };
 
-    return text;
-}
+            foreach (string sign in vietnameseSigns[i])
+            {
+                text = text.Replace(sign, replacement);
+                text = text.Replace(sign.ToUpper(), replacement.ToUpper());
+            }
+        }
+
+        return text;
+    }
 
     private void AddAccount(AccountModel account)
     {
@@ -1137,9 +1137,9 @@ public class EmployeeCustomerAccountManagementController : IOTPController
                 // Thêm dữ liệu từ danh sách currentAccounts
                 foreach (var account in currentAccounts)
                 {
-                    pdfTable.AddCell(new Phrase("KH" + account.CustomerCode, vietnameseFont));
+                    pdfTable.AddCell(new Phrase(account.CustomerCode, vietnameseFont));
                     pdfTable.AddCell(new Phrase(account.AccountName, vietnameseFont));
-                    pdfTable.AddCell(new Phrase("TK" + account.AccountCode, vietnameseFont));
+                    pdfTable.AddCell(new Phrase(account.AccountCode, vietnameseFont));
                     pdfTable.AddCell(new Phrase(account.AccountTypeName, vietnameseFont));
                     pdfTable.AddCell(new Phrase(account.Balance, vietnameseFont));
                     pdfTable.AddCell(new Phrase(account.AccountOpenDate, vietnameseFont));
@@ -1263,9 +1263,9 @@ public class EmployeeCustomerAccountManagementController : IOTPController
                 {
                     var account = currentAccounts[i];
                     Excel.Range rowRange = worksheet.Range[worksheet.Cells[i + 7, 1], worksheet.Cells[i + 7, 7]];
-                    worksheet.Cells[i + 7, 1] = "KH" + account.CustomerCode;
+                    worksheet.Cells[i + 7, 1] = account.CustomerCode;
                     worksheet.Cells[i + 7, 2] = account.AccountName;
-                    worksheet.Cells[i + 7, 3] = "TK" + account.AccountCode;
+                    worksheet.Cells[i + 7, 3] = account.AccountCode;
                     worksheet.Cells[i + 7, 4] = account.AccountTypeName;
                     worksheet.Cells[i + 7, 5] = account.Balance;
                     worksheet.Cells[i + 7, 6] = account.AccountOpenDate;
@@ -1358,9 +1358,9 @@ public class EmployeeCustomerAccountManagementController : IOTPController
                 {
                     string[] rowData = new string[]
                     {
-                    ("KH" + account.CustomerCode)?.Replace("\"", "\"\"") ?? "",
+                    (account.CustomerCode)?.Replace("\"", "\"\"") ?? "",
                     account.AccountName?.Replace("\"", "\"\"") ?? "",
-                    ("TK" + account.AccountCode)?.Replace("\"", "\"\"") ?? "",
+                    (account.AccountCode)?.Replace("\"", "\"\"") ?? "",
                     account.AccountTypeName?.Replace("\"", "\"\"") ?? "",
                     account.Balance?.Replace("\"", "\"\"") ?? "",
                     account.AccountOpenDate?.Replace("\"", "\"\"") ?? "",

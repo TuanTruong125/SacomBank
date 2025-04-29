@@ -47,6 +47,7 @@
             label8 = new Label();
             textBoxAddress = new TextBox();
             groupBoxAccountSetting = new GroupBox();
+            panel2 = new Panel();
             tableLayoutPanel3 = new TableLayoutPanel();
             pictureBox2 = new PictureBox();
             label11 = new Label();
@@ -64,6 +65,7 @@
             pictureBox1 = new PictureBox();
             tableLayoutPanel2 = new TableLayoutPanel();
             groupBoxCustomerInfo = new GroupBox();
+            parrotGradientPanel1 = new ReaLTaiizor.Controls.ParrotGradientPanel();
             tableLayoutPanel1 = new TableLayoutPanel();
             groupBoxAccountSetting.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
@@ -274,6 +276,7 @@
             // groupBoxAccountSetting
             // 
             tableLayoutPanel1.SetColumnSpan(groupBoxAccountSetting, 2);
+            groupBoxAccountSetting.Controls.Add(panel2);
             groupBoxAccountSetting.Controls.Add(tableLayoutPanel3);
             groupBoxAccountSetting.Dock = DockStyle.Fill;
             groupBoxAccountSetting.Font = new Font("Roboto SemiCondensed SemiBold", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -284,6 +287,14 @@
             groupBoxAccountSetting.TabIndex = 2;
             groupBoxAccountSetting.TabStop = false;
             groupBoxAccountSetting.Text = "Cài đặt tài khoản";
+            // 
+            // panel2
+            // 
+            panel2.BackColor = Color.SteelBlue;
+            panel2.Location = new Point(169, 10);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(450, 5);
+            panel2.TabIndex = 212;
             // 
             // tableLayoutPanel3
             // 
@@ -622,6 +633,7 @@
             // groupBoxCustomerInfo
             // 
             tableLayoutPanel1.SetColumnSpan(groupBoxCustomerInfo, 2);
+            groupBoxCustomerInfo.Controls.Add(parrotGradientPanel1);
             groupBoxCustomerInfo.Controls.Add(tableLayoutPanel2);
             groupBoxCustomerInfo.Dock = DockStyle.Fill;
             groupBoxCustomerInfo.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
@@ -632,6 +644,24 @@
             groupBoxCustomerInfo.TabIndex = 1;
             groupBoxCustomerInfo.TabStop = false;
             groupBoxCustomerInfo.Text = "Thông tin";
+            // 
+            // parrotGradientPanel1
+            // 
+            parrotGradientPanel1.BottomLeft = SystemColors.HotTrack;
+            parrotGradientPanel1.BottomRight = Color.Cyan;
+            parrotGradientPanel1.CompositingQualityType = System.Drawing.Drawing2D.CompositingQuality.HighQuality;
+            parrotGradientPanel1.InterpolationType = System.Drawing.Drawing2D.InterpolationMode.HighQualityBilinear;
+            parrotGradientPanel1.Location = new Point(110, 9);
+            parrotGradientPanel1.Name = "parrotGradientPanel1";
+            parrotGradientPanel1.PixelOffsetType = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+            parrotGradientPanel1.PrimerColor = Color.White;
+            parrotGradientPanel1.Size = new Size(529, 7);
+            parrotGradientPanel1.SmoothingType = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            parrotGradientPanel1.Style = ReaLTaiizor.Controls.ParrotGradientPanel.GradientStyle.Corners;
+            parrotGradientPanel1.TabIndex = 1;
+            parrotGradientPanel1.TextRenderingType = System.Drawing.Text.TextRenderingHint.ClearTypeGridFit;
+            parrotGradientPanel1.TopLeft = Color.DeepSkyBlue;
+            parrotGradientPanel1.TopRight = Color.Fuchsia;
             // 
             // tableLayoutPanel1
             // 
@@ -705,5 +735,7 @@
         private ReaLTaiizor.Controls.CyberButton cyberButtonEdit;
         private Label label13;
         private TextBox textBoxPINCode;
+        private ReaLTaiizor.Controls.ParrotGradientPanel parrotGradientPanel1;
+        private Panel panel2;
     }
 }
