@@ -56,7 +56,7 @@ public class EmployeeCustomerAccountManagementController : IOTPController
     public void LoadInitialData()
     {
         LoadAccountTypes();
-        DateTime fromDate = new DateTime(2000, 1, 1);
+        DateTime fromDate = DateTime.Now;
         DateTime toDate = DateTime.Now;
         view.SetDateFilter(fromDate, toDate);
         LoadAccounts(fromDate, toDate, "Không áp dụng", "Không áp dụng");
@@ -176,7 +176,7 @@ public class EmployeeCustomerAccountManagementController : IOTPController
                                 AccountCode = account.AccountCode,
                                 AccountTypeName = reader.GetString(11), // Cột AccountTypeName
                                 Balance = account.Balance.ToString("N0"),
-                                AccountOpenDate = account.AccountOpenDate.ToString("dd/MM/yyyy"),
+                                AccountOpenDate = account.AccountOpenDate.ToString("dd/MM/yyyy HH:mm:ss"),
                                 AccountStatus = account.AccountStatus
                             });
                         }
@@ -986,10 +986,15 @@ public class EmployeeCustomerAccountManagementController : IOTPController
                 FROM ACCOUNT a
                 JOIN ACCOUNT_TYPE at ON a.AccountTypeID = at.AccountTypeID
                 JOIN CUSTOMER c ON a.CustomerID = c.CustomerID
-                WHERE (a.AccountName LIKE '%' + @SearchText + '%'
-                    OR a.AccountCode LIKE '%' + @SearchText + '%'
-                    OR c.CustomerCode LIKE '%' + @SearchText + '%')
-                    AND a.AccountOpenDate BETWEEN @FromDate AND @ToDate";
+                WHERE (
+                    c.CustomerCode LIKE '%' + @SearchText + '%' OR
+                    a.AccountName LIKE '%' + @SearchText + '%' OR
+                    a.AccountCode LIKE '%' + @SearchText + '%' OR
+                    at.AccountTypeName LIKE '%' + @SearchText + '%' OR
+                    CONVERT(VARCHAR, a.AccountOpenDate, 103) LIKE '%' + @SearchText + '%' OR
+                    a.AccountStatus LIKE '%' + @SearchText + '%'
+                )
+                AND a.AccountOpenDate BETWEEN @FromDate AND @ToDate";
 
                 string accountTypeFilter = view.GetAccountTypeFilter();
                 string statusFilter = view.GetStatusFilter();
@@ -1051,7 +1056,7 @@ public class EmployeeCustomerAccountManagementController : IOTPController
                                 AccountCode = account.AccountCode,
                                 AccountTypeName = reader.GetString(11), // Cột AccountTypeName
                                 Balance = account.Balance.ToString("N0"),
-                                AccountOpenDate = account.AccountOpenDate.ToString("dd/MM/yyyy"),
+                                AccountOpenDate = account.AccountOpenDate.ToString("dd/MM/yyyy HH:mm:ss"),
                                 AccountStatus = account.AccountStatus
                             });
                         }

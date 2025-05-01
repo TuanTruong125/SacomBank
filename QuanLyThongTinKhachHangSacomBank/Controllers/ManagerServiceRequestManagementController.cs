@@ -44,7 +44,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
         public void LoadInitialData()
         {
             LoadServiceTypes();
-            DateTime fromDate = new DateTime(2000, 1, 1);
+            DateTime fromDate = DateTime.Now;
             DateTime toDate = DateTime.Now;
             view.SetDateFilter(fromDate, toDate);
             LoadServiceRequests(fromDate, toDate, "Không áp dụng", "Không áp dụng", "Không áp dụng", "Không áp dụng");
@@ -335,20 +335,34 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 {
                     connection.Open();
                     string query = @"
-                        SELECT s.ServiceID, s.ServiceCode, s.TotalPrincipalAmount, s.Duration, s.InterestRate,
-                               s.TotalInterestAmount, s.ServiceDescription, s.CreatedDate, s.ApplicableDate,
-                               s.EndDate, s.ApprovalStatus, s.ServiceStatus, s.HandledBy,
-                               s.CustomerID, s.AccountID, s.ServiceTypeID,
-                               st.ServiceTypeName, a.AccountName, c.CustomerCode, a.AccountCode,
-                               e.EmployeeName
-                        FROM SERVICE s
-                        JOIN SERVICE_TYPE st ON s.ServiceTypeID = st.ServiceTypeID
-                        JOIN ACCOUNT a ON s.AccountID = a.AccountID
-                        JOIN CUSTOMER c ON a.CustomerID = c.CustomerID
-                        LEFT JOIN EMPLOYEE e ON s.HandledBy = e.EmployeeID
-                        WHERE s.CreatedDate BETWEEN @FromDate AND @ToDate";
-
-                    query += " AND (LOWER(c.CustomerCode) LIKE @SearchText OR LOWER(a.AccountName) LIKE @SearchText OR LOWER(a.AccountCode) LIKE @SearchText OR LOWER(s.ServiceCode) LIKE @SearchText)";
+                SELECT 
+                    s.ServiceID, s.ServiceCode, s.TotalPrincipalAmount, s.Duration, s.InterestRate,
+                    s.TotalInterestAmount, s.ServiceDescription, s.CreatedDate, s.ApplicableDate,
+                    s.EndDate, s.ApprovalStatus, s.ServiceStatus, s.HandledBy,
+                    s.CustomerID, s.AccountID, s.ServiceTypeID,
+                    st.ServiceTypeName, a.AccountName, c.CustomerCode, a.AccountCode,
+                    e.EmployeeName
+                FROM SERVICE s
+                JOIN SERVICE_TYPE st ON s.ServiceTypeID = st.ServiceTypeID
+                JOIN ACCOUNT a ON s.AccountID = a.AccountID
+                JOIN CUSTOMER c ON a.CustomerID = c.CustomerID
+                LEFT JOIN EMPLOYEE e ON s.HandledBy = e.EmployeeID
+                WHERE s.CreatedDate BETWEEN @FromDate AND @ToDate
+                AND (
+                    LOWER(c.CustomerCode) LIKE @SearchText OR
+                    LOWER(a.AccountName) LIKE @SearchText OR
+                    LOWER(a.AccountCode) LIKE @SearchText OR
+                    LOWER(st.ServiceTypeName) LIKE @SearchText OR
+                    LOWER(s.ServiceCode) LIKE @SearchText OR
+                    LOWER(s.Duration) LIKE @SearchText OR
+                    LOWER(CAST(s.InterestRate AS NVARCHAR)) LIKE @SearchText OR
+                    CONVERT(nvarchar, s.CreatedDate, 103) LIKE @SearchText OR
+                    CONVERT(nvarchar, s.ApplicableDate, 103) LIKE @SearchText OR
+                    CONVERT(nvarchar, s.EndDate, 103) LIKE @SearchText OR
+                    LOWER(e.EmployeeName) LIKE @SearchText OR
+                    LOWER(s.ApprovalStatus) LIKE @SearchText OR
+                    LOWER(s.ServiceStatus) LIKE @SearchText
+                )";
 
                     string serviceTypeFilter = view.GetServiceTypeFilter();
                     string durationFilter = view.GetDurationFilter();

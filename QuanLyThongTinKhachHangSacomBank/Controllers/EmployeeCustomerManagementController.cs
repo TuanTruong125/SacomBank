@@ -61,7 +61,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
                 // Load dữ liệu khách hàng với bộ lọc mặc định (tất cả khách hàng)
                 DateTime toDate = DateTime.Now;
-                DateTime fromDate = new DateTime(2000, 1, 1); // Một ngày xa để bao gồm tất cả khách hàng
+                DateTime fromDate = DateTime.Now; // Một ngày xa để bao gồm tất cả khách hàng
                 view.SetDateFilter(fromDate, toDate);
                 LoadCustomers(fromDate, toDate, "Không áp dụng");
             }
@@ -679,12 +679,24 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 {
                     connection.Open();
                     string query = @"
-                        SELECT c.CustomerID, c.CustomerCode, c.FullName, c.Gender, c.DateOfBirth, c.Nationality, 
-                               c.CitizenID, c.CustomerAddress, c.Phone, c.Email, c.RegistrationDate, ct.CustomerTypeName
-                        FROM CUSTOMER c
-                        JOIN CUSTOMER_TYPE ct ON c.CustomerTypeID = ct.CustomerTypeID
-                        WHERE c.RegistrationDate BETWEEN @FromDate AND @ToDate
-                        AND (c.CustomerCode LIKE @SearchText OR c.FullName LIKE @SearchText OR c.Phone LIKE @SearchText OR c.Email LIKE @SearchText)";
+                SELECT c.CustomerID, c.CustomerCode, c.FullName, c.Gender, c.DateOfBirth, c.Nationality, 
+                       c.CitizenID, c.CustomerAddress, c.Phone, c.Email, c.RegistrationDate, ct.CustomerTypeName
+                FROM CUSTOMER c
+                JOIN CUSTOMER_TYPE ct ON c.CustomerTypeID = ct.CustomerTypeID
+                WHERE c.RegistrationDate BETWEEN @FromDate AND @ToDate
+                AND (
+                    c.CustomerCode LIKE @SearchText OR 
+                    ct.CustomerTypeName LIKE @SearchText OR 
+                    c.FullName LIKE @SearchText OR 
+                    c.Gender LIKE @SearchText OR 
+                    CONVERT(VARCHAR, c.DateOfBirth, 103) LIKE @SearchText OR 
+                    c.Nationality LIKE @SearchText OR 
+                    c.CitizenID LIKE @SearchText OR 
+                    c.CustomerAddress LIKE @SearchText OR 
+                    c.Phone LIKE @SearchText OR 
+                    LOWER(c.Email) LIKE LOWER(@SearchText) OR 
+                    CONVERT(VARCHAR, c.RegistrationDate, 103) + ' ' + CONVERT(VARCHAR, c.RegistrationDate, 108) LIKE @SearchText
+                )";
 
                     if (customerTypeFilter != "Không áp dụng")
                     {

@@ -29,8 +29,8 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(UC_AccountManagement));
-            DataGridViewCellStyle dataGridViewCellStyle3 = new DataGridViewCellStyle();
-            DataGridViewCellStyle dataGridViewCellStyle4 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
+            DataGridViewCellStyle dataGridViewCellStyle2 = new DataGridViewCellStyle();
             tableLayoutPanel1 = new TableLayoutPanel();
             groupBox1 = new GroupBox();
             tableLayoutPanel2 = new TableLayoutPanel();
@@ -655,25 +655,25 @@
             dataGridViewAccountManagement.BorderStyle = BorderStyle.None;
             dataGridViewAccountManagement.CellBorderStyle = DataGridViewCellBorderStyle.RaisedHorizontal;
             dataGridViewAccountManagement.ColumnHeadersBorderStyle = DataGridViewHeaderBorderStyle.None;
-            dataGridViewCellStyle3.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle3.BackColor = SystemColors.ActiveCaption;
-            dataGridViewCellStyle3.Font = new Font("Roboto SemiCondensed Medium", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle3.ForeColor = Color.Black;
-            dataGridViewCellStyle3.SelectionBackColor = SystemColors.GradientActiveCaption;
-            dataGridViewCellStyle3.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle3.WrapMode = DataGridViewTriState.False;
-            dataGridViewAccountManagement.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle1.BackColor = SystemColors.ActiveCaption;
+            dataGridViewCellStyle1.Font = new Font("Roboto SemiCondensed Medium", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle1.ForeColor = Color.Black;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.GradientActiveCaption;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dataGridViewAccountManagement.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle1;
             dataGridViewAccountManagement.ColumnHeadersHeight = 29;
             dataGridViewAccountManagement.Columns.AddRange(new DataGridViewColumn[] { CustomerID, AccountName, AccountID, AccountTypeName, Balance, AccountOpenDate, AccountStatus });
             tableLayoutPanel4.SetColumnSpan(dataGridViewAccountManagement, 6);
-            dataGridViewCellStyle4.Alignment = DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = SystemColors.Window;
-            dataGridViewCellStyle4.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            dataGridViewCellStyle4.ForeColor = SystemColors.HotTrack;
-            dataGridViewCellStyle4.SelectionBackColor = SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = DataGridViewTriState.False;
-            dataGridViewAccountManagement.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle2.Alignment = DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle2.BackColor = SystemColors.Window;
+            dataGridViewCellStyle2.Font = new Font("Roboto", 10.2F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            dataGridViewCellStyle2.ForeColor = SystemColors.HotTrack;
+            dataGridViewCellStyle2.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle2.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle2.WrapMode = DataGridViewTriState.False;
+            dataGridViewAccountManagement.DefaultCellStyle = dataGridViewCellStyle2;
             dataGridViewAccountManagement.Dock = DockStyle.Fill;
             dataGridViewAccountManagement.EnableHeadersVisualStyles = false;
             dataGridViewAccountManagement.GridColor = Color.White;
@@ -693,49 +693,49 @@
             CustomerID.HeaderText = "Mã khách hàng";
             CustomerID.MinimumWidth = 6;
             CustomerID.Name = "CustomerID";
-            CustomerID.Width = 177;
+            CustomerID.Width = 159;
             // 
             // AccountName
             // 
             AccountName.HeaderText = "Tên tài khoản";
             AccountName.MinimumWidth = 6;
             AccountName.Name = "AccountName";
-            AccountName.Width = 162;
+            AccountName.Width = 146;
             // 
             // AccountID
             // 
             AccountID.HeaderText = "Mã tài khoản";
             AccountID.MinimumWidth = 6;
             AccountID.Name = "AccountID";
-            AccountID.Width = 157;
+            AccountID.Width = 141;
             // 
             // AccountTypeName
             // 
             AccountTypeName.HeaderText = "Loại tài khoản";
             AccountTypeName.MinimumWidth = 6;
             AccountTypeName.Name = "AccountTypeName";
-            AccountTypeName.Width = 169;
+            AccountTypeName.Width = 151;
             // 
             // Balance
             // 
             Balance.HeaderText = "Số dư";
             Balance.MinimumWidth = 6;
             Balance.Name = "Balance";
-            Balance.Width = 92;
+            Balance.Width = 83;
             // 
             // AccountOpenDate
             // 
             AccountOpenDate.HeaderText = "Ngày mở";
             AccountOpenDate.MinimumWidth = 6;
             AccountOpenDate.Name = "AccountOpenDate";
-            AccountOpenDate.Width = 119;
+            AccountOpenDate.Width = 107;
             // 
             // AccountStatus
             // 
             AccountStatus.HeaderText = "Trạng thái";
             AccountStatus.MinimumWidth = 6;
             AccountStatus.Name = "AccountStatus";
-            AccountStatus.Width = 131;
+            AccountStatus.Width = 119;
             // 
             // labelAccountTypeFilter
             // 

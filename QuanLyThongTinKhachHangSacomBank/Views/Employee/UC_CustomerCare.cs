@@ -56,7 +56,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
             comboBoxRequestStatusFilter.SelectedIndex = 0;
 
             // Đặt khoảng thời gian mặc định (tương tự UC_AccountManagement)
-            dateTimePickerForm.Value = new DateTime(2025, 1, 1); // Từ năm 2025
+            dateTimePickerForm.Value = DateTime.Now; // Từ năm 2025
             dateTimePickerTo.Value = DateTime.Now; // Đến ngày hiện tại
 
             dataGridViewChat.SelectionChanged += (s, e) => controller.OnRequestSelected();

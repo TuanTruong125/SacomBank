@@ -60,7 +60,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
         public void LoadInitialData()
         {
             LoadServiceTypes();
-            DateTime fromDate = new DateTime(2000, 1, 1);
+            DateTime fromDate = DateTime.Now;
             DateTime toDate = DateTime.Now;
             view.SetDateFilter(fromDate, toDate);
             LoadServices(fromDate, toDate, "Không áp dụng", "Không áp dụng", "Không áp dụng", "Không áp dụng");
@@ -1137,8 +1137,22 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             LEFT JOIN EMPLOYEE e ON s.HandledBy = e.EmployeeID
             WHERE s.CreatedDate BETWEEN @FromDate AND @ToDate";
 
-                    // Thêm điều kiện tìm kiếm
-                    query += " AND (LOWER(c.CustomerCode) LIKE @SearchText OR LOWER(a.AccountName) LIKE @SearchText OR LOWER(a.AccountCode) LIKE @SearchText OR LOWER(s.ServiceCode) LIKE @SearchText)";
+                    // Thêm điều kiện tìm kiếm trên các cột (trừ TotalPrincipalAmount, TotalInterestAmount, ServiceDescription)
+                    query += @"
+            AND (
+                LOWER(c.CustomerCode) LIKE @SearchText OR
+                LOWER(a.AccountName) LIKE @SearchText OR
+                LOWER(a.AccountCode) LIKE @SearchText OR
+                LOWER(st.ServiceTypeName) LIKE @SearchText OR
+                LOWER(s.ServiceCode) LIKE @SearchText OR
+                LOWER(s.Duration) LIKE @SearchText OR
+                CONVERT(nvarchar, s.CreatedDate, 103) LIKE @SearchText OR
+                CONVERT(nvarchar, s.ApplicableDate, 103) LIKE @SearchText OR
+                CONVERT(nvarchar, s.EndDate, 103) LIKE @SearchText OR
+                LOWER(e.EmployeeName) LIKE @SearchText OR
+                LOWER(s.ApprovalStatus) LIKE @SearchText OR
+                LOWER(s.ServiceStatus) LIKE @SearchText
+            )";
 
                     // Thêm các bộ lọc khác
                     string serviceTypeFilter = view.GetServiceTypeFilter();

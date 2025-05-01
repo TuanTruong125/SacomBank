@@ -33,7 +33,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
         private void LoadInitialData()
         {
-            DateTime fromDate = new DateTime(2025, 1, 1); // Tương tự UC_AccountManagement
+            DateTime fromDate = DateTime.Now; // Tương tự UC_AccountManagement
             DateTime toDate = DateTime.Now;
             view.SetDateFilter(fromDate, toDate);
             LoadRequests();
@@ -108,33 +108,84 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
         public void SearchRequests()
         {
-            string searchText = view.GetSearchText().ToLower();
-            if (string.IsNullOrWhiteSpace(searchText))
+            try
             {
-                view.LoadRequests(allRequests);
-                return;
+                string searchText = view.GetSearchText().Trim().ToLower();
+                if (string.IsNullOrWhiteSpace(searchText))
+                {
+                    LoadRequests();
+                    return;
+                }
+
+                using (var connection = dbContext.GetConnection())
+                {
+                    connection.Open();
+                    string query = @"
+                SELECT r.RequestID, r.RequestCode, r.Title, r.RequestMessage, r.RequestDate, 
+                       e.EmployeeName, r.RequestStatus, r.CustomerID, c.CustomerCode
+                FROM REQUEST r
+                LEFT JOIN EMPLOYEE e ON r.HandledBy = e.EmployeeID
+                JOIN CUSTOMER c ON r.CustomerID = c.CustomerID
+                WHERE r.RequestDate BETWEEN @DateFrom AND @DateTo
+                AND (
+                    LOWER(c.CustomerCode) LIKE @SearchText OR
+                    LOWER(r.RequestCode) LIKE @SearchText OR
+                    CONVERT(nvarchar, r.RequestDate, 103) LIKE @SearchText OR
+                    LOWER(e.EmployeeName) LIKE @SearchText OR
+                    LOWER(r.RequestStatus) LIKE @SearchText
+                )";
+
+                    string statusFilter = view.GetRequestStatusFilter();
+                    if (statusFilter != "Không áp dụng")
+                    {
+                        query += " AND r.RequestStatus = @RequestStatus";
+                    }
+
+                    query += " ORDER BY r.RequestDate DESC";
+
+                    using (var command = new SqlCommand(query, connection))
+                    {
+                        DateTime fromDate = view.GetFromDate();
+                        DateTime toDate = view.GetToDate();
+
+                        command.Parameters.AddWithValue("@DateFrom", fromDate);
+                        command.Parameters.AddWithValue("@DateTo", toDate);
+                        command.Parameters.AddWithValue("@SearchText", $"%{searchText}%");
+                        if (statusFilter != "Không áp dụng")
+                        {
+                            command.Parameters.AddWithValue("@RequestStatus", statusFilter);
+                        }
+
+                        using (var reader = command.ExecuteReader())
+                        {
+                            currentRequests.Clear();
+                            allRequests.Clear();
+                            while (reader.Read())
+                            {
+                                var request = new RequestModel
+                                {
+                                    RequestID = reader.GetInt32(0),
+                                    RequestCode = reader.GetString(1),
+                                    Title = reader.GetString(2),
+                                    RequestMessage = reader.GetString(3),
+                                    RequestDate = reader.GetDateTime(4),
+                                    EmployeeName = reader.IsDBNull(5) ? null : reader.GetString(5),
+                                    RequestStatus = reader.GetString(6),
+                                    CustomerID = reader.GetInt32(7)
+                                };
+                                var displayModel = new RequestDisplayModel(request, reader.GetString(8));
+                                currentRequests.Add(displayModel);
+                                allRequests.Add(displayModel);
+                            }
+                            view.LoadRequests(currentRequests);
+                        }
+                    }
+                }
             }
-
-            var filteredRequests = allRequests.Where(request =>
-                (request.CustomerCode?.ToLower().Contains(searchText) == true) ||
-                (request.RequestCode?.ToLower().Contains(searchText) == true) ||
-                (request.Title?.ToLower().Contains(searchText) == true)
-            ).ToList();
-
-            if (searchText.StartsWith("kh"))
+            catch (Exception ex)
             {
-                filteredRequests = allRequests.Where(request =>
-                    request.CustomerCode?.ToLower().Contains(searchText) == true
-                ).ToList();
+                view.ShowMessage($"Lỗi khi tìm kiếm yêu cầu: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
-            else if (searchText.StartsWith("yc"))
-            {
-                filteredRequests = allRequests.Where(request =>
-                    request.RequestCode?.ToLower().Contains(searchText) == true
-                ).ToList();
-            }
-
-            view.LoadRequests(filteredRequests);
         }
 
         public void OnRequestSelected()

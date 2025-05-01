@@ -66,7 +66,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             {
                 // Load dữ liệu giao dịch với bộ lọc mặc định (tất cả giao dịch)
                 DateTime toDate = DateTime.Now;
-                DateTime fromDate = new DateTime(2000, 1, 1); // Một ngày xa để bao gồm tất cả giao dịch
+                DateTime fromDate = DateTime.Now; // Một ngày xa để bao gồm tất cả giao dịch
                 view.SetDateFilter(fromDate, toDate);
                 LoadTransactions(fromDate, toDate, "Không áp dụng", "Không áp dụng");
             }
@@ -159,7 +159,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
         {
             try
             {
-                string searchText = view.GetSearchText();
+                string searchText = view.GetSearchText().ToLower();
                 if (string.IsNullOrEmpty(searchText))
                 {
                     LoadTransactions(view.GetFromDate(), view.GetToDate(), view.GetTransactionTypeFilter(), view.GetStatusFilter());
@@ -171,35 +171,40 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 {
                     connection.Open();
                     string query = @"
-                        SELECT 
-                            c.CustomerCode AS CustomerID,
-                            a.AccountCode AS AccountID,
-                            a.AccountName,
-                            tt.TransactionTypeName,
-                            t.TransactionCode AS TransactionID,
-                            ra.AccountName AS ReceiverAccountName,
-                            ra.AccountCode AS ReceiverAccountID,
-                            t.Amount,
-                            t.TransactionDescription,
-                            t.TransactionDate,
-                            t.TransactionMethod,
-                            e.EmployeeName AS HandledBy,
-                            t.TransactionStatus
-                        FROM [TRANSACTION] t
-                        JOIN ACCOUNT a ON t.AccountID = a.AccountID
-                        JOIN CUSTOMER c ON a.CustomerID = c.CustomerID
-                        JOIN TRANSACTION_TYPE tt ON t.TransactionTypeID = tt.TransactionTypeID
-                        LEFT JOIN ACCOUNT ra ON t.ReceiverAccountID = ra.AccountID
-                        LEFT JOIN EMPLOYEE e ON t.HandledBy = e.EmployeeID
-                        WHERE t.TransactionDate BETWEEN @FromDate AND @ToDate
-                        AND (
-                            c.CustomerCode LIKE @SearchText OR
-                            a.AccountCode LIKE @SearchText OR
-                            a.AccountName LIKE @SearchText OR
-                            t.TransactionCode LIKE @SearchText OR
-                            ra.AccountName LIKE @SearchText OR
-                            ra.AccountCode LIKE @SearchText
-                        )";
+                SELECT 
+                    c.CustomerCode AS CustomerID,
+                    a.AccountCode AS AccountID,
+                    a.AccountName,
+                    tt.TransactionTypeName,
+                    t.TransactionCode AS TransactionID,
+                    ra.AccountName AS ReceiverAccountName,
+                    ra.AccountCode AS ReceiverAccountID,
+                    t.Amount,
+                    t.TransactionDescription,
+                    t.TransactionDate,
+                    t.TransactionMethod,
+                    e.EmployeeName AS HandledBy,
+                    t.TransactionStatus
+                FROM [TRANSACTION] t
+                JOIN ACCOUNT a ON t.AccountID = a.AccountID
+                JOIN CUSTOMER c ON a.CustomerID = c.CustomerID
+                JOIN TRANSACTION_TYPE tt ON t.TransactionTypeID = tt.TransactionTypeID
+                LEFT JOIN ACCOUNT ra ON t.ReceiverAccountID = ra.AccountID
+                LEFT JOIN EMPLOYEE e ON t.HandledBy = e.EmployeeID
+                WHERE t.TransactionDate BETWEEN @FromDate AND @ToDate
+                AND (
+                    LOWER(c.CustomerCode) LIKE @SearchText OR
+                    LOWER(a.AccountCode) LIKE @SearchText OR
+                    LOWER(a.AccountName) LIKE @SearchText OR
+                    LOWER(tt.TransactionTypeName) LIKE @SearchText OR
+                    LOWER(t.TransactionCode) LIKE @SearchText OR
+                    LOWER(ra.AccountName) LIKE @SearchText OR
+                    LOWER(ra.AccountCode) LIKE @SearchText OR
+                    CONVERT(nvarchar, t.TransactionDate, 103) LIKE @SearchText OR
+                    LOWER(t.TransactionMethod) LIKE @SearchText OR
+                    LOWER(e.EmployeeName) LIKE @SearchText OR
+                    LOWER(t.TransactionStatus) LIKE @SearchText
+                )";
 
                     string typeFilter = view.GetTransactionTypeFilter();
                     string statusFilter = view.GetStatusFilter();

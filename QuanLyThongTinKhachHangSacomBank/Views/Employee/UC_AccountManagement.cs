@@ -73,6 +73,11 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
             dataGridViewAccountManagement.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dataGridViewAccountManagement.MultiSelect = false; // Chỉ cho phép chọn một hàng
 
+            // Cấu hình dateTimePickerAccountOpenDate để hiển thị thời gian
+            dateTimePickerAccountOpenDate.Format = DateTimePickerFormat.Custom;
+            dateTimePickerAccountOpenDate.CustomFormat = "dd/MM/yyyy HH:mm:ss";
+            dateTimePickerAccountOpenDate.ShowUpDown = true; // Cho phép chỉnh sửa thời gian trực tiếp
+
             this.controller = new EmployeeCustomerAccountManagementController(this, configuration, dbContext);
             InitializeControlState();
             controller.LoadInitialData();
@@ -247,7 +252,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Employee
                         AccountID = int.Parse(row.Cells[2].Value.ToString().Replace("TK", "")), // Cột AccountCode
                         AccountTypeID = row.Cells[3].Value.ToString() == "Cá nhân" ? 1 : 2, // Cột AccountTypeName
                         Balance = decimal.Parse(row.Cells[4].Value.ToString(), System.Globalization.NumberStyles.AllowThousands), // Cột Balance
-                        AccountOpenDate = DateTime.ParseExact(row.Cells[5].Value.ToString(), "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture), // Cột AccountOpenDate
+                        AccountOpenDate = DateTime.ParseExact(row.Cells[5].Value.ToString(), "dd/MM/yyyy HH:mm:ss", System.Globalization.CultureInfo.InvariantCulture), // Cột AccountOpenDate
                         AccountStatus = row.Cells[6].Value.ToString() // Cột AccountStatus
                     };
 
