@@ -47,6 +47,7 @@
             label8 = new Label();
             textBoxRole = new TextBox();
             groupBoxAccountSetting = new GroupBox();
+            panel2 = new Panel();
             tableLayoutPanel3 = new TableLayoutPanel();
             pictureBox2 = new PictureBox();
             label11 = new Label();
@@ -62,9 +63,8 @@
             pictureBox1 = new PictureBox();
             tableLayoutPanel2 = new TableLayoutPanel();
             groupBoxCustomerInfo = new GroupBox();
-            tableLayoutPanel1 = new TableLayoutPanel();
             panel1 = new Panel();
-            panel2 = new Panel();
+            tableLayoutPanel1 = new TableLayoutPanel();
             groupBoxAccountSetting.SuspendLayout();
             tableLayoutPanel3.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)pictureBox2).BeginInit();
@@ -286,6 +286,14 @@
             groupBoxAccountSetting.TabStop = false;
             groupBoxAccountSetting.Text = "Cài đặt tài khoản";
             // 
+            // panel2
+            // 
+            panel2.BackColor = Color.SteelBlue;
+            panel2.Location = new Point(179, 9);
+            panel2.Name = "panel2";
+            panel2.Size = new Size(450, 5);
+            panel2.TabIndex = 22;
+            // 
             // tableLayoutPanel3
             // 
             tableLayoutPanel3.ColumnCount = 8;
@@ -406,7 +414,7 @@
             cyberButtonConfirm.LinearGradient_Background = true;
             cyberButtonConfirm.LinearGradientPen = true;
             cyberButtonConfirm.Location = new Point(655, 166);
-            cyberButtonConfirm.Margin = new Padding(2, 2, 2, 2);
+            cyberButtonConfirm.Margin = new Padding(2);
             cyberButtonConfirm.Name = "cyberButtonConfirm";
             cyberButtonConfirm.PenWidth = 15;
             cyberButtonConfirm.Rounding = true;
@@ -449,7 +457,7 @@
             cyberButtonCancel.LinearGradient_Background = true;
             cyberButtonCancel.LinearGradientPen = true;
             cyberButtonCancel.Location = new Point(314, 166);
-            cyberButtonCancel.Margin = new Padding(2, 2, 2, 2);
+            cyberButtonCancel.Margin = new Padding(2);
             cyberButtonCancel.Name = "cyberButtonCancel";
             cyberButtonCancel.PenWidth = 15;
             cyberButtonCancel.Rounding = true;
@@ -492,7 +500,7 @@
             cyberButtonEdit.LinearGradient_Background = true;
             cyberButtonEdit.LinearGradientPen = true;
             cyberButtonEdit.Location = new Point(485, 166);
-            cyberButtonEdit.Margin = new Padding(2, 2, 2, 2);
+            cyberButtonEdit.Margin = new Padding(2);
             cyberButtonEdit.Name = "cyberButtonEdit";
             cyberButtonEdit.PenWidth = 15;
             cyberButtonEdit.Rounding = true;
@@ -612,6 +620,14 @@
             groupBoxCustomerInfo.TabStop = false;
             groupBoxCustomerInfo.Text = "Thông tin quản lý";
             // 
+            // panel1
+            // 
+            panel1.BackColor = SystemColors.HotTrack;
+            panel1.Location = new Point(190, 9);
+            panel1.Name = "panel1";
+            panel1.Size = new Size(250, 5);
+            panel1.TabIndex = 21;
+            // 
             // tableLayoutPanel1
             // 
             tableLayoutPanel1.ColumnCount = 2;
@@ -627,22 +643,6 @@
             tableLayoutPanel1.RowStyles.Add(new RowStyle(SizeType.Percent, 38.11421F));
             tableLayoutPanel1.Size = new Size(1132, 753);
             tableLayoutPanel1.TabIndex = 2;
-            // 
-            // panel1
-            // 
-            panel1.BackColor = SystemColors.HotTrack;
-            panel1.Location = new Point(190, 9);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(250, 5);
-            panel1.TabIndex = 21;
-            // 
-            // panel2
-            // 
-            panel2.BackColor = Color.SteelBlue;
-            panel2.Location = new Point(179, 9);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(450, 5);
-            panel2.TabIndex = 22;
             // 
             // UC_ManagerSetting
             // 

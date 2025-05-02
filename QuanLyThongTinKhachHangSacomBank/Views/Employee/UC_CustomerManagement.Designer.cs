@@ -755,10 +755,10 @@
             // 
             // CitizenID
             // 
-            CitizenID.HeaderText = "CCCD/Passport";
+            CitizenID.HeaderText = "CCCD";
             CitizenID.MinimumWidth = 6;
             CitizenID.Name = "CitizenID";
-            CitizenID.Width = 159;
+            CitizenID.Width = 80;
             // 
             // CustomerAddress
             // 

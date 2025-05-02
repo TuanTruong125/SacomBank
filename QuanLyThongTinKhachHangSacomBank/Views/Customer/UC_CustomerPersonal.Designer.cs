@@ -176,9 +176,9 @@
             label5.ForeColor = Color.Black;
             label5.Location = new Point(3, 356);
             label5.Name = "label5";
-            label5.Size = new Size(130, 22);
+            label5.Size = new Size(54, 22);
             label5.TabIndex = 8;
-            label5.Text = "CCCD/Passport";
+            label5.Text = "CCCD";
             // 
             // textBoxCitizenID
             // 

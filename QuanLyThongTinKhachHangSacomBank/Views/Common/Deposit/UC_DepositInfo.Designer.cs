@@ -89,9 +89,9 @@
             labelCitizenID.Font = new Font("Roboto SemiCondensed", 12F, FontStyle.Bold, GraphicsUnit.Point, 0);
             labelCitizenID.Location = new Point(63, 225);
             labelCitizenID.Name = "labelCitizenID";
-            labelCitizenID.Size = new Size(142, 24);
+            labelCitizenID.Size = new Size(58, 24);
             labelCitizenID.TabIndex = 66;
-            labelCitizenID.Text = "CCCD/Passport";
+            labelCitizenID.Text = "CCCD";
             // 
             // textBoxCitizenID
             // 
