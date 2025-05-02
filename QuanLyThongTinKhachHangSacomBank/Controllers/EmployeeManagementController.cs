@@ -238,9 +238,9 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                     <tr>
                                         <td align='center' style='padding: 20px;'>
                                             <h1 style='color: #1a73e8;'>Thông Tin Tài Khoản Mới</h1>
-                                            <h2 style='color: #1a73e8; margin: 5px 0 20px 0;'>SacomBank</h2>
+                                            <h2 style='color: #1a73e8; margin: 5px 0 20px 0;'>Sacombank</h2>
                                             <p>Xin chào <strong>" + employee.EmployeeName + @"</strong>,</p>
-                                            <p>Chúc mừng bạn đã trở thành nhân viên mới của SacomBank. Dưới đây là thông tin tài khoản của bạn:</p>
+                                            <p>Chúc mừng bạn đã trở thành nhân viên mới của Sacombank. Dưới đây là thông tin tài khoản của bạn:</p>
                                             
                                             <table style='width: 80%; margin: 20px auto; border-collapse: collapse;'>
                                                 <tr style='background-color: #f2f2f2;'>
@@ -276,7 +276,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                             
                                             <p>Nếu bạn có bất kỳ câu hỏi nào, vui lòng liên hệ với phòng Nhân sự hoặc email: <a href='mailto:hr@sacombank.com'>hr@sacombank.com</a>.</p>
                                             <hr style='border: 0; border-top: 1px solid #eee; margin: 20px 0;' />
-                                            <p style='font-size: 12px; color: #777;'>© 2025 SacomBank. All rights reserved.</p>
+                                            <p style='font-size: 12px; color: #777;'>© 2025 Sacombank. All rights reserved.</p>
                                         </td>
                                     </tr>
                                 </table>
@@ -289,7 +289,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     var mailMessage = new System.Net.Mail.MailMessage
                     {
                         From = new System.Net.Mail.MailAddress(senderEmail, senderName),
-                        Subject = "Thông tin tài khoản mới - SacomBank",
+                        Subject = "Thông tin tài khoản mới - Sacombank",
                         Body = htmlBody,
                         IsBodyHtml = true
                     };

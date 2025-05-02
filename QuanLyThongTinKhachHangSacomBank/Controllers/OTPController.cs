@@ -161,16 +161,16 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                                                 <tr>
                                                     <td align='center' style='padding: 20px;'>
                                                         <h1 style='color: #1a73e8;'>Mã OTP Xác Thực</h1>
-                                                        <h2 style='color: #1a73e8; margin: 5px 0 20px 0;'>SacomBank</h2>
+                                                        <h2 style='color: #1a73e8; margin: 5px 0 20px 0;'>Sacombank</h2>
                                                         <p>Xin chào,</p>
                                                         <p>Chúng tôi đã nhận được yêu cầu xác thực tài khoản của bạn. Dưới đây là mã OTP của bạn:</p>
                                                         <div style='font-size: 24px; font-weight: bold; color: #d32f2f; margin: 20px 0;'>
                                                             " + otp + @"
                                                         </div>
-                                                        <p>Mã này có hiệu lực trong <strong>1 phút</strong>. Vui lòng không chia sẻ mã này với bất kỳ ai.</p>
+                                                        <p>Mã này có hiệu lực trong <strong>30 giây</strong>. Vui lòng không chia sẻ mã này với bất kỳ ai.</p>
                                                         <p>Nếu bạn không yêu cầu mã này, vui lòng bỏ qua email này hoặc liên hệ với chúng tôi qua email: <a href='mailto:support@sacombank.com'>support@sacombank.com</a>.</p>
                                                         <hr style='border: 0; border-top: 1px solid #eee; margin: 20px 0;' />
-                                                        <p style='font-size: 12px; color: #777;'>© 2025 SacomBank. All rights reserved.</p>
+                                                        <p style='font-size: 12px; color: #777;'>© 2025 Sacombank. All rights reserved.</p>
                                                     </td>
                                                 </tr>
                                             </table>

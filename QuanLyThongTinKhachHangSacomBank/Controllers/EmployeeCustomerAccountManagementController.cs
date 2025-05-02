@@ -764,7 +764,7 @@ public class EmployeeCustomerAccountManagementController : IOTPController
                                         <tr>
                                             <td align='center' style='padding: 20px;'>
                                                 <h1 style='color: #1a73e8;'>Thông Tin Tài Khoản</h1>
-                                                <h2 style='color: #1a73e8; margin: 5px 0 20px 0;'>SacomBank</h2>
+                                                <h2 style='color: #1a73e8; margin: 5px 0 20px 0;'>Sacombank</h2>
                                                 <p>Xin chào,</p>
                                                 <p>Tài khoản của bạn đã được mở thành công. Dưới đây là thông tin đăng nhập:</p>
                                                 <p><strong>Mật khẩu:</strong> " + password + @"</p>
@@ -772,7 +772,7 @@ public class EmployeeCustomerAccountManagementController : IOTPController
                                                 <p>Vui lòng cập nhật lại và không chia sẻ thông tin này với bất kỳ ai.</p>
                                                 <p>Nếu bạn không yêu cầu mở tài khoản này, vui lòng liên hệ với chúng tôi qua email: <a href='mailto:support@sacombank.com'>support@sacombank.com</a>.</p>
                                                 <hr style='border: 0; border-top: 1px solid #eee; margin: 20px 0;' />
-                                                <p style='font-size: 12px; color: #777;'>© 2025 SacomBank. All rights reserved.</p>
+                                                <p style='font-size: 12px; color: #777;'>© 2025 Sacombank. All rights reserved.</p>
                                             </td>
                                         </tr>
                                     </table>
@@ -785,7 +785,7 @@ public class EmployeeCustomerAccountManagementController : IOTPController
                 var mailMessage = new MailMessage
                 {
                     From = new MailAddress(senderEmail, senderName),
-                    Subject = "Thông Tin Tài Khoản - SacomBank",
+                    Subject = "Thông Tin Tài Khoản - Sacombank",
                     Body = htmlBody,
                     IsBodyHtml = true
                 };
@@ -904,14 +904,14 @@ public class EmployeeCustomerAccountManagementController : IOTPController
                                         <tr>
                                             <td align='center' style='padding: 20px;'>
                                                 <h1 style='color: #1a73e8;'>Đặt Lại " + credentialType.ToUpper() + @"</h1>
-                                                <h2 style='color: #1a73e8; margin: 5px 0 20px 0;'>SacomBank</h2>
+                                                <h2 style='color: #1a73e8; margin: 5px 0 20px 0;'>Sacombank</h2>
                                                 <p>Xin chào,</p>
                                                 <p>" + credentialType + @" của bạn đã được đặt lại. Dưới đây là " + credentialType + @" mới:</p>
                                                 <p><strong>" + credentialType + @":</strong> " + credential + @"</p>
                                                 <p>Vui lòng cập nhật lại và không chia sẻ thông tin này với bất kỳ ai.</p>
                                                 <p>Nếu bạn không yêu cầu đặt lại " + credentialType + @", vui lòng liên hệ với chúng tôi qua email: <a href='mailto:support@sacombank.com'>support@sacombank.com</a>.</p>
                                                 <hr style='border: 0; border-top: 1px solid #eee; margin: 20px 0;' />
-                                                <p style='font-size: 12px; color: #777;'>© 2025 SacomBank. All rights reserved.</p>
+                                                <p style='font-size: 12px; color: #777;'>© 2025 Sacombank. All rights reserved.</p>
                                             </td>
                                         </tr>
                                     </table>
@@ -924,7 +924,7 @@ public class EmployeeCustomerAccountManagementController : IOTPController
                 var mailMessage = new MailMessage
                 {
                     From = new MailAddress(senderEmail, senderName),
-                    Subject = $"Đặt Lại {credentialType} - SacomBank",
+                    Subject = $"Đặt Lại {credentialType} - Sacombank",
                     Body = htmlBody,
                     IsBodyHtml = true
                 };
