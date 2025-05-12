@@ -315,7 +315,6 @@ public class EmployeeCustomerAccountManagementController : IOTPController
 
         try
         {
-            // Kiểm tra DatabaseContext
             if (dbContext == null)
             {
                 view.ShowMessage("DatabaseContext không được khởi tạo!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
@@ -358,12 +357,13 @@ public class EmployeeCustomerAccountManagementController : IOTPController
                         else
                         {
                             view.ShowMessage("Không tìm thấy tài khoản!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            isEditing = false;
                             return;
                         }
                     }
                 }
 
-                // Truy vấn thông tin khách hàng
+                // Truy vấn thông tin khách hàng liên quan đến tài khoản
                 string customerQuery = @"
                 SELECT c.*, ct.CustomerTypeName 
                 FROM CUSTOMER c 
@@ -395,7 +395,8 @@ public class EmployeeCustomerAccountManagementController : IOTPController
                         }
                         else
                         {
-                            view.ShowMessage("Không tìm thấy thông tin khách hàng!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            view.ShowMessage("Không tìm thấy thông tin khách hàng liên quan đến tài khoản!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                            isEditing = false;
                             return;
                         }
                     }
@@ -809,6 +810,13 @@ public class EmployeeCustomerAccountManagementController : IOTPController
             return;
         }
 
+        // Kiểm tra selectedAccount và selectedCustomer
+        if (selectedAccount == null || selectedCustomer == null)
+        {
+            view.ShowMessage("Không thể tải thông tin tài khoản hoặc khách hàng. Vui lòng chọn lại tài khoản!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+
         var result = view.ShowConfirmation("Bạn có chắc chắn muốn đặt lại mật khẩu cho tài khoản này?", "Xác nhận");
         if (result == DialogResult.No)
         {
@@ -823,6 +831,13 @@ public class EmployeeCustomerAccountManagementController : IOTPController
         if (view.GetSelectedRowCount() == 0)
         {
             view.ShowMessage("Vui lòng chọn một tài khoản để đặt lại mã PIN!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            return;
+        }
+
+        // Kiểm tra selectedAccount và selectedCustomer
+        if (selectedAccount == null || selectedCustomer == null)
+        {
+            view.ShowMessage("Không thể tải thông tin tài khoản hoặc khách hàng. Vui lòng chọn lại tài khoản!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             return;
         }
 
@@ -944,8 +959,69 @@ public class EmployeeCustomerAccountManagementController : IOTPController
     {
         if (!isAdding && !isEditing)
         {
-            selectedAccount = account;
+            selectedAccount = account; // Gán tài khoản được chọn từ DataGridView
+
+            // Tải thông tin khách hàng liên quan đến tài khoản
+            try
+            {
+                if (dbContext == null)
+                {
+                    view.ShowMessage("DatabaseContext không được khởi tạo!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return;
+                }
+
+                using (var connection = dbContext.GetConnection())
+                {
+                    connection.Open();
+
+                    // Truy vấn thông tin khách hàng dựa trên CustomerID từ selectedAccount
+                    string customerQuery = @"
+                    SELECT c.*, ct.CustomerTypeName 
+                    FROM CUSTOMER c 
+                    JOIN CUSTOMER_TYPE ct ON c.CustomerTypeID = ct.CustomerTypeID 
+                    WHERE c.CustomerID = @CustomerID";
+
+                    using (var customerCommand = new SqlCommand(customerQuery, connection))
+                    {
+                        customerCommand.Parameters.AddWithValue("@CustomerID", selectedAccount.CustomerID);
+                        using (var customerReader = customerCommand.ExecuteReader())
+                        {
+                            if (customerReader.Read())
+                            {
+                                selectedCustomer = new CustomerModel
+                                {
+                                    CustomerID = customerReader.GetInt32(0),
+                                    CustomerCode = customerReader.GetString(1),
+                                    FullName = customerReader.GetString(2),
+                                    Gender = customerReader.GetString(3),
+                                    DateOfBirth = customerReader.GetDateTime(4),
+                                    Nationality = customerReader.GetString(5),
+                                    CitizenID = customerReader.GetString(6),
+                                    CustomerAddress = customerReader.GetString(7),
+                                    Phone = customerReader.GetString(8),
+                                    Email = customerReader.GetString(9),
+                                    RegistrationDate = customerReader.GetDateTime(10),
+                                    CustomerTypeID = customerReader.GetInt32(11)
+                                };
+                            }
+                            else
+                            {
+                                view.ShowMessage("Không tìm thấy thông tin khách hàng liên quan đến tài khoản!", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+                                selectedCustomer = null;
+                            }
+                        }
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                view.ShowMessage($"Lỗi khi tải thông tin khách hàng: {ex.Message}", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                selectedCustomer = null;
+            }
+
+            // Kích hoạt các nút liên quan khi chọn tài khoản
             view.EnableControls(false);
+            view.EnableResetButtons(true); // Bật nút đặt lại mật khẩu và mã PIN
             view.SetControlState(false, true, true, false);
         }
     }
@@ -955,8 +1031,9 @@ public class EmployeeCustomerAccountManagementController : IOTPController
         if (!isAdding && !isEditing)
         {
             selectedAccount = null;
+            selectedCustomer = null;
             view.EnableControls(false);
-            view.EnableResetButtons(false);
+            view.EnableResetButtons(false); // Tắt nút đặt lại mật khẩu và mã PIN
             view.SetControlState(true, false, false, false);
         }
     }
