@@ -38,8 +38,9 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Common.Chat
                 _accountID = currentAccount?.AccountID;
 
                 // Lấy đường dẫn tới file training data
-                string appPath = Path.GetDirectoryName(Application.ExecutablePath);
-                string trainingDataPath = Path.Combine(appPath, "Data", "TrainingData", "chatbot_training.json");
+                string basePath = AppContext.BaseDirectory;
+                string projectPath = Path.GetFullPath(Path.Combine(basePath, "..", "..", ".."));
+                string trainingDataPath = Path.Combine(projectPath, "Data", "TrainingData", "chatbot_training.json");
 
                 // Đảm bảo thư mục tồn tại
                 Directory.CreateDirectory(Path.GetDirectoryName(trainingDataPath));

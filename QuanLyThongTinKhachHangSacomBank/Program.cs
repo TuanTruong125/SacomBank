@@ -1,8 +1,12 @@
+// Program.cs
+
 using Microsoft.Extensions.Configuration;
 using QuanLyThongTinKhachHangSacomBank.AutoTasks;
 using QuanLyThongTinKhachHangSacomBank.Controllers;
 using QuanLyThongTinKhachHangSacomBank.Data;
 using QuanLyThongTinKhachHangSacomBank.Models;
+using QuanLyThongTinKhachHangSacomBank.Services;
+using QuanLyThongTinKhachHangSacomBank.Views.Common;
 using QuanLyThongTinKhachHangSacomBank.Views.Common.CustomerLogin;
 using QuanLyThongTinKhachHangSacomBank.Views.Common.EmployeeLogin;
 using QuanLyThongTinKhachHangSacomBank.Views.Common.LoginTypeSelection;
@@ -25,131 +29,79 @@ namespace QuanLyThongTinKhachHangSacomBank
         {
             try
             {
+                // Cấu hình ứng dụng Windows Forms
+                ApplicationConfiguration.Initialize();
+                Application.EnableVisualStyles();
+                Application.SetCompatibleTextRenderingDefault(false);
+
+                // Tải cấu hình từ appsettings.json
                 IConfiguration configuration = new ConfigurationBuilder()
                     .SetBasePath(Directory.GetCurrentDirectory())
                     .AddJsonFile("appsettings.json", optional: false, reloadOnChange: true)
                     .Build();
 
+                // Kiểm tra cấu hình kết nối
+                if (!ConnectionConfigService.ConfigExists())
+                {
+                    // Hiển thị form cấu hình khi chưa có thông tin kết nối
+                    using (var configForm = new FormDatabaseConfig())
+                    {
+                        DialogResult result = configForm.ShowDialog();
+
+                        if (result != DialogResult.OK)
+                        {
+                            // Người dùng đã hủy cấu hình, thoát ứng dụng
+                            return;
+                        }
+                    }
+                }
+
+                // Khởi tạo DatabaseContext
                 DatabaseContext dbContext = new DatabaseContext(configuration);
 
-                ApplicationConfiguration.Initialize();
-                Application.EnableVisualStyles();
-                Application.SetCompatibleTextRenderingDefault(false);
+                // Kiểm tra kết nối trước khi khởi động ứng dụng
+                try
+                {
+                    using (var connection = dbContext.GetConnection())
+                    {
+                        connection.Open();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show(
+                        $"Không thể kết nối đến cơ sở dữ liệu:\n{ex.Message}\n\n" +
+                        "Vui lòng kiểm tra lại cấu hình kết nối.",
+                        "Lỗi kết nối",
+                        MessageBoxButtons.OK,
+                        MessageBoxIcon.Error);
 
-                bool exitApp = false;
+                    // Hiển thị form cấu hình lại
+                    using (var configForm = new FormDatabaseConfig())
+                    {
+                        DialogResult result = configForm.ShowDialog();
 
-                // TH1: Không cần chạy lại Form
-                // Hiển thị form chọn loại đăng nhập
+                        if (result != DialogResult.OK)
+                        {
+                            // Người dùng đã hủy cấu hình, thoát ứng dụng
+                            return;
+                        }
 
-                //while (!exitApp)
-                //{
-                //    ILoginTypeSelectionView loginTypeView = new FormLoginTypeSelection();
-                //    Application.Run((Form)loginTypeView);
+                        // Tạo lại DatabaseContext với cấu hình mới
+                        dbContext = new DatabaseContext(configuration);
+                    }
+                }
 
-                //    if (loginTypeView.DialogResult == DialogResult.OK)
-                //    {
-                //        string selectedRole = loginTypeView.SelectedRole;
-
-                //        // Dừng các AutoTask hiện tại (nếu có) trước khi khởi động mới
-                //        loanPaymentAutoTask?.Stop();
-                //        profitAutoTask?.Stop();
-                //        savingsPaymentAutoTask?.Stop();
-                //        generalExpenseAutoTask?.Stop();
-                //        customerTypeUpdateAutoTask?.Stop();
-
-                //        // Khởi động lại các AutoTask cho cả Khách hàng và Nhân viên
-                //        loanPaymentAutoTask = new LoanPaymentAutoTask(dbContext);
-                //        profitAutoTask = new ProfitAutoTask(dbContext);
-                //        savingsPaymentAutoTask = new SavingsPaymentAutoTask(dbContext);
-                //        generalExpenseAutoTask = new GeneralExpenseAutoTask(dbContext);
-                //        customerTypeUpdateAutoTask = new CustomerTypeUpdateAutoTask(dbContext);
-
-                //        if (selectedRole == "Khách hàng")
-                //        {
-                //            // Chạy Form Customer Login
-                //            using (FormCustomerLogin loginForm = new FormCustomerLogin(configuration, dbContext))
-                //            {
-                //                CustomerLoginController loginController = new CustomerLoginController(loginForm, new UC_CustomerLogin(configuration, dbContext), configuration, dbContext);
-                //                Application.Run(loginForm);
-
-                //                if (loginForm.DialogResult == DialogResult.OK)
-                //                {
-                //                    AccountModel account = loginForm.Tag as AccountModel;
-                //                    if (account != null)
-                //                    {
-                //                        using (FormCustomer formCustomer = new FormCustomer(account, dbContext, configuration))
-                //                        {
-                //                            Application.Run(formCustomer);
-                //                            // Quay lại FormLoginTypeSelection khi đóng FormCustomer
-                //                            continue;
-                //                        }
-                //                    }
-                //                }
-                //                else
-                //                {
-                //                    // Nếu đóng FormCustomerLogin bằng "X", quay lại FormLoginTypeSelection
-                //                    continue;
-                //                }
-                //            }
-                //        }
-                //        else if (selectedRole == "Nhân viên")
-                //        {
-                //            // Chạy Form Employee Login
-                //            using (FormEmployeeLogin loginForm = new FormEmployeeLogin(configuration, dbContext))
-                //            {
-                //                Application.Run(loginForm);
-
-                //                if (loginForm.DialogResult == DialogResult.OK)
-                //                {
-                //                    EmployeeModel employee = loginForm.Tag as EmployeeModel;
-                //                    if (employee != null)
-                //                    {
-                //                        if (employee.AccessLevel == 2) // Quản lý
-                //                        {
-                //                            using (FormManager formManager = new FormManager(employee, dbContext, configuration))
-                //                            {
-                //                                Application.Run(formManager);
-                //                                // Quay lại FormLoginTypeSelection khi đóng FormManager
-                //                                continue;
-                //                            }
-                //                        }
-                //                        else // Nhân viên (AccessLevel = 1)
-                //                        {
-                //                            using (FormEmployee formEmployee = new FormEmployee(null, employee, dbContext, configuration))
-                //                            {
-                //                                Application.Run(formEmployee);
-                //                                // Quay lại FormLoginTypeSelection khi đóng FormEmployee
-                //                                continue;
-                //                            }
-                //                        }
-                //                    }
-                //                }
-                //                else
-                //                {
-                //                    // Nếu đóng FormEmployeeLogin bằng "X", quay lại FormLoginTypeSelection
-                //                    continue;
-                //                }
-                //            }
-                //        }
-                //    }
-                //    else
-                //    {
-                //        // Đóng FormLoginTypeSelection bằng "X", thoát ứng dụng
-                //        exitApp = true;
-                //    }
-                //}
-
-
-
-                // TH2: Hiệu suất cao hơn nhưng phải chạy lại Form
-                // Hiển thị form chọn loại đăng nhập
-
+                // Khởi động các AutoTask
                 loanPaymentAutoTask = new LoanPaymentAutoTask(dbContext);
                 profitAutoTask = new ProfitAutoTask(dbContext);
                 savingsPaymentAutoTask = new SavingsPaymentAutoTask(dbContext);
                 generalExpenseAutoTask = new GeneralExpenseAutoTask(dbContext);
                 customerTypeUpdateAutoTask = new CustomerTypeUpdateAutoTask(dbContext);
 
+                bool exitApp = false;
+
+                // Luồng ứng dụng chính
                 while (!exitApp)
                 {
                     ILoginTypeSelectionView loginTypeView = new FormLoginTypeSelection();
@@ -233,8 +185,6 @@ namespace QuanLyThongTinKhachHangSacomBank
                         exitApp = true;
                     }
                 }
-
-
 
                 // Dừng các AutoTask khi ứng dụng thoát
                 loanPaymentAutoTask?.Stop();

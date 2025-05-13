@@ -1,0 +1,187 @@
+[
+  {
+    "Question": "Lãi suất vay vốn là bao nhiêu?",
+    "Answer": "Lãi suất vay vốn phụ thuộc vào loại khách hàng:\n- Khách hàng cá nhân: 6%/năm\n- Khách hàng doanh nghiệp: 5%/năm\n- Khách hàng VIP cá nhân: 5%/năm\n- Khách hàng VIP doanh nghiệp: 4%/năm\nLãi suất này áp dụng cho tất cả các kỳ hạn (12, 24 và 36 tháng).",
+    "Keywords": ["lãi suất", "vay vốn"]
+  },
+  {
+    "Question": "Lãi suất vay vốn cho khách hàng cá nhân là bao nhiêu?",
+    "Answer": "Lãi suất vay vốn cho khách hàng cá nhân là 6%/năm, áp dụng cho tất cả các kỳ hạn (12, 24 và 36 tháng).",
+    "Keywords": ["lãi suất", "vay vốn", "cá nhân"]
+  },
+  {
+    "Question": "Lãi suất vay vốn cho khách hàng doanh nghiệp là bao nhiêu?",
+    "Answer": "Lãi suất vay vốn cho khách hàng doanh nghiệp là 5%/năm, áp dụng cho tất cả các kỳ hạn (12, 24 và 36 tháng).",
+    "Keywords": ["lãi suất", "vay vốn", "doanh nghiệp"]
+  },
+  {
+    "Question": "Lãi suất vay vốn cho khách hàng VIP cá nhân là bao nhiêu?",
+    "Answer": "Lãi suất vay vốn cho khách hàng VIP cá nhân là 5%/năm, áp dụng cho tất cả các kỳ hạn (12, 24 và 36 tháng).",
+    "Keywords": ["lãi suất", "vay vốn", "vip", "cá nhân"]
+  },
+  {
+    "Question": "Lãi suất vay vốn cho khách hàng VIP doanh nghiệp là bao nhiêu?",
+    "Answer": "Lãi suất vay vốn cho khách hàng VIP doanh nghiệp là 4%/năm, áp dụng cho tất cả các kỳ hạn (12, 24 và 36 tháng).",
+    "Keywords": ["lãi suất", "vay vốn", "vip", "doanh nghiệp"]
+  },
+  {
+    "Question": "Kỳ hạn vay vốn có những loại nào?",
+    "Answer": "Sacombank cung cấp 3 kỳ hạn vay vốn: 12 tháng, 24 tháng và 36 tháng. Lãi suất áp dụng cho cả 3 kỳ hạn là như nhau tùy theo loại khách hàng.",
+    "Keywords": ["kỳ hạn", "vay vốn"]
+  },
+  {
+    "Question": "Số tiền vay tối thiểu và tối đa là bao nhiêu?",
+    "Answer": "Số tiền vay tối thiểu và tối đa phụ thuộc vào loại khách hàng:\n- Khách hàng cá nhân: từ 5.000.000 VND đến 100.000.000 VND\n- Khách hàng doanh nghiệp: từ 50.000.000 VND đến 5.000.000.000 VND\n- Khách hàng VIP cá nhân: từ 5.000.000 VND đến 200.000.000 VND\n- Khách hàng VIP doanh nghiệp: từ 50.000.000 VND đến 10.000.000.000 VND",
+    "Keywords": ["số tiền", "tối thiểu", "tối đa", "vay"]
+  },
+  {
+    "Question": "Số tiền vay tối thiểu và tối đa đối với khách hàng cá nhân?",
+    "Answer": "Đối với khách hàng cá nhân, số tiền vay tối thiểu là 5.000.000 VND và tối đa là 100.000.000 VND.",
+    "Keywords": ["số tiền", "tối thiểu", "tối đa", "vay", "cá nhân"]
+  },
+  {
+    "Question": "Hạn mức vay tối thiểu và tối đa cho khách hàng doanh nghiệp?",
+    "Answer": "Đối với khách hàng doanh nghiệp, hạn mức vay tối thiểu là 50.000.000 VND và tối đa lên đến 5.000.000.000 VND (5 tỷ đồng).",
+    "Keywords": ["hạn mức", "vay", "tối thiểu", "tối đa", "doanh nghiệp"]
+  },
+  {
+    "Question": "Số tiền vay tối đa cho khách hàng VIP cá nhân?",
+    "Answer": "Đối với khách hàng VIP cá nhân, số tiền vay tối đa là 200.000.000 VND (200 triệu đồng), với mức tối thiểu là 5.000.000 VND.",
+    "Keywords": ["số tiền", "vay", "tối đa", "vip", "cá nhân"]
+  },
+  {
+    "Question": "Hạn mức vay tối đa cho khách hàng VIP doanh nghiệp?",
+    "Answer": "Đối với khách hàng VIP doanh nghiệp, hạn mức vay tối đa lên đến 10.000.000.000 VND (10 tỷ đồng), với mức tối thiểu là 50.000.000 VND.",
+    "Keywords": ["hạn mức", "vay", "tối đa", "vip", "doanh nghiệp"]
+  },
+  {
+    "Question": "Cách tính lãi vay vốn như thế nào?",
+    "Answer": "Sacombank áp dụng hình thức tính lãi góp đều theo tháng. Nghĩa là lãi được tính đều hàng tháng và không dựa vào dư nợ còn lại. Điều này có nghĩa là số tiền gốc và lãi phải trả mỗi tháng là cố định trong suốt thời gian vay.",
+    "Keywords": ["tính lãi", "vay vốn", "góp đều"]
+  },
+  {
+    "Question": "Phí chậm thanh toán khi vay vốn là bao nhiêu?",
+    "Answer": "Phí chậm thanh toán là 3% số tiền (gốc + lãi) mỗi tháng chậm thanh toán. Mức phí tối thiểu là 80.000 VND và tối đa là 500.000 VND.",
+    "Keywords": ["phí", "chậm", "thanh toán", "vay"]
+  },
+  {
+    "Question": "Phí tất toán trước hạn khoản vay là bao nhiêu?",
+    "Answer": "Phí tất toán trước hạn được tính bằng công thức: 2% × Số nợ còn lại + Số nợ còn lại + Phí chậm thanh toán (nếu có). Trong đó, số nợ còn lại và phí chậm thanh toán được xét trên kỳ hạn trước.",
+    "Keywords": ["phí", "tất toán", "trước hạn", "vay"]
+  },
+  {
+    "Question": "Làm thế nào để tính toán khoản vay?",
+    "Answer": "Để tính toán khoản vay, bạn có thể tham khảo ví dụ sau với khoản vay 100 triệu đồng, kỳ hạn 12 tháng, khách hàng cá nhân, lãi suất 6%/năm:\n1. Gốc mỗi tháng: 100.000.000 / 12 = 8.333.333 VND\n2. Lãi mỗi tháng: 0.5% × 100.000.000 = 500.000 VND\n3. Tổng mỗi tháng phải trả: 8.333.333 + 500.000 = 8.833.333 VND\n4. Tổng thanh toán sau 12 tháng: 12 × 8.833.333 = 106.000.000 VND",
+    "Keywords": ["tính toán", "khoản vay", "ví dụ"]
+  },
+  {
+    "Question": "Cách tính phí tất toán trước hạn?",
+    "Answer": "Ví dụ tất toán trước hạn sau 5 tháng với khoản vay 100 triệu đồng kỳ hạn 12 tháng:\n- Đã trả gốc: 5 × 8.333.333 = 41.666.665 VND\n- Nợ còn lại: 100.000.000 - 41.666.665 = 58.333.335 VND\n- Phí tất toán: 2% × 58.333.335 = 1.166.667 VND\n- Tổng số tiền phải trả khi tất toán: 58.333.335 + 1.166.667 = 59.500.002 VND (chưa tính phí chậm thanh toán nếu có)",
+    "Keywords": ["tính", "phí", "tất toán", "trước hạn", "ví dụ"]
+  },
+  {
+    "Question": "Làm thế nào để đăng ký dịch vụ vay vốn?",
+    "Answer": "Để đăng ký vay vốn, bạn cần thực hiện các bước sau:\n1. Đăng nhập vào tài khoản Sacombank\n2. Chọn mục 'Dịch vụ'\n3. Nhấp vào banner vay vốn (banner đầu tiên)\n4. Bạn có thể chọn 'Chi tiết' để xem thông tin lãi suất và kỳ hạn\n5. Nhấp 'Đăng ký', chọn kỳ hạn, nhập số tiền cần vay và nội dung lý do vay\n6. Chờ quản lý duyệt yêu cầu\n7. Nếu được duyệt, tiền sẽ được chuyển vào tài khoản của bạn",
+    "Keywords": ["đăng ký", "dịch vụ", "vay vốn"]
+  },
+  {
+    "Question": "Làm thế nào để thanh toán khoản vay hàng tháng?",
+    "Answer": "Cách thanh toán khoản vay hàng tháng:\n1. Hệ thống sẽ tự động tính tổng tiền cần thanh toán và tạo mã thanh toán hàng tháng kể từ ngày áp dụng dịch vụ\n2. Với kỳ hạn 12 tháng, hệ thống sẽ tạo 12 mã thanh toán tương ứng\n3. Bạn sẽ thấy thông báo thanh toán ở trang chủ\n4. Nhấn nút 'Thanh toán' ở trang chủ, nhập mã thanh toán và xác nhận\n5. Hoặc bạn có thể đến quầy giao dịch, cung cấp mã tài khoản và mã thanh toán cho nhân viên để thực hiện thanh toán",
+    "Keywords": ["thanh toán", "khoản vay", "hàng tháng"]
+  },
+  {
+    "Question": "Thủ tục tất toán khoản vay trước hạn?",
+    "Answer": "Để tất toán khoản vay trước hạn, bạn cần đến quầy giao dịch của Sacombank để nhân viên xử lý. Bạn sẽ phải trả phí tất toán trước hạn theo công thức: 2% × Số nợ còn lại + Số nợ còn lại + Phí chậm thanh toán (nếu có).",
+    "Keywords": ["thủ tục", "tất toán", "khoản vay", "trước hạn"]
+  },
+  {
+    "Question": "Lãi suất gửi tiết kiệm là bao nhiêu?",
+    "Answer": "Lãi suất gửi tiết kiệm phụ thuộc vào loại khách hàng và kỳ hạn:\n\nKhách hàng cá nhân:\n- Kỳ hạn 12 tháng: 5,27%/năm\n- Kỳ hạn 24 tháng: 5,41%/năm\n- Kỳ hạn 36 tháng: 5,27%/năm\n\nKhách hàng VIP cá nhân:\n- Kỳ hạn 12 tháng: 5,40%/năm\n- Kỳ hạn 24 tháng: 5,70%/năm\n- Kỳ hạn 36 tháng: 5,70%/năm\n\nLưu ý: Dịch vụ gửi tiết kiệm không áp dụng cho tài khoản doanh nghiệp (kể cả VIP doanh nghiệp).",
+    "Keywords": ["lãi suất", "gửi tiết kiệm"]
+  },
+  {
+    "Question": "Lãi suất tiết kiệm cho khách hàng cá nhân là bao nhiêu?",
+    "Answer": "Lãi suất gửi tiết kiệm cho khách hàng cá nhân:\n- Kỳ hạn 12 tháng: 5,27%/năm\n- Kỳ hạn 24 tháng: 5,41%/năm\n- Kỳ hạn 36 tháng: 5,27%/năm",
+    "Keywords": ["lãi suất", "tiết kiệm", "cá nhân"]
+  },
+  {
+    "Question": "Lãi suất tiết kiệm cho khách hàng VIP cá nhân là bao nhiêu?",
+    "Answer": "Lãi suất gửi tiết kiệm cho khách hàng VIP cá nhân:\n- Kỳ hạn 12 tháng: 5,40%/năm\n- Kỳ hạn 24 tháng: 5,70%/năm\n- Kỳ hạn 36 tháng: 5,70%/năm",
+    "Keywords": ["lãi suất", "tiết kiệm", "vip", "cá nhân"]
+  },
+  {
+    "Question": "Khách hàng doanh nghiệp có được gửi tiết kiệm không?",
+    "Answer": "Dịch vụ gửi tiết kiệm không áp dụng cho tài khoản doanh nghiệp, kể cả khách hàng VIP doanh nghiệp. Dịch vụ này chỉ dành cho khách hàng cá nhân và VIP cá nhân.",
+    "Keywords": ["doanh nghiệp", "gửi tiết kiệm"]
+  },
+  {
+    "Question": "Lãi suất khi rút tiền gửi tiết kiệm trước hạn là bao nhiêu?",
+    "Answer": "Khi rút toàn bộ tiền gửi tiết kiệm trước hạn, toàn bộ số tiền sẽ được áp dụng mức lãi suất không kỳ hạn thấp nhất có hiệu lực tại thời điểm rút, hiện tại là 0,1%/năm.",
+    "Keywords": ["lãi suất", "rút", "tiết kiệm", "trước hạn"]
+  },
+  {
+    "Question": "Cách tính lãi tiết kiệm như thế nào?",
+    "Answer": "Sacombank tính lãi tiết kiệm theo phương pháp tích lũy hàng tháng. Ví dụ với số tiền gửi 100 triệu VND, lãi suất 5,40%/năm (tương đương 0,45%/tháng):\n- Lãi mỗi tháng: 100.000.000 × 0,45% = 450.000 VND\n- Tổng lãi sau 12 tháng: 450.000 × 12 = 5.400.000 VND\n\nHệ thống sẽ tự động tích lũy lãi hàng tháng. Khi đến tháng cuối, hệ thống sẽ tự động tất toán và tổng số tiền (gốc + lãi) sẽ được gửi lại về tài khoản của bạn.",
+    "Keywords": ["tính lãi", "tiết kiệm"]
+  },
+  {
+    "Question": "Cách tính tiền khi rút tiết kiệm trước hạn?",
+    "Answer": "Ví dụ tính tiền khi rút tiết kiệm trước hạn:\n- Số tiền gửi: 100 triệu VND\n- Kỳ hạn ban đầu: 12 tháng với lãi suất 5,40%/năm\n- Thời điểm rút: Sau 4 tháng\n\nKhi rút trước hạn, toàn bộ số tiền gửi sẽ được tính lãi theo mức lãi suất không kỳ hạn 0,10%/năm:\n- Tiền lãi = 100.000.000 × 0,10% × (4/12) = 33.333 VND\n- Tổng số tiền nhận được = 100.000.000 + 33.333 = 100.033.333 VND",
+    "Keywords": ["tính tiền", "rút", "tiết kiệm", "trước hạn"]
+  },
+  {
+    "Question": "Cách đăng ký dịch vụ gửi tiết kiệm?",
+    "Answer": "Để đăng ký gửi tiết kiệm, bạn cần thực hiện các bước sau:\n1. Đăng nhập vào tài khoản Sacombank\n2. Chọn mục 'Dịch vụ'\n3. Nhấp vào banner gửi tiết kiệm (banner thứ hai)\n4. Bạn có thể chọn 'Chi tiết' để xem thông tin lãi suất và kỳ hạn\n5. Nhấp 'Đăng ký', chọn kỳ hạn, nhập số tiền cần gửi và nội dung lý do gửi\n6. Chờ quản lý duyệt yêu cầu\n7. Nếu được duyệt, tiền sẽ được chuyển từ tài khoản của bạn sang ngân hàng",
+    "Keywords": ["đăng ký", "dịch vụ", "gửi tiết kiệm"]
+  },
+  {
+    "Question": "Thủ tục tất toán gửi tiết kiệm trước hạn?",
+    "Answer": "Để tất toán gửi tiết kiệm trước hạn, bạn cần đến quầy giao dịch của Sacombank để nhân viên hướng dẫn xử lý. Lưu ý rằng khi tất toán trước hạn, lãi suất áp dụng sẽ là lãi suất không kỳ hạn (0,1%/năm).",
+    "Keywords": ["thủ tục", "tất toán", "gửi tiết kiệm", "trước hạn"]
+  },
+  {
+    "Question": "Khi nào hệ thống tự động tất toán sổ tiết kiệm?",
+    "Answer": "Hệ thống sẽ tự động tất toán sổ tiết kiệm khi đến tháng cuối của kỳ hạn. Khi đó, tổng số tiền (gốc + lãi) sẽ được gửi lại vào tài khoản của bạn. Ví dụ, với khoản tiết kiệm 100 triệu đồng trong 12 tháng với lãi suất 5,40%/năm, khi hết kỳ hạn, hệ thống sẽ tự động gửi 105.400.000 đồng vào tài khoản của bạn.",
+    "Keywords": ["tự động", "tất toán", "sổ tiết kiệm"]
+  },
+  {
+    "Question": "Cách tính lãi vay vốn cho khách hàng cá nhân?",
+    "Answer": "Cách tính lãi vay vốn cho khách hàng cá nhân với lãi suất 6%/năm:\n1. Xác định số tiền vay (ví dụ: 100.000.000 VND)\n2. Chọn kỳ hạn (ví dụ: 12 tháng)\n3. Tính gốc trả hàng tháng: 100.000.000 / 12 = 8.333.333 VND\n4. Tính lãi hàng tháng: 100.000.000 × 6% / 12 = 500.000 VND\n5. Tổng số tiền phải trả mỗi tháng: 8.333.333 + 500.000 = 8.833.333 VND\n\nSacombank áp dụng hình thức tính lãi góp đều, nghĩa là số tiền gốc và lãi trả hàng tháng là cố định trong suốt thời gian vay.",
+    "Keywords": ["tính lãi", "vay vốn", "cá nhân"]
+  },
+  {
+    "Question": "Cách tính lãi gửi tiết kiệm cho khách hàng VIP cá nhân?",
+    "Answer": "Cách tính lãi gửi tiết kiệm cho khách hàng VIP cá nhân (ví dụ với kỳ hạn 24 tháng, lãi suất 5,70%/năm):\n1. Xác định số tiền gửi (ví dụ: 100.000.000 VND)\n2. Tính lãi suất tháng: 5,70% / 12 = 0,475%\n3. Tính lãi hàng tháng: 100.000.000 × 0,475% = 475.000 VND\n4. Tổng lãi sau 24 tháng: 475.000 × 24 = 11.400.000 VND\n5. Tổng số tiền nhận được khi đáo hạn: 100.000.000 + 11.400.000 = 111.400.000 VND\n\nHệ thống sẽ tự động tích lũy lãi hàng tháng và tất toán khi đến tháng cuối, khi đó tổng số tiền sẽ được gửi vào tài khoản của bạn.",
+    "Keywords": ["tính lãi", "gửi tiết kiệm", "vip", "cá nhân"]
+  },
+  {
+    "Question": "Khách hàng doanh nghiệp có được vay vốn không?",
+    "Answer": "Có, khách hàng doanh nghiệp được vay vốn tại Sacombank với lãi suất 5%/năm, áp dụng cho tất cả các kỳ hạn (12, 24 và 36 tháng). Hạn mức vay từ 50.000.000 VND đến 5.000.000.000 VND. Đối với khách hàng VIP doanh nghiệp, lãi suất là 4%/năm với hạn mức vay tối đa lên đến 10.000.000.000 VND.",
+    "Keywords": ["doanh nghiệp", "vay vốn"]
+  },
+  {
+    "Question": "Cách thức Sacombank tính phí chậm thanh toán?",
+    "Answer": "Sacombank tính phí chậm thanh toán là 3% số tiền (gốc + lãi) cho mỗi tháng chậm thanh toán. Mức phí tối thiểu là 80.000 VND và tối đa là 500.000 VND. Ví dụ, nếu khoản thanh toán hàng tháng của bạn là 8.833.333 VND (bao gồm gốc và lãi) và bạn chậm thanh toán 1 tháng, phí chậm thanh toán sẽ là: 3% × 8.833.333 = 264.999 VND.",
+    "Keywords": ["tính phí", "chậm thanh toán"]
+  },
+  {
+    "Question": "Hình thức tính lãi của Sacombank khi vay vốn là gì?",
+    "Answer": "Sacombank áp dụng hình thức tính lãi góp đều theo tháng khi vay vốn. Điều này có nghĩa là lãi được tính đều hàng tháng không dựa vào dư nợ còn lại. Khách hàng sẽ trả một khoản gốc cố định và một khoản lãi cố định mỗi tháng trong suốt thời gian vay, không giảm dần theo dư nợ.",
+    "Keywords": ["hình thức", "tính lãi", "vay vốn"]
+  },
+  {
+    "Question": "Khách hàng VIP là gì?",
+    "Answer": "Khách hàng VIP của Sacombank là nhóm khách hàng được hưởng nhiều ưu đãi hơn so với khách hàng thông thường. Cụ thể:\n- Khách hàng VIP cá nhân được hưởng lãi suất vay vốn thấp hơn (5% so với 6%) và hạn mức vay cao hơn (lên đến 200 triệu đồng)\n- Khách hàng VIP doanh nghiệp được hưởng lãi suất vay vốn thấp nhất (4%) và hạn mức vay cao nhất (lên đến 10 tỷ đồng)\n- Khách hàng VIP cá nhân cũng được hưởng lãi suất gửi tiết kiệm cao hơn (từ 5,40% đến 5,70% tùy kỳ hạn)",
+    "Keywords": ["khách hàng", "vip"]
+  },
+  {
+    "Question": "Kỳ hạn gửi tiết kiệm có những loại nào?",
+    "Answer": "Sacombank cung cấp 3 kỳ hạn gửi tiết kiệm: 12 tháng, 24 tháng và 36 tháng. Lãi suất sẽ khác nhau tùy theo kỳ hạn và loại khách hàng. Đối với khách hàng cá nhân thường, lãi suất cao nhất là kỳ hạn 24 tháng (5,41%/năm). Đối với khách hàng VIP cá nhân, lãi suất cao nhất là kỳ hạn 24 tháng và 36 tháng (5,70%/năm).",
+    "Keywords": ["kỳ hạn", "gửi tiết kiệm"]
+  },
+  {
+    "Question": "Số tiền gửi tiết kiệm tối thiểu là bao nhiêu?",
+    "Answer": "Thông tin về số tiền gửi tiết kiệm tối thiểu không được đề cập trong tài liệu. Vui lòng liên hệ trực tiếp với Sacombank hoặc đăng nhập vào tài khoản và chọn mục Dịch vụ, nhấp vào banner gửi tiết kiệm (banner thứ hai) để xem thông tin chi tiết.",
+    "Keywords": ["số tiền", "gửi tiết kiệm", "tối thiểu"]
+  }
+]
