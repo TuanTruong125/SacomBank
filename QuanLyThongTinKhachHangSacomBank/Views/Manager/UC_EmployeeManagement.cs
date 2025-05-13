@@ -73,7 +73,41 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
             // Đăng ký sự kiện
             RegisterEvents();
 
+            // Thêm sự kiện định dạng lương
+            textBoxSalary.TextChanged += TextBoxSalary_TextChanged;
+            textBoxSalary.KeyPress += TextBoxSalary_KeyPress;
+
         }
+
+        private void TextBoxSalary_TextChanged(object sender, EventArgs e)
+        {
+            string text = textBoxSalary.Text.Replace(",", "");
+            if (string.IsNullOrEmpty(text)) return;
+
+            if (decimal.TryParse(text, out decimal number))
+            {
+                textBoxSalary.TextChanged -= TextBoxSalary_TextChanged;
+                textBoxSalary.Text = number.ToString("#,##0");
+                textBoxSalary.SelectionStart = textBoxSalary.Text.Length;
+                textBoxSalary.TextChanged += TextBoxSalary_TextChanged;
+            }
+        }
+
+        private void TextBoxSalary_KeyPress(object sender, KeyPressEventArgs e)
+        {
+            // Cho phép các phím điều khiển như Backspace
+            if (char.IsControl(e.KeyChar))
+            {
+                return;
+            }
+
+            // Chỉ cho phép nhập số (0-9)
+            if (!char.IsDigit(e.KeyChar))
+            {
+                e.Handled = true; // Chặn ký tự không hợp lệ
+            }
+        }
+
         public void SetAccessLevelOptions()
         {
             comboBoxAccessLevel.Items.Clear();
@@ -81,6 +115,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
             comboBoxAccessLevel.Items.Add("Quản lý");
             comboBoxAccessLevel.SelectedIndex = 0;
         }
+
         private void SetupInitialState()
         {
             // Cài đặt ComboBox
@@ -206,16 +241,23 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
         public void SetButtonState(bool isEditMode)
         {
             // Trạng thái nhập liệu
-            textBoxEmployeeID.Enabled = isEditMode;
+            textBoxEmployeeID.Enabled = false; // Luôn vô hiệu hóa mã nhân viên
+            textBoxEmployeeID.BackColor = System.Drawing.SystemColors.Control;
             textBoxEmployeeName.Enabled = isEditMode;
             comboBoxEmployeeGender.Enabled = isEditMode;
             dateTimePickerEmployeeDateOfBirth.Enabled = isEditMode;
             textBoxEmployeeCitizenID.Enabled = isEditMode;
             textBoxEmployeeAddress.Enabled = isEditMode;
-            comboBoxAccessLevel.Enabled = isEditMode;
+
+            // Kiểm tra chế độ: nếu là chế độ thêm (isEditMode = true nhưng không có employee đang sửa), vô hiệu hóa comboBoxAccessLevel
+            bool isAddMode = isEditMode && controller.IsEditMode == false;
+            comboBoxAccessLevel.Enabled = isEditMode && !isAddMode;
+            comboBoxAccessLevel.BackColor = (isEditMode && !isAddMode) ? System.Drawing.SystemColors.Window : System.Drawing.SystemColors.Control;
+
             textBoxEmployeePhone.Enabled = isEditMode;
             textBoxEmployeeEmail.Enabled = isEditMode;
-            dateTimePickerHireDate.Enabled = isEditMode;
+            dateTimePickerHireDate.Enabled = false; // Luôn vô hiệu hóa ngày vào làm
+            dateTimePickerHireDate.BackColor = System.Drawing.SystemColors.Control;
             textBoxSalary.Enabled = isEditMode;
 
             // Trạng thái nút
@@ -299,24 +341,6 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
             return (System.Data.DataTable)dataEmployeeManagement.DataSource;
         }
 
-        private string GenerateDefaultUsername(string fullName)
-        {
-            // Tạo username mặc định từ tên nhân viên, ví dụ: nguyen.van.a
-            if (string.IsNullOrEmpty(fullName)) return "";
-
-            string[] parts = fullName.Trim().ToLower().Split(' ');
-            if (parts.Length == 0) return "";
-
-            string username = parts[parts.Length - 1]; // Lấy tên
-
-            for (int i = 0; i < parts.Length - 1; i++)
-            {
-                if (!string.IsNullOrEmpty(parts[i]))
-                    username = parts[i][0] + "." + username;
-            }
-
-            return username;
-        }
         public void SetupAddEmployeeMode()
         {
             // Xóa các trường hiện tại
@@ -327,6 +351,10 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
             textBoxEmployeeID.Enabled = false;
             textBoxEmployeeID.BackColor = System.Drawing.SystemColors.Control;
 
+            // Vô hiệu hóa trường ngày vào làm
+            dateTimePickerHireDate.Enabled = false;
+            dateTimePickerHireDate.BackColor = System.Drawing.SystemColors.Control;
+
             // Thiết lập giá trị mặc định cho ComboBox cấp bậc
             comboBoxAccessLevel.SelectedIndex = 0; // Mặc định là nhân viên
 
@@ -336,7 +364,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
 
         public void DisplayEmployeeForEdit(EmployeeModel employee)
         {
-            // Hiển thị thông tin nhưng không cho phép chỉnh sửa EmployeeCode
+            // Hiển thị thông tin nhưng không cho phép chỉnh sửa EmployeeCode và HireDate
             textBoxEmployeeID.Text = employee.EmployeeCode;
             textBoxEmployeeID.Enabled = false;  // Vô hiệu hóa hoàn toàn trường mã nhân viên
             textBoxEmployeeID.BackColor = System.Drawing.SystemColors.Control;
@@ -350,6 +378,8 @@ namespace QuanLyThongTinKhachHangSacomBank.Views.Manager
             textBoxEmployeePhone.Text = employee.EmployeePhone;
             textBoxEmployeeEmail.Text = employee.EmployeeEmail;
             dateTimePickerHireDate.Value = employee.HireDate;
+            dateTimePickerHireDate.Enabled = false;  // Vô hiệu hóa ngày vào làm
+            dateTimePickerHireDate.BackColor = System.Drawing.SystemColors.Control;
             textBoxSalary.Text = FormatCurrency(employee.Salary);
         }
 

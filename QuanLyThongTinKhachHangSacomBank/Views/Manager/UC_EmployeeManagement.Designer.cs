@@ -167,6 +167,7 @@
             textBoxEmployeeID.BackColor = SystemColors.InactiveCaption;
             tableLayoutPanel2.SetColumnSpan(textBoxEmployeeID, 2);
             textBoxEmployeeID.Dock = DockStyle.Fill;
+            textBoxEmployeeID.Enabled = false;
             textBoxEmployeeID.Font = new Font("Roboto", 10.2F);
             textBoxEmployeeID.Location = new Point(3, 36);
             textBoxEmployeeID.Name = "textBoxEmployeeID";
@@ -430,6 +431,7 @@
             dateTimePickerHireDate.CalendarFont = new Font("Microsoft Sans Serif", 10.2F, FontStyle.Bold, GraphicsUnit.Point, 0);
             dateTimePickerHireDate.CalendarMonthBackground = SystemColors.InactiveCaption;
             dateTimePickerHireDate.Dock = DockStyle.Fill;
+            dateTimePickerHireDate.Enabled = false;
             dateTimePickerHireDate.Font = new Font("Roboto", 10.2F);
             dateTimePickerHireDate.Format = DateTimePickerFormat.Short;
             dateTimePickerHireDate.Location = new Point(373, 300);

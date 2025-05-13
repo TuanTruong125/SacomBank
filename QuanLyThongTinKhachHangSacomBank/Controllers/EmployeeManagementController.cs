@@ -131,10 +131,34 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     return;
                 }
 
-                // Kiểm tra xem số điện thoại đã tồn tại chưa (sẽ được dùng làm tên đăng nhập)
+                // Kiểm tra trùng lặp
+                if (IsCitizenIDExists(employee.EmployeeCitizenID))
+                {
+                    view.ShowMessage("CCCD này đã tồn tại trong hệ thống!", "Lỗi", MessageBoxIcon.Warning);
+                    return;
+                }
+
                 if (IsPhoneExists(employee.EmployeePhone))
                 {
-                    view.ShowMessage("Số điện thoại đã được sử dụng làm tên đăng nhập!", "Lỗi", MessageBoxIcon.Warning);
+                    view.ShowMessage("Số điện thoại này đã được sử dụng làm tên đăng nhập!", "Lỗi", MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (IsEmailExists(employee.EmployeeEmail))
+                {
+                    view.ShowMessage("Email này đã tồn tại trong hệ thống!", "Lỗi", MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Hỏi xác nhận trước khi thêm
+                DialogResult result = MessageBox.Show(
+                    $"Bạn có chắc chắn muốn thêm nhân viên {employee.EmployeeName} không?",
+                    "Xác nhận thêm nhân viên",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.No)
+                {
                     return;
                 }
 
@@ -152,16 +176,16 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 {
                     connection.Open();
                     string query = @"INSERT INTO EMPLOYEE 
-                    (EmployeeName, EmployeeGender, EmployeeDateOfBirth, 
-                     EmployeeCitizenID, EmployeeAddress, EmployeeRole, EmployeePhone, 
-                     EmployeeEmail, HireDate, Salary, EmployeeUsername, 
-                     EmployeePassword, AccessLevel, ManagerID) 
-                    VALUES 
-                    (@EmployeeName, @EmployeeGender, @EmployeeDateOfBirth, 
-                     @EmployeeCitizenID, @EmployeeAddress, @EmployeeRole, @EmployeePhone, 
-                     @EmployeeEmail, @HireDate, @Salary, @EmployeeUsername, 
-                     @EmployeePassword, @AccessLevel, @ManagerID);
-                    SELECT SCOPE_IDENTITY()";
+            (EmployeeName, EmployeeGender, EmployeeDateOfBirth, 
+             EmployeeCitizenID, EmployeeAddress, EmployeeRole, EmployeePhone, 
+             EmployeeEmail, HireDate, Salary, EmployeeUsername, 
+             EmployeePassword, AccessLevel, ManagerID) 
+            VALUES 
+            (@EmployeeName, @EmployeeGender, @EmployeeDateOfBirth, 
+             @EmployeeCitizenID, @EmployeeAddress, @EmployeeRole, @EmployeePhone, 
+             @EmployeeEmail, @HireDate, @Salary, @EmployeeUsername, 
+             @EmployeePassword, @AccessLevel, @ManagerID);
+            SELECT SCOPE_IDENTITY()";
 
                     using (var command = new SqlCommand(query, connection))
                     {
@@ -177,13 +201,17 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         command.Parameters.AddWithValue("@Salary", employee.Salary);
                         command.Parameters.AddWithValue("@EmployeeUsername", employee.EmployeePhone); // Dùng số điện thoại làm username
                         command.Parameters.AddWithValue("@EmployeePassword", employee.EmployeePassword); // Mật khẩu ngẫu nhiên
-                        // Sử dụng accessLevel đã xác định
                         command.Parameters.AddWithValue("@AccessLevel", accessLevel);
 
-                        if (employee.ManagerID.HasValue)
-                            command.Parameters.AddWithValue("@ManagerID", employee.ManagerID.Value);
+                        // Gán ManagerID từ currentManager.EmployeeID
+                        if (currentManager != null && currentManager.EmployeeID > 0)
+                        {
+                            command.Parameters.AddWithValue("@ManagerID", currentManager.EmployeeID);
+                        }
                         else
+                        {
                             command.Parameters.AddWithValue("@ManagerID", DBNull.Value);
+                        }
 
                         // Lấy ID của nhân viên mới thêm
                         int newEmployeeId = Convert.ToInt32(command.ExecuteScalar());
@@ -194,12 +222,12 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                         // Gửi email thông báo cho nhân viên mới
                         SendWelcomeEmail(employee, employeeCode);
 
-                        // Hiển thị thông báo kèm thông tin đăng nhập
+                        // Hiển thị thông báo kèm thông tin đăng nhập (không hiển thị mật khẩu)
                         view.ShowMessage(
-                            $"Thêm nhân viên thành công!\n" +
+                            $"Đã thêm nhân viên thành công!\n" +
                             $"Mã nhân viên: {employeeCode}\n" +
                             $"Tên đăng nhập: {employee.EmployeePhone}\n" +
-                            $"Mật khẩu: {employee.EmployeePassword}",
+                            $"Mật khẩu đã được gửi cho nhân viên qua email.",
                             "Thông báo", MessageBoxIcon.Information);
                     }
                 }
@@ -350,6 +378,37 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     return;
                 }
 
+                // Kiểm tra trùng lặp (loại trừ chính nhân viên đang chỉnh sửa)
+                if (IsCitizenIDExists(employee.EmployeeCitizenID, currentEditingEmployeeID))
+                {
+                    view.ShowMessage("CCCD này đã tồn tại trong hệ thống!", "Lỗi", MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (IsPhoneExists(employee.EmployeePhone, currentEditingEmployeeID))
+                {
+                    view.ShowMessage("Số điện thoại này đã được sử dụng làm tên đăng nhập!", "Lỗi", MessageBoxIcon.Warning);
+                    return;
+                }
+
+                if (IsEmailExists(employee.EmployeeEmail, currentEditingEmployeeID))
+                {
+                    view.ShowMessage("Email này đã tồn tại trong hệ thống!", "Lỗi", MessageBoxIcon.Warning);
+                    return;
+                }
+
+                // Hỏi xác nhận trước khi cập nhật
+                DialogResult result = MessageBox.Show(
+                    $"Bạn có chắc chắn muốn cập nhật thông tin nhân viên {employee.EmployeeName} không?",
+                    "Xác nhận cập nhật nhân viên",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question);
+
+                if (result == DialogResult.No)
+                {
+                    return;
+                }
+
                 // LẤY MẬT KHẨU HIỆN TẠI từ cơ sở dữ liệu
                 string currentPassword = GetCurrentPassword(currentEditingEmployeeID);
                 if (string.IsNullOrEmpty(currentPassword))
@@ -358,33 +417,34 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                     return;
                 }
 
-                // Xác định AccessLevel dựa trên EmployeeRole (đề phòng nếu cần xác định lại)
+                // Xác định AccessLevel dựa trên EmployeeRole
                 int accessLevel = 1; // Mặc định là nhân viên
                 if (employee.EmployeeRole.Equals("Quản lý", StringComparison.OrdinalIgnoreCase))
                 {
                     accessLevel = 2; // Quản lý
                 }
+
                 // Ghi log để debug
                 Console.WriteLine($"Setting AccessLevel to {accessLevel} based on EmployeeRole: '{employee.EmployeeRole}'");
                 using (var connection = dbContext.GetConnection())
                 {
                     connection.Open();
                     string query = @"UPDATE EMPLOYEE SET 
-                            EmployeeName = @EmployeeName, 
-                            EmployeeGender = @EmployeeGender, 
-                            EmployeeDateOfBirth = @EmployeeDateOfBirth, 
-                            EmployeeCitizenID = @EmployeeCitizenID, 
-                            EmployeeAddress = @EmployeeAddress, 
-                            EmployeeRole = @EmployeeRole, 
-                            EmployeePhone = @EmployeePhone, 
-                            EmployeeEmail = @EmployeeEmail, 
-                            HireDate = @HireDate, 
-                            Salary = @Salary, 
-                            EmployeeUsername = @EmployeeUsername, 
-                            EmployeePassword = @EmployeePassword, 
-                            AccessLevel = @AccessLevel, 
-                            ManagerID = @ManagerID 
-                            WHERE EmployeeID = @EmployeeID";
+                    EmployeeName = @EmployeeName, 
+                    EmployeeGender = @EmployeeGender, 
+                    EmployeeDateOfBirth = @EmployeeDateOfBirth, 
+                    EmployeeCitizenID = @EmployeeCitizenID, 
+                    EmployeeAddress = @EmployeeAddress, 
+                    EmployeeRole = @EmployeeRole, 
+                    EmployeePhone = @EmployeePhone, 
+                    EmployeeEmail = @EmployeeEmail, 
+                    HireDate = @HireDate, 
+                    Salary = @Salary, 
+                    EmployeeUsername = @EmployeeUsername, 
+                    EmployeePassword = @EmployeePassword, 
+                    AccessLevel = @AccessLevel, 
+                    ManagerID = @ManagerID 
+                    WHERE EmployeeID = @EmployeeID";
 
                     using (var command = new SqlCommand(query, connection))
                     {
@@ -428,6 +488,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
                 view.ShowMessage($"Lỗi khi cập nhật nhân viên: {ex.Message}", "Lỗi", MessageBoxIcon.Error);
             }
         }
+
         // Thêm phương thức để lấy mật khẩu hiện tại
         private string GetCurrentPassword(int employeeId)
         {
@@ -458,6 +519,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             // Trả về mật khẩu mặc định nếu không lấy được
             return "123456";
         }
+
         public void DeleteEmployee(int employeeID)
         {
             try
@@ -821,6 +883,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
 
             return employee;
         }
+
         public void View_SaveButtonClicked(object sender, EventArgs e)
         {
             try
@@ -889,6 +952,72 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             {
                 view.ShowMessage($"Lỗi khi lưu thông tin nhân viên: {ex.Message}", "Lỗi", MessageBoxIcon.Error);
                 Console.WriteLine($"Exception in View_SaveButtonClicked: {ex.Message}\nStackTrace: {ex.StackTrace}");
+            }
+        }
+
+        // Thêm phương thức kiểm tra trùng CCCD
+        private bool IsCitizenIDExists(string citizenID, int excludeEmployeeID = -1)
+        {
+            using (var connection = dbContext.GetConnection())
+            {
+                connection.Open();
+                string query = excludeEmployeeID == -1
+                    ? "SELECT COUNT(1) FROM EMPLOYEE WHERE EmployeeCitizenID = @CitizenID"
+                    : "SELECT COUNT(1) FROM EMPLOYEE WHERE EmployeeCitizenID = @CitizenID AND EmployeeID != @EmployeeID";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@CitizenID", citizenID);
+                    if (excludeEmployeeID != -1)
+                    {
+                        command.Parameters.AddWithValue("@EmployeeID", excludeEmployeeID);
+                    }
+                    return (int)command.ExecuteScalar() > 0;
+                }
+            }
+        }
+
+        // Thêm phương thức kiểm tra trùng email
+        private bool IsEmailExists(string email, int excludeEmployeeID = -1)
+        {
+            using (var connection = dbContext.GetConnection())
+            {
+                connection.Open();
+                string query = excludeEmployeeID == -1
+                    ? "SELECT COUNT(1) FROM EMPLOYEE WHERE EmployeeEmail = @Email"
+                    : "SELECT COUNT(1) FROM EMPLOYEE WHERE EmployeeEmail = @Email AND EmployeeID != @EmployeeID";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Email", email);
+                    if (excludeEmployeeID != -1)
+                    {
+                        command.Parameters.AddWithValue("@EmployeeID", excludeEmployeeID);
+                    }
+                    return (int)command.ExecuteScalar() > 0;
+                }
+            }
+        }
+
+        // Cập nhật phương thức kiểm tra trùng số điện thoại để hỗ trợ loại trừ ID
+        private bool IsPhoneExists(string phone, int excludeEmployeeID = -1)
+        {
+            using (var connection = dbContext.GetConnection())
+            {
+                connection.Open();
+                string query = excludeEmployeeID == -1
+                    ? "SELECT COUNT(1) FROM EMPLOYEE WHERE EmployeeUsername = @Phone OR EmployeePhone = @Phone"
+                    : "SELECT COUNT(1) FROM EMPLOYEE WHERE (EmployeeUsername = @Phone OR EmployeePhone = @Phone) AND EmployeeID != @EmployeeID";
+
+                using (var command = new SqlCommand(query, connection))
+                {
+                    command.Parameters.AddWithValue("@Phone", phone);
+                    if (excludeEmployeeID != -1)
+                    {
+                        command.Parameters.AddWithValue("@EmployeeID", excludeEmployeeID);
+                    }
+                    return (int)command.ExecuteScalar() > 0;
+                }
             }
         }
 
@@ -1317,7 +1446,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             if (!employee.EmployeeCitizenID.All(char.IsDigit))
                 return "CCCD chỉ được chứa các chữ số!";
 
-            // Kiểm tra số đầu tiên của CCCD phải là 0
+            // Kiểm tra CCCD phải bắt đầu bằng 0
             if (employee.EmployeeCitizenID.Length > 0 && employee.EmployeeCitizenID[0] != '0')
                 return "Số đầu tiên của CCCD phải là số 0!";
 
@@ -1329,9 +1458,15 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             if (!IsValidEmail(employee.EmployeeEmail))
                 return "Email không đúng định dạng!";
 
-            // Kiểm tra định dạng số điện thoại
+            // Kiểm tra định dạng và đầu số số điện thoại
             if (!IsValidPhone(employee.EmployeePhone))
                 return "Số điện thoại không đúng định dạng!";
+            if (!employee.EmployeePhone.StartsWith("03") && !employee.EmployeePhone.StartsWith("05") &&
+                !employee.EmployeePhone.StartsWith("07") && !employee.EmployeePhone.StartsWith("08") &&
+                !employee.EmployeePhone.StartsWith("09"))
+            {
+                return "Nhà mạng không phù hợp! Số điện thoại phải bắt đầu bằng 03, 05, 07, 08, hoặc 09.";
+            }
 
             return string.Empty;
         }
@@ -1449,6 +1584,7 @@ namespace QuanLyThongTinKhachHangSacomBank.Controllers
             return phone.Length >= 10 && phone.All(char.IsDigit);
         }
     }
+
     public class SqlQueryExecutor
     {
         private readonly DatabaseContext dbContext;
